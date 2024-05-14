@@ -22,7 +22,7 @@ public class TopDepartmentEntity  extends BaseTimeEntity{
     private Long id;
 
     @Column(nullable = false)
-    public String topDepartmentName;
+    private String topDepartmentName;
 
     @OneToMany(mappedBy = "topDepartmentEntity"
         , fetch = FetchType.LAZY

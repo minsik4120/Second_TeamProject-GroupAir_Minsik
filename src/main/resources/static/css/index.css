@@ -6,21 +6,20 @@
   background: url(/images/airplane2.jpg) no-repeat center;
   background-size: cover;
   position: relative;
-  opacity: 0.5;
+
 }
 
 .login .login-con{
-  background-color: white;
+  background-color: #ffffff8a;
   width: 400px;
-  border: 1px solid;
   box-sizing: border-box;
   position: absolute;
-  right: 50px;
+  right: 200px;
   bottom: 300px;
 
 }
 
 .login .login-con h1.title{
-  background-color: #3767a6;
+  background-color: #3767a6bd;
   text-align: center;
 }

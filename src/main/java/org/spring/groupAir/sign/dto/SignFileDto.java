@@ -14,13 +14,13 @@ public class SignFileDto {
     private Long id;
 
 
-    public String signNewFile;
+    private String signNewFile;
 
 
-    public String signOldFile;
+    private String signOldFile;
 
 
-    public String content;
+    private String content;
 
     private LocalDateTime createTime;
 

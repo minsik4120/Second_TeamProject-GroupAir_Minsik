@@ -25,17 +25,17 @@
                         <th>이름</th>
                         <th>부서</th>
                         <th>직급</th>
-<!--                        <th>출근 여부</th>-->
-<!--                        <th>출근</th>-->
-<!--                        <th>퇴근</th>-->
+                        <th>출근 여부</th>
+                        <th>출근</th>
+                        <th>퇴근</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${memberDtoPage}">
-                        <td th:text="${member.id}"></td>
-                        <td th:text="${member.name}"></td>
-                        <td th:text="${member.departmentEntity.departmentName}"></td>
-                        <td th:text="${member.positionEntity.positionName}"></td>
+                    <tr th:each="member : ${commuteDtoPage}">
+                        <td th:text="${member.memberEntity.id}"></td>
+                        <td th:text="${member.memberEntity.name}"></td>
+                        <td th:text="${member.memberEntity.departmentEntity.departmentName}"></td>
+                        <td th:text="${member.memberEntity.positionEntity.positionName}"></td>
                     </tr>
                     </tbody>
                     <tfoot>

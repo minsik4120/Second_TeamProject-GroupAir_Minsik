@@ -19,9 +19,9 @@ public class SalaryDto {
 
     private Long id;
 
-    public String paymentDate;
+    private String paymentDate;
 
-    public String pay;
+    private String pay;
 
     private MemberEntity memberEntity;
 

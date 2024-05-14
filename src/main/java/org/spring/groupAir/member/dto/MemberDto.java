@@ -15,6 +15,7 @@ import org.spring.groupAir.role.Role;
 import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.spring.groupAir.sign.entity.SignEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,11 +34,11 @@ public class MemberDto {
 
     private Role role;
 
-    public String name;
+    private String name;
 
     @Size(min = 3,max = 255)
     @NotBlank(message = "이메일을 입력해주세요")
-    public String userEmail;
+    private String userEmail;
 
     @NotBlank(message = "비밀번호를 입력해주세요")
     private String userPw;
@@ -63,6 +64,8 @@ public class MemberDto {
     private LocalDateTime updateTime;
 
     private List<MemberFileEntity> memberFileEntityList;
+
+    private MultipartFile memberFile;
 
     private List<BoardEntity> boardEntityList;
 

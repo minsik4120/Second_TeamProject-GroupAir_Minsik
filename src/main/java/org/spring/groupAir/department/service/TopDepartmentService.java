@@ -1,6 +1,7 @@
 package org.spring.groupAir.department.service;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.department.repository.TopDepartmentRepository;
 import org.spring.groupAir.department.service.serviceImpl.TopDepartmentServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TopDepartmentService implements TopDepartmentServiceImpl {
 
-    private final TopDepartmentServiceImpl topDepartmentService;
+    private final TopDepartmentRepository topDepartmentRepository;
 
 }

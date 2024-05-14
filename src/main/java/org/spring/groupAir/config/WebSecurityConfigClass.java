@@ -40,16 +40,16 @@ public class WebSecurityConfigClass {
         // 2. 로그인
         http.formLogin()
             // 사용자가 직접 설정한 로그인 페이지
-            .loginPage("/member/memberLogin")
+            .loginPage("/")
             // *** username : 실제로는 userEmail
             .usernameParameter("userEmail")
             // *** password : 실제로는 userPw
             .passwordParameter("userPw")
 
             // 로그인 폼 post <form th:action="@{/member/memberLogin}" method="post">
-            .loginProcessingUrl("/member/memberLogin")
+            .loginProcessingUrl("/memberLogin")
             // 로그인 성공시
-//            .defaultSuccessUrl("/")
+//            .defaultSuccessUrl("/commute/index")
 //            .successForwardUrl("/") // post방식 컨트롤러에 만들어야 한다.
             .successHandler(customAuthenticationSuccessHandler())
             // 로그인 실패시
@@ -57,7 +57,7 @@ public class WebSecurityConfigClass {
             .failureHandler(authenticationFailureHandler())
             .and()
             .oauth2Login()
-            .loginPage("/member/memberLogin")
+//            .loginPage("/member/memberLogin")
             .userInfoEndpoint() // google, naver, kakao
             .userService(myOAuth2UserService());
 

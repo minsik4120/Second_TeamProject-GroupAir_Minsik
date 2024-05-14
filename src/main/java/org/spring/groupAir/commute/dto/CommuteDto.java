@@ -19,9 +19,9 @@ public class CommuteDto {
 
     private int vacation;
 
-    private String inTime;
+    private LocalDateTime inTime;
 
-    private String outTime;
+    private LocalDateTime outTime;
 
     private String cause;
 
@@ -42,6 +42,7 @@ public class CommuteDto {
         commuteDto.setOutTime(commuteEntity.getOutTime());
         commuteDto.setVacation(commuteEntity.getVacation());
         commuteDto.setCause(commuteEntity.getCause());
+        commuteDto.setWork(commuteEntity.getWork());
         commuteDto.setMemberEntity(commuteEntity.getMemberEntity());
         commuteDto.setCreateTime(commuteEntity.getCreateTime());
         commuteDto.setUpdateTime(commuteEntity.getUpdateTime());

@@ -7,6 +7,7 @@ import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,10 +30,10 @@ public class CommuteEntity extends BaseTimeEntity {
     private int work;
 
     @Column(nullable = true)
-    private String inTime;
+    private LocalDateTime inTime;
 
     @Column(nullable = true)
-    private String outTime;
+    private LocalDateTime outTime;
 
     @Column(nullable = true)
     private String cause;

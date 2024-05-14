@@ -6,4 +6,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface CommuteServiceInterface {
     Page<CommuteDto> commuteList(Pageable pageable, String subject, String search);
+
+    void workIn(Long id);
+
+    void workOut(Long id);
 }

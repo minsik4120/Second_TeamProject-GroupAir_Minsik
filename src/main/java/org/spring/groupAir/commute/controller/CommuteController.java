@@ -12,9 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,15 +26,16 @@ public class CommuteController {
 
 
     @GetMapping("/index")
-    public String index(){
+    public String index() {
 
         return "commute/index";
     }
+
     @GetMapping("/work")
     public String work(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                        Model model,
                        @RequestParam(name = "subject", required = false) String subject,
-                       @RequestParam(name = "search", required = false) String search){
+                       @RequestParam(name = "search", required = false) String search) {
         Page<CommuteDto> commuteDtoPage = commuteService.commuteList(pageable, subject, search);
 
         int totalPage = commuteDtoPage.getTotalPages();//전체page
@@ -57,8 +56,26 @@ public class CommuteController {
         return "commute/work";
     }
 
+    @GetMapping("/workIn/{id}")
+    public String workIn(@PathVariable("id") Long id,
+                         CommuteDto commuteDto) {
+
+        commuteService.workIn(id);
+
+        return "redirect:/commute/work";
+    }
+
+    @GetMapping("/workOut/{id}")
+    public String workOut(@PathVariable("id") Long id,
+                          CommuteDto commuteDto) {
+
+        commuteService.workOut(id);
+
+        return "redirect:/commute/work";
+    }
+
     @GetMapping("/vacation")
-    public String vacation(){
+    public String vacation() {
 
         return "commute/vacation";
     }

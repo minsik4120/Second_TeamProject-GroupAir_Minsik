@@ -3,12 +3,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/layout/adminLayout}">
 
+<th:block layout:fragment="title">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="css">
+<!--    <script th:src="@{/js/commute/commute.js}" defer></script>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>-->
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
+        <h1>출 퇴근 관리</h1>
         <div class="search">
             <form th:action="@{/commute/work}" method="get">
                 <select name="subject" id="subject">
-                    <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택:: </option>
+                    <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
                     <option value="userName" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
                 </select>
                 <input type="text" name="search" id="search" th:value="${param.search}">
@@ -17,7 +29,7 @@
         </div>
         <div class="work">
             <div class="work-con">
-                <h1>출 퇴근 관리</h1>
+
                 <table>
                     <thead>
                     <tr>
@@ -26,16 +38,38 @@
                         <th>부서</th>
                         <th>직급</th>
                         <th>출근 여부</th>
-                        <th>출근</th>
-                        <th>퇴근</th>
+                        <th>출근시간</th>
+                        <th>퇴근시간</th>
+                        <th>근태</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${commuteDtoPage}">
-                        <td th:text="${member.memberEntity.id}"></td>
-                        <td th:text="${member.memberEntity.name}"></td>
-                        <td th:text="${member.memberEntity.departmentEntity.departmentName}"></td>
-                        <td th:text="${member.memberEntity.positionEntity.positionName}"></td>
+                    <tr th:each= "commute : ${commuteDtoPage}">
+                        <td th:text="${commute.memberEntity.id}"></td>
+                        <td th:text="${commute.memberEntity.name}"></td>
+                        <td th:text="${commute.memberEntity.departmentEntity.departmentName}"></td>
+                        <td th:text="${commute.memberEntity.positionEntity.positionName}"></td>
+                        <th:block th:if="${commute.work == 1}">
+                            <td>출근 완료!</td>
+                                <td th:text="${commute.inTime}"></td>
+                            <th:block th:if="${commute.outTime == null}">
+                                <td>0</td>
+                            </th:block>
+                            <th:block th:unless="${commute.outTime == null}">
+                                <td th:text="${commute.outTime}"></td>
+                            </th:block>
+                            <td>
+                                <a id="workOut" th:href="@{/commute/workOut/{id}(id = ${commute.id})}">퇴근하기</a>
+                            </td>
+                        </th:block>
+                        <th:block th:unless="${commute.work == 1}">
+                            <td>퇴근 완료!</td>
+                            <td th:text="${commute.inTime}"></td>
+                            <td th:text="${commute.outTime}"></td>
+                            <td>
+                                <a id="workIn" th:href="@{/commute/workIn/{id}(id = ${commute.id})}">출근하기</a>
+                            </td>
+                        </th:block>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -44,44 +78,49 @@
                             <div class="paging">
                                 <ul>
                                     <li>
-                                        <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}" class="span0"> START </span>
-                                        <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
+                                        <span th:if="${commuteDtoPage.pageable.pageNumber+1 eq 1}"
+                                              class="span0"> START </span>
+                                        <span th:unless="${commuteDtoPage.pageable.pageNumber+1 eq 1}">
                                             <a th:href="@{/commute/work(page=0,search=${param.search},
                                                 subject = ${param.subejct})}"
                                                class="span1"> << </a>
                                         </span>
                                     </li>
                                     <li>
-                                        <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}" class="span0">PRE</span>
-                                        <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
-                                            <a th:href="@{/commute/work(page=${memberDtoPage.pageable.pageNumber-1}
+                                        <span th:if="${commuteDtoPage.pageable.pageNumber+1 eq 1}"
+                                              class="span0">PRE</span>
+                                        <span th:unless="${commuteDtoPage.pageable.pageNumber+1 eq 1}">
+                                            <a th:href="@{/commute/work(page=${commuteDtoPage.pageable.pageNumber-1}
                                             ,search = ${param.search}, subject = ${param.subject})}"
                                                class="span1">이전</a>
                                     </span>
                                     </li>
 
                                     <li th:each="i : ${#numbers.sequence(startPage, endPage)}" class="block">
-                                    <span th:if="${memberDtoPage.pageable.pageNumber +1 == i}" th:text="${i}"
+                                    <span th:if="${commuteDtoPage.pageable.pageNumber +1 == i}" th:text="${i}"
                                           class="now"></span>
-                                        <a th:unless="${memberDtoPage.pageable.pageNumber+1 == i}"
+                                        <a th:unless="${commuteDtoPage.pageable.pageNumber+1 == i}"
                                            th:href="@{/commute/work(page=${i-1}
                                     ,search=${param.search}, subject=${param.subject})}" th:text="${i}"></a>
                                     </li>
 
                                     <li>
-                                <span th:if="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}"
+                                <span th:if="${commuteDtoPage.totalPages == commuteDtoPage.pageable.pageNumber+1}"
                                       class="span0">NEXT</span>
-                                        <span th:unless="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}">
-                                    <a th:href="@{/commute/work(page=${memberDtoPage.pageable.pageNumber+1}
+                                        <span
+                                            th:unless="${commuteDtoPage.totalPages == commuteDtoPage.pageable.pageNumber+1}">
+                                    <a th:href="@{/commute/work(page=${commuteDtoPage.pageable.pageNumber+1}
                                     ,search=${param.search},subject=${param.subject})}" class="span1">다음</a>
                                 </span>
                                     </li>
                                     <li>
-                                    <span th:if="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}" class="span0">
+                                    <span th:if="${commuteDtoPage.totalPages == commuteDtoPage.pageable.pageNumber+1}"
+                                          class="span0">
                                         END
                                     </span>
-                                        <span th:unless="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}">
-                                        <a th:href="@{/commute/work(page=${memberDtoPage.totalPages-1}
+                                        <span
+                                            th:unless="${commuteDtoPage.totalPages == commuteDtoPage.pageable.pageNumber+1}">
+                                        <a th:href="@{/commute/work(page=${commuteDtoPage.totalPages-1}
                                         ,search=${param.search}, subject=${param.subject})}" class="span1">
                                             마지막
                                         </a>

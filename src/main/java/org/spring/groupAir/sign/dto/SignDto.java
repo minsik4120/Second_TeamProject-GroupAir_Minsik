@@ -1,9 +1,7 @@
 package org.spring.groupAir.sign.dto;
 
 import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 

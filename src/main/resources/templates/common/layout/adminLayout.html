@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{/common/head :: headFragment}"></head>
+<link rel="stylesheet" th:href="@{/css/common/admin.css}">
+<body>
+<th:block layout:fragment="container"><!-- 각페이지의 컨텐츠  -->
+    <div class="container">
+        <div class="admin">
+            <div class="left" th:replace="~{/common/adminLeft :: adminLeftFragment}"></div>
+            <div class="right" th:replace="~{/common/adminRight :: adminRightFragment}"></div>
+
+            <div layout:fragment="adminContainer">
+                <!--        넣을 내용-->
+                <div class="adminContainer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</th:block>
+</body>
+
+</html>

@@ -6,6 +6,7 @@ import org.spring.groupAir.board.entity.BoardReplyEntity;
 import org.spring.groupAir.board.entity.BoardSeparateEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 @Builder
 @Setter
@@ -16,10 +17,10 @@ import java.util.List;
 public class BoardDto {
   private Long id;
 
-
+  @NotBlank(message = "title 입력해주세요")
   public String title;
 
-
+  @NotBlank(message = "content 를 입력해주세요")
   public String content;
 
 

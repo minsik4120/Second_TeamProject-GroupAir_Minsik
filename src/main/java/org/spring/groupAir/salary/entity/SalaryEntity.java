@@ -1,11 +1,9 @@
-package org.spring.groupAir.salery.entity;
+package org.spring.groupAir.salary.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.role.Role;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
 
@@ -33,7 +31,5 @@ public class SalaryEntity extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private MemberEntity memberEntity;
-
-
 
 }

@@ -6,9 +6,8 @@ import org.spring.groupAir.board.entity.BoardEntity;
 import org.spring.groupAir.commute.entity.CommuteEntity;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.department.entity.DepartmentEntity;
-import org.spring.groupAir.fullcalender.EventEntity;
 import org.spring.groupAir.role.Role;
-import org.spring.groupAir.salery.entity.SalaryEntity;
+import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.spring.groupAir.sign.entity.SignEntity;
 

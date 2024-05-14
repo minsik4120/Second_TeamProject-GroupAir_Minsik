@@ -1,59 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>index</title>
-<!--  <link rel="stylesheet" th:href="{/css/board/write.css}">-->
-</head>
-<body>
-<div th:replace ="~{/fragments/common/header :: headerFragment }"></div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
 
-<div class="container">
-  <div class="write">
-    <div class="write-con">
+<th:block layout:fragment="title">
+  <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="css">
+  <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="script">
+  <!-- 각 페이지 마다 변경 -->
+</th:block>
 
-      <div class="write-form">
+<th:block layout:fragment="adminContainer">
+  <div class="adminContainer">
+    <div class="write">
+      <div class="write-con">
 
-        <form th:action="@{board/write}" method="post" enctype="multipart/form-data" th:object="${boardDto}">
-
+        <form th:action="@{/board/write}" method="post" enctype="multipart/form-data"
+              th:object="${boardDto}">
           <ul>
-
             <li>
-
               Board Write
-
             </li>
+            <li>
+              <label for="memberId">MEMBERID</label>
+              <input type="text" name="memberId"
+                     id="memberId" th:value="${memberId}" readonly>
+            </li>
+
+
 
 
             <li>
-              <label for="memberId"> memberId 선택 </label>
-<!--              <select name="memberId" id="memberId" >-->
-
-                <li>
-                  <label for="memberId">MEMBERID</label>
-                  <input type="text" name="memberId"
-                         id="memberId" th:value="${memberId}" readonly>
-                </li>
-
-                <option value="1"> 부장 </option>
-                <option value="2"> 사원</option>
-
-              </select>
+              <input type="submit" value="BoarDWriteOk">
             </li>
-
-
           </ul>
-
         </form>
+
+
+
+
 
       </div>
     </div>
   </div>
-
-</div>
-
-
-<div th:replace ="~{/fragments/common/footer :: footerFragment }"></div>
-
-</body>
+</th:block>
 </html>

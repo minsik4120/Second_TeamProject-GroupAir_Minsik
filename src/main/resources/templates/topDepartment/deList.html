@@ -6,7 +6,7 @@
     <title>상위부서</title>
 </th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{#}">
+    <link rel="stylesheet" th:href="@{/css/topDepartment/topDepartment.css}">
 </th:block>
 <th:block layout:fragment="script">
     <script th:src="@{#}"></script>
@@ -28,7 +28,13 @@
                     <tr th:each="top : ${pageList}">
                         <td th:text="${top.id}"></td>
                         <td th:text="${top.topDepartmentName}"></td>
-                        <td th:text="${top.departmentEntityList}"></td>
+                        <td>
+                            <ul>
+                                <li th:each="department : ${top.departmentEntityList}">
+                                    <span th:text="${department.departmentName}"></span>
+                                </li>
+                            </ul>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

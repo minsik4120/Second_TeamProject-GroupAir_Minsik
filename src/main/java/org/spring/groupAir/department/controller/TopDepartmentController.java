@@ -11,7 +11,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,4 +57,23 @@ public class TopDepartmentController {
 
         return "topDepartment/deList";
     }
+
+    @GetMapping("/deLiList")
+    public String deLiList(TopDepartmentDto topDepartmentDto, Model model) {
+
+        List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
+
+        model.addAttribute("list", list);
+
+        return "topDepartment/deLiList";
+    }
+
+    @PostMapping("/write")
+    public String deWrite(TopDepartmentDto topDepartmentDto, Model model) {
+
+        topDepartmentService.write(topDepartmentDto);
+
+        return "redirect:deLiList";
+    }
+
 }

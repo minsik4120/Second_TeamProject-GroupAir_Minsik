@@ -2,6 +2,7 @@ package org.spring.groupAir.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.spring.groupAir.board.dto.BoardDto;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
@@ -55,4 +56,7 @@ public class BoardEntity extends BaseTimeEntity {
         , fetch = FetchType.LAZY
         , cascade = CascadeType.REMOVE)
     private List<BoardFileEntity> boardFileEntityList;
+
+
+
 }

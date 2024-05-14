@@ -22,16 +22,16 @@ public class ScheduleEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String title;
+    private String title;
 
     @Column(nullable = false)
-    public String content;
+    private String content;
 
     @Column(nullable = false)
-    public String startDate;
+    private String startDate;
 
     @Column(nullable = false)
-    public String endDate;
+    private String endDate;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

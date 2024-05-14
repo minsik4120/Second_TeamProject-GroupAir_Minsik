@@ -23,7 +23,7 @@ public class SignStatusEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String signOkTime;
+    private String signOkTime;
 
 
 

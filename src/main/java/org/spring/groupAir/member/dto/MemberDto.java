@@ -8,7 +8,8 @@ import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.member.entity.MemberFileEntity;
 import org.spring.groupAir.member.entity.PositionEntity;
 import org.spring.groupAir.role.Role;
-import org.spring.groupAir.salery.entity.SalaryEntity;
+
+import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.spring.groupAir.sign.entity.SignEntity;
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+<!--  <link rel="stylesheet" th:href="{/css/board/write.css}">-->
+</head>
+<body>
+<div th:replace ="~{/fragments/common/header :: headerFragment }"></div>
+
+<div class="container">
+  <div class="write">
+    <div class="write-con">
+
+      <div class="write-form">
+
+        <form th:action="@{board/write}" method="post" enctype="multipart/form-data" th:object="${boardDto}">
+
+          <ul>
+
+            <li>
+
+              Board Write
+
+            </li>
+
+
+            <li>
+              <label for="memberId"> memberId 선택 </label>
+<!--              <select name="memberId" id="memberId" >-->
+
+                <li>
+                  <label for="memberId">MEMBERID</label>
+                  <input type="text" name="memberId"
+                         id="memberId" th:value="${memberId}" readonly>
+                </li>
+
+                <option value="1"> 부장 </option>
+                <option value="2"> 사원</option>
+
+              </select>
+            </li>
+
+
+          </ul>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div th:replace ="~{/fragments/common/footer :: footerFragment }"></div>
+
+</body>
+</html>

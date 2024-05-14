@@ -15,7 +15,7 @@ public class BoardReplyDto {
   private Long id;
 
 
-  public String replyContent;
+  private String replyContent;
 
 
   private BoardEntity boardEntity;

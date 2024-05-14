@@ -17,7 +17,7 @@ public class BoardSeparateDto {
   private Long id;
 
 
-  public String boardSeparateName;
+  private String boardSeparateName;
 
 
   private List<BoardEntity> boardEntityList;

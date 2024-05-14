@@ -18,10 +18,10 @@ public class BoardDto {
   private Long id;
 
   @NotBlank(message = "title 입력해주세요")
-  public String title;
+  private String title;
 
   @NotBlank(message = "content 를 입력해주세요")
-  public String content;
+  private String content;
 
 
   private int hit;

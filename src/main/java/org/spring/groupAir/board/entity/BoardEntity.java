@@ -25,10 +25,10 @@ public class BoardEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String title;
+    private String title;
 
     @Column(nullable = false)
-    public String content;
+    private String content;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int hit;

@@ -30,11 +30,11 @@ public class MemberDto {
 
     private Role role;
 
-    public String name;
+    private String name;
 
     @Size(min = 3,max = 255)
     @NotBlank(message = "이메일을 입력해주세요")
-    public String userEmail;
+    private String userEmail;
 
     @NotBlank(message = "비밀번호를 입력해주세요")
     private String userPw;

@@ -25,7 +25,7 @@ public class DepartmentEntity extends BaseTimeEntity  {
     private Long id;
 
     @Column(nullable = false)
-    public String departmentName;
+    private String departmentName;
 
     @OneToMany(mappedBy = "departmentEntity"
         , fetch = FetchType.LAZY

@@ -21,7 +21,7 @@ public class PositionEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String positionName;
+    private String positionName;
 
     @OneToMany(mappedBy = "positionEntity"
         , fetch = FetchType.LAZY

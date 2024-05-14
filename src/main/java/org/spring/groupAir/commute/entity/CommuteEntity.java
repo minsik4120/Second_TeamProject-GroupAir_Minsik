@@ -23,10 +23,10 @@ public class CommuteEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = true)
-    public int vacation;
+    private int vacation;
 
     @Column(nullable = true)
-    public String inTime;
+    private String inTime;
 
     @Column(nullable = true)
     private String outTime;

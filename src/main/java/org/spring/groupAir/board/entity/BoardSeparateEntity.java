@@ -24,7 +24,7 @@ public class BoardSeparateEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String boardSeparateName;
+    private String boardSeparateName;
 
     @OneToMany(mappedBy = "boardSeparateEntity"
         , fetch = FetchType.LAZY

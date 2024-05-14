@@ -21,7 +21,7 @@ public class ScheduleSeparateEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String companyScheduleTitle;
+    private String companyScheduleTitle;
 
     @OneToMany(mappedBy = "scheduleSeparateEntity"
             , fetch = FetchType.LAZY

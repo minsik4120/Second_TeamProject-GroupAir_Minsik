@@ -4,21 +4,23 @@
   width: 100%;
   height: 100vh;
   background: url(/images/airplane2.jpg) no-repeat center;
-  opacity: 0.5;
   background-size: cover;
   position: relative;
+  opacity: 0.5;
 }
 
 .login .login-con{
-  opacity: 1;
-  width: 500px;
+  background-color: white;
+  width: 400px;
   border: 1px solid;
   box-sizing: border-box;
-  
   position: absolute;
-  right: 0;
+  right: 50px;
+  bottom: 300px;
+
 }
 
-.login .login-con .login-container{
- 
+.login .login-con h1.title{
+  background-color: #3767a6;
+  text-align: center;
 }

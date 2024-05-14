@@ -22,7 +22,7 @@ public class BoardReplyEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String replyContent;
+    private String replyContent;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

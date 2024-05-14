@@ -2,6 +2,8 @@ package org.spring.groupAir.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.spring.groupAir.board.entity.BoardEntity;
 import org.spring.groupAir.commute.entity.CommuteEntity;
 import org.spring.groupAir.department.entity.DepartmentEntity;
@@ -17,6 +19,7 @@ import org.spring.groupAir.sign.entity.SignEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -55,6 +58,10 @@ public class MemberDto {
 
     private String memberFileName;
 
+    private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
+
     private List<MemberFileEntity> memberFileEntityList;
 
     private List<BoardEntity> boardEntityList;
@@ -90,6 +97,8 @@ public class MemberDto {
         memberDto.setDepartmentEntity(memberEntity.getDepartmentEntity());
         memberDto.setPositionEntity(memberEntity.getPositionEntity());
         memberDto.setSignEntityList(memberEntity.getSignEntityList());
+        memberDto.setCreateTime(memberEntity.getCreateTime());
+        memberDto.setUpdateTime(memberEntity.getUpdateTime());
 
         if(memberEntity.getMemberAttachFile()==0){
             //파일 x

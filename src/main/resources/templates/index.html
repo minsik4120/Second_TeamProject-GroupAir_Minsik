@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>index_login</title>
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
-<body>
-<div class="login">
-    <div class="login-con">
-        <h1 class="title">로그인</h1>
-        <form th:action="@{/memberLogin}" method="post" >
-            <ul>
-                <li>
-                    <label for="userEmail">이메일: </label>
-                    <input type="email" name="userEmail" id="userEmail" placeholder="이메일를 입력하세요"> <br>
-                </li>
-                <li>
-                    <label for="userPw">비밀번호: </label>
-                    <input type="text" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요"> <br>
-                </li>
 
-                <li>
-                    <input type="submit" value="로그인">
-                    <input type="reset" value="초기화">
-                </li>
-            </ul>
-        </form>
-        <div class="sns">
-            <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google"></a>
-            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a>
-            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>
+<body>
+    <div class="login">
+        <div class="login-con">
+
+            <h1 class="title">로그인</h1>
+            <form th:action="@{/memberLogin}" method="post">
+                <ul>
+                    <li>
+                        <label for="userEmail">이메일: </label>
+                        <input type="email" name="userEmail" id="userEmail" placeholder="이메일를 입력하세요"> <br>
+                    </li>
+                    <li>
+                        <label for="userPw">비밀번호: </label>
+                        <input type="text" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요"> <br>
+                    </li>
+
+                    <li>
+                        <input type="submit" value="로그인">
+                        <input type="reset" value="초기화">
+                    </li>
+                </ul>
+            </form>
+            <div class="sns">
+                <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google"></a>
+                <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a>
+                <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>
+            </div>
         </div>
     </div>
-</div>
+    </div>
 
 </body>
+
 </html>

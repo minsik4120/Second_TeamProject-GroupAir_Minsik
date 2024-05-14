@@ -32,10 +32,10 @@ public class MemberEntity extends BaseTimeEntity {
     private Role role;
 
     @Column(nullable = false)
-    public String name;
+    private String name;
 
     @Column(nullable = false)
-    public String userEmail;
+    private String userEmail;
 
     @Column(nullable = false)
     private String userPw;

@@ -15,7 +15,7 @@ public class DepartmentDto {
 
     private Long id;
 
-    public String departmentName;
+    private String departmentName;
 
     private List<MemberEntity> memberEntityList;
 

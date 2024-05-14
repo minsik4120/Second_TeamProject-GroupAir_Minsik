@@ -16,19 +16,19 @@ public class SignDto {
     private Long id;
 
 
-    public String approve;
+    private String approve;
 
 
-    public String title;
+    private String title;
 
 
-    public String content;
+    private String content;
 
 
-    public int signAttachFile;
+    private int signAttachFile;
 
 
-    public String rejectReason;
+    private String rejectReason;
 
     private LocalDateTime createTime;
 

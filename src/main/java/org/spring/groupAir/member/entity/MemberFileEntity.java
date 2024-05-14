@@ -25,10 +25,10 @@ public class MemberFileEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String memberNewFile;
+    private String memberNewFile;
 
     @Column(nullable = false)
-    public String memberOldFile;
+    private String memberOldFile;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

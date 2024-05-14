@@ -23,10 +23,10 @@ public class BoardFileEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String boardNewFile;
+    private String boardNewFile;
 
     @Column(nullable = false)
-    public String boardOldFile;
+    private String boardOldFile;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

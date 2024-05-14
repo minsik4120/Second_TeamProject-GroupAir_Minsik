@@ -19,7 +19,7 @@ public class TopDepartmentDto{
 
     private Long id;
 
-    public String topDepartmentName;
+    private String topDepartmentName;
 
     private List<DepartmentEntity> departmentEntityList;
 

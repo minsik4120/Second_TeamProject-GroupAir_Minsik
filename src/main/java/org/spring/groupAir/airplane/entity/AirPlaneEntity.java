@@ -26,7 +26,6 @@ public class AirPlaneEntity extends BaseTimeEntity {
     @Column(nullable = false)
     public String fromArea;
 
-
     @Column(nullable = false)
     public String ToTime;
 

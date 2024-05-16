@@ -22,10 +22,10 @@ public class SalaryEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String paymentDate;
+    private String paymentDate;
 
     @Column(nullable = false)
-    public String pay;
+    private String pay;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

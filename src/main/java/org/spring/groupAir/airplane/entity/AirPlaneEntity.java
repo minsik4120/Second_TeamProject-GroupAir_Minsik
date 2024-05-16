@@ -21,17 +21,17 @@ public class AirPlaneEntity extends BaseTimeEntity {
 
 
     @Column(nullable = false)
-    public String fromTime;
+    private String fromTime;
 
     @Column(nullable = false)
-    public String fromArea;
+    private String fromArea;
 
     @Column(nullable = false)
-    public String ToTime;
+    private String ToTime;
 
     @Column(nullable = false)
-    public String ToArea;
+    private String ToArea;
 
     @Column(nullable = false)
-    public String airplane;
+    private String airplane;
 }

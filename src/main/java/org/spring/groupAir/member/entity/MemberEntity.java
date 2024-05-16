@@ -6,10 +6,12 @@ import org.spring.groupAir.board.entity.BoardEntity;
 import org.spring.groupAir.commute.entity.CommuteEntity;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.department.entity.DepartmentEntity;
+import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.role.Role;
 import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.spring.groupAir.sign.entity.SignEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,10 +34,10 @@ public class MemberEntity extends BaseTimeEntity {
     private Role role;
 
     @Column(nullable = false)
-    public String name;
+    private String name;
 
     @Column(nullable = false)
-    public String userEmail;
+    private String userEmail;
 
     @Column(nullable = false)
     private String userPw;
@@ -81,12 +83,12 @@ public class MemberEntity extends BaseTimeEntity {
     private List<ScheduleEntity> scheduleEntityList;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.PERSIST)
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentEntity;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.PERSIST)
     @JoinColumn(name = "position_id")
     private PositionEntity positionEntity;
 
@@ -95,4 +97,39 @@ public class MemberEntity extends BaseTimeEntity {
         , cascade = CascadeType.REMOVE)
     private List<SignEntity> signEntityList;
 
+    public static MemberEntity toMemberJoinEntity0(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+        MemberEntity memberEntity=new MemberEntity();
+        memberEntity.setId(memberDto.getId());
+        memberEntity.setName(memberDto.getName());
+        memberEntity.setUserEmail(memberDto.getUserEmail());
+        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+        memberEntity.setAddress(memberDto.getAddress());
+        memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
+        memberEntity.setResignationDate(memberDto.getResignationDate());
+        memberEntity.setRole(memberDto.getRole());
+        memberEntity.setPhone(memberDto.getPhone());
+        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        memberEntity.setMemberAttachFile(0);
+        memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+        return memberEntity;
+    }
+    public static MemberEntity toMemberJoinEntity1(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+        MemberEntity memberEntity=new MemberEntity();
+        memberEntity.setId(memberDto.getId());
+        memberEntity.setName(memberDto.getName());
+        memberEntity.setUserEmail(memberDto.getUserEmail());
+        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+        memberEntity.setAddress(memberDto.getAddress());
+        memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
+        memberEntity.setResignationDate(memberDto.getResignationDate());
+        memberEntity.setRole(memberDto.getRole());
+        memberEntity.setPhone(memberDto.getPhone());
+        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        memberEntity.setMemberAttachFile(1);
+        memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+        return memberEntity;
+
+    }
 }

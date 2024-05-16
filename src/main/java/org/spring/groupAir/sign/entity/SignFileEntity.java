@@ -24,13 +24,13 @@ public class SignFileEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String signNewFile;
+    private String signNewFile;
 
     @Column(nullable = false)
-    public String signOldFile;
+    private String signOldFile;
 
     @Column(nullable = false)
-    public String content;
+    private String content;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

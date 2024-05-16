@@ -1,9 +1,10 @@
-pull<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/layout/adminLayout}">
 <th:block layout:fragment="title">
     <!-- 각 페이지 마다 변경 -->
+    <title>vacation</title>
 </th:block>
 <th:block layout:fragment="css">
     <!-- 각 페이지 마다 변경 -->
@@ -11,17 +12,11 @@ pull<!DOCTYPE html>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
 </th:block>
-
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
-        <div class="commute">
-            <div class="commute-con">
-                <div class="work">
-                    <a th:href="@{/commute/work}">출 퇴근 관리</a>
-                </div>
-                <div class="vacation">
-                    <a th:href="@{/commute/vacation}">휴가 관리</a>
-                </div>
+        <div class="vacation">
+            <div class="vacation">
+                휴가중인 직원
             </div>
         </div>
     </div>

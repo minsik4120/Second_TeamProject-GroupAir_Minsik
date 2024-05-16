@@ -25,7 +25,7 @@ public class DepartmentEntity extends BaseTimeEntity  {
     private Long id;
 
     @Column(nullable = false)
-    public String departmentName;
+    private String departmentName;
 
     @OneToMany(mappedBy = "departmentEntity"
         , fetch = FetchType.LAZY
@@ -33,7 +33,7 @@ public class DepartmentEntity extends BaseTimeEntity  {
     private List<MemberEntity> memberEntityList;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "topDepartment_id")
     private TopDepartmentEntity topDepartmentEntity;
 

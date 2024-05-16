@@ -15,15 +15,15 @@ public class AirplaneDto {
 
     private Long id;
 
-    public String fromTime;
+    private String fromTime;
 
-    public String fromArea;
+    private String fromArea;
 
-    public String ToTime;
+    private String ToTime;
 
-    public String ToArea;
+    private String ToArea;
 
-    public String airplane;
+    private String airplane;
 
     private LocalDateTime createTime;
 

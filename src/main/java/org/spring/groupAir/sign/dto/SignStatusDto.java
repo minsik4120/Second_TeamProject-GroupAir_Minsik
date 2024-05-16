@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class SignStatusDto {
     private Long id;
 
-    public String signOkTime;
+    private String signOkTime;
 
     private LocalDateTime createTime;
 

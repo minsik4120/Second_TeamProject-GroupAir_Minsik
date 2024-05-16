@@ -24,6 +24,7 @@ public class CommuteEntity extends BaseTimeEntity {
     @Column(name = "commute_id")
     private Long id;
 
+
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int vacation;
 

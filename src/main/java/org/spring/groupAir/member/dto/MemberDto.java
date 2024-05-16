@@ -2,6 +2,8 @@ package org.spring.groupAir.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.spring.groupAir.board.entity.BoardEntity;
 import org.spring.groupAir.commute.entity.CommuteEntity;
 import org.spring.groupAir.department.entity.DepartmentEntity;
@@ -13,10 +15,12 @@ import org.spring.groupAir.role.Role;
 import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.spring.groupAir.sign.entity.SignEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,6 +34,7 @@ public class MemberDto {
 
     private Role role;
 
+    @NotBlank(message = "이름을 입력해주세요")
     private String name;
 
     @Size(min = 3,max = 255)
@@ -55,7 +60,13 @@ public class MemberDto {
 
     private String memberFileName;
 
+    private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
+
     private List<MemberFileEntity> memberFileEntityList;
+
+    private MultipartFile memberFile;
 
     private List<BoardEntity> boardEntityList;
 
@@ -81,6 +92,8 @@ public class MemberDto {
         memberDto.setAddress(memberEntity.getAddress());
         memberDto.setName(memberEntity.getName());
         memberDto.setPhone(memberEntity.getPhone());
+        memberDto.setName(memberEntity.getName());
+        memberDto.setRole(memberEntity.getRole());
         memberDto.setEmployeeDate(memberEntity.getEmployeeDate());
         memberDto.setResignationDate(memberEntity.getResignationDate());
         memberDto.setMemberFileEntityList(memberEntity.getMemberFileEntityList());
@@ -91,6 +104,8 @@ public class MemberDto {
         memberDto.setDepartmentEntity(memberEntity.getDepartmentEntity());
         memberDto.setPositionEntity(memberEntity.getPositionEntity());
         memberDto.setSignEntityList(memberEntity.getSignEntityList());
+        memberDto.setCreateTime(memberEntity.getCreateTime());
+        memberDto.setUpdateTime(memberEntity.getUpdateTime());
 
         if(memberEntity.getMemberAttachFile()==0){
             //파일 x

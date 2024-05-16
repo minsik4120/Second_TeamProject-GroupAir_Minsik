@@ -12,4 +12,10 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Optional<MemberEntity> findByUserEmail(String userEmail);
 
     Page<MemberEntity> findByNameContains(Pageable pageable, String search);
+
+
+    Page<MemberEntity> findByUserEmailContains(Pageable pageable, String search);
+
+
+
 }

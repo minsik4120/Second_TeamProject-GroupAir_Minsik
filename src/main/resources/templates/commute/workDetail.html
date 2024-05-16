@@ -59,7 +59,12 @@
                             <td th:text="${#temporals.format(commute.outTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
                             <td>
                                 <!-- Duration 객체를 시간:분:초 형식으로 변환하여 출력 -->
-                                <span th:text="${commute.totalWork.toHours()} + '시간 ' + ${commute.totalWork.toMinutesPart()} + '분 ' + ${commute.totalWork.toSecondsPart()}+ '초'"></span>
+                                <th:block th:if="${commute.totalWork == null}">
+                                    X
+                                </th:block>
+                                <th:block th:unless="${commute.totalWork == null}">
+                                    <span th:text="${commute.totalWork.toHours()} + '시간 ' + ${commute.totalWork.toMinutesPart()} + '분 ' + ${commute.totalWork.toSecondsPart()}+ '초'"></span>
+                                </th:block>
                             </td>
                         </th:block>
                     </tr>

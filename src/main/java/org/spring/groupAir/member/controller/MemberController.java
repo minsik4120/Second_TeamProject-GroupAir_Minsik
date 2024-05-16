@@ -1,6 +1,7 @@
 package org.spring.groupAir.member.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.commute.service.CommuteService;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.io.IOException;
 public class MemberController {
 
     private final MemberService memberService;
+    private final CommuteService commuteService;
 
     @GetMapping("/memberJoin")
     public String memberJoin(MemberDto memberDto, Model model) {
@@ -39,7 +41,8 @@ public class MemberController {
         if (bindingResult.hasErrors()) {
             return "member/memberJoin";
         } else {
-            memberService.memberJoin(memberDto);
+            Long memberId = memberService.memberJoin(memberDto);
+            commuteService.createCommute(memberId);
         }
         return "redirect:/member/memberList";
     }

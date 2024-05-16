@@ -10,6 +10,7 @@ import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,8 @@ import java.util.stream.Collectors;
 public class CommuteService implements CommuteServiceInterface {
 
     private final CommuteRepository commuteRepository;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Long workIn(Long id) {
@@ -95,6 +98,17 @@ public class CommuteService implements CommuteServiceInterface {
             commuteEntityList.stream().map(CommuteDto::toCommuteDto).collect(Collectors.toList());
 
         return commuteDtoList;
+    }
+
+    @Override
+    public void createCommute(Long id) {
+        MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        CommuteEntity commuteEntity = CommuteEntity
+            .builder()
+            .status("퇴근")
+            .memberEntity(memberEntity)
+            .build();
+        commuteRepository.save(commuteEntity);
     }
 
 }

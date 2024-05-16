@@ -19,6 +19,7 @@
                 <select name="subject" id="subject">
                     <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택:: </option>
                     <option value="userName" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
+                    <option value="userEmail" th:selected="${#strings.equals(param.subject, 'userEmail')}">이메일</option>
                 </select>
                 <input type="text" name="search" id="search" th:value="${param.search}">
                 <input type="submit" value="SEARCH">
@@ -29,30 +30,30 @@
                 <h1>회원조회</h1>
                 <table>
                     <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>이름</th>
-                        <th>부서</th>
-                        <th>직급</th>
-                        <th>권한</th>
-                        <th>이메일</th>
-                        <th>전화번호</th>
-                        <th>입사일</th>
-                        <th>퇴사일</th>
-                    </tr>
+                        <tr>
+                            <th>번호</th>
+                            <th>이름</th>
+                            <th>부서</th>
+                            <th>직급</th>
+                            <th>권한</th>
+                            <th>이메일</th>
+                            <th>전화번호</th>
+                            <th>입사일</th>
+                            <th>퇴사일</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${memberList}">
-                        <td th:text="${member.id}"></td>
-                        <td th:text="${member.name}"></td>
-                        <td th:text="${member.departmentEntity.departmentName}"></td>
-                        <td th:text="${member.positionEntity.positionName}"></td>
-                        <td th:text="${member.role}"></td>
-                        <td th:text="${member.phone}"></td>
-                        <td th:text="${member.userEmail}"></td>
-                        <td th:text="${member.employeeDate}"></td>
-                        <td th:text="${member.resignationDate}"></td>
-                    </tr>
+                        <tr th:each="member : ${memberList}">
+                            <td th:text="${member.id}"></td>
+                            <td th:text="${member.name}"></td>
+                            <td th:text="${member.departmentEntity.departmentName}"></td>
+                            <td th:text="${member.positionEntity.positionName}"></td>
+                            <td th:text="${member.role}"></td>
+                            <td th:text="${member.phone}"></td>
+                            <td th:text="${member.userEmail}"></td>
+                            <td th:text="${member.employeeDate}"></td>
+                            <td th:text="${member.resignationDate}"></td>
+                        </tr>
                     </tbody>
                     <tfoot>
                     <tr>
@@ -88,7 +89,7 @@
                                 <span th:if="${memberList.totalPages == memberList.pageable.pageNumber+1}"
                                       class="span0">NEXT</span>
                                         <span th:unless="${memberList.totalPages == memberList.pageable.pageNumber+1}">
-                                    <a th:href="@{/member/memberList(page=${memberDtoPage.pageable.pageNumber+1}
+                                    <a th:href="@{/member/memberList(page=${memberList.pageable.pageNumber+1}
                                     ,search=${param.search},subject=${param.subject})}" class="span1">다음</a>
                                 </span>
                                     </li>
@@ -97,7 +98,7 @@
                                         END
                                     </span>
                                         <span th:unless="${memberList.totalPages == memberList.pageable.pageNumber+1}">
-                                        <a th:href="@{/member/memberList(page=${memberDtoPage.totalPages-1}
+                                        <a th:href="@{/member/memberList(page=${memberList.totalPages-1}
                                         ,search=${param.search}, subject=${param.subject})}" class="span1">
                                             마지막
                                         </a>

@@ -41,7 +41,7 @@ public class MemberController {
         } else {
             memberService.memberJoin(memberDto);
         }
-        return "redirect:/member/memberLogin";
+        return "redirect:/member/memberList";
     }
 
     @GetMapping("/memberList")

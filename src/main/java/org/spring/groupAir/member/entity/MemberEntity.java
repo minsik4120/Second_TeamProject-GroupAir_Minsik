@@ -83,12 +83,12 @@ public class MemberEntity extends BaseTimeEntity {
     private List<ScheduleEntity> scheduleEntityList;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.PERSIST)
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentEntity;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.PERSIST)
     @JoinColumn(name = "position_id")
     private PositionEntity positionEntity;
 
@@ -102,7 +102,7 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setId(memberDto.getId());
         memberEntity.setName(memberDto.getName());
         memberEntity.setUserEmail(memberDto.getUserEmail());
-        memberEntity.setUserPw(memberDto.getUserPw());
+        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
         memberEntity.setAddress(memberDto.getAddress());
         memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
         memberEntity.setResignationDate(memberDto.getResignationDate());
@@ -119,7 +119,7 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setId(memberDto.getId());
         memberEntity.setName(memberDto.getName());
         memberEntity.setUserEmail(memberDto.getUserEmail());
-        memberEntity.setUserPw(memberDto.getUserPw());
+        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
         memberEntity.setAddress(memberDto.getAddress());
         memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
         memberEntity.setResignationDate(memberDto.getResignationDate());

@@ -34,6 +34,7 @@ public class MemberDto {
 
     private Role role;
 
+    @NotBlank(message = "이름을 입력해주세요")
     private String name;
 
     @Size(min = 3,max = 255)
@@ -90,6 +91,8 @@ public class MemberDto {
         memberDto.setUserPw(memberEntity.getUserPw());
         memberDto.setAddress(memberEntity.getAddress());
         memberDto.setPhone(memberEntity.getPhone());
+        memberDto.setName(memberEntity.getName());
+        memberDto.setRole(memberEntity.getRole());
         memberDto.setEmployeeDate(memberEntity.getEmployeeDate());
         memberDto.setResignationDate(memberEntity.getResignationDate());
         memberDto.setMemberFileEntityList(memberEntity.getMemberFileEntityList());

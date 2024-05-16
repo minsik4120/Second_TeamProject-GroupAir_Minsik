@@ -53,12 +53,12 @@ public class SignController {
                             @RequestParam(name = "search" ,required = false) String search,
                             Model model) {
 
-       Page<SignDto> pagingList = signService.signSearchPagingList(pageable,subject,search);
+       Page<SignDto> signList = signService.signSearchPagingList(pageable,subject,search);
 
-       int totalPages = pagingList.getTotalPages();
-       int newPage = pagingList.getNumber();
-       long totalElements = pagingList.getTotalElements();
-       int size = pagingList.getSize();
+       int totalPages = signList.getTotalPages();
+       int newPage = signList.getNumber();
+       long totalElements = signList.getTotalElements();
+       int size = signList.getSize();
 
        int blockNum = 3;
         int startPage = Math.max(1, Math.min(newPage / blockNum * blockNum + 1, totalPages));
@@ -69,11 +69,17 @@ public class SignController {
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        model.addAttribute("pagingList", pagingList);
+        model.addAttribute("signList", signList);
 
 
         return "sign/signList";
     }
+
+
+
+
+
+
 
 
 }

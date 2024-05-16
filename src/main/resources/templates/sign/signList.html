@@ -29,8 +29,8 @@
                         <th>작성시간</th>
                         <th>수정시간</th>
                         <th>상세보기</th>
-                        <th>첨부파일</th>
                         <th>삭제</th>
+                        <th>첨부파일</th>
                     </tr>
                     </thead>
 
@@ -40,14 +40,14 @@
                         <td th:text="${sign.approve}"></td>
                         <td th:text="${sign.title}"></td>
                         <td th:text="${sign.content}"></td>
-                        <td th:text="${#temporals.fomat(sign.createTime, 'yy-mm-dd hh:mm:ss')}"></td>
-                        <td th:text="${#temporals.fomat(sign.updateTime, 'yy-mm-dd hh:mm:ss')}"></td>
+                        <td th:text="${#temporals.format(sign.createTime, 'yy-mm-dd hh:mm:ss')}"></td>
+                        <td th:text="${#temporals.format(sign.updateTime, 'yy-mm-dd hh:mm:ss')}"></td>
                         <td><a th:href="@{/sign/detail/{id}(id=${sign.id})}">상세보기</a></td>
-                        <td><a th:href="@{/sign/delete/{id}(id=${sign.id}">삭제</a></td>
-                        <th:block th:if="${sign.attachFile==1}">
+                        <td><a th:href="@{/sign/delete/{id}(id=${sign.id})}">삭제</a></td>
+                        <th:block th:if="${sign.signAttachFile==1}">
                             <td>O</td>
                         </th:block>
-                        <th:block th:unless="${sign.attachFile==1}">
+                        <th:block th:unless="${sign.signAttachFile==1}">
                             <td>X</td>
                         </th:block>
 

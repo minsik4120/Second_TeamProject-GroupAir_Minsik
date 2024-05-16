@@ -9,17 +9,18 @@
     <link rel="stylesheet" th:href="@{/css/topDepartment/topDepartmentLi.css}">
 </th:block>
 <th:block layout:fragment="script">
-    <script th:src="@{/js/department/department.js}" defer></script>
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
         <div class="make">
             <div class="make-con">
                 <div class="de_left">
-                    <a th:href="@{/department/write}">부서생성,</a>
-                    <a th:href="@{/department/top/write}">상위부서생성</a>
+                    <div class="creation">
+                        <a th:href="@{/department/write}">부서생성</a>
+                        <a th:href="@{/department/top/write}">상위부서생성</a>
+                    </div>
+                    <h1><a th:href="@{/department/top/deLiList}">부서목록</a></h1>
                     <div class="top">
-                        <h1><a th:href="@{/department/top/deLiList}">부서목록</a></h1>
                         <ul th:each="top : ${list}">
                             <a th:href="@{/department/top/detail/{id}(id=${top.id})}" id="topDe">
                                 <li th:text="${top.topDepartmentName}"></li>
@@ -51,7 +52,7 @@
                                 </select>
                             </li>
                             <li>
-                                <input type="submit" value="생성">
+                                <input type="submit" value="생성" name="btn">
                             </li>
                         </form>
                     </ul>

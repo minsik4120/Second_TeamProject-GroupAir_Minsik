@@ -62,7 +62,7 @@ public class DepartmentController {
 
         departmentService.update(departmentDto);
 
-        return "redirect:/department/detail/" + departmentDto.getId();
+        return "redirect:/department/top/deLiList";
     }
 
     @GetMapping("/delete/{id}")

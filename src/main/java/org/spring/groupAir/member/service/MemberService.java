@@ -49,13 +49,15 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
-    public void memberJoin(MemberDto memberDto) throws IOException {
+    public Long memberJoin(MemberDto memberDto) throws IOException {
         memberRepository.findByUserEmail(memberDto.getUserEmail()).ifPresent(email -> {
             throw new RuntimeException(memberDto.getUserEmail() + " 이메일이 이미 존재합니다!");
         });
         if(memberDto.getMemberFile().isEmpty()){
             MemberEntity memberEntity1=MemberEntity.toMemberJoinEntity0(memberDto, passwordEncoder);
             memberRepository.save(memberEntity1);
+
+            return memberEntity1.getId();
         }else {
             MultipartFile memberFile = memberDto.getMemberFile();
             String oldFileName = memberFile.getOriginalFilename();
@@ -87,10 +89,8 @@ public class MemberService implements MemberServiceInterface {
                 .build();
 
             memberFileRepository.save(memberFileEntity);
+
+            return memberId;
         }
     }
-
-
-
-
 }

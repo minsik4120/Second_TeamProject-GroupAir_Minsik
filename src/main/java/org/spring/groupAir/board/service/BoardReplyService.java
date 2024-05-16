@@ -14,7 +14,7 @@ import java.util.List;
 public class BoardReplyService implements BoardReplyServiceInterface {
 
   @Override
-  public List<BoardReplyDto> repliyList(Long id) {
+  public List<BoardReplyDto>repliyList(Long id) {
     return null;
   }
 }

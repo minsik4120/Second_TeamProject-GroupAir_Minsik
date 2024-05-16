@@ -22,19 +22,42 @@
               th:object="${boardDto}">
           <ul>
             <li>
-              Board Write
+              글작성
             </li>
             <li>
-              <label for="memberId">MEMBERID</label>
-              <input type="text" name="memberId"
-                     id="memberId" th:value="${memberId}" readonly>
+              <label for="memberId">카테고리 선택</label>
+<!--              <input type="hidden" name="memberId"-->
+<!--                     id="memberId" th:value="${memberId}" readonly>-->
+              <select name="memberId" id="memberId">
+                <option value="1">승무원</option>
+                <option value="2">기장</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+
             </li>
 
-
-
+            <li>
+              <label for="title">제목</label>
+              <input type="text" name="title" id="title">
+            </li>
 
             <li>
-              <input type="submit" value="BoarDWriteOk">
+              <label for="writer">작성자</label>
+              <input type="text" name="writer" id="writer">
+            </li>
+
+            <li>
+              <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            </li>
+
+            <li>
+              <label for="boardFile"></label>
+              <input type="file" name="boardFile" id="boardFile">
+            </li>
+
+            <li>
+              <input type="submit" value="등록">
             </li>
           </ul>
         </form>

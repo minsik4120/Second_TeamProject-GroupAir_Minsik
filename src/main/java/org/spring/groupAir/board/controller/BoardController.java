@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,6 +35,14 @@ public class BoardController {
 
     return "board/write";
 
+  }
+
+  @PostMapping("/write")
+  public String writeOk(BoardDto boardDto) throws IOException {
+
+    boardService.insertBoard(boardDto);
+
+    return "redirect:/board/boardList";
   }
 
 
@@ -97,22 +106,6 @@ public class BoardController {
   }
 
 
-//  @GetMapping("/detail1/{id}")
-//  public String detail1(@PathVariable("id") Long id, Model model) {
-//
-//    // 조회 -> BoardEntity id -> 파일있을 경우 FileEntity newFIleName
-//    BoardDto board = boardService.detail(id);
-//    // "board"이름으로 조회한 게시글(파일이있으면 파일포함)를 저장
-//    // -- >board/detail1.html
-//
-//    //게시글 존재하면 ->게시글에 연결된 덧글리스트
-//    List<BoardReplyDto> replyList = BoardReplyService.replyList(board.getId());
-//
-//    model.addAttribute("board", board);
-//    model.addAttribute("replyList", replyList);
-//
-//    return "board/detail";//
-//  }
 
   @GetMapping("/detail/{id}")
   public String detail(@PathVariable("id") Long id, Model model) {

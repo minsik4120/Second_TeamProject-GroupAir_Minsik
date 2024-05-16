@@ -32,6 +32,9 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String writer;
+
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int hit;
 
@@ -59,5 +62,27 @@ public class BoardEntity extends BaseTimeEntity {
     private List<BoardFileEntity> boardFileEntityList;
 
 
+  public static BoardEntity toInsertBoardEntity(BoardDto boardDto) {
 
+
+      BoardEntity boardEntity = new BoardEntity();
+      boardEntity.setTitle(boardDto.getTitle());
+      boardEntity.setContent(boardDto.getContent());
+      boardEntity.setWriter(boardDto.getWriter());
+      boardEntity.setBoardAttachFile(0);
+      boardEntity.setMemberEntity(boardEntity.getMemberEntity());
+
+      return  boardEntity;
+  }
+
+
+    public static BoardEntity toInsertFileBoardEntity(BoardDto boardDto) {
+      BoardEntity boardEntity = new BoardEntity();
+      boardEntity.setTitle(boardDto.getTitle());
+      boardEntity.setContent(boardDto.getContent());
+      boardEntity.setWriter(boardDto.getWriter());
+      boardEntity.setBoardAttachFile(1);
+      boardEntity.setMemberEntity(boardDto.getMemberEntity());
+      return boardEntity;
+    }
 }

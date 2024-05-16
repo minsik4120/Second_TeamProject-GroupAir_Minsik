@@ -79,6 +79,7 @@ public class MemberDto {
         memberDto.setUserEmail(memberEntity.getUserEmail());
         memberDto.setUserPw(memberEntity.getUserPw());
         memberDto.setAddress(memberEntity.getAddress());
+        memberDto.setName(memberEntity.getName());
         memberDto.setPhone(memberEntity.getPhone());
         memberDto.setEmployeeDate(memberEntity.getEmployeeDate());
         memberDto.setResignationDate(memberEntity.getResignationDate());

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+
+<th:block layout:fragment="title">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/commute/workDetail.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+    <script th:src="@{/js/commute/commute.js}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</th:block>
+
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <h1>[[${commuteDtoList[0].memberEntity.name}]] 님의 근태</h1>
+        <div class="workInOut">
+            <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '퇴근'}">
+                <a  class="workIn" th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[0].id})}">출근하기</a>
+            </th:block>
+            <th:block th:unless="${commuteDtoList[commuteDtoList.size()-1].status == '퇴근'}">
+                <a class="workOut"
+                   th:href="@{/commute/workOut/{id}(id = ${commuteDtoList[commuteDtoList.size()-1].id})}">퇴근하기</a>
+            </th:block>
+        </div>
+        <div class="work">
+            <div class="work-con">
+                <div id="clock" class="clock"></div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>상태</th>
+                        <th>출근시간</th>
+                        <th>퇴근시간</th>
+                        <th>근무시간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="commute : ${commuteDtoList}">
+                        <th:block th:if="${commute.work == 1}">
+                            <td th:text="${commute.status}"></td>
+                            <td th:text="${#temporals.format(commute.inTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
+                            <th:block th:if="${commute.outTime == null}">
+                                <td>아직 퇴근하지 않았어요</td>
+                                <td>X</td>
+                            </th:block>
+                            <th:block th:unless="${commute.outTime == null}">
+                                <td th:text="${#temporals.format(commute.outTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
+                                <td th:text="${commute.totalWork}"></td>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${commute.work == 1}">
+                            <td th:text="${commute.status}"></td>
+                            <td th:text="${#temporals.format(commute.inTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
+                            <td th:text="${#temporals.format(commute.outTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
+                            <td>
+                                <!-- Duration 객체를 시간:분:초 형식으로 변환하여 출력 -->
+                                <th:block th:if="${commute.totalWork == null}">
+                                    X
+                                </th:block>
+                                <th:block th:unless="${commute.totalWork == null}">
+                                    <span th:text="${commute.totalWork.toHours()} + '시간 ' + ${commute.totalWork.toMinutesPart()} + '분 ' + ${commute.totalWork.toSecondsPart()}+ '초'"></span>
+                                </th:block>
+                            </td>
+                        </th:block>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

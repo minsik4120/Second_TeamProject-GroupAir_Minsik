@@ -7,6 +7,8 @@ import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,17 +24,24 @@ public class CommuteEntity extends BaseTimeEntity {
     @Column(name = "commute_id")
     private Long id;
 
+
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int vacation;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int work;
 
-    @Column(nullable = true)
-    private String inTime;
+    @Column(nullable = false)
+    private String status;
 
     @Column(nullable = true)
-    private String outTime;
+    private Duration totalWork;
+
+    @Column(nullable = true)
+    private LocalDateTime inTime;
+
+    @Column(nullable = true)
+    private LocalDateTime outTime;
 
     @Column(nullable = true)
     private String cause;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
+import org.spring.groupAir.sign.dto.SignFileDto;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +36,18 @@ public class SignFileEntity extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sign_id")
     private SignEntity signEntity;
+
+
+
+    public static SignFileEntity toInsertFile(SignFileDto signFileDto){
+        SignFileEntity signFileEntity=new SignFileEntity();
+        signFileEntity.setSignNewFile(signFileDto.getSignNewFile());
+        signFileEntity.setSignOldFile(signFileDto.getSignOldFile());
+        signFileEntity.setSignEntity(signFileEntity.getSignEntity());
+
+        return signFileEntity;
+    }
+
 
 
 }

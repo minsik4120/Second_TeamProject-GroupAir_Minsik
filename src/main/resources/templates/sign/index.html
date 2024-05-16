@@ -4,7 +4,7 @@
       layout:decorate="~{common/layout/adminLayout}">
 
 <th:block layout:fragment="title">
-    <h1>전자결재</h1>
+    <h1>결재</h1>
 </th:block>
 <th:block layout:fragment="css">
     <!-- 각 페이지 마다 변경 -->
@@ -17,41 +17,21 @@
     <div class="adminContainer">
         <div class="sign">
             <div class="sign-con">
-                <form>
-                    <h2>결재현황</h2>
-                   <div id="#">
-                       <span>
-                           <p><a th:href="@{#}" style="color:rgb(59, 211, 39);">결재대기</a></p>
-                           <p><a th:href="@{#}" style="color:rgb(59, 211, 39);">결재중</a></p>
-                           <p><a th:href="@{#}" style="color:rgb(59, 211, 39);">결재완료</a></p>
-                       </span>
-
-                   </div>
-                </form>
+                <h1>결재</h1>
+               <div>
+                   <span>
+                       <p><a th:href="@{/sign/write}">결재작성</a></p>
+                   </span>
+                   <span>
+                       <p><a th:href="@{/sign/signBox}">결재함</a></p>
+                   </span>
+               </div>
 
 
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>기안자</th>
-                            <th>제목</th>
-                            <th>내용</th>
-                            <th>반려사유</th>
 
-                        </tr>
-                        </thead>
-                        <body>
-                        <tr th:each="sign: ${signList}">
-                            <th th:text="${sign.id}"></th>
-                            <th th:text="${sign.approve;}"></th>
-                            <th th:text="${sign.content;}"></th>
-                            <th th:text="${sign.rejectReason;}"></th>
 
-                        </tr>
 
-                        </body>
-                    </table>
+
 
 
 

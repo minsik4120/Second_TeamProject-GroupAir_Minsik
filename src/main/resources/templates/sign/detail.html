@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+
+<th:block layout:fragment="title">
+    결재상세
+</th:block>
+<th:block layout:fragment="css">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="detail">
+            <div class="detail-con">
+                <h1>결재상세</h1>
+                <form th:action="@{/sign/update}" method="post" enctype="multipart/form-data">
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>번호</th>
+                            <td th:text="${sign.id}"></td>
+                        </tr>
+                        <tr>
+                            <th>기안자</th>
+                            <td th:text="${sign.approve}"></td>
+                        </tr>
+                        <tr>
+                            <th>제목</th>
+                            <td th:text="${sign.title}"></td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                            <td th:text="${sign.content}"></td>
+                        </tr>
+                        <tr>
+                            <th>작성시간</th>
+                            <td th:text="${#temporals.format(sign.createTime, 'yy-MM-dd HH:mm:ss')}"></td>
+                        </tr>
+                        <tr>
+                            <th>수정시간</th>
+                            <td th:text="${#temporals.format(sign.updateTime, 'yy-MM-dd HH:mm:ss')}"></td>
+                        </tr>
+                        <tr>
+                            <th>첨부파일</th>
+                            <td th:text="${sign.attachFile == 1 ? 'O' : 'X'}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+</th:block>
+</html>

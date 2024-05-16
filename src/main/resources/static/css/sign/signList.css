@@ -1,0 +1,16 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.container .pagingList .pagingList-con table{
+ width:100%;
+}
+ table  th{
+
+  background-color: #6de4ef;
+
+ }
+ table td, th{
+  padding:5px;
+  text-align:center;
+}

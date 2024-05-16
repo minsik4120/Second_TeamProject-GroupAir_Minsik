@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+
+<th:block layout:fragment="title">
+    <h1>결재함</h1>
+</th:block>
+<th:block layout:fragment="css">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="signList">
+            <div class="signList-con">
+                <h2>결재함목록</h2>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>기안자</th>
+                        <th>제목</th>
+                        <th>내용</th>
+                        <th>작성시간</th>
+                        <th>수정시간</th>
+                        <th>상세보기</th>
+                        <th>첨부파일</th>
+                        <th>삭제</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="sign : ${signList}">
+                        <td th:text="${sign.id}"></td>
+                        <td th:text="${sign.approve}"></td>
+                        <td th:text="${sign.title}"></td>
+                        <td th:text="${sign.content}"></td>
+                        <td th:text="${#temporals.fomat(sign.createTime, 'yy-mm-dd hh:mm:ss')}"></td>
+                        <td th:text="${#temporals.fomat(sign.updateTime, 'yy-mm-dd hh:mm:ss')}"></td>
+                        <td><a th:href="@{/sign/detail/{id}(id=${sign.id})}">상세보기</a></td>
+                        <td><a th:href="@{/sign/delete/{id}(id=${sign.id}">삭제</a></td>
+                        <th:block th:if="${sign.attachFile==1}">
+                            <td>O</td>
+                        </th:block>
+                        <th:block th:unless="${sign.attachFile==1}">
+                            <td>X</td>
+                        </th:block>
+
+                    </tr>
+                    </tbody>
+
+
+
+
+
+
+
+
+
+
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+</th:block>
+</html>

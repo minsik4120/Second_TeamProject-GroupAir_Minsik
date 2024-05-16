@@ -39,4 +39,15 @@ public class TopDepartmentEntity extends BaseTimeEntity {
         return topDepartmentEntity;
 
     }
+
+    public static TopDepartmentDto toUpdateTopDe(TopDepartmentEntity topDepartmentEntity) {
+
+        TopDepartmentDto topDepartmentDto = new TopDepartmentDto();
+
+        topDepartmentDto.setId(topDepartmentEntity.getId());
+        topDepartmentDto.setTopDepartmentName(topDepartmentEntity.getTopDepartmentName());
+        topDepartmentDto.setDepartmentEntityList(topDepartmentEntity.getDepartmentEntityList());
+
+        return topDepartmentDto;
+    }
 }

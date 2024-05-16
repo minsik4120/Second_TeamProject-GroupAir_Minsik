@@ -12,4 +12,10 @@ public interface TopDepartmentServiceImpl {
     List<TopDepartmentDto> List(TopDepartmentDto topDepartmentDto);
 
     void write(TopDepartmentDto topDepartmentDto);
+
+    TopDepartmentDto detail(Long id);
+
+    void detele(Long id);
+
+    void update(TopDepartmentDto topDepartmentDto);
 }

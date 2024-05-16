@@ -27,6 +27,16 @@ table , td {
     background-color: #3767a6;
 }
 
+.make .make-con .de_left h1 a {
+    color: #fff;
+}
+
+.make .make-con .de_left ul a#topDe {
+  font-weight: bold;
+}
+
+.make .make-con .de_left ul a#lowDe {}
+
 
 .make .make-con .de_right ul {
     width: 500px;
@@ -54,4 +64,21 @@ table , td {
     width: 400px;
     flex: 3;
     margin: 5px;
+}
+
+.de_left ul > li > a:visited {
+    color: blue;
+}
+
+.make .make-con .de_left ul a#lowDe:visited {
+}
+
+
+
+.de_left .top::-webkit-scrollbar {
+    display: none;
+}
+.de_left .top {
+    height: 500px;
+    overflow-y: scroll;
 }

@@ -20,6 +20,18 @@ public class TopDepartmentService implements TopDepartmentServiceImpl {
 
 
     @Override
+    public TopDepartmentDto detail(Long id) {
+
+        TopDepartmentEntity topDepartmentEntity = topDepartmentRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("부서없음");
+        });
+
+        TopDepartmentDto topDepartmentDto = TopDepartmentEntity.toUpdateTopDe(topDepartmentEntity);
+
+        return topDepartmentDto;
+    }
+
+    @Override
     public Page<TopDepartmentDto> pageList(Pageable pageable) {
 
         Page<TopDepartmentEntity> topDepartmentEntities = topDepartmentRepository.findAll(pageable);
@@ -45,6 +57,28 @@ public class TopDepartmentService implements TopDepartmentServiceImpl {
         TopDepartmentEntity topDepartmentEntity = TopDepartmentEntity.toTopDeEntity(topDepartmentDto);
 
         topDepartmentRepository.save(topDepartmentEntity);
+
+    }
+
+    @Override
+    public void update(TopDepartmentDto topDepartmentDto) {
+
+        TopDepartmentEntity topDepartmentEntity = topDepartmentRepository.save(TopDepartmentEntity.builder()
+                .id(topDepartmentDto.getId())
+                .topDepartmentName(topDepartmentDto.getTopDepartmentName())
+                .departmentEntityList(topDepartmentDto.getDepartmentEntityList())
+                .build());
+
+    }
+
+    @Override
+    public void detele(Long id) {
+
+        topDepartmentRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("상위부서 X");
+        });
+
+        topDepartmentRepository.deleteById(id);
 
     }
 }

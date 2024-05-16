@@ -15,7 +15,9 @@
     <div class="adminContainer">
         <div class="make">
             <div class="make-con">
-                <h1>부서목록</h1>
+                <a th:href="@{/department/write}">부서생성,</a>
+                <a th:href="@{/department/top/write}">상위부서생성</a>
+                <h1><a th:href="@{/department/top/deLiList}">부서목록</a></h1>
                 <table>
                     <thead>
                     <tr>

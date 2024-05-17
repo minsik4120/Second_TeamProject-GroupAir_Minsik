@@ -17,5 +17,5 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Page<MemberEntity> findByUserEmailContains(Pageable pageable, String search);
 
 
-
+    Optional<MemberEntity> findByName(String name);
 }

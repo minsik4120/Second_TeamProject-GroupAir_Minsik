@@ -41,9 +41,22 @@
 #chat-content{
     padding: 15px;
     line-height: 1.8em;
-    overflow-y: auto;
+    overflow-y: scroll;
     max-height: 400px;
     justify-content: right;
+}
+
+#chat-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-content::-webkit-scrollbar-thumb {
+    background: #3767a6;
+    border-radius: 10px;
+}
+
+#chat-content::-webkit-scrollbar-track {
+    border-radius: 10px;
 }
 #chat-header{
     position:relative;
@@ -135,7 +148,7 @@
     margin-top:-2px;
     width: 30px;
     height: 30px;
-    background-image: url("images/chat.png");
+    background-image: url("/images/chat.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -148,4 +161,12 @@
     cursor: pointer;
     border-radius: 20px;
     padding: 5px;
+}
+
+#chat-content{
+	min-height: 670px;
+}
+
+#chat-content .bot .message{
+	width: 100%;
 }

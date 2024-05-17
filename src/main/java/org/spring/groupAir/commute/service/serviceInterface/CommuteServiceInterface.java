@@ -16,4 +16,14 @@ public interface CommuteServiceInterface {
     List<CommuteDto>  commuteList(Long id);
 
     void createCommute(Long id);
+
+    Page<CommuteDto> commutePageList(Pageable pageable);
+
+    int latePeople();
+
+    int leaveEarlyPeople();
+
+    int workPeople();
+
+    int workOutPeople();
 }

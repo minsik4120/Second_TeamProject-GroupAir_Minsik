@@ -93,4 +93,12 @@ public class MemberService implements MemberServiceInterface {
             return memberId;
         }
     }
+
+    @Override
+    public String findName(Long id) {
+
+        String name = memberRepository.findById(id).get().getName();
+
+        return name;
+    }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+<th:block layout:fragment="title">
+    <title>상위부서</title>
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/topDepartment/topDepartmentLi.css}">
+</th:block>
+<th:block layout:fragment="script">
+</th:block>
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="make">
+            <div class="make-con">
+                <div class="de_left">
+                    <div class="creation">
+                        <a th:href="@{/department/write}">부서생성</a>
+                        <a th:href="@{/department/top/write}">상위부서생성</a>
+                    </div>
+                    <h1><a th:href="@{/department/top/deLiList}">부서목록</a></h1>
+                    <div class="top">
+                        <ul th:each="top : ${list}">
+                            <a th:href="@{/department/top/detail/{id}(id=${top.id})}" id="topDe">
+                                <li th:text="${top.topDepartmentName}"></li>
+                            </a>
+                            <li class="low">
+                                <ul th:each="de : ${top.departmentEntityList}">
+                                    <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">
+                                        <li th:text="${de.departmentName}"></li>
+                                    </a>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

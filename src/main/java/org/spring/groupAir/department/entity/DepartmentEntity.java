@@ -3,6 +3,7 @@ package org.spring.groupAir.department.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
+import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "department")
-public class DepartmentEntity extends BaseTimeEntity  {
+public class DepartmentEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +29,8 @@ public class DepartmentEntity extends BaseTimeEntity  {
     private String departmentName;
 
     @OneToMany(mappedBy = "departmentEntity"
-        , fetch = FetchType.LAZY
-        , cascade = CascadeType.REMOVE)
+            , fetch = FetchType.LAZY
+            , cascade = CascadeType.REMOVE)
     private List<MemberEntity> memberEntityList;
 
     @JsonIgnore
@@ -37,4 +38,15 @@ public class DepartmentEntity extends BaseTimeEntity  {
     @JoinColumn(name = "topDepartment_id")
     private TopDepartmentEntity topDepartmentEntity;
 
+    public static DepartmentDto toUpdateDe(DepartmentEntity departmentEntity) {
+
+        DepartmentDto departmentDto = new DepartmentDto();
+
+        departmentDto.setId(departmentEntity.getId());
+        departmentDto.setDepartmentName(departmentEntity.getDepartmentName());
+        departmentDto.setTopDepartmentEntity(departmentEntity.getTopDepartmentEntity());
+        departmentDto.setMemberEntityList(departmentEntity.getMemberEntityList());
+
+        return departmentDto;
+    }
 }

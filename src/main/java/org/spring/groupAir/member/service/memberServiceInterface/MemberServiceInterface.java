@@ -12,4 +12,6 @@ public interface MemberServiceInterface {
     Page<MemberDto> memberList(Pageable pageable, String subject, String search);
 
     Long memberJoin(MemberDto memberDto) throws IOException;
+
+    String findName(Long id);
 }

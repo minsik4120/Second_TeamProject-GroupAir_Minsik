@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -16,36 +17,26 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "commute")
-public class CommuteEntity extends BaseTimeEntity {
+@Table(name = "vacation")
+public class VacationEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "commute_id")
+    @Column(name = "vacation_id")
     private Long id;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private int work;
+    private String vacType;
 
-    @Column(nullable = false)
-    private String status;
+    private int vacDays;
 
-    @Column(nullable = true)
-    private Duration totalWork;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate vacStartDate;
 
-    @Column(nullable = true)
-    private LocalDateTime inTime;
-
-    @Column(nullable = true)
-    private LocalDateTime outTime;
-
-    @Column(nullable = true)
-    private String cause;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate vacEndDate;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private MemberEntity memberEntity;
-
-
 }

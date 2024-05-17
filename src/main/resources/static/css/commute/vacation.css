@@ -1,0 +1,32 @@
+@import url(../common/reset.css);
+@import url(../common/paging.css);
+
+.adminContainer h1{
+    text-align: center;
+    padding: 28px;
+    border-bottom: 1px solid #ccc;
+}
+
+.adminContainer .vacation .vacation-con .search{
+    float: right;
+    padding: 10px;
+    padding-right: 20px;
+}
+
+.adminContainer .vacation .vacation-con table{
+    text-align: center;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.adminContainer .vacation .vacation-con table th{
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.adminContainer .vacation .vacation-con table td{
+    font-size: 15px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}

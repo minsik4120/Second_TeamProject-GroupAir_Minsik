@@ -11,7 +11,7 @@ public interface SignServiceInterface {
 
     public int write(SignDto signDto);
 
-    public List<SignDto> signBox();
+//    public List<SignDto> signBox();
 
 
 
@@ -20,7 +20,13 @@ public interface SignServiceInterface {
 //    SignDto signOne(Long id);
 //
 //
-  List<SignDto> signSearchList(Pageable pageable, String subject, String search);
+//  List<SignDto> signSearchList(Pageable pageable, String subject, String search);
 
     Page<SignDto> signSearchPagingList(Pageable pageable, String subject, String search);
+
+    SignDto signOne(Long id);
+
+    public int deleteSign(Long id);
+
+    void update(SignDto signDto);
 }

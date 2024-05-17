@@ -67,7 +67,23 @@ public class SignEntity extends BaseTimeEntity {
     }
 
 
+    public static SignEntity toUpdateEntity(SignDto signDto) {
+        SignEntity signEntity=new SignEntity();
+        signEntity.setId(signDto.getId());
+        signEntity.setApprove(signDto.getApprove());
+        signEntity.setTitle(signDto.getTitle());
+        signEntity.setContent(signDto.getContent());
+        signEntity.setRejectReason(signDto.getRejectReason());
+        signEntity.setSignAttachFile(signDto.getSignAttachFile());
 
+
+        return signEntity;
+
+
+
+
+
+    }
 }
 
 

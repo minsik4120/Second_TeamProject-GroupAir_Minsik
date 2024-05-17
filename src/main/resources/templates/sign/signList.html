@@ -30,7 +30,7 @@
                         <th>수정시간</th>
                         <th>상세보기</th>
                         <th>삭제</th>
-                        <th>첨부파일</th>
+<!--                        <th>첨부파일</th>-->
                     </tr>
                     </thead>
 
@@ -44,12 +44,12 @@
                         <td th:text="${#temporals.format(sign.updateTime, 'yy-mm-dd hh:mm:ss')}"></td>
                         <td><a th:href="@{/sign/detail/{id}(id=${sign.id})}">상세보기</a></td>
                         <td><a th:href="@{/sign/delete/{id}(id=${sign.id})}">삭제</a></td>
-                        <th:block th:if="${sign.signAttachFile==1}">
-                            <td>O</td>
-                        </th:block>
-                        <th:block th:unless="${sign.signAttachFile==1}">
-                            <td>X</td>
-                        </th:block>
+<!--                        <th:block th:if="${sign.signAttachFile==1}">-->
+<!--                            <td>O</td>-->
+<!--                        </th:block>-->
+<!--                        <th:block th:unless="${sign.signAttachFile==1}">-->
+<!--                            <td>X</td>-->
+<!--                        </th:block>-->
 
                     </tr>
                     </tbody>

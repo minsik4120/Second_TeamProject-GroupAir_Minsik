@@ -6,10 +6,10 @@
 <link rel="stylesheet" th:href="@{/css/common/admin.css}">
 <link rel="stylesheet" th:href="@{/css/chatbot/chat-bot.css}">
 <!-- chat bot-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
 <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
-<script th:src="@{/js/chatbot/chat.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
+<script th:src="@{/js/chatbot/chat.js}" defer></script>
 <link rel="stylesheet" th:href="@{/css/chatbot/chat-bot.css}">
 <!-- chat bot-->
 <body>
@@ -18,7 +18,7 @@
         <div class="admin">
             <div class="left" th:replace="~{/common/adminLeft :: adminLeftFragment}"></div>
             <div class="right" th:replace="~{/common/adminRight :: adminRightFragment}"></div>
-            <div class="chat" th:replace="~{/common/chatBot :: chatBotFragment}"></div>
+            <div class="chat" th:replace="~{/common/chatbot/chatBot :: chatBotFragment}"></div>
             <div layout:fragment="adminContainer">
                 <!--        넣을 내용-->
                 <div class="adminContainer">

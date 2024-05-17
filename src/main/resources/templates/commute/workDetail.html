@@ -19,12 +19,20 @@
     <div class="adminContainer">
         <h1>[[${commuteDtoList[0].memberEntity.name}]] 님의 근태</h1>
         <div class="workInOut">
-            <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '퇴근'}">
+            <th:block th:if="${commuteDtoList[0].status == '퇴근'}">
                 <a  class="workIn" th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[0].id})}">출근하기</a>
             </th:block>
-            <th:block th:unless="${commuteDtoList[commuteDtoList.size()-1].status == '퇴근'}">
+            <th:block th:if="${commuteDtoList[0].status == '출근'}">
                 <a class="workOut"
                    th:href="@{/commute/workOut/{id}(id = ${commuteDtoList[commuteDtoList.size()-1].id})}">퇴근하기</a>
+            </th:block>
+            <th:block th:if="${commuteDtoList[0].status == '조퇴'}">
+                <a class="workIn"
+                   th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[0].id})}">출근하기</a>
+            </th:block>
+            <th:block th:if="${commuteDtoList[0].status == '지각'}">
+                <a class="workOut"
+                   th:href="@{/commute/workOut/{id}(id = ${commuteDtoList[0].id})}">퇴근하기</a>
             </th:block>
         </div>
         <div class="work">

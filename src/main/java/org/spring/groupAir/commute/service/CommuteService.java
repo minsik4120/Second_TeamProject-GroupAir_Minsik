@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +27,6 @@ public class CommuteService implements CommuteServiceInterface {
 
     private final CommuteRepository commuteRepository;
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Long workIn(Long id) {
@@ -37,7 +37,7 @@ public class CommuteService implements CommuteServiceInterface {
                 .builder()
                 .id(id)
                 .work(1)
-                .status("출근")
+                .status(LocalDateTime.now().getHour() >= 16 ? "지각" : "출근")
                 .inTime(LocalDateTime.now())
 //                .outTime(commuteEntity1.getOutTime())
                 .memberEntity(commuteEntity1.getMemberEntity()).build();
@@ -46,7 +46,7 @@ public class CommuteService implements CommuteServiceInterface {
             CommuteEntity commuteEntity2 = CommuteEntity
                 .builder()
                 .work(1)
-                .status("출근")
+                .status(LocalDateTime.now().getHour() >= 16 ? "지각" : "출근")
                 .inTime(LocalDateTime.now())
 //                .outTime(commuteEntity1.getOutTime())
                 .memberEntity(commuteEntity1.getMemberEntity()).build();
@@ -64,12 +64,12 @@ public class CommuteService implements CommuteServiceInterface {
         if (commuteEntity1.getInTime() != null && commuteEntity1.getOutTime() == null) {
             LocalDateTime outTime = LocalDateTime.now();
             Duration totalWork = Duration.between(commuteEntity1.getInTime(), outTime);
-
+            String status = totalWork.toMinutes() > 1 ? "퇴근" : "조퇴";
             CommuteEntity commuteEntity2 = CommuteEntity
                 .builder()
                 .id(id)
                 .work(0)
-                .status("퇴근")
+                .status(status)
                 .inTime(commuteEntity1.getInTime())
                 .outTime(outTime)
                 .totalWork(totalWork)
@@ -109,6 +109,44 @@ public class CommuteService implements CommuteServiceInterface {
             .memberEntity(memberEntity)
             .build();
         commuteRepository.save(commuteEntity);
+    }
+
+    @Override
+    public Page<CommuteDto> commutePageList(Pageable pageable) {
+
+        Page<CommuteEntity> commuteEntityPage = commuteRepository.findAll(pageable);
+
+        Page<CommuteDto> commuteDtoPage = commuteEntityPage.map(CommuteDto::toCommuteDto);
+
+        return commuteDtoPage;
+    }
+
+    @Override
+    public int latePeople() {
+        int latePeople = commuteRepository.findByLatePeople(LocalDate.now());
+
+        return latePeople;
+    }
+
+    @Override
+    public int leaveEarlyPeople() {
+        int leaveEarlyPeople = commuteRepository.findByLeaveEarlyPeople(LocalDate.now());
+
+        return leaveEarlyPeople;
+    }
+
+    @Override
+    public int workPeople() {
+        int workPeople = commuteRepository.findByWorkPeople(LocalDate.now());
+
+        return workPeople;
+    }
+
+    @Override
+    public int workOutPeople() {
+
+        int workOutPeople = commuteRepository.findByWorkOutPeople(LocalDate.now());
+        return workOutPeople;
     }
 
 }

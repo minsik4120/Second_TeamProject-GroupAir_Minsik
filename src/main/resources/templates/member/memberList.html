@@ -11,6 +11,8 @@
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
+    <script th:src="@{/js/member/memberDetail.js}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
@@ -23,6 +25,7 @@
                 </select>
                 <input type="text" name="search" id="search" th:value="${param.search}">
                 <input type="submit" value="SEARCH">
+
             </form>
         </div>
         <div class="memberList">
@@ -40,6 +43,11 @@
                             <th>전화번호</th>
                             <th>입사일</th>
                             <th>퇴사일</th>
+<!--                            <th:block sec:authorize="hasAnyRole('ADMIN')">-->
+                                <th>보기</th>
+                                <th>수정</th>
+
+<!--                            </th:block>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +61,12 @@
                             <td th:text="${member.userEmail}"></td>
                             <td th:text="${member.employeeDate}"></td>
                             <td th:text="${member.resignationDate}"></td>
+                            <td><button type="button" class="memberDetailBtn" th:onclick="memberDetailBtnFn(event, [[${member.id}]])">보기</button></td>
+                            <td><a th:href="@{/member/memberUpdate/{id}(id=${member.id})}">수정</a></td>
+
+
+
+
                         </tr>
                     </tbody>
                     <tfoot>
@@ -110,6 +124,51 @@
                     </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+        <tbody class="tbody">
+
+
+        </tbody>
+        <div class="memberDetail"  style="display:none" id="memberDetail">
+            <div class="detail-form">
+                <h3>회원상세보기</h3>
+                <ul>
+                    <li>
+                        <label for="id">id</label>
+                        <input type="text" name="id"  id="id"  readonly>
+                    </li>
+                    <li>
+                        <label for="userPw">userPw</label>
+                        <input type="text" name="userPw"  id="userPw" readonly>
+                    </li>
+                    <li>
+                        <label for="userEmail">userEmail</label>
+                        <input type="email" name="userEmail"  id="userEmail" >
+                    </li>
+                    <li>
+                        <label for="role">role</label>
+                        <input type="text" name="role"  id="role" >
+                    </li>
+                    <li>
+                        <label for="address">address</label>
+                        <input type="text" name="address"  id="address" >
+                    </li>
+                    <li>
+                        <label for="phone">phone</label>
+                        <input type="tel" name="phone" id="phone">
+                    </li>
+                    <li>
+                        <label for="employeeDate">employeeDate</label>
+                        <input type="text" name="employeeDate"  id="employeeDate" >
+                    </li>
+                    <li>
+                        <label for="resignationDate">resignationDate</label>
+                        <input type="text" name="resignationDate"  id="resignationDate">
+                    </li>
+
+                </ul>
+
             </div>
         </div>
         

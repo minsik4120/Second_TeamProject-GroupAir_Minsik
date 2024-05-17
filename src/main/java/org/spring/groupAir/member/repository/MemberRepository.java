@@ -1,6 +1,7 @@
 package org.spring.groupAir.member.repository;
 
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.MemberFileEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
 
     Page<MemberEntity> findByUserEmailContains(Pageable pageable, String search);
+
 
 
 

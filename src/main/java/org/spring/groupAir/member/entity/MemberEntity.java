@@ -132,4 +132,41 @@ public class MemberEntity extends BaseTimeEntity {
         return memberEntity;
 
     }
+
+
+    public static MemberEntity toMemberupdateEntity0(MemberDto memberDto) {
+        MemberEntity memberEntity=new MemberEntity();
+        memberEntity.setId(memberDto.getId());
+        memberEntity.setName(memberDto.getName());
+        memberEntity.setUserEmail(memberDto.getUserEmail());
+        memberEntity.setUserPw(memberDto.getUserPw());
+        memberEntity.setAddress(memberDto.getAddress());
+        memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
+        memberEntity.setResignationDate(memberDto.getResignationDate());
+        memberEntity.setRole(memberDto.getRole());
+        memberEntity.setPhone(memberDto.getPhone());
+        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        memberEntity.setMemberAttachFile(0);
+        memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+        return memberEntity;
+    }
+
+    public static MemberEntity toMemberupdateEntity1(MemberDto memberDto) {
+        MemberEntity memberEntity=new MemberEntity();
+        memberEntity.setId(memberDto.getId());
+        memberEntity.setName(memberDto.getName());
+        memberEntity.setUserEmail(memberDto.getUserEmail());
+        memberEntity.setUserPw(memberDto.getUserPw());
+        memberEntity.setAddress(memberDto.getAddress());
+        memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
+        memberEntity.setResignationDate(memberDto.getResignationDate());
+        memberEntity.setRole(memberDto.getRole());
+        memberEntity.setPhone(memberDto.getPhone());
+        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        memberEntity.setMemberAttachFile(1);
+        memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+        return memberEntity;
+    }
 }

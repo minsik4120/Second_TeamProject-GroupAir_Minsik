@@ -13,7 +13,6 @@
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
-
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/member/member.js}" defer></script>
     <script th:src="@{/js/member/address.js}" defer></script>
@@ -78,35 +77,6 @@
                             </li>
                             <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error"></p>
 
-                            <!--<li>
-                                <label for="departmentEntity.departmentName">부서</label>
-                            </li>
-                            <li>
-                                <select name="departmentEntity.departmentName" id="departmentEntity.departmentName">
-                                    <option value="영업부">영업부</option>
-                                    <option value="재무부">재무부</option>
-                                    <option value="경영본부">경영본부</option>
-                                    <option value="객실본부">객실본부</option>
-                                    <option value="운행본부">운행본부</option>
-                                    <option value="정비부">정비부</option>
-                                </select>
-
-                            </li>
-                            <p th:if="${#fields.hasErrors('departmentEntity.departmentName')}"
-                               th:errors="*{departmentEntity.departmentName}" class="error"></p>
-
-                            <script>
-
-                                document.getElementById('departmentEntity.departmentName').addEventListener('change', function() {
-                                    var selectedDepartment = this.value;
-                                    // 선택된 부서에 해당하는 topDepartmentEntity의 값을 설정
-                                     if (selectedDepartment === '영업부' || selectedDepartment === '재무부' || selectedDepartment === '경영본부') {
-                                        document.getElementById('topDepartmentEntity.topDepartmentName').value = 서비스부;
-                                        }else if (selectedDepartment === '객실본부' || selectedDepartment === '운행본부' || selectedDepartment === '정비부') {
-                                        document.getElementById('topDepartmentEntity.topDepartmentName').value = 기술부;
-                                    }
-
-                            </script>-->
                             <li>
                                 <label for="departmentEntity.topDepartmentEntity.topDepartmentName">부서</label>
                             </li>
@@ -125,6 +95,8 @@
                             function categoryChange(e) {
                             var good_서비스부 = ["영업부", "재무부", "경영본부"];
                             var good_기술부 = ["객실본부", "운행본부", "정비부"];
+
+
                             var target = document.getElementById("departmentEntity.departmentName");
 
                             if(e.value == "서비스부") var d = good_서비스부;

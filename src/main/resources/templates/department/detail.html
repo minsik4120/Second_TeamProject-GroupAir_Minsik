@@ -61,10 +61,10 @@
                                     </th:block>
                                 </select>
                             </li>
-                            <label for="departmentEntityList">소속멤버</label>
-                            <li>
+                            <label for="memberEntityList">소속멤버</label>
+                            <li class="meList">
                                 <div th:each="de : ${department.memberEntityList}" class="subDepartment">
-                                    <input type="text" id="departmentEntityList"
+                                    <input type="text" id="memberEntityList"
                                            th:value="${de.name}" readonly>
                                 </div>
                             </li>

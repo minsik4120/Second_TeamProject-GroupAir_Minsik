@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,10 +19,12 @@ public class AnswerDto {
 
     private String keyword;
 
-    private EmployeeInfo employeeInfo;
+    private EmployeeInfo employee;
 
-    public AnswerDto employeeInfo(EmployeeInfo employeeInfo) {
-        this.employeeInfo = employeeInfo;
+    private List<EmployeeInfo> employeeInfo;
+
+    public AnswerDto employeeInfo(EmployeeInfo employee) {
+        this.employee = employee;
         return this;
     }
 }

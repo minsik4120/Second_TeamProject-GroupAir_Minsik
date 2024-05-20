@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-<div class="part" th:if="${msg.answer.phone != null}" th:fragment="phoneFragment">
+<div class="part" th:if="${msg.answerDto.employee != null}" th:fragment="phoneFragment">
   <p>
-    <span th:text="${msg.answer.phone.memberName}"></span>&nbsp;:&nbsp;
-    <span th:text="${msg.answer.phone.phone}"></span>
-    <span th:text="${msg.answer.phone.email}"></span>
+    이름: <span th:text="${msg.answerDto.employee.name}"></span> <br>
+    번호: <span th:text="${msg.answerDto.employee.phone}"></span> <br>
   </p>
 </div>
-<div class="part" th:if="${msg.answer.phone == null}">
+<div class="part" th:if="${msg.answerDto.employee == null}">
   <p>
     존재하지 않는 사원입니다.
   </p>

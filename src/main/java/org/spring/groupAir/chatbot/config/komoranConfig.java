@@ -77,7 +77,7 @@ public class komoranConfig {
                 try {
                     bw.write(key + "\tNNP\n");
                     // 이이름 NNP
-                    System.out.println(key);
+//                    System.out.println(key);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

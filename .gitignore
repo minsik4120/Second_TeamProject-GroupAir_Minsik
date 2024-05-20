@@ -38,3 +38,6 @@ out/
 
 ### OAuth2 ###
 application-oauth2.yml
+
+### user.dic ###
+user.dic

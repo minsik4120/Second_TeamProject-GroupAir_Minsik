@@ -31,27 +31,41 @@
     box-sizing: border-box;
 }
 
-.admin .left-con .top .title{
+.admin .left-con .top .title {
 }
-
-.admin .left-con .top .title h1.logo{
+.admin .left-con .top .title h1.logo {
     height: auto;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 10px;
     box-sizing: border-box;
+    background-color: #3767a6;
 }
-.admin .left-con .top .title h1.logo img{
-    display: block;
-    height: 60px;
+.admin .left-con .top .title h1.logo a {
+    display: flex;
+    align-items: center;
+}
+.admin .left-con .top .title h1.logo img {
+    height: 40px;
     background-color: #fff;
+    border: 2px solid #324153;
     border-radius: 50px;
-    padding: 10px;
+    padding: 5px;
+    margin-right: 10px;
 }
+.admin .left-con .top .title h1.logo p {
+    margin: 0;
+    font-size: 18px;
+    color: #324153;
+}
+
+
 .admin .left-con .top .title .profile{
     height: 100px;
-    background-color: #3767a6;
-    color: #ffffff;
+    background: linear-gradient(180deg, rgba(55, 103, 166, 1) 14%, rgba(239, 246, 255, 1) 90%);
+    color: #324153;
+    font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,21 +167,22 @@
     min-height: 100vh;
 }
 .admin .right .right-con .top{
-    height: 100px;
+    height: 75px;
     position: sticky;
     top: 0;
     display: flex;
     justify-content: flex-end;
     padding: 20px 10px;
     box-sizing: border-box;
-    background-color: #eff6ff;
+    background: linear-gradient(90deg, rgba(55, 103, 166, 1) 20.5625%, rgba(150, 179, 217, 1) 80.5625%);
 }
-
 .admin .right .right-con .top .gnb{
     box-sizing: border-box;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
+
 .admin .right .right-con .top .gnb>ul{
     display: flex;
     justify-content: space-between;
@@ -210,10 +225,10 @@
 
 .adminContainer {
     position: absolute;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 75px);
     width: calc(100% - 230px);
     right: 0;
-    top: 100px;
+    top: 75px;
     background-color: #fff;
 }
 

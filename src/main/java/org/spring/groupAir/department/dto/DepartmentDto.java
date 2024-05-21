@@ -35,4 +35,15 @@ public class DepartmentDto {
 
         return departmentEntity;
     }
+
+    public static DepartmentDto fromEntity(DepartmentEntity departmentEntity) {
+        DepartmentDto departmentDto = new DepartmentDto();
+        departmentDto.setId(departmentEntity.getId());
+        departmentDto.setDepartmentName(departmentEntity.getDepartmentName());
+        departmentDto.setTopDepartmentEntity(departmentEntity.getTopDepartmentEntity());
+        departmentDto.setMemberEntityList(departmentEntity.getMemberEntityList());
+        // 다른 필드들도 필요에 따라 설정
+
+        return departmentDto;
+    }
 }

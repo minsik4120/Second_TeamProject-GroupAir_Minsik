@@ -40,9 +40,9 @@ public class KomoranService {
 //        문자에서 명사들만 추출한 목록 중복제거해서 set
         Set<String> nonus = result.getNouns().stream()
                 .collect(Collectors.toSet());
-        nonus.forEach((noun) -> {
-            System.out.println(">>>: " + noun);
-        });
+//        nonus.for((noun) -> {
+//            System.out.println(">>>: " + noun);
+//        });
         // 메세지에서 명사 추출
 
         return analyzeToken(nonus);

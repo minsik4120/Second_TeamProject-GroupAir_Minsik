@@ -1,10 +1,14 @@
 package org.spring.groupAir.sign.dto;
 
 import lombok.*;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.sign.entity.SignEntity;
+import org.spring.groupAir.sign.entity.SignFileEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -38,11 +42,37 @@ public class SignDto {
 
     private String signOldFile;
 
+    private MultipartFile signFile;
+
+    private List<SignFileEntity> signFileEntityList;
+
+    private MemberEntity memberEntity;
+
+    private Long employee_id;
+
+
+    private String deptName;//부서명
+
+
+    private String midApprover;//중간승인자
+
+
+    private String lastApprover; //최종승인자
+
+
+    private String subContent;
+
+
+    private String level; //직급
+
+    public SignDto(SignEntity signEntity) {
+
+    }
 
 
     public static SignDto toSelectSignDto(SignEntity signEntity) {
 
-        SignDto signDto=new SignDto();
+        SignDto signDto = new SignDto();
         signDto.setId(signEntity.getId());
         signDto.setApprove(signEntity.getApprove());
         signDto.setTitle(signEntity.getTitle());
@@ -57,29 +87,34 @@ public class SignDto {
 
     }
 
-//    public static SignDto toSignDto(SignEntity signEntity) {
-//
-//        SignDto signDto =new SignDto();
-//        signDto.setId(signEntity.getId());
-//        signDto.setApprove(signEntity.getApprove());
-//        signDto.setTitle(signEntity.getTitle());
-//        signDto.setContent(signEntity.getContent());
-//        signDto.setRejectReason(signEntity.getRejectReason());
-//        signDto.setCreateTime(signEntity.getCreateTime());
-//        signDto.setUpdateTime(signEntity.getUpdateTime());
-//
-//        if(signEntity.getSignAttachFile() == 0){
-//            signDto.setSignAttachFile(signEntity.getSignAttachFile());
-//        }else {
-//            signDto.setSignAttachFile(signDto.getSignAttachFile());
-//            signDto.setSignNewFile(signEntity.getSignFileEntityList().get(0).getSignNewFile());
-//            signDto.setSignOldFile(signEntity.getSignFileEntityList().get(0).getSignOldFile());
-//        }
-//return signDto;
+    public static SignDto toSignDto(SignEntity signEntity) {
 
+        SignDto signDto = new SignDto();
+        signDto.setId(signEntity.getId());
+        signDto.setApprove(signEntity.getApprove());
+        signDto.setTitle(signEntity.getTitle());
+        signDto.setContent(signEntity.getContent());
+        signDto.setRejectReason(signEntity.getRejectReason());
+        signDto.setCreateTime(signEntity.getCreateTime());
+        signDto.setUpdateTime(signEntity.getUpdateTime());
+        signDto.setEmployee_id(signEntity.getId());
+        signDto.setDeptName(signEntity.getDeptName()); // 부서명 설정
+        signDto.setLevel(signEntity.getLevel()); // 직급 설정
+        signDto.setMidApprover(signEntity.getMidApprover()); // 중간승인자 설정
+        signDto.setLastApprover(signEntity.getLastApprover()); // 최종승인자 설정
 
+        System.out.println(signEntity.getSignAttachFile()+" <<<");
+        if (signEntity.getSignAttachFile() == 1) {
+            signDto.setSignAttachFile(signEntity.getSignAttachFile());
+           signDto.setSignNewFile(signEntity.getSignFileEntityList().get(0).getSignNewFile());
+           signDto.setSignOldFile(signEntity.getSignFileEntityList().get(0).getSignOldFile());
+        } else {
+            signDto.setSignAttachFile(signEntity.getSignAttachFile());
+        }
+        return signDto;
 
 
     }
+}
 
 

@@ -4,80 +4,82 @@
       layout:decorate="~{common/layout/adminLayout}">
 
 <th:block layout:fragment="title">
-    결재상세
+    <h1>결재작성</h1>
 </th:block>
 <th:block layout:fragment="css">
-    <!-- 각 페이지 마다 변경 -->
+    <link rel="stylesheet" th:href="@{/css/sign/write.css}">
 </th:block>
 <th:block layout:fragment="script">
-    <!-- 각 페이지 마다 변경 -->
 </th:block>
 
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
-        <div class="detail">
-            <div class="detail-con">
-                <h1>결재상세</h1>
-                <form th:action="@{/sign/detail}" method="post" enctype="multipart/form-data">
-
-                    <table>
-                        <tbody>
+        <div class="write">
+            <div class="write-con">
+                <form th:action="@{/sign/write}" method="POST" th:object="${signDto}" enctype="multipart/form-data">
+                    <table class="approval-form">
                         <tr>
-                            <th>번호</th>
+                            <th colspan="2">품의서</th>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">&nbsp;</td>
+                            <td>번호</td>
                             <td th:text="${sign.id}"></td>
                         </tr>
                         <tr>
-                            <th>기안자</th>
+                            <td>기안자</td>
                             <td th:text="${sign.approve}"></td>
                         </tr>
                         <tr>
-                            <th>제목</th>
-                            <td th:text="${sign.title}"></td>
+                            <td>부서명</td>
+                            <td th:text="${sign.deptName}"></td>
                         </tr>
                         <tr>
-                            <th>내용</th>
-                            <td th:text="${sign.content}"></td>
+                            <td>직급</td>
+                            <td th:text="${sign.level}"></td>
                         </tr>
-                        <th>첨부파일</th>
-                        <td th:if="${sign.signAttachFile == 1}">
-                            <a th:href="@{/file/download/{id}(id=${sign.id})}" th:text="${sign.fileName}"></a>
-                        </td>
-                        <td th:unless="${sign.signAttachFile == 1}">첨부된 파일이 없습니다.</td>
                         <tr>
-                            <th>작성시간</th>
+                            <td colspan="4">제목 <td th:text="${sign.title}"></td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">내용 <td th:text="${sign.content}"></td></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td colspan="4">중간승인자</td>-->
+<!--                            <td th:text="${sign.midApprover}"></td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <td colspan="4">최종승인자</td>
+                            <td th:text="${sign.lastApprover}"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">첨부파일</td>
+                            <td th:if="${sign.signAttachFile == 1}">
+                                <img th:src="@{|/upload/${sign.signNewFile}|}" alt="">
+                            </td>
+                            <td th:unless="${sign.signAttachFile == 1}">첨부된 파일이 없습니다.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">작성시간</td>
                             <td th:text="${#temporals.format(sign.createTime, 'yy-MM-dd HH:mm:ss')}"></td>
                         </tr>
                         <tr>
-                            <th>수정시간</th>
+                            <td colspan="4">수정시간</td>
                             <td th:text="${#temporals.format(sign.updateTime, 'yy-MM-dd HH:mm:ss')}"></td>
                         </tr>
                         <tr>
-                            <th>반려사유</th>
-                            <td><textarea name="text" id="text" rows="4" cols="40" style="resize: none;"
-                                          spellcheck="false"></textarea></td>
+                            <td colspan="4">반려사유 <td th:text="${sign.rejectReason}"></td></textarea></td>
                         </tr>
+
                         <tr>
-                            <td><input type="submit" value="확인"></td>
-                            <td><input type="reset" value="취소"></td>
+                            <td colspan="4">
+
+                            </td>
                         </tr>
-
-
-                        <!--                        <th:block th:if="${sign.signAttachFile==1}">-->
-                        <!--                            <a th:href="@{/file/download/{id}(id=${sign.id})}" th:text="${sign.fileName}"></a>-->
-
-                        <!--                        </th:block>-->
-
-
-                        </tbody>
                     </table>
-
-
                 </form>
             </div>
         </div>
-
-    </div>
-    </div>
     </div>
 </th:block>
 </html>

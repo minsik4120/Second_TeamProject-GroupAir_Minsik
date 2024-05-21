@@ -76,6 +76,7 @@ public class MemberService implements MemberServiceInterface {
                 memberRepository.findById(memberId).orElseThrow(() -> {
                     throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
                 });
+
             MemberFileDto memberFileDto =MemberFileDto.builder()
                 .memberOldFile(oldFileName)
                 .memberNewFile(newFileName)
@@ -93,4 +94,22 @@ public class MemberService implements MemberServiceInterface {
             return memberId;
         }
     }
+
+    
+    //sign추가
+    @Override
+    public Page<MemberDto> findMembersByNameContaining(String name, Pageable pageable) {
+        Page<MemberEntity> memberEntities = memberRepository.findByNameContains(pageable, name);
+        return memberEntities.map(MemberDto::toMemberDto);
+    }
+
+
+ 
+
+
+
+
+
+
+
 }

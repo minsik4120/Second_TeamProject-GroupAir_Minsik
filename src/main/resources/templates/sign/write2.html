@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+
+<th:block layout:fragment="title">
+    <h1>결재작성</h1>
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/sign/write.css}">
+</th:block>
+<th:block layout:fragment="script">
+
+</th:block>
+
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="write">
+            <div class="write-con">
+
+                <form th:action="@{/sign/write}" method="POST" th:object="${signDto}"
+                      enctype="multipart/form-data">
+                    <ul>
+
+
+                        <li>
+                            <label for="approve">기안자</label>
+                            <input type="text" th:field="*{approve}" id="approve">
+                        </li>
+
+                        <li>
+                            <label for="deptName">부서명</label>
+                            <input type="text" th:field="*{deptName}" id="deptName">
+                        </li>
+                        <li>
+                            <label for="level">직급</label>
+                            <input type="text" th:field="*{level}" id="level">
+                        </li>
+
+                        <li>
+                            <label for="title">제목</label>
+                            <input type="text" th:field="*{title}" id="title">
+                        </li>
+
+                        <li>
+                            <label for="content">내용</label>
+                            <input type="text" th:field="*{content}" id="content">
+                        </li>
+                        <li>
+                            <label for="rejectReason">반려사유</label>
+                            <input type="text" th:field="*{rejectReason}" id="rejectReason">
+                        </li>
+
+
+<!--                        <li>-->
+<!--                            <label for="rejectReason">반려사유</label>-->
+<!--                            <textarea name="rejectReason" id="rejectReason" cols="30" rows="10" style="resize: none;"></textarea>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <label for="midApprover">중간승인자</label>-->
+<!--                            <input type="text" th:field="*{midApprover}" id="midApprover">-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <label for="lastApprover">최종승인자</label>-->
+<!--                            <input type="text" th:field="*{lastApprover}" id="lastApprover">-->
+<!--                        </li>-->
+
+
+
+<!--                        <li>-->
+<!--                            <label for="midApprover">중간승인자</label>-->
+<!--                            <select th:field="*{midApprover}" id="midApprover">-->
+<!--                                <option value="#">선택하세요</option>-->
+<!--                                <option th:each="member : ${members}" th:value="${member.name}" th:text="${member.name}"></option>-->
+
+<!--                                <option value="직원1">직원1</option>-->
+<!--                                <option value="직원2">직원2</option>-->
+<!--                                &lt;!&ndash; 중간 승인자 목록 추가 &ndash;&gt;-->
+<!--                            </select>-->
+<!--                        </li>-->
+                        <li>
+                            <label for="lastApprover">최종승인자</label>
+                            <select th:field="*{lastApprover}" id="lastApprover">
+                                <option value="#">선택하세요</option>
+                                <option th:each="member : ${members}" th:value="${member.name}" th:text="${member.name}"></option>
+
+<!--                                <option value="직원1">직원1</option>-->
+<!--                                <option value="직원2">직원2</option>-->
+<!--                                <option value="직원3">직원3</option>-->
+                                <!-- 최종 승인자 목록 추가 -->
+                            </select>
+                        </li>
+
+
+
+
+
+
+
+
+
+
+                        <li>
+                            <label for="signFile">파일</label>
+                            <input type="file" name="signFile" id="signFile">
+                        </li>
+                        <li>
+                            <input type="submit" value="제출">
+                        </li>
+
+
+                    </ul>
+
+                    <!-- Hidden field to store last approver -->
+                    <span id="lastApproverValue" style="display:none;" th:text="${signDto.lastApprover}"></span>
+
+
+                </form>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+</th:block>
+</html>

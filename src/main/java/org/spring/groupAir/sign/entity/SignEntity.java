@@ -40,6 +40,24 @@ public class SignEntity extends BaseTimeEntity {
     @Column(nullable = true)
     private String rejectReason;
 
+    @Column(nullable = false)
+    private String deptName;//부서명
+
+    @Column(nullable = false)
+    private String midApprover;//중간승인자
+
+    @Column(nullable = false)
+    private String lastApprover; //최종승인자
+
+    @Column(nullable = false)
+    private String subContent;
+
+    @Column(nullable = false)
+    private String level; //직급
+
+
+
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "signStatus_id")
@@ -62,6 +80,11 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setTitle(signDto.getTitle());
         signEntity.setContent(signDto.getContent());
 
+        signEntity.setDeptName(signDto.getDeptName());
+        signEntity.setMidApprover(signDto.getMidApprover());
+        signEntity.setLastApprover(signDto.getLastApprover());
+        signEntity.setSubContent(signDto.getSubContent());
+        signEntity.setLevel(signDto.getLevel());
 
         return signEntity;
     }
@@ -76,8 +99,55 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setSignAttachFile(signDto.getSignAttachFile());
 
+        signEntity.setDeptName(signDto.getDeptName());
+        signEntity.setMidApprover(signDto.getMidApprover());
+        signEntity.setLastApprover(signDto.getLastApprover());
+        signEntity.setSubContent(signDto.getSubContent());
+        signEntity.setLevel(signDto.getLevel());
 
         return signEntity;
+
+
+
+
+
+    }
+
+    public static SignEntity toInsertSignEntity(SignDto signDto) {
+        SignEntity signEntity=new SignEntity();
+        signEntity.setId(signDto.getId());
+        signEntity.setApprove(signDto.getApprove());
+        signEntity.setTitle(signDto.getTitle());
+        signEntity.setContent(signDto.getContent());
+        signEntity.setSignAttachFile(0);
+        signEntity.setMemberEntity(signDto.getMemberEntity());
+
+        signEntity.setDeptName(signDto.getDeptName());
+        signEntity.setMidApprover(signDto.getMidApprover());
+        signEntity.setLastApprover(signDto.getLastApprover());
+        signEntity.setSubContent(signDto.getSubContent());
+        signEntity.setLevel(signDto.getLevel());
+        return signEntity;
+    }
+
+    public static SignEntity toInsertFileSignEntity(SignDto signDto) {
+
+
+        SignEntity signEntity=new SignEntity();
+        signEntity.setId(signDto.getId());
+        signEntity.setApprove(signDto.getApprove());
+        signEntity.setTitle(signDto.getTitle());
+        signEntity.setContent(signDto.getContent());
+        signEntity.setSignAttachFile(1);
+        signEntity.setMemberEntity(signDto.getMemberEntity());
+
+        signEntity.setDeptName(signDto.getDeptName());
+        signEntity.setMidApprover(signDto.getMidApprover());
+        signEntity.setLastApprover(signDto.getLastApprover());
+        signEntity.setSubContent(signDto.getSubContent());
+        signEntity.setLevel(signDto.getLevel());
+        return signEntity;
+
 
 
 

@@ -32,8 +32,8 @@ public class SignFileEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "sign_id")
     private SignEntity signEntity;
 
@@ -41,9 +41,10 @@ public class SignFileEntity extends BaseTimeEntity {
 
     public static SignFileEntity toInsertFile(SignFileDto signFileDto){
         SignFileEntity signFileEntity=new SignFileEntity();
+        signFileEntity.setContent(signFileDto.getContent());
         signFileEntity.setSignNewFile(signFileDto.getSignNewFile());
         signFileEntity.setSignOldFile(signFileDto.getSignOldFile());
-        signFileEntity.setSignEntity(signFileEntity.getSignEntity());
+        signFileEntity.setSignEntity(signFileDto.getSignEntity());
 
         return signFileEntity;
     }

@@ -6,8 +6,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.nio.channels.FileChannel;
+import java.util.List;
+
 public interface SignRepository  extends JpaRepository<SignEntity, Long> {
     Page<SignEntity> findByTitleContaining(Pageable pageable, String search);
 
     Page<SignEntity> findByApproveContaining(Pageable pageable, String search);
+
+    Page<SignEntity> findByMemberEntityName(String name, Pageable pageable);
+
+    Page<SignEntity> findByLastApprover(Pageable pageable, String name);
+
+    Page<SignEntity> findByTitleContains(Pageable pageable, String search, String name);
+
+    Page<SignEntity> findByContentContains(Pageable pageable, String search, String name);
 }

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+<th:block layout:fragment="title">
+    <!-- 각 페이지 마다 변경 -->
+    <title>memberDetailUpdate</title>
+</th:block>
+<th:block layout:fragment="css">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/member/updateAddress.js}" defer></script>
+</th:block>
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="memberDetail"  id="memberDetail">
+            <div class="detail-form">
+                <h3>회원수정</h3>
+                <form th:action="@{/member/memberUpdate}" method="post" enctype="multipart/form-data">
+
+                <ul>
+                    <li>
+                            <th:block th:if="${memberDto.memberAttachFile == 1}">
+                                <img th:src="@{|/upload/${memberDto.memberFile}|}" alt="file">
+                            </th:block>
+                            <th:block th:unless="${memberDto.memberAttachFile == 1}">
+                                <img src="http://placehold.co/600X500?text=NOIMAGE" alt="이미지대체문구">
+                            </th:block>
+                    </li>
+                    <li>
+                        <label for="id">id</label>
+                        <input type="text" name="id"  id="id"  th:value="${memberDto.id}" readonly>
+                    </li>
+                    <li>
+                        <label for="name">name</label>
+                        <input type="text" name="name"  id="name" th:value="${memberDto.name}" >
+                    </li>
+                    <li>
+                        <label for="userPw">userPw</label>
+                        <input type="text" name="userPw"  id="userPw" th:value="${memberDto.userPw}">
+                    </li>
+                    <li>
+                        <label for="userEmail">userEmail</label>
+                        <input type="email" name="userEmail"  id="userEmail" th:value="${memberDto.userEmail}">
+                    </li>
+                    <li>
+                        <label for="role">role</label>
+                        <input type="text" name="role"  id="role" th:value="${memberDto.role}" >
+                    </li>
+
+                    <li>
+                        <label for="positionEntity">직급</label>
+                        <!-- 직급의 ID나 코드를 hidden input으로 전송 -->
+                        <input type="hidden" id="positionId" name="positionId" th:value="${memberDto.positionEntity.id}">
+                        <input type="text" id="positionEntity" th:value="${memberDto.positionEntity.positionName}" >
+                    </li>
+                    <li>
+                        <label for="departmentEntity">부서</label>
+                        <!-- 부서의 ID나 코드를 hidden input으로 전송 -->
+                        <input type="hidden" id="departmentId" name="departmentId" th:value="${memberDto.departmentEntity.id}">
+                        <input type="text" id="departmentEntity" th:value="${memberDto.departmentEntity.departmentName}" >
+                    </li>
+
+
+                    <li>
+                        <label for="address">address</label>
+                        <input type="text" name="address" id="address" th:value="${memberDto.address}">
+                        <button type="button" class="updateAddress" th:onclick="updateAddressBtnFn(event)">주소변경</button>
+                    </li>
+
+
+                    <li>
+                        <label for="phone">phone</label>
+                        <input type="tel" name="phone" id="phone" th:value="${memberDto.phone}">
+                    </li>
+                    <li class="file">
+                        <label for="memberFile">사 진</label>
+
+                        <input type="file" name="memberFile" id="memberFile">
+                    </li>
+                    <li>
+                        <label for="employeeDate">employeeDate</label>
+                        <input type="text" name="employeeDate"  id="employeeDate" th:value="${memberDto.employeeDate}">
+                    </li>
+                    <li>
+                        <label for="resignationDate">resignationDate</label>
+                        <input type="text" name="resignationDate"  id="resignationDate" th:value="${memberDto.resignationDate}">
+                    </li>
+                    <li>
+                        <input type="submit" value="수정" id="finalUpdateBtn">
+                        <a th:href="@{/member/memberDelete/{id}(id=${memberDto.id})}">회원 탈퇴</a>
+                    </li>
+
+                </ul>
+                </form>
+
+
+
+
+                <div class="updateAddress"  style="display:none" id="updateAddress">
+
+                    <li>
+                        <label for="combinedAddress">주 소</label>
+                    </li>
+                    <li>
+                        <input type="text" id="sample6_postcode" placeholder="우편번호">
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                        <input type="text" id="sample6_address" placeholder="주소"><br>
+                        <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                        <input type="hidden" id="combinedAddress"  placeholder="결합된 주소" >
+                        <input type="button" id="updateBtn" value="주소수정">
+
+                    </li>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        
+
+    </div>
+</th:block>
+</html>

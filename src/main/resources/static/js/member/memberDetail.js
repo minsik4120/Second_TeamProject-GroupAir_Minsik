@@ -78,33 +78,3 @@ event.preventDefault();
 });
 
 
-
-// 삭제
-const deleteBtn = document.querySelector('#deleteBtn');
-
-deleteBtn.addEventListener('click', (event) => {
-
-event.preventDefault();
-
- const id1 = document.querySelector('#id1');
-
-  const url = "/api/admin/member/delete/"+id1.value;
-  fetch(url, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      if(data!=1){
-          alert("삭제 Fail!!")
-      }else{
-          alert("삭제 Success!!");
-          memberDetail.style.display='none';
-          ajaxMemberList();
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
-});

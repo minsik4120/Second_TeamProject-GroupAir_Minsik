@@ -18,6 +18,5 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Page<MemberEntity> findByUserEmailContains(Pageable pageable, String search);
 
 
-
-
+    Page<MemberEntity> findByPhoneContains(Pageable pageable, String search);
 }

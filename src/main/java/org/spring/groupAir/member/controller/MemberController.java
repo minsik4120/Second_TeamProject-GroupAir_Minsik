@@ -90,7 +90,7 @@ public class MemberController {
 
         model.addAttribute("memberDto", memberDto);
 
-        return "member/memberDetailUpdate";
+        return "member/memberUpdate";
     }
     @PostMapping("/memberUpdate")
     public String memberUpdate(MemberDto memberDto) throws IOException {
@@ -99,6 +99,20 @@ public class MemberController {
 
         return "redirect:/member/memberUpdate/" + memberDto.getId();
     }
+
+    @GetMapping("/memberDelete/{id}")
+    @ResponseBody
+    public String memberDelete(@PathVariable("id") Long id) {
+        memberService.memberDelete(id);
+
+        String html = "<script>" +
+            "alert('회원 탈퇴 성공');" +
+            "location.href='/member/memberList'" +
+            "</script>";
+
+        return html;
+    }
+
 
 
 

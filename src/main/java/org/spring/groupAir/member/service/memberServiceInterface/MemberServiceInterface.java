@@ -20,4 +20,7 @@ public interface MemberServiceInterface {
     void memberUpdate(MemberDto memberDto) throws IOException;
 
 
+    void memberDelete(Long id);
+
+
 }

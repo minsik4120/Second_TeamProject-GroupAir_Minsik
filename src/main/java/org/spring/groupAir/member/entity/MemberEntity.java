@@ -57,6 +57,9 @@ public class MemberEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private int memberAttachFile;
 
+    @Column(nullable = true)
+    private String memberFileName;
+
     @OneToMany(mappedBy = "memberEntity"
         , fetch = FetchType.LAZY
         , cascade = CascadeType.REMOVE)
@@ -112,6 +115,7 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(0);
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+        memberEntity.setMemberFileName(memberDto.getMemberFileName());
         return memberEntity;
     }
     public static MemberEntity toMemberJoinEntity1(MemberDto memberDto, PasswordEncoder passwordEncoder) {
@@ -129,14 +133,16 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(1);
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+        memberEntity.setMemberFileName(memberDto.getMemberFileName());
         return memberEntity;
 
     }
 
 
-    public static MemberEntity toMemberupdateEntity0(MemberDto memberDto) {
+    public static MemberEntity toMemberUpdateEntity0(MemberDto memberDto) {
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setId(memberDto.getId());
+        memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setName(memberDto.getName());
         memberEntity.setUserEmail(memberDto.getUserEmail());
         memberEntity.setUserPw(memberDto.getUserPw());
@@ -148,13 +154,15 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
         memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(0);
+        memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         return memberEntity;
     }
 
-    public static MemberEntity toMemberupdateEntity1(MemberDto memberDto) {
+    public static MemberEntity toMemberUpdateEntity1(MemberDto memberDto) {
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setId(memberDto.getId());
+        memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setName(memberDto.getName());
         memberEntity.setUserEmail(memberDto.getUserEmail());
         memberEntity.setUserPw(memberDto.getUserPw());
@@ -166,6 +174,7 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
         memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(1);
+        memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         return memberEntity;
     }

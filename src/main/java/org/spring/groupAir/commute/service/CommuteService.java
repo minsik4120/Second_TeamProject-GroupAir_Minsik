@@ -39,7 +39,6 @@ public class CommuteService implements CommuteServiceInterface {
                 .work(1)
                 .status(LocalDateTime.now().getHour() >= 16 ? "지각" : "출근")
                 .inTime(LocalDateTime.now())
-//                .outTime(commuteEntity1.getOutTime())
                 .memberEntity(commuteEntity1.getMemberEntity()).build();
             commuteRepository.save(commuteEntity2);
         } else {
@@ -48,7 +47,6 @@ public class CommuteService implements CommuteServiceInterface {
                 .work(1)
                 .status(LocalDateTime.now().getHour() >= 16 ? "지각" : "출근")
                 .inTime(LocalDateTime.now())
-//                .outTime(commuteEntity1.getOutTime())
                 .memberEntity(commuteEntity1.getMemberEntity()).build();
             commuteRepository.save(commuteEntity2);
         }
@@ -62,8 +60,7 @@ public class CommuteService implements CommuteServiceInterface {
         Long memberId = commuteEntity1.getMemberEntity().getId();
 
         if (commuteEntity1.getInTime() != null && commuteEntity1.getOutTime() == null) {
-            LocalDateTime outTime = LocalDateTime.now();
-            Duration totalWork = Duration.between(commuteEntity1.getInTime(), outTime);
+            Duration totalWork = Duration.between(commuteEntity1.getInTime(),LocalDateTime.now());
             String status = totalWork.toMinutes() > 1 ? "퇴근" : "조퇴";
             CommuteEntity commuteEntity2 = CommuteEntity
                 .builder()
@@ -71,18 +68,19 @@ public class CommuteService implements CommuteServiceInterface {
                 .work(0)
                 .status(status)
                 .inTime(commuteEntity1.getInTime())
-                .outTime(outTime)
+                .outTime(LocalDateTime.now())
                 .totalWork(totalWork)
                 .memberEntity(commuteEntity1.getMemberEntity()).build();
             commuteRepository.save(commuteEntity2);
         } else {
+            Duration totalWork = Duration.between(commuteEntity1.getInTime(),LocalDateTime.now());
             CommuteEntity commuteEntity2 = CommuteEntity
                 .builder()
                 .work(0)
                 .status("퇴근")
                 .inTime(commuteEntity1.getInTime())
                 .outTime(LocalDateTime.now())
-                .totalWork(Duration.between(commuteEntity1.getOutTime(), commuteEntity1.getInTime()))
+                .totalWork(totalWork)
                 .memberEntity(commuteEntity1.getMemberEntity()).build();
             commuteRepository.save(commuteEntity2);
         }

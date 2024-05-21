@@ -7,6 +7,7 @@
 </th:block>
 <th:block layout:fragment="css">
     <!-- 각 페이지 마다 변경 -->
+    <link rel="stylesheet" th:href="@{/css/salary/index.css}">
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
@@ -14,8 +15,104 @@
 
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
+        <h1>급여 관리</h1>
         <div class="salary">
             <div class="salary-con">
+                <div class="search">
+                    <form th:action="@{/salary/index}" method="get">
+                        <select name="subject" id="subject">
+                            <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
+                            <option value="name" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
+                            <option value="positionName"
+                                    th:selected="${#strings.equals(param.subject, 'positionName')}">직급
+                            </option>
+                        </select>
+                        <input type="text" name="search" id="search" th:value="${param.search}">
+                        <input type="submit" value="SEARCH">
+                    </form>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>부서</th>
+                        <th>직급</th>
+                        <th>급여 (&#8361)</th>
+                        <th>급여일</th>
+                        <th>급여조정</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="salary : ${salaryDtoPage}">
+                        <td th:text="${salary.memberEntity.name}"></td>
+                        <td th:text="${salary.memberEntity.departmentEntity.departmentName}"></td>
+                        <td th:text="${salary.memberEntity.positionEntity.positionName}"></td>
+                        <td th:text="${#numbers.formatInteger(salary.pay, 3, 'COMMA') + '원'}"></td>
+                        <td th:text="${salary.paymentDate}"></td>
+                        <td><a th:href="@{/salary/update/{id}(id = ${salary.id})}">급여조정</a></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div class="paging">
+                                <ul>
+                                    <li>
+                                        <span th:if="${salaryDtoPage.pageable.pageNumber+1 eq 1}"
+                                              class="span0"> START </span>
+                                        <span th:unless="${salaryDtoPage.pageable.pageNumber+1 eq 1}">
+                                            <a th:href="@{/salary/index(page=0,search=${param.search},
+                                                subject = ${param.subejct})}"
+                                               class="span1"> << </a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span th:if="${salaryDtoPage.pageable.pageNumber+1 eq 1}"
+                                              class="span0">PRE</span>
+                                        <span th:unless="${salaryDtoPage.pageable.pageNumber+1 eq 1}">
+                                            <a th:href="@{/salary/index(page=${salaryDtoPage.pageable.pageNumber-1}
+                                            ,search = ${param.search}, subject = ${param.subject})}"
+                                               class="span1">이전</a>
+                                    </span>
+                                    </li>
+
+                                    <li th:each="i : ${#numbers.sequence(startPage, endPage)}" class="block">
+                                    <span th:if="${salaryDtoPage.pageable.pageNumber +1 == i}" th:text="${i}"
+                                          class="now"></span>
+                                        <a th:unless="${salaryDtoPage.pageable.pageNumber+1 == i}"
+                                           th:href="@{/salary/index(page=${i-1}
+                                    ,search=${param.search}, subject=${param.subject})}" th:text="${i}"></a>
+                                    </li>
+
+                                    <li>
+                                <span th:if="${salaryDtoPage.totalPages == salaryDtoPage.pageable.pageNumber+1}"
+                                      class="span0">NEXT</span>
+                                        <span
+                                            th:unless="${salaryDtoPage.totalPages == salaryDtoPage.pageable.pageNumber+1}">
+                                    <a th:href="@{/salary/index(page=${salaryDtoPage.pageable.pageNumber+1}
+                                    ,search=${param.search},subject=${param.subject})}" class="span1">다음</a>
+                                </span>
+                                    </li>
+                                    <li>
+                                    <span th:if="${salaryDtoPage.totalPages == salaryDtoPage.pageable.pageNumber+1}"
+                                          class="span0">
+                                        END
+                                    </span>
+                                        <span
+                                            th:unless="${salaryDtoPage.totalPages == salaryDtoPage.pageable.pageNumber+1}">
+                                        <a th:href="@{/salary/index(page=${salaryDtoPage.totalPages-1}
+                                        ,search=${param.search}, subject=${param.subject})}" class="span1">
+                                            마지막
+                                        </a>
+                                    </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+
 
             </div>
         </div>

@@ -45,9 +45,11 @@ public class CommuteController {
         int workPeople = commuteService.workPeople();
         int workOutPeople = commuteService.workOutPeople();
 
+        vacationService.findVacationPerson();
 
         model.addAttribute("sickVacationPeople", sickVacationPeople);
         model.addAttribute("vacationPeople", vacationPeople);
+
         model.addAttribute("latePeople", latePeople);
         model.addAttribute("leaveEarlyPeople", leaveEarlyPeople);
         model.addAttribute("workPeople", workPeople);

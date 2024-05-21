@@ -9,4 +9,6 @@ public interface VacationServiceInterface {
     int vacationPeople();
 
     int sickVacationPeople();
+
+    void findVacationPerson();
 }

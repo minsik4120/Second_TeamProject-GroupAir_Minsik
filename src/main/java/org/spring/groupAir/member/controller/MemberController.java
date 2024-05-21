@@ -8,6 +8,7 @@ import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
+import org.spring.groupAir.salary.service.SalaryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,6 +29,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final CommuteService commuteService;
+    private final SalaryService salaryService;
 
     // 부서
     private final TopDepartmentService topDepartmentService;
@@ -56,6 +58,7 @@ public class MemberController {
         } else {
             Long memberId = memberService.memberJoin(memberDto);
             commuteService.createCommute(memberId);
+            salaryService.createSalary(memberId);
         }
 
         return "redirect:/member/memberList";

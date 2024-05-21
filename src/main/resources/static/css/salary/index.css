@@ -1,0 +1,37 @@
+@import url(../common/reset.css);
+@import url(../common/paging.css);
+
+.adminContainer{
+    width: 100%;
+    height: auto;
+}
+
+.adminContainer h1{
+    text-align: center;
+    padding: 28px;
+    border-bottom: 1px solid #ccc;
+}
+
+.adminContainer .salary .salary-con .search{
+    float: right;
+    padding: 10px;
+    padding-right: 20px;
+}
+
+.adminContainer .salary .salary-con table{
+    text-align: center;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.adminContainer .salary .salary-con table th{
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.adminContainer .salary .salary-con table td{
+    font-size: 15px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}

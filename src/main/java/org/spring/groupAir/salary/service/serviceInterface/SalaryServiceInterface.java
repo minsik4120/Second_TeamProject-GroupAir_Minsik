@@ -14,4 +14,6 @@ public interface SalaryServiceInterface {
     SalaryDto updateSalary(Long id);
 
     void update(SalaryDto salaryDto);
+
+    void overWork(Long id);
 }

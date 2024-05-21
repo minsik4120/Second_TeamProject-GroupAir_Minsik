@@ -5,6 +5,7 @@ import org.spring.groupAir.member.dto.MemberDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Duration;
 import java.util.List;
 
 public interface CommuteServiceInterface {
@@ -26,4 +27,6 @@ public interface CommuteServiceInterface {
     int workPeople();
 
     int workOutPeople();
+
+    Duration totalWork(Long id);
 }

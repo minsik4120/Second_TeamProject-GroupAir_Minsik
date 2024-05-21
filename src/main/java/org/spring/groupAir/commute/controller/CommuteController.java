@@ -8,6 +8,8 @@ import org.spring.groupAir.commute.service.VacationService;
 import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
+import org.spring.groupAir.salary.entity.SalaryEntity;
+import org.spring.groupAir.salary.service.SalaryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +35,7 @@ public class CommuteController {
     private final CommuteService commuteService;
     private final VacationService vacationService;
     private final MemberService memberService;
+    private final SalaryService salaryService;
 
 
     @GetMapping({"", "/", "/index"})
@@ -86,9 +90,15 @@ public class CommuteController {
     public String workDetail(@PathVariable("id") Long id, Model model) {
         List<CommuteDto> commuteDtoList = commuteService.commuteList(id);
 
+        if(commuteDtoList.get(0).getTotalWork() != null){
+            Duration allTotalWork = commuteService.totalWork(id);
+            model.addAttribute("allTotalWork", allTotalWork);
+        }
+
         commuteDtoList.sort(Comparator.comparing(CommuteDto::getId).reversed());
 
         model.addAttribute("commuteDtoList", commuteDtoList);
+
 
         return "commute/workDetail";
     }
@@ -105,6 +115,7 @@ public class CommuteController {
     public String workOut(@PathVariable("id") Long id) {
 
         Long memberId = commuteService.workOut(id);
+        salaryService.overWork(id);
 
         return "redirect:/commute/workDetail/" + memberId;
     }

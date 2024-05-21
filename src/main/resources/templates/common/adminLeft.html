@@ -5,13 +5,16 @@
         <div class="top">
             <div class="title">
                 <h1 class="logo">
-                    <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt=""> </a>
+                    <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="">
+                        <p>GroupAir</p>
+                    </a>
                 </h1>
-                <div class="profile">ADMIN</div>
+                <div class="profile">DASHBOARD</div>
             </div>
             <div class="left-menu">
                 <ul>
                     <li class="menuBar">
+                        <img th:src="@{/images/pay.png}" alt="member">
                         <a th:href="@{#}">근태급여</a>
                         <ul class="subMenu">
                             <li><a th:href="@{/commute/index}">근태</a></li>
@@ -20,12 +23,14 @@
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/department.png}" alt="member">
                         <a th:href="@{#}">부서</a>
                         <ul class="subMenu">
                             <li><a th:href="@{/department/top/deList}">부서관리</a></li>
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/employee.png}" alt="member">
                         <a th:href="@{#}">사원관리</a>
                         <ul class="subMenu">
                             <li><a th:href="@{#}">부서</a></li>
@@ -33,6 +38,7 @@
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/member.png}" alt="member">
                         <a th:href="@{#}">로그인</a>
                         <ul class="subMenu">
                             <li><a th:href="@{#}">부서</a></li>
@@ -40,6 +46,7 @@
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/plane.png}" alt="member">
                         <a th:href="@{#}">항공편</a>
                         <ul class="subMenu">
                             <li><a th:href="@{#}">항공편 관리</a></li>

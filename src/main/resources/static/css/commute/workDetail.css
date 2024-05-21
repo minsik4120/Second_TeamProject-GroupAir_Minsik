@@ -3,7 +3,10 @@
 
 .adminContainer{
     width: 100%;
-    height: auto;
+    height: calc(100vh - 100px);
+    padding: 20px;
+    overflow: scroll;
+    box-sizing: border-box;
 }
 
 .adminContainer h1{
@@ -50,6 +53,7 @@
     text-align: center;
     padding: 0 20px;
     width: 100%;
+    table-layout: fixed;
 }
 
 .adminContainer .work .work-con .clock{

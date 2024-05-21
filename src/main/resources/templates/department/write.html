@@ -6,9 +6,10 @@
     <title>상위부서</title>
 </th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/topDepartment/topDepartmentLi.css}">
+    <link rel="stylesheet" th:href="@{/css/topDepartment/department.css}">
 </th:block>
 <th:block layout:fragment="script">
+    <script th:src="@{/js/department/department.js}" defer></script>
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
@@ -19,7 +20,7 @@
                         <a th:href="@{/department/write}">부서생성</a>
                         <a th:href="@{/department/top/write}">상위부서생성</a>
                     </div>
-                    <h1><a th:href="@{/department/top/deLiList}">부서목록</a></h1>
+                    <h1><a th:href="@{/department/top/deList}">부서목록</a></h1>
                     <div class="top">
                         <ul th:each="top : ${list}">
                             <a th:href="@{/department/top/detail/{id}(id=${top.id})}" id="topDe">

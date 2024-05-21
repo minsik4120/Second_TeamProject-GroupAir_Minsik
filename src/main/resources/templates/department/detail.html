@@ -6,9 +6,10 @@
     <title>상위부서</title>
 </th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/topDepartment/topDepartmentLi.css}">
+    <link rel="stylesheet" th:href="@{/css/topDepartment/department.css}">
 </th:block>
 <th:block layout:fragment="script">
+    <script th:src="@{/js/department/department.js}" defer></script>
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
@@ -19,14 +20,15 @@
                         <a th:href="@{/department/write}">부서생성</a>
                         <a th:href="@{/department/top/write}">상위부서생성</a>
                     </div>
-                    <h1><a th:href="@{/department/top/deLiList}">부서목록</a></h1>
+                    <h1><a th:href="@{/department/top/deList}">부서목록</a></h1>
                     <div class="top">
                         <ul th:each="top : ${list}">
                             <a th:href="@{/department/top/detail/{id}(id=${top.id})}" id="topDe">
                                 <li th:text="${top.topDepartmentName}"></li>
                             </a>
                             <ul th:each="de : ${top.departmentEntityList}">
-                                <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">
+                                <!--                                <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">-->
+                                <a th:href="@{'/department/detail/' + ${de.id}}" id="lowDe">
                                     <li th:text="${de.departmentName}"></li>
                                 </a>
                             </ul>
@@ -50,7 +52,7 @@
                             <!--                                       th:value="${department.topDepartmentEntity.TopDepartmentName}">-->
                             <!--                            </li>-->
                             <li class="subDepartment">
-                                <label for="topDepartmentEntity">하위부서</label>
+                                <label for="topDepartmentEntity">소속본부</label>
                                 <select name="topDepartmentEntity" id="topDepartmentEntity">
                                     <option value="">부서명</option>
                                     <th:block th:each="de : ${list}">
@@ -58,6 +60,13 @@
                                                 th:text="${de.topDepartmentName}"></option>
                                     </th:block>
                                 </select>
+                            </li>
+                            <label for="memberEntityList">소속멤버</label>
+                            <li class="meList">
+                                <div th:each="de : ${department.memberEntityList}" class="subDepartment">
+                                    <input type="text" id="memberEntityList"
+                                           th:value="${de.name}" readonly>
+                                </div>
                             </li>
                             <li>
                                 <input type="submit" value="수정" name="btn">

@@ -12,6 +12,11 @@ public interface MemberServiceInterface {
     Page<MemberDto> memberList(Pageable pageable, String subject, String search);
 
     Long memberJoin(MemberDto memberDto) throws IOException;
+<<<<<<< HEAD
 //sign추가한거
     Page<MemberDto> findMembersByNameContaining(String name, Pageable pageable);
+=======
+
+    String findName(Long id);
+>>>>>>> dev
 }

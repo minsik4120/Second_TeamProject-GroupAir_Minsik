@@ -2,8 +2,13 @@ package org.spring.groupAir.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.commute.service.CommuteService;
+import org.spring.groupAir.department.dto.DepartmentDto;
+import org.spring.groupAir.department.dto.TopDepartmentDto;
+import org.spring.groupAir.department.service.DepartmentService;
+import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
+import org.spring.groupAir.salary.service.SalaryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,13 +16,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -26,11 +29,21 @@ public class MemberController {
 
     private final MemberService memberService;
     private final CommuteService commuteService;
+    private final SalaryService salaryService;
+
+    // 부서
+    private final TopDepartmentService topDepartmentService;
+    private final DepartmentService departmentService;
 
     @GetMapping("/memberJoin")
-    public String memberJoin(MemberDto memberDto, Model model) {
+    public String memberJoin(MemberDto memberDto, TopDepartmentDto topDepartmentDto,
+                             Model model) {
+
+        List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
 
         model.addAttribute("memberDto", memberDto);
+        model.addAttribute("list", list);
+
 
         return "member/memberJoin";
     }
@@ -38,20 +51,25 @@ public class MemberController {
     @PostMapping("/memberJoin")
     public String memberJoinOk(@Valid MemberDto memberDto,
                                BindingResult bindingResult) throws IOException {
+
+
         if (bindingResult.hasErrors()) {
             return "member/memberJoin";
         } else {
             Long memberId = memberService.memberJoin(memberDto);
             commuteService.createCommute(memberId);
+            salaryService.createSalary(memberId);
         }
+
         return "redirect:/member/memberList";
     }
+
 
     @GetMapping("/memberList")
     public String work(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                        Model model,
                        @RequestParam(name = "subject", required = false) String subject,
-                       @RequestParam(name = "search", required = false) String search){
+                       @RequestParam(name = "search", required = false) String search) {
         Page<MemberDto> memberList = memberService.memberList(pageable, subject, search);
 
         int totalPage = memberList.getTotalPages();//전체page
@@ -62,7 +80,7 @@ public class MemberController {
         int blockNum = 3; //브라우저에 보이는 페이지 갯수
 
         int startPage = (int) ((Math.floor(newPage / blockNum) * blockNum) + 1 <= totalPage
-            ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPage);
+                ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPage);
         int endPage = (startPage + blockNum) - 1 < totalPage ? (startPage + blockNum) - 1 : totalPage;
 
         model.addAttribute("startPage", startPage);

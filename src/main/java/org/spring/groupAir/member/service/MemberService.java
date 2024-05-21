@@ -95,6 +95,7 @@ public class MemberService implements MemberServiceInterface {
         }
     }
 
+<<<<<<< HEAD
     
     //sign추가
     @Override
@@ -112,4 +113,13 @@ public class MemberService implements MemberServiceInterface {
 
 
 
+=======
+    @Override
+    public String findName(Long id) {
+
+        String name = memberRepository.findById(id).get().getName();
+
+        return name;
+    }
+>>>>>>> dev
 }

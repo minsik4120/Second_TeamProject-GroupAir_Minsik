@@ -19,7 +19,6 @@ public class AirPlaneEntity extends BaseTimeEntity {
     @Column(name = "airplane_id")
     private Long id;
 
-
     @Column(nullable = false)
     private String fromTime;
 

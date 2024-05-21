@@ -1,0 +1,92 @@
+.adminContainer .airplane{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 100px;
+}
+
+.adminContainer .airplane .status{
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+
+.adminContainer .airplane .status .people>img{
+    padding: 10px;
+}
+
+.adminContainer .airplane .status .people{
+    display: flex;
+    text-align: center;
+    padding: 5px;
+    line-height: 60px;
+    align-items: center;
+}
+
+.adminContainer .airplane .status .people .people-con{
+    color: #333;
+    padding: 5px;
+    align-items: center;
+    line-height: 60px;
+}
+
+.adminContainer .airplane .airplane-con{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 50px;
+    text-align: center;
+}
+
+.adminContainer .airplane .airplane-con .work{
+    width: 300px;
+    height : 200px;
+    padding: 20px;
+    border : 1px solid #ccc;
+    border-radius: 20px 20px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 160px;
+    box-sizing: border-box;
+}
+
+.adminContainer .airplane .airplane-con .work a{
+    font-size: 30px;
+}
+
+.adminContainer .airplane .airplane-con .work:hover{
+    background-color: #3767a6;
+}
+
+.adminContainer .airplane .airplane-con .work:hover a{
+    background-color: #3767a6;
+    color: white;
+}
+
+.adminContainer .airplane .airplane-con .vacation{
+    width: 300px;
+    height : 200px;
+    padding: 20px;
+    border : 1px solid #ccc;
+    border-radius: 20px 20px;
+    line-height: 160px;
+    cursor: pointer;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.adminContainer .airplane .airplane-con .vacation a{
+    font-size: 30px;
+}
+
+.adminContainer .airplane .airplane-con .vacation:hover{
+    background-color: #3767a6;
+}
+
+.adminContainer .airplane .airplane-con .vacation:hover a{
+    background-color: #3767a6;
+    color: white;
+}

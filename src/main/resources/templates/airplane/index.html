@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+<th:block layout:fragment="title">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/airplane/index.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="airplane">
+            <div class="airplane-con">
+                <h1>항공편관리</h1>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>출발시간</th>
+                        <th>출발지</th>
+                        <th>도착시간</th>
+                        <th>도착지</th>
+                        <th>항공기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

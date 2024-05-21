@@ -7,6 +7,7 @@
   <!-- 각 페이지 마다 변경 -->
 </th:block>
 <th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/board/boardList.css}">
   <!-- 각 페이지 마다 변경 -->
 </th:block>
 <th:block layout:fragment="script">
@@ -41,6 +42,7 @@
               <th>작성시간</th>
               <th>updateTime</th>
               <th>보기</th> <!-- 게시글 상세보기 -->
+              <th>삭제</th>
               <th>파일</th>
             </tr>
             </thead>
@@ -54,6 +56,7 @@
               <td th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
               <td th:text="${#temporals.format(board.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
               <td><a th:href="@{/board/detail/{id}(id=${board.id})}">보기</a></td><!-- 게시글 상세보기 -->
+              <td><a th:href="@{/board/delete/{id}(id=${board.id})}">삭제</a></td>
               <th:block th:if="${board.boardAttachFile==1}">
                 <td>O</td>
               </th:block>

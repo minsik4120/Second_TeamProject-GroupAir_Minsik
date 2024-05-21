@@ -3,20 +3,16 @@ package org.spring.groupAir.board.controller;
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.board.dto.BoardDto;
 import org.spring.groupAir.board.dto.BoardReplyDto;
-import org.spring.groupAir.board.service.BoardReplyService;
 import org.spring.groupAir.board.service.BoardService;
-import org.spring.groupAir.config.MyUserDetailsImpl;
+import org.spring.groupAir.board.service.ReplyService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,15 +23,40 @@ public class BoardController {
 
   private final BoardService boardService;
 
-  private final BoardReplyService boardReplyService;
+  private final ReplyService boardReplyService;
+
+  // id 값을 가져오면 넘어가야하는곳
+// @GetMapping("/category/{id}")
+//  public String getBoardBySeparate(@PathVariable Long id) {
+//   boardService.findById(id);
+//   return "board/boardList"; // 해당 카테고리에 넘어가게 하고
+//  }
+//
+//  @GetMapping("/category/}")
+//  public String<BoardSeparateEntity> getAllCategories() {
+//   boardService.getAllCategories();
+//  }
+
+
+
 
 // 나중에 지울거
   @GetMapping("/write")
-  public String write() {   //
+  public String write(BoardDto boardDto) {
 
     return "board/write";
-
   }
+
+
+  // 로그인 상태에서만 들어갈 수 있음
+ /* @GetMapping("/write")         // 로그인 상태 정보
+  public String write(BoardDto boardDto, Model model , @AuthenticationPrincipal MyUserDetailsImpl myUserDetails) {   //
+
+
+    model.addAttribute("memberId" , myUserDetails.getMemberEntity().getId());
+    return "board/write";
+
+  }*/
 
   @PostMapping("/write")
   public String writeOk(BoardDto boardDto) throws IOException {
@@ -116,7 +137,7 @@ public class BoardController {
     // -- >board/detail1.html
 
     //게시글 존재하면 ->게시글에 연결된 덧글리스트
-    List<BoardReplyDto> replyList = boardReplyService.repliyList(board.getId());
+    List<BoardReplyDto> replyList = boardReplyService.replyList(board.getId());
 
     model.addAttribute("board", board);
     model.addAttribute("replyList", replyList);
@@ -127,6 +148,24 @@ public class BoardController {
 
 //  @GetMapping("/delete{id}")
 //  public String delete(@PathVariable("id") Long id , Model model)
+
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDto boardDto) throws IOException {
+
+    boardService.update(boardDto);
+    return "redirect:/board/detail/" + boardDto.getId();
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+
+    boardService.deleteBoard(id);
+
+    return "redirect:/board/boardList";
+    }
+
+
 
 
 

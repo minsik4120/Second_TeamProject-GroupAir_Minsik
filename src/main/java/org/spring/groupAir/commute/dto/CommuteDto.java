@@ -6,6 +6,7 @@ import org.spring.groupAir.commute.entity.CommuteEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
 
 import javax.persistence.Column;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -19,13 +20,17 @@ public class CommuteDto {
 
     private int vacation;
 
-    private String inTime;
+    private String status;
 
-    private String outTime;
+    private LocalDateTime inTime;
+
+    private LocalDateTime outTime;
 
     private String cause;
 
     private int work;
+
+    private Duration totalWork;
 
     private MemberEntity memberEntity;
 
@@ -42,6 +47,9 @@ public class CommuteDto {
         commuteDto.setOutTime(commuteEntity.getOutTime());
         commuteDto.setVacation(commuteEntity.getVacation());
         commuteDto.setCause(commuteEntity.getCause());
+        commuteDto.setWork(commuteEntity.getWork());
+        commuteDto.setTotalWork(commuteEntity.getTotalWork());
+        commuteDto.setStatus(commuteEntity.getStatus());
         commuteDto.setMemberEntity(commuteEntity.getMemberEntity());
         commuteDto.setCreateTime(commuteEntity.getCreateTime());
         commuteDto.setUpdateTime(commuteEntity.getUpdateTime());

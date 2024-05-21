@@ -21,68 +21,116 @@ import java.util.List;
 @Table(name = "board")
 public class BoardEntity extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "board_id")
+  private Long id;
 
-    @Column(nullable = false)
-    private String title;
+  @Column(nullable = false)
+  private String title;
 
-    @Column(nullable = false)
-    private String content;
+  @Column(nullable = false)
+  private String content;
 
-    @Column(nullable = false)
-    private String writer;
+  @Column(nullable = false)
+  private String writer;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private int hit;
+  @Column(columnDefinition = "integer default 0", nullable = false)
+  private int hit;
 
-    @Column(nullable = false)
-    private int boardAttachFile; //게시글 작성시 파일이 존재하면 1, 없으면 0
+  @Column(nullable = false)
+  private int boardAttachFile; //게시글 작성시 파일이 존재하면 1, 없으면 0
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private MemberEntity memberEntity;
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "employee_id")
+  private MemberEntity memberEntity;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boardSeparate_id")
-    private BoardSeparateEntity boardSeparateEntity;
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "boardSeparate_id")
+  private BoardSeparateEntity boardSeparateEntity;
 
-    @OneToMany(mappedBy = "boardEntity"
-        , fetch = FetchType.LAZY
-        , cascade = CascadeType.REMOVE)
-    private List<BoardReplyEntity> boardReplyEntityList;
+  @OneToMany(mappedBy = "boardEntity"
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
+  private List<BoardReplyEntity> boardReplyEntityList;
 
-    @OneToMany(mappedBy = "boardEntity"
-        , fetch = FetchType.LAZY
-        , cascade = CascadeType.REMOVE)
-    private List<BoardFileEntity> boardFileEntityList;
+  @OneToMany(mappedBy = "boardEntity"
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
+  private List<BoardFileEntity> boardFileEntityList;
+
+
+
 
 
   public static BoardEntity toInsertBoardEntity(BoardDto boardDto) {
 
 
-      BoardEntity boardEntity = new BoardEntity();
-      boardEntity.setTitle(boardDto.getTitle());
-      boardEntity.setContent(boardDto.getContent());
-      boardEntity.setWriter(boardDto.getWriter());
-      boardEntity.setBoardAttachFile(0);
-      boardEntity.setMemberEntity(boardEntity.getMemberEntity());
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setId(boardDto.getId());
+    boardEntity.setHit(boardDto.getHit());
+    boardEntity.setTitle(boardDto.getTitle());
+    boardEntity.setContent(boardDto.getContent());
+    boardEntity.setWriter(boardDto.getWriter());
+    boardEntity.setBoardAttachFile(0);
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
+    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
+    boardEntity.setMemberEntity(boardDto.getMemberEntity());
 
-      return  boardEntity;
+    return  boardEntity;
   }
 
 
-    public static BoardEntity toInsertFileBoardEntity(BoardDto boardDto) {
-      BoardEntity boardEntity = new BoardEntity();
-      boardEntity.setTitle(boardDto.getTitle());
-      boardEntity.setContent(boardDto.getContent());
-      boardEntity.setWriter(boardDto.getWriter());
-      boardEntity.setBoardAttachFile(1);
-      boardEntity.setMemberEntity(boardDto.getMemberEntity());
-      return boardEntity;
-    }
+  public static BoardEntity toInsertFileBoardEntity(BoardDto boardDto) {
+
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setId(boardDto.getId());
+    boardEntity.setHit(boardDto.getHit());
+    boardEntity.setTitle(boardDto.getTitle());
+    boardEntity.setContent(boardDto.getContent());
+    boardEntity.setWriter(boardDto.getWriter());
+    boardEntity.setBoardAttachFile(1);
+    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
+    boardEntity.setMemberEntity(boardDto.getMemberEntity());
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
+    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+
+
+    return boardEntity;
+  }
+
+  public static BoardEntity toUpdateEntity(BoardDto boardDto) {
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setId(boardDto.getId());
+    boardEntity.setHit(boardDto.getHit());
+    boardEntity.setWriter(boardDto.getWriter());
+    boardEntity.setTitle(boardDto.getTitle());
+    boardEntity.setContent(boardDto.getContent());
+    boardEntity.setBoardAttachFile(0);
+    boardEntity.setMemberEntity(boardDto.getMemberEntity());
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
+    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
+    System.out.println(boardEntity);
+
+    return boardEntity;
+  }
+
+  public static BoardEntity toUpdateFileBoardEntity(BoardDto boardDto) {
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setId(boardDto.getId());
+    boardEntity.setHit(boardDto.getHit());
+    boardEntity.setWriter(boardDto.getWriter());
+    boardEntity.setTitle(boardDto.getTitle());
+    boardEntity.setContent(boardDto.getContent());
+    boardEntity.setBoardAttachFile(1);
+    boardEntity.setMemberEntity(boardDto.getMemberEntity());
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
+    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
+    return boardEntity;
+  }
 }

@@ -6,5 +6,15 @@ import java.util.List;
 
 public interface BoardReplyServiceInterface {
 
-  List<BoardReplyDto> repliyList(Long id);
+
+
+  void insertReply(BoardReplyDto boardReplyDto);
+
+/*  List<BoardReplyDto> ajaxReplyList(Long id);*/
+
+  BoardReplyDto ajaxInsert(BoardReplyDto boardReplyDto);
+
+  List<BoardReplyDto> replyList(Long id);
+
+  List<BoardReplyDto> ajaxReplyList(Long id);
 }

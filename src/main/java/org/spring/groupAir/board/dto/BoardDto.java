@@ -29,7 +29,7 @@ public class BoardDto {
 
   private int hit;
 
-  private Long memberId;
+  private Long memberId;  // 게시판 글 작 성 시
 
 
 
@@ -39,7 +39,7 @@ public class BoardDto {
 
   private MultipartFile boardFile;
 
-  private MemberEntity memberEntity;
+  private MemberEntity memberEntity; // member_id 12345
 
 
   private BoardSeparateEntity boardSeparateEntity;
@@ -55,18 +55,40 @@ public class BoardDto {
 
   private LocalDateTime updateTime;
 
+  // 파일
+  private String boardNewFile;
+
+  private  String boardOldFile;
+
+
 
   public static BoardDto toSelectBoardDto(BoardEntity boardEntity) {
-
 
     BoardDto boardDto = new BoardDto();
     boardDto.setId(boardEntity.getId());
     boardDto.setTitle(boardEntity.getTitle());
     boardDto.setWriter(boardEntity.getWriter());
     boardDto.setContent(boardEntity.getContent());
+    boardDto.setHit(boardEntity.getHit());
     boardDto.setMemberEntity(boardEntity.getMemberEntity());
     boardDto.setCreateTime(boardEntity.getCreateTime());
     boardDto.setUpdateTime(boardEntity.getUpdateTime());
+    boardDto.setMemberId(boardEntity.getId());
+
+    if (boardEntity.getBoardAttachFile()==0) {
+      // 파일이 x
+      boardDto.setBoardAttachFile(boardEntity.getBoardAttachFile()); // 0
+    } else  {
+       // 파일이  0 -> 파일 정보
+      boardDto.setBoardAttachFile(boardEntity.getBoardAttachFile());
+
+      boardDto.setBoardNewFile(boardEntity.getBoardFileEntityList().get(0).getBoardNewFile());
+
+      boardDto.setBoardOldFile(boardEntity.getBoardFileEntityList().get(0).getBoardOldFile());
+
+
+    }
+
     return boardDto;
 
   }

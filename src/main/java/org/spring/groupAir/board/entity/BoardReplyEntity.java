@@ -2,6 +2,7 @@ package org.spring.groupAir.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.spring.groupAir.board.dto.BoardReplyDto;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
 
@@ -23,11 +24,23 @@ public class BoardReplyEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
+    private String replyWriter;
+
+    @Column(nullable = false)
     private String replyContent;
+
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
 
+  public static BoardReplyEntity toInsertReplyEntity(BoardReplyDto boardReplyDto) {
+      BoardReplyEntity replyEntity = new BoardReplyEntity();
+      replyEntity.setBoardEntity(boardReplyDto.getBoardEntity());
+      replyEntity.setReplyContent(boardReplyDto.getReplyContent());
+      replyEntity.setReplyWriter(boardReplyDto.getReplyWriter());
+
+      return replyEntity;
+  }
 }

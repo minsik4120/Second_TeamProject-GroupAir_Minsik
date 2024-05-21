@@ -8,7 +8,7 @@
 <div class="login">
     <div class="login-con">
         <div class="logo">
-            <a th:href="@{/department/top/deList}">
+            <a th:href="@{/}">
                 <img th:src="@{/images/logo.png}" alt="logo">
             </a>
         </div>
@@ -24,9 +24,12 @@
                     <input type="text" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요"> <br>
                 </li>
 
-                <li>
+                <li class="loginBtn">
                     <input type="submit" value="로그인">
                     <input type="reset" value="초기화">
+                </li>
+                <li>
+                    <a th:href="@{/member/memberJoin}">회원가입</a>
                 </li>
             </ul>
         </form>

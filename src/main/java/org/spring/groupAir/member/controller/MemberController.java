@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.commute.service.CommuteService;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
+import org.spring.groupAir.salary.service.SalaryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,6 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final CommuteService commuteService;
+    private final SalaryService salaryService;
 
     @GetMapping("/memberJoin")
     public String memberJoin(MemberDto memberDto, Model model) {
@@ -43,6 +45,7 @@ public class MemberController {
         } else {
             Long memberId = memberService.memberJoin(memberDto);
             commuteService.createCommute(memberId);
+            salaryService.createSalary(memberId);
         }
         return "redirect:/member/memberList";
     }

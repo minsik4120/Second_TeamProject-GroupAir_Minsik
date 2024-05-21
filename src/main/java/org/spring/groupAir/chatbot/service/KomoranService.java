@@ -43,10 +43,10 @@ public class KomoranService {
         Set<String> nouns = result.getNouns().stream()
                 .collect(Collectors.toSet());
 
-        nouns.forEach((noun) -> {
-            System.out.println(">>>: " + noun);
-        });
-        // 메세지에서 명사 추출
+//        nonus.for((noun) -> {
+//            System.out.println(">>>: " + noun);
+//        });
+
 
         return analyzeToken(nouns);
     }

@@ -20,15 +20,19 @@
         <h1>[[${commuteDtoList[0].memberEntity.name}]] 님의 근태</h1>
         <div class="workInOut">
             <th:block th:if="${commuteDtoList[0].status == '퇴근'}">
-                <a  class="workIn" th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[0].id})}">출근하기</a>
+                <a class="workIn"
+                   th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[commuteDtoList.size()-1].id})}">출근하기</a>
             </th:block>
             <th:block th:if="${commuteDtoList[0].status == '출근'}">
                 <a class="workOut"
-                   th:href="@{/commute/workOut/{id}(id = ${commuteDtoList[commuteDtoList.size()-1].id})}">퇴근하기</a>
+                   th:href="@{/commute/workOut/{id}(id = ${commuteDtoList[0].id})}">퇴근하기</a>
+            </th:block>
+            <th:block th:if="${commuteDtoList[0].status == '휴가'}">
+               <li>휴가</li>
             </th:block>
             <th:block th:if="${commuteDtoList[0].status == '조퇴'}">
                 <a class="workIn"
-                   th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[0].id})}">출근하기</a>
+                   th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[commuteDtoList.size()-1].id})}">출근하기</a>
             </th:block>
             <th:block th:if="${commuteDtoList[0].status == '지각'}">
                 <a class="workOut"
@@ -53,8 +57,8 @@
                             <td th:text="${commute.status}"></td>
                             <td th:text="${#temporals.format(commute.inTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
                             <th:block th:if="${commute.outTime == null}">
-                                <td>아직 퇴근하지 않았어요</td>
-                                <td>X</td>
+                                <td></td>
+                                <td></td>
                             </th:block>
                             <th:block th:unless="${commute.outTime == null}">
                                 <td th:text="${#temporals.format(commute.outTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
@@ -68,10 +72,11 @@
                             <td>
                                 <!-- Duration 객체를 시간:분:초 형식으로 변환하여 출력 -->
                                 <th:block th:if="${commute.totalWork == null}">
-                                    X
+
                                 </th:block>
                                 <th:block th:unless="${commute.totalWork == null}">
-                                    <span th:text="${commute.totalWork.toHours()} + '시간 ' + ${commute.totalWork.toMinutesPart()} + '분 ' + ${commute.totalWork.toSecondsPart()}+ '초'"></span>
+                                    <span
+                                        th:text="${commute.totalWork.toHours()} + '시간 ' + ${commute.totalWork.toMinutesPart()} + '분 ' + ${commute.totalWork.toSecondsPart()}+ '초'"></span>
                                 </th:block>
                             </td>
                         </th:block>

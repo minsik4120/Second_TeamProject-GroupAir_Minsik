@@ -67,7 +67,7 @@
                                         <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}"
                                               class="span0">PRE</span>
                                         <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
-                                            <a th:href="@{/commute/work(page=${commuteDtoPage.pageable.pageNumber-1}
+                                            <a th:href="@{/commute/work(page=${memberDtoPage.pageable.pageNumber-1}
                                             ,search = ${param.search}, subject = ${param.subject})}"
                                                class="span1">이전</a>
                                     </span>

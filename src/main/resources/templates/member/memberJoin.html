@@ -9,14 +9,14 @@
 <th:block layout:fragment="css">
     <!-- 각 페이지 마다 변경 -->
     <link rel="stylesheet" th:href="@{/css/member/memberJoin.css}">
-
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/member/member.js}" defer></script>
     <script th:src="@{/js/member/address.js}" defer></script>
+    <script th:src="@{/js/member/department.js}" defer></script>
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
@@ -76,11 +76,11 @@
 
                             </li>
                             <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error"></p>
-
-                            <!--<li>
-                                <label for="departmentEntity.departmentName">부서</label>
+                            <li>
+                                <label for="topDepartmentSelect">상위 부서</label>
                             </li>
                             <li>
+<<<<<<< HEAD
                                 <select name="departmentEntity.departmentName" id="departmentEntity.departmentName">
                                     <option value="영업부">영업부</option>
                                     <option value="재무부">재무부</option>
@@ -143,6 +143,36 @@
                                 }
                             </script>
 
+=======
+                                <select name="departmentEntity.topDepartmentEntity" id="topDepartmentSelect">
+                                    <option value="">상위 부서를 선택하세요</option>
+                                    <th:block th:each="topDepartment : ${list}">
+                                        <option th:value="${topDepartment.id}"
+                                                th:utext="${topDepartment.topDepartmentName}"
+                                                th:attr="data-department-list=${topDepartment.departmentEntityList}"></option>
+                                    </th:block>
+                                </select>
+                            </li>
+
+                            <li>
+                                <label for="departmentSelect">부서</label>
+                            </li>
+                            <li>
+                                <!--                                <select name="departmentEntity" id="departmentEntity">
+                                                                    <option value="">부서를 선택하세요</option>
+                                                                    <th:block th:each="topDepartment : ${list}">
+                                                                        <th:block th:each="department : ${topDepartment.departmentEntityList}">
+                                                                            <option th:value="${department.id}"
+                                                                                    th:utext="${department.departmentName}">
+                                                                            </option>
+                                                                        </th:block>
+                                                                    </th:block>
+                                                                </select>-->
+                                <select name="departmentEntity" id="departmentSelect">
+                                    <option value="">부서를 선택하세요</option>
+                                </select>
+                            </li>
+>>>>>>> dev
                             <li>
                                 <label for="positionEntity.positionName">직급</label>
                             </li>
@@ -168,6 +198,7 @@
                                 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                                 <input type="hidden" id="address" placeholder="결합된 주소" th:field="*{address}">
                             </li>
+<<<<<<< HEAD
 
                             <li>
                                 <label for="phone">전 화 번 호</label>
@@ -194,6 +225,35 @@
         </div>
 
 
+=======
+
+
+                            <li>
+                                <label for="phone">전 화 번 호</label>
+                            </li>
+                            <li>
+                                <input type="tel" id="phone" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+                                       th:field="*{phone}" placeholder="전화번호"> <br>
+                            </li>
+
+
+                            <li class="file">
+                                <label for="memberFile">사 진 첨 부</label>
+                                <input type="file" name="memberFile" id="memberFile">
+                            </li>
+
+                            <li>
+                                <input type="submit" value="회원등록">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+>>>>>>> dev
     </div>
 </th:block>
 </html>

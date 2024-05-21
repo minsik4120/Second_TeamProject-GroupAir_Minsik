@@ -144,30 +144,19 @@ public class DepartmentController {
     }
 
 
-//    페이징용
+    // 회원가입 부서가져오기
+    @GetMapping("/list")
+    @ResponseBody
+    public List<TopDepartmentDto> deList(TopDepartmentDto topDepartmentDto) {
+        return topDepartmentService.List(topDepartmentDto);
+    }
 
-//    @GetMapping("/top/deList")
-//    public String deList(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-//                         Model model) {
-//
-//        Page<TopDepartmentDto> pageList = topDepartmentService.pageList(pageable);
-//
-//        int totalPages = pageList.getTotalPages(); //전체 페이지
-//        int nowPage = pageList.getNumber(); //현재 페이지
-//        long totalElements = pageList.getTotalElements(); //전체 레코드 개수
-//        int size = pageList.getSize(); //페이지 당 보이는 개수
-//
-//        int blockNum = 3; // 브라우저에 보이는 페이지 번호
-//
-//        int startPage = (int) ((Math.floor(nowPage / blockNum) * blockNum) + 1 <= totalPages ? (Math.floor(nowPage / blockNum) * blockNum) + 1 : totalPages);
-//        int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
-//
-//        model.addAttribute("startPage", startPage);
-//        model.addAttribute("endPage", endPage);
-//        model.addAttribute("pageList", pageList);
-//
-//        return "department/top/deList";
-//    }
+    @GetMapping("/subDepartments")
+    @ResponseBody
+    public List<DepartmentDto> getSubDepartments(@RequestParam("topDepartmentId") Long topDepartmentId) {
+        // 선택된 상위 부서에 해당하는 하위 부서 목록을 가져옴
+        return departmentService.getSubDepartments(topDepartmentId);
+    }
 
 
 }

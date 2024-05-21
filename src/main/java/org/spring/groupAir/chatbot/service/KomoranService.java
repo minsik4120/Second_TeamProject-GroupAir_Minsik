@@ -35,21 +35,24 @@ public class KomoranService {
 
     public MessageDto nlpAnalyze(String message) {
 
+
         KomoranResult result = komoran.analyze(message);
 
+
 //        문자에서 명사들만 추출한 목록 중복제거해서 set
-        Set<String> nonus = result.getNouns().stream()
+        Set<String> nouns = result.getNouns().stream()
                 .collect(Collectors.toSet());
+
 //        nonus.for((noun) -> {
 //            System.out.println(">>>: " + noun);
 //        });
-        // 메세지에서 명사 추출
 
-        return analyzeToken(nonus);
+
+        return analyzeToken(nouns);
     }
 
     // 입력된 목적어를 하나씩 파악해 DB 에서 검색위해 decisionTree()메소드로 전달
-    private MessageDto analyzeToken(Set<String> nonus) {
+    private MessageDto analyzeToken(Set<String> nouns) {
 
         LocalDateTime today = LocalDateTime.now();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("a H:mm");
@@ -57,7 +60,7 @@ public class KomoranService {
                 .time(today.format(timeFormatter))
                 .build();
 
-        for (String token : nonus) {
+        for (String token : nouns) {
 
             // 1차 -> 의도가 존재하는지 파악
             Optional<ChatBotIntentionEntity> result = decisionTree(token, null);
@@ -67,12 +70,14 @@ public class KomoranService {
             // 1차 토큰 확인 시 실행
             System.out.println("1차 >>>: " + token);
             // 1차 목록 복사
-            Set<String> next = nonus.stream().collect(Collectors.toSet());
+            Set<String> next = nouns.stream().collect(Collectors.toSet());
             // 목록에서 1차 토큰 제거
             next.remove(token);
 
+
             // 2차 -> 분석 메소드
             AnswerDto answer = analyzeToken(next, result).toAnswerDto();
+
 
             if (token.contains("전화")) {
                 EmployeeInfo phone = analyzeTokenIsPhone(next);
@@ -82,11 +87,15 @@ public class KomoranService {
                 messageDto.today(today.format(dateTimeFormatter)); // 처음 접속할 때만 날짜 표기
             } else if (token.contains("부서")) {
                 EmployeeInfo dept = analyzeTokenIsDept(next);
+                System.out.println("dept >> :" + dept);
                 System.out.println("부서이름 >>>: " + dept.getDeptName());
+                System.out.println("상위부서이름 >>>: " + dept.getTopDeptName());
                 System.out.println("이름 >>>: " + dept.getName());
                 answer.employeeInfo(dept);
             } else if (token.contains("이메일")) {
                 EmployeeInfo email = analyzeTokenIsEmail(next);
+                System.out.println("이메일: " + email.getEmail());
+                System.out.println("이름" + email.getName());
                 answer.employeeInfo(email);
             }
 
@@ -97,7 +106,7 @@ public class KomoranService {
         // 분석 명사들이 등록한 의도와 일치하지 않을 경우 null
         AnswerDto answerDto = decisionTree("기타", null).get().getAnswerEntity().toAnswerDto();
 
-        System.out.println(answerDto);
+        System.out.println("answerDto: " + answerDto);
 
         messageDto.answerDto(answerDto); // 토큰에 대한 응답정보
         return messageDto;
@@ -117,8 +126,8 @@ public class KomoranService {
             System.out.println("이메일 >>>: " + email);
             System.out.println("이름 >>>: " + memberName);
 
-            return EmployeeInfo.builder().
-                    email(email)
+            return EmployeeInfo.builder()
+                    .email(email)
                     .name(memberName)
                     .build();
 
@@ -138,12 +147,14 @@ public class KomoranService {
             String deptName = member.get().getDepartmentEntity().getDepartmentName();
             String memberName = member.get().getName();
             String email = member.get().getUserEmail();
+            String topDeptName = member.get().getDepartmentEntity().getTopDepartmentEntity().getTopDepartmentName();
 
             System.out.println("부서이름 >>>: " + deptName);
             System.out.println("이름 >>>: " + memberName);
 
             return EmployeeInfo.builder().
                     deptName(deptName)
+                    .topDeptName(topDeptName)
                     .name(memberName)
                     .build();
 
@@ -154,13 +165,18 @@ public class KomoranService {
     // "전화"를 물어볼 경우
     private EmployeeInfo analyzeTokenIsPhone(Set<String> next) {
 
+
         for (String name : next) {
 
             System.out.println("2차 phone >>>: " + name);
 
-            Optional<MemberEntity> member = memberRepository.findByName(name);
+            Optional<MemberEntity> member = memberRepository.findByNameEquals(name);
 
-            if (!member.isPresent()) continue;
+
+            if (!member.isPresent()) {
+                System.out.println("memberRepository 에러 >>>" + name);
+                continue;
+            }
 
             // 존재하면
             String deptName = member.get().getDepartmentEntity().getDepartmentName();
@@ -168,11 +184,14 @@ public class KomoranService {
             String memberName = member.get().getName();
             String email = member.get().getUserEmail();
 
+
             return EmployeeInfo.builder()
                     .phone(phone)
                     .name(memberName)
                     .build();
         }
+
+        System.out.println("못찾음");
         return null;
     }
 
@@ -181,8 +200,10 @@ public class KomoranService {
     private AnswerEntity analyzeToken(Set<String> next, Optional<ChatBotIntentionEntity> upper) {
 
         for (String token : next) {
-            // 1차 의도를 부모로 하는 토큰이 존재하는지 파악
+            // 1차 의도를 부모로 하는 토큰이 존재하는지 파악`
             Optional<ChatBotIntentionEntity> result = decisionTree(token, upper.get());
+
+            System.out.println("analyzeToken: " + result);
 
             if (result.isEmpty()) continue;
 

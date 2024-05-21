@@ -91,19 +91,19 @@ function btnMsgSendClicked(){
 
 // 에러
 
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "/botController", true);
-xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-            console.log(xhr.responseText);
-        } else {
-            console.error("Error: " + xhr.statusText);
-        }
-    }
-};
-
-var data = JSON.stringify({ key: "value" });
-xhr.send(data);
+//var xhr = new XMLHttpRequest();
+//xhr.open("POST", "/botController", true);
+//xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//
+//xhr.onreadystatechange = function() {
+//    if (xhr.readyState === 4) {
+//        if (xhr.status === 200) {
+//            console.log(xhr.responseText);
+//        } else {
+//            console.error("Error: " + xhr.statusText);
+//        }
+//    }
+//};
+//
+//var data = JSON.stringify({ key: "value" });
+//xhr.send(data);

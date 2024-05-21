@@ -164,7 +164,7 @@
 }
 
 #chat-content{
-	min-height: 670px;
+    min-height: 500px;
 }
 
 #chat-content .bot .message{

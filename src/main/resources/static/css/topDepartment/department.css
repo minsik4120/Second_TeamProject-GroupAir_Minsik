@@ -105,6 +105,38 @@ table , td {
     width: 100%;
 }
 
+.make .make-con .de_right ul form input#memberEntityList {
+    border: none;
+    border-radius: 10px;
+    text-align: left;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.make .make-con .de_right ul form li.deList {
+    flex-direction: column;
+}
+
+.make .make-con .de_right ul form li.deList a{
+    width: 100%;
+}
+
+.make .make-con .de_right ul form input#departmentEntityList {
+    border: none;
+    width: 100px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.make .make-con .de_right ul form input#departmentEntityList:hover {
+    background-color: #96b3d9;
+    transition: 0.5s;
+}
+
 .make .make-con .de_right ul form label {
     width: 100px;
     text-align: center;

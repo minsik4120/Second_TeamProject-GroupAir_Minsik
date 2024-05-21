@@ -46,10 +46,14 @@
                                        th:value="${topDepartment.topDepartmentName}">
                             </li>
                             <label for="departmentEntityList">하위부서</label>
-                            <div th:each="de : ${topDepartment.departmentEntityList}" class="subDepartment">
-                                <input type="text"  id="departmentEntityList"
-                                       th:value="${de.departmentName}" readonly>
-                            </div>
+                            <li class="deList">
+                                <div th:each="de : ${topDepartment.departmentEntityList}" class="subDepartment">
+                                    <a th:href="@{/department/detail/{id}(id=${de.id})}">
+                                        <input type="text" id="departmentEntityList"
+                                               th:value="${de.departmentName}" readonly>
+                                    </a>
+                                </div>
+                            </li>
                             <li>
                                 <input type="submit" value="수정" name="btn">
                                 <a th:href="@{/department/top/delete/{id}(id=${topDepartment.id})}" name="btn">삭제</a>

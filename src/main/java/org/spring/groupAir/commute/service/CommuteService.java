@@ -147,4 +147,19 @@ public class CommuteService implements CommuteServiceInterface {
         return workOutPeople;
     }
 
+    @Override
+    public Duration totalWork(Long id) {
+
+        Long allTotalWork = (long)(commuteRepository.findSumTotalWork(id)/Math.pow(10, 9));
+
+        System.out.println(">>>>>"+allTotalWork);
+
+        // Long 값을 Duration으로 변환
+        Duration totalWorkDuration = (allTotalWork != null)
+            ? Duration.ofSeconds(allTotalWork)
+            : Duration.ZERO;
+
+        return totalWorkDuration;
+    }
+
 }

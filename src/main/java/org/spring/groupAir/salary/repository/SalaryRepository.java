@@ -12,4 +12,5 @@ public interface SalaryRepository extends JpaRepository<SalaryEntity, Long> {
 
     Page<SalaryEntity> findByMemberEntityPositionEntityPositionNameContains(Pageable pageable, String search);
 
+    SalaryEntity findByMemberEntityId(Long id);
 }

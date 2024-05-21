@@ -41,6 +41,13 @@
         </div>
         <div class="work">
             <div class="work-con">
+                <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].totalWork} == null">
+                    <h1>이번달 근무시간이 없습니다.</h1>
+                </th:block>
+                <th:block th:unless="${commuteDtoList[commuteDtoList.size()-1].totalWork} == null">
+                    <h1>총 근무 시간 : [[${allTotalWork.toHours()}]] 시간 [[${allTotalWork.toMinutesPart()}]] 분 [[${allTotalWork.toSecondsPart()}]] 초</h1>
+                </th:block>
+
                 <div id="clock" class="clock"></div>
                 <table>
                     <thead>
@@ -70,7 +77,6 @@
                             <td th:text="${#temporals.format(commute.inTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
                             <td th:text="${#temporals.format(commute.outTime, 'MM월 dd일 HH시 mm분 ss초')}"></td>
                             <td>
-                                <!-- Duration 객체를 시간:분:초 형식으로 변환하여 출력 -->
                                 <th:block th:if="${commute.totalWork == null}">
 
                                 </th:block>

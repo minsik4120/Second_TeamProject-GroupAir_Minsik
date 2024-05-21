@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -29,4 +30,7 @@ public interface CommuteRepository extends JpaRepository<CommuteEntity, Long> {
     @Query(value = "SELECT count(*) FROM commute c LEFT JOIN employee e ON c.employee_id = e.employee_id WHERE c.in_Time > :date AND c.status = '지각' AND c.commute_id IN (SELECT MAX(c2.commute_id) FROM commute c2 GROUP BY c2.employee_id )", nativeQuery = true)
 
     int findByLatePeople(@Param("date") LocalDate now);
+
+    @Query(value="select sum(total_work) from commute where employee_id = :id", nativeQuery = true)
+    Long findSumTotalWork(@Param("id") Long id);
 }

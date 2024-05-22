@@ -5,7 +5,7 @@
         <div class="top">
             <div class="title">
                 <h1 class="logo">
-                    <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="">
+                    <a th:href="@{/member/memberList}"><img th:src="@{/images/logo.png}" alt="">
                         <p>GroupAir</p>
                     </a>
                 </h1>
@@ -23,7 +23,7 @@
                 <ul>
                     <li class="menuBar">
                         <img th:src="@{/images/pay.png}" alt="member">
-                        <a th:href="@{#}">근태급여</a>
+                        <a th:href="@{/commute/index}">근태급여</a>
                         <ul class="subMenu">
                             <li><a th:href="@{/commute/index}">근태</a></li>
                             <li><a th:href="@{/salary/index}">급여</a></li>
@@ -43,6 +43,7 @@
                         <ul class="subMenu">
                             <li><a th:href="@{#}">부서</a></li>
                             <li><a th:href="@{#}">결재</a></li>
+                            <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
                         </ul>
                     </li>
                     <li class="menuBar">
@@ -54,10 +55,11 @@
                         </ul>
                     </li>
                     <li class="menuBar">
+
                         <img th:src="@{/images/plane.png}" alt="member">
-                        <a th:href="@{#}">항공편</a>
+                        <a th:href="@{/airplane/index}">항공편</a>
                         <ul class="subMenu">
-                            <li><a th:href="@{#}">항공편 관리</a></li>
+                            <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -75,7 +75,7 @@
      justify-content: space-between;
      align-items: center;
      font-size: 12px;
-     padding: 30px 0px 9px 0px;
+     padding: 35px 0px;
 }
 
 .login .login-con form li.loginBtn>input {
@@ -94,16 +94,6 @@
     color: #fff;
     transition: 0.5s;
     cursor: pointer;
-}
-
-.login .login-con form li:last-child{
-    justify-content: center;
-    align-items: center;
-}
-
-.login .login-con form li:last-child>a{
-    color: gray;
-    font-size: 10px;
 }
 
 .sns {

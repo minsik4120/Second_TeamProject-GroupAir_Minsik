@@ -65,4 +65,12 @@ public class AirPlaneController {
 
         return "airplane/detail";
     }
+
+    @GetMapping("/delete/{id}")
+    public String airplaneDelete(@PathVariable("id")Long id){
+
+        airplaneService.airplaneDelete(id);
+
+        return "redirect:/airplane/index";
+    }
 }

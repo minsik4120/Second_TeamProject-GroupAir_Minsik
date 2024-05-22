@@ -53,6 +53,7 @@ public class DepartmentController {
         DepartmentDto department = departmentService.detail(id);
 
         model.addAttribute("department", department);
+        model.addAttribute("activeId", id); // 현재 활성화된 ID를 모델에 추가
 
         return "department/detail";
     }
@@ -117,6 +118,7 @@ public class DepartmentController {
         List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
 
         model.addAttribute("list", list);
+        model.addAttribute("activeId", null);
 
         return "department/top/deList";
     }

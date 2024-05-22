@@ -23,29 +23,26 @@
                 <h1>[[${airplaneDto.id}]]번 비행기 정보</h1>
                 <form th:action="@{/airplane/delete/{id}(id=${airplaneDto.id})}" method="post">
                     <ul>
-                        <li>
-                            <label for="id">비행기 번호</label>
-                        </li>
-                        <li>
-                            <input type="text" id="id" name="id" th:value="${airplaneDto.id}">
-                        </li>
+<!--                        <li>-->
+<!--                            <label for="id">비행기 번호</label>-->
+<!--                            <input type="text" id="id" name="id" th:value="${airplaneDto.id}">-->
+<!--                        </li>-->
 
                         <li>
-                            <label for="toTime">출발시간</label>
+                            <label for="toTime">출 발 시 간 : </label>
                             <input type="text" id="toTime" name="toTime" th:value="${#temporals.format(airplaneDto.toTime, 'MM월 dd일 HH시 mm분 ss초')}">
-                        </li>
-                        <li>
-                            <label for="fromTime">도착시간</label>
+
+                            <label for="fromTime">도 착 시 간 : </label>
                             <input type="text" id="fromTime" name="fromTime" th:value="${#temporals.format(airplaneDto.fromTime, 'MM월 dd일 HH시 mm분 ss초')}">
                         </li>
                     </ul>
-                    <div id="map" style="width:100%;height:350px;"></div>
+                    <div id="map"  style="width:100%;height:350px;"></div>
 
                     <script>
                         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                             mapOption = {
                                 center: new kakao.maps.LatLng(36.5, 127.5), // 지도의 중심좌표
-                                level: 20 // 지도의 확대 레벨
+                                level: 18 // 지도의 확대 레벨
                             };
 
                         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -60,11 +57,12 @@
                                 if (fromArea) {
                                     drawLine();
                                 }
-                                var marker = new kakao.maps.Marker({
+                                var customOverlay = new kakao.maps.CustomOverlay({
                                     map: map,
-                                    position: toArea
+                                    position: toArea,
+                                    content: '<div class="custom-marker">출발지</div>',
+                                    yAnchor: 1
                                 });
-                                // 이후에 해당 좌표를 사용하여 마커를 생성하고 지도에 표시하는 코드 작성
                             }
                         });
 
@@ -74,32 +72,32 @@
                                 if (toArea) {
                                     drawLine();
                                 }
-                                // 이후에 해당 좌표를 사용하여 마커를 생성하고 지도에 표시하는 코드 작성
-                                var marker = new kakao.maps.Marker({
+                                var customOverlay = new kakao.maps.CustomOverlay({
                                     map: map,
-                                    position: fromArea
+                                    position: fromArea,
+                                    content: '<div class="custom-marker">도착지</div>',
+                                    yAnchor: 1
                                 });
                             }
                         });
+
                         function drawLine() {
                             var linePath = [
                                 toArea,
                                 fromArea
                             ];
 
-                            // 지도에 표시할 선을 생성합니다
                             var polyline = new kakao.maps.Polyline({
-                                path: linePath, // 선을 구성하는 좌표배열 입니다
-                                strokeWeight: 5, // 선의 두께 입니다
+                                path: linePath, // 선을 구성하는 좌표배열입니다
+                                strokeWeight: 5, // 선의 두께입니다
                                 strokeColor: 'red', // 선의 색깔입니다
-                                strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+                                strokeOpacity: 0.8, // 선의 불투명도입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
                                 strokeStyle: 'dot' // 선의 스타일입니다
                             });
 
-                            // 지도에 선을 표시합니다
                             polyline.setMap(map);
 
-                            var distance = Math.round(polyline.getLength()/1000)+'km' // 선의 총 거리를 계산합니다
+                            var distance = Math.round(polyline.getLength() / 1000) + 'km'; // 선의 총 거리를 계산합니다
 
                             var midPoint = new kakao.maps.LatLng(
                                 (toArea.getLat() + fromArea.getLat()) / 2,
@@ -108,16 +106,15 @@
 
                             map.setCenter(midPoint);
 
-                            var infowindow = new kakao.maps.InfoWindow({
+                            var customOverlay = new kakao.maps.CustomOverlay({
                                 position: midPoint,
-                                content: '거리 : ' + distance
+                                content: '<div class="infowindow">거리: ' + distance + '</div>'
                             });
 
-// 정보창 표시
-                            infowindow.open(map);
-                            // showDistance(distance);
+                            customOverlay.setMap(map);
                         }
                         map.setDraggable(false);
+                        map.setZoomable(false);
                     </script>
                 </form>
             </div>

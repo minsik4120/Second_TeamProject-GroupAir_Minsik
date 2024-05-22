@@ -7,7 +7,7 @@
 }
 
 .registration .registration-con{
-    margin-top: 200px;
+    margin-top: 100px;
     padding: 20px;
     border: 1px solid #333;
     border-radius: 5px 5px;
@@ -51,14 +51,14 @@
 .registration .registration-con ul li label {
     width: 200px;
     color: #666;
-    padding-top: 10px;
+    padding: 10px 0;
     font-size: 20px;
     text-align: center;
     font-family: "나눔고딕 ExtraBold";
     box-sizing: border-box;
 }
 
-.registration .registration-con ul li input[type=date]{
+.registration .registration-con ul li input[type=datetime-local]{
     width: 300px;
     height: 30px;
     padding: 5px;
@@ -82,10 +82,45 @@
     padding: 10px;
     border: 1px solid #333;
     border-radius: 5px 5px;
-    font-family: "나눔고딕 ExtraBold";
 }
 
 .registration .registration-con ul li input[type=submit]:hover{
     background-color: #3767a6;
     color: white;
+}
+
+.registration .registration-con ul li input[type=button]{
+    width: 80px;
+    margin-left: 20px;
+    background-color: white;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #333;
+    border-radius: 3px 3px;
+}
+
+.registration .registration-con ul li input[type=button]:hover{
+    background-color: #3767a6;
+    color: white;
+}
+
+.registration .registration-con ul li input[type=text] {
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 7px 7px;
+    box-sizing: border-box;
+}
+.registration .registration-con ul li input.address{
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 7px 7px;
+    box-sizing: border-box;
+}
+
+.registration .registration-con ul li.li2{
+    margin-bottom: 10px;
 }

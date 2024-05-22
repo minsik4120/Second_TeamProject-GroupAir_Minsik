@@ -5,12 +5,14 @@
 <head th:replace="~{/common/head :: headFragment}"></head>
 <link rel="stylesheet" th:href="@{/css/common/admin.css}">
 <link rel="stylesheet" th:href="@{/css/chatbot/chat-bot.css}">
+
 <!-- chat bot-->
 <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
 <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
 <script th:src="@{/js/chatbot/chat.js}" defer></script>
 <!-- chat bot-->
+<script th:src="@{/js/department/weather.js}" defer></script>
 <body>
 <th:block layout:fragment="container"><!-- 각페이지의 컨텐츠  -->
     <div class="container">

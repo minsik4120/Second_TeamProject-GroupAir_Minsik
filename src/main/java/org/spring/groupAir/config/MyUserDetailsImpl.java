@@ -2,6 +2,7 @@ package org.spring.groupAir.config;
 
 import lombok.*;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.PositionEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -17,8 +18,7 @@ import java.util.Map;
 @Builder
 public class MyUserDetailsImpl implements UserDetails, OAuth2User {
 
-    private MemberEntity
-        memberEntity;
+    private MemberEntity memberEntity;
     private Map<String, Object> getAttributes;
 
     public MyUserDetailsImpl(MemberEntity memberEntity) {
@@ -87,4 +87,5 @@ public class MyUserDetailsImpl implements UserDetails, OAuth2User {
     public boolean isEnabled() {
         return true;
     }
+
 }

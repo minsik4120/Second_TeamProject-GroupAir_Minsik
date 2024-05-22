@@ -1,3 +1,4 @@
+@import url(/css/common/reset.css);
 .adminContainer {
     display: flex;
     justify-content: center;

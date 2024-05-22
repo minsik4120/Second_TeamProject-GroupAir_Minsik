@@ -7,73 +7,120 @@
     <h1>결재작성</h1>
 </th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/sign/write.css}">
+    <link rel="stylesheet" th:href="@{/css/sign/detail.css}">
 </th:block>
 <th:block layout:fragment="script">
 </th:block>
 
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
-        <div class="write">
-            <div class="write-con">
-                <form th:action="@{/sign/write}" method="POST" th:object="${signDto}" enctype="multipart/form-data">
-                    <table class="approval-form">
+        <div class="detail">
+            <div class="detail-con">
+                <form th:action="@{/sign/signOk}" method="post" th:object="${sign}" enctype="multipart/form-data">
+                    <table class="detail-form">
                         <tr>
                             <th colspan="2">품의서</th>
+                            <th>&nbsp;</th>
+                            번호:
+                            <input type="hidden" name="id" th:value="${sign.id}">
+                            <th >[[${sign.id}]]</th>
                         </tr>
                         <tr>
                             <td rowspan="2">&nbsp;</td>
-                            <td>번호</td>
-                            <td th:text="${sign.id}"></td>
-                        </tr>
-                        <tr>
-                            <td>기안자</td>
-                            <td th:text="${sign.approve}"></td>
-                        </tr>
-                        <tr>
-                            <td>부서명</td>
-                            <td th:text="${sign.deptName}"></td>
-                        </tr>
-                        <tr>
+                            <td>성명</td>
+                            <td>부서</td>
                             <td>직급</td>
-                            <td th:text="${sign.level}"></td>
                         </tr>
                         <tr>
-                            <td colspan="4">제목 <td th:text="${sign.title}"></td></td>
+                            기안자:
+                            <input type="hidden" name="approve" th:value="${sign.approve}">
+                            <td >[[${sign.approve}]]</td>
+                            부서:
+                            <input type="hidden" name="deptName" th:value="${sign.deptName}">
+                            <td >[[${sign.deptName}]]</td>
+                            직급:
+                            <input type="hidden" name="level" th:value="${sign.level}">
+                            <td >[[${sign.level}]]</td>
+
+                        </tr>
+                        <tr>   <input type="hidden" name="title" th:value="${sign.title}">
+                            <td colspan="4">제목 <span >[[${sign.title}]]</span></td>
+                        </tr>
+                        <tr><input type="hidden" name="content" th:value="${sign.content}">
+                            <td colspan="4">품의사유 및 상세내용 <span
+                                                              style="display: block; width: 100%; height: 300px; overflow-y: auto;">[[${sign.title}]]</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="4">내용 <td th:text="${sign.content}"></td></td>
+                            <td colspan="4">위와 같은 품의사유로, 검토 후 결재 바랍니다.</td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td colspan="4">처리상태
+                                <select th:value="${sign.subContent}" name="subContent" id="subContent">
+                                    <option value="#">선택</option>
+                                    <option value="승인">승인</option>
+                                    <option value="반려">반려</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+
+
+
+
+
+
+
+                            <td colspan="4">
+                                <div style="text-align: center;">
+                                    최종승인자: <input type="hidden" name="lastApprover" th:value="${sign.lastApprover}">
+                                    <span>[[${sign.lastApprover}]]</span>
+                                </div>
+                            </td>
                         </tr>
 <!--                        <tr>-->
-<!--                            <td colspan="4">중간승인자</td>-->
-<!--                            <td th:text="${sign.midApprover}"></td>-->
+<!--                            <td>-->
+<!--                            <select style="width: 100%; height: 30px;">-->
+<!--                                <option value="선택">선택</option>-->
+<!--                                <option value="승인">승인</option>-->
+<!--                                <option value="반려">반려</option>-->
+<!--                            </select>-->
+<!--                            </td>-->
 <!--                        </tr>-->
-                        <tr>
-                            <td colspan="4">최종승인자</td>
-                            <td th:text="${sign.lastApprover}"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">첨부파일</td>
-                            <td th:if="${sign.signAttachFile == 1}">
-                                <img th:src="@{|/upload/${sign.signNewFile}|}" alt="">
-                            </td>
-                            <td th:unless="${sign.signAttachFile == 1}">첨부된 파일이 없습니다.</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">작성시간</td>
-                            <td th:text="${#temporals.format(sign.createTime, 'yy-MM-dd HH:mm:ss')}"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">수정시간</td>
-                            <td th:text="${#temporals.format(sign.updateTime, 'yy-MM-dd HH:mm:ss')}"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">반려사유 <td th:text="${sign.rejectReason}"></td></textarea></td>
-                        </tr>
 
                         <tr>
                             <td colspan="4">
+                                <label for="rejectReason">반려사유</label>
+                                <input type="text" name="rejectReason" id="rejectReason" value="반려사유" style="width: 100%; height: 70px;">
+                            </td>
+                        </tr>
 
+
+
+
+
+
+<!--                        <tr>-->
+<!--                            <td colspan="4"><span th:text="${sign.rejectReason}"></span></td>-->
+<!--                            <span>-->
+<!--                            <label for="rejectReason">반려사유</label><input type="text" name="rejectReason"-->
+<!--                                                                         id="rejectReason"-->
+<!--                                                                         th:value="${sign.rejectReason}">-->
+<!--                        </span>-->
+<!--                        </tr>-->
+                        &nbsp;
+
+                        <!--                        </tr>-->
+                        <!--                        <tr>-->
+                        <!--                            <td colspan="4">-->
+                        <!--                                <label for="signFile">파일</label>-->
+                        <!--                                <input type="file" name="signFile" id="signFile">-->
+                        <!--                            </td>-->
+                        <!--                        </tr>-->
+                        <tr>
+                            <td colspan="4">
+                                <input type="submit" value="승인" style="width: 100%;">
                             </td>
                         </tr>
                     </table>

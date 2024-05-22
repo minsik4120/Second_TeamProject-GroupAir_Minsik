@@ -32,7 +32,7 @@ public class SignDto {
     private int signAttachFile;
 
 
-    private String rejectReason;
+    private String rejectReason;// 승인
 
     private LocalDateTime createTime;
 

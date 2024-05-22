@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -95,7 +96,7 @@ public class MemberService implements MemberServiceInterface {
         }
     }
 
-<<<<<<< HEAD
+
     
     //sign추가
     @Override
@@ -113,7 +114,6 @@ public class MemberService implements MemberServiceInterface {
 
 
 
-=======
     @Override
     public String findName(Long id) {
 
@@ -121,5 +121,23 @@ public class MemberService implements MemberServiceInterface {
 
         return name;
     }
->>>>>>> dev
+
+    @Override
+    public List<MemberDto> findBujang() {
+
+        String position = "부장";
+        List<MemberEntity> memberEntityList
+                = memberRepository.findByPositionEntityPositionName(position);
+
+        List<MemberDto> memberDtoList =
+                memberEntityList.stream().map(MemberDto :: toMemberDto).collect(Collectors.toList());
+
+        return memberDtoList;
+    }
+
+    @Override
+    public String findPosition(String name) {
+        return null;
+    }
+
 }

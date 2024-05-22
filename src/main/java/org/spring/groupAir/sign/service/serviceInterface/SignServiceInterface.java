@@ -24,7 +24,7 @@ public interface SignServiceInterface {
 
     void update(SignDto signDto);
 
-    void insertSign(SignDto signDto) throws IOException;
+    Long insertSign(SignDto signDto) throws IOException;
 
     List<SignDto> signList(Pageable pageable);
 
@@ -37,4 +37,10 @@ public interface SignServiceInterface {
 //    List<SignDto> getSignListByLastApprover(String name);
 
     Page<SignDto> apvList(Pageable pageable, String subject, String search, String name);
+
+    void signOk(SignDto signDto);
+
+    List<SignDto> signSubContnetList(String subContent);
+
+    Page<SignDto> myApvList(Pageable pageable, String subject, String search, String name);
 }

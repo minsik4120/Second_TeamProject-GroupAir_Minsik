@@ -2,6 +2,8 @@ package org.spring.groupAir.sign.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.config.MyUserDetailsImpl;
+import org.spring.groupAir.member.dto.MemberDto;
+import org.spring.groupAir.member.service.MemberService;
 import org.spring.groupAir.member.service.memberServiceInterface.MemberServiceInterface;
 import org.spring.groupAir.sign.dto.SignDto;
 import org.spring.groupAir.sign.service.SignService;
@@ -30,10 +32,15 @@ public class SignController {
 
     private final SignService signService;
     private final SignServiceInterface signServiceInterface;
+    private final MemberService memberService;
     private final MemberServiceInterface memberServiceInterface;
 
     @GetMapping({"", "/index"})
-    public String index() {
+    public String index(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, Model model) {
+
+        String Position = memberService.findPosition(myUserDetails.getName());
+
+        model.addAttribute( "myUserDetails", myUserDetails);
 
         return "sign/index";
     }
@@ -48,7 +55,10 @@ public class SignController {
     @GetMapping("/write")
     public String write(Model model) {
         model.addAttribute("signDto", new SignDto());
-        model.addAttribute("members", memberServiceInterface.memberList(Pageable.unpaged(), null, null));
+
+        List<MemberDto> memberDtoList = memberService.findBujang();
+
+        model.addAttribute("members", memberDtoList);
 
 
         return "sign/write";
@@ -66,32 +76,6 @@ public class SignController {
 
 //        return "sign/write"; // 모든 회원 정보를 가져와서 모델에 추가
 //
-
-
-    private boolean checkUserRole(String name, String role) {
-
-        return "approver".equalsIgnoreCase("lastApprover");
-    }
-
-    @PostMapping("/write")
-    public String writeOk(@Valid SignDto signDto, BindingResult bindingResult) throws IOException {
-
-        if (bindingResult.hasErrors()) {
-            return "sign/write";
-        }
-//        signService.write(signDto);
-
-        signService.insertSign(signDto);
-        return "redirect:/sign/signList";
-
-    }
-
-
-    private boolean isApprover(String userName) {
-        // 사용자 이름을 기준으로 승인자 여부를 확인하는 로직을 작성합니다.
-        // 예를 들어, 사용자 이름이 "admin"이거나 "approver"라면 승인자로 간주합니다.
-        return "admin".equalsIgnoreCase(userName) || "lastApprover".equalsIgnoreCase(userName);
-    }
 
 
 //    @GetMapping("/signList")
@@ -175,24 +159,23 @@ public class SignController {
                            @AuthenticationPrincipal MyUserDetailsImpl myUserDetails,
                            Model model) {
 
-//            System.out.println(">>>>>>>>>"+myUserDetails.getName());
-//            model.addAttribute("myUserDetails",myUserDetails);
-//            String name = myUserDetails.getName();
-            String name = "유부장";
-            Page<SignDto> signDtoPage = signService.apvList(pageable, subject, search, name);
+        String name = myUserDetails.getName();
+//        String name = "유부장";
+        Page<SignDto> signDtoPage = signService.apvList(pageable, subject, search, name);
+        int totalPages = signDtoPage.getTotalPages();
+        int newPage = signDtoPage.getNumber();
 
-            int totalPages = signDtoPage.getTotalPages();
-            int newPage = signDtoPage.getNumber();
-            int blockNum = 10;
-            int startPage = (int) (
-                    (Math.floor(newPage / blockNum) * blockNum) + 1 <=
-                            totalPages ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPages);
-            int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
+        int blockNum = 10;
+        int startPage = (int) (
+                (Math.floor(newPage / blockNum) * blockNum) + 1 <=
+                        totalPages ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPages);
+        int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
 
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("newPage", newPage);
-            model.addAttribute("endPage", endPage);
-            model.addAttribute("signDtoPage", signDtoPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("newPage", newPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("signDtoPage", signDtoPage);
+
 
         return "sign/signList";
 
@@ -249,15 +232,62 @@ public class SignController {
         return "redirect:/sign/signList";
     }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute SignDto signDto) {
-        signService.update(signDto);
-        return "redirect:/sign/detail/" + signDto.getId();
-    }
+//    @PostMapping("/update")
+//    public String update(@ModelAttribute SignDto signDto) {
+//        signService.update(signDto);
+//        return "redirect:/sign/signOk/" + signDto.getId();
+//    }
 
     private String getCurrentUserName() {
         // 현재 로그인한 사용자의 이름을 반환하는 로직
         return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    @GetMapping("/signOk")
+    public String signOk() {
+
+        return "sign/signOk";
+
+    }
+
+
+    @PostMapping("/signOk")
+    public String signOk(@Valid SignDto signDto, BindingResult bindingResult, Model model) throws IOException {
+        if (bindingResult.hasErrors()) {
+
+
+            return "sign/signList";
+        }
+
+//        System.out.println(signDto.getRejectReason()+" <<< 승인");
+
+        signService.update(signDto);
+
+        List<SignDto> signOkList = signService.signSubContnetList(signDto.getSubContent());
+
+        model.addAttribute("signOkList", signOkList);
+
+        System.out.println(signOkList + " signOkList");
+
+        // 페이지 이동
+//        return "redirect:/sign/signOk";
+        return "sign/signOk";
+
+    }
+
+    @PostMapping("/write")
+    public String writeOk(@Valid SignDto signDto, BindingResult bindingResult) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            return "sign/write";
+        }
+//        signService.write(signDto);
+
+        Long id = signService.insertSign(signDto);
+
+
+        return "redirect:/sign/signList/";
+
     }
 
 

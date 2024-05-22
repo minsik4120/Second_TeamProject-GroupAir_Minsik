@@ -1,13 +1,20 @@
 server:
   port: 8095
-
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 #Spring ??
 spring:
   datasource:
+    sql-script-encoding: utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver #?????
-    url: jdbc:mysql://localhost:3306/GroupAirTeam #DB URL
+    url: jdbc:mysql://localhost:3306/GroupAirTeam?useUnicode=true&characterEncoding=utf8  #DB URL
     username: root #?? (root? ??? ??)
     password: 1234 #????
+
+
 #  servlet:
 #    multipart:
 #      enabled: true

@@ -2,7 +2,7 @@ package org.spring.groupAir.sign.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.sign.dto.SignDto;
@@ -10,7 +10,7 @@ import org.spring.groupAir.sign.dto.SignDto;
 import javax.persistence.*;
 import java.util.List;
 
-@DynamicInsert
+@DynamicUpdate
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -37,7 +37,7 @@ public class SignEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private int signAttachFile;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String rejectReason;
 
     @Column(nullable = false)
@@ -79,7 +79,7 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setApprove(signDto.getApprove());
         signEntity.setTitle(signDto.getTitle());
         signEntity.setContent(signDto.getContent());
-
+    signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setDeptName(signDto.getDeptName());
         signEntity.setMidApprover(signDto.getMidApprover());
         signEntity.setLastApprover(signDto.getLastApprover());
@@ -98,12 +98,11 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setContent(signDto.getContent());
         signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setSignAttachFile(signDto.getSignAttachFile());
-
         signEntity.setDeptName(signDto.getDeptName());
-        signEntity.setMidApprover(signDto.getMidApprover());
         signEntity.setLastApprover(signDto.getLastApprover());
-        signEntity.setSubContent(signDto.getSubContent());
         signEntity.setLevel(signDto.getLevel());
+        signEntity.setSubContent(signDto.getSubContent());
+        signEntity.setMidApprover(signDto.getMidApprover());
 
         return signEntity;
 
@@ -121,7 +120,7 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setContent(signDto.getContent());
         signEntity.setSignAttachFile(0);
         signEntity.setMemberEntity(signDto.getMemberEntity());
-
+        signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setDeptName(signDto.getDeptName());
         signEntity.setMidApprover(signDto.getMidApprover());
         signEntity.setLastApprover(signDto.getLastApprover());
@@ -140,7 +139,7 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setContent(signDto.getContent());
         signEntity.setSignAttachFile(1);
         signEntity.setMemberEntity(signDto.getMemberEntity());
-
+        signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setDeptName(signDto.getDeptName());
         signEntity.setMidApprover(signDto.getMidApprover());
         signEntity.setLastApprover(signDto.getLastApprover());

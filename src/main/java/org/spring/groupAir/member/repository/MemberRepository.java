@@ -21,10 +21,10 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
     Page<MemberEntity> findByUserEmailContains(Pageable pageable, String search);
 
-<<<<<<< HEAD
+
     //sign추가
     Page<MemberEntity> findByNameContainingIgnoreCase(Pageable pageable, String name);
-=======
+
 
     Optional<MemberEntity> findByName(String name);
 
@@ -33,6 +33,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     List<MemberEntity> findNotVacationPerson(@Param("date") LocalDate now);
 
     Optional<MemberEntity> findByNameEquals(String name);
->>>>>>> dev
 
+
+    List<MemberEntity> findByPositionEntityPositionName(String position);
 }

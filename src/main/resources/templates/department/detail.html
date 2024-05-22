@@ -57,7 +57,8 @@
                                     <option value="">부서명</option>
                                     <th:block th:each="de : ${list}">
                                         <option name="chose" th:value="${de.id}"
-                                                th:text="${de.topDepartmentName}"></option>
+                                                th:text="${de.topDepartmentName}"
+                                                th:selected="${de.id eq department.topDepartmentEntity.id}"></option>
                                     </th:block>
                                 </select>
                             </li>

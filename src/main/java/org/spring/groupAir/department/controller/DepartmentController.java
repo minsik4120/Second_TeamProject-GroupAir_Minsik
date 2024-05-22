@@ -158,5 +158,12 @@ public class DepartmentController {
         return departmentService.getSubDepartments(topDepartmentId);
     }
 
+    // 날씨 테스트
+    @GetMapping("/weather")
+    public String weather() {
+
+        return "department/weather";
+    }
+
 
 }

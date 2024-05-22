@@ -185,7 +185,7 @@
 
 .admin .right{
     flex:1;
-    /* background-color: cadetblue; */
+    background-color: #3767a6;
 }
 .admin .right .right-con{
     min-height: 100vh;
@@ -254,6 +254,7 @@
     right: 0;
     top: 75px;
     background-color: #fff;
+    border-radius: 10px 0 0 0;
 }
 
 

@@ -89,4 +89,11 @@ public class AirplaneService implements AirPlaneServiceInterface {
 
         return airplaneDto;
     }
+
+    @Override
+    public void airplaneDelete(Long id) {
+
+        airplaneRepository.deleteById(id);
+
+    }
 }

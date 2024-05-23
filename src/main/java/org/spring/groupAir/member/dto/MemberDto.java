@@ -82,6 +82,9 @@ public class MemberDto {
 
     private List<SignEntity> signEntityList;
 
+    private Long positionId;
+    private Long departmentId;
+
     public static MemberDto toMemberDto(MemberEntity memberEntity){
 
         MemberDto memberDto = new MemberDto();
@@ -106,7 +109,6 @@ public class MemberDto {
         memberDto.setSignEntityList(memberEntity.getSignEntityList());
         memberDto.setCreateTime(memberEntity.getCreateTime());
         memberDto.setUpdateTime(memberEntity.getUpdateTime());
-
         if(memberEntity.getMemberAttachFile()==0){
             //파일 x
             memberDto.setMemberAttachFile(memberDto.getMemberAttachFile());
@@ -114,6 +116,15 @@ public class MemberDto {
             memberDto.setMemberAttachFile(memberDto.getMemberAttachFile());
             memberDto.setMemberNewFileName(memberEntity.getMemberFileEntityList().get(0).getMemberNewFile());
             memberDto.setMemberOldFileName(memberEntity.getMemberFileEntityList().get(0).getMemberOldFile());
+        }
+
+        if (memberEntity.getMemberAttachFile() == 0) {
+            memberDto.setMemberAttachFile(memberEntity.getMemberAttachFile());
+        } else {
+            memberDto.setMemberAttachFile(memberEntity.getMemberAttachFile());
+            memberDto.setMemberFileName(memberEntity.getMemberFileEntityList().get(0).getMemberNewFile());
+            memberDto.setMemberOldFileName(memberEntity.getMemberFileEntityList().get(0).getMemberOldFile());
+            memberDto.setMemberNewFileName(memberEntity.getMemberFileEntityList().get(0).getMemberNewFile());
         }
 
         return memberDto;

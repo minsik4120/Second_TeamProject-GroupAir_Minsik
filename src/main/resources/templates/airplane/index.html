@@ -61,6 +61,7 @@
                         <td th:if="${airplane.toArea.contains('횡성군')}" th:text="'원주공항 (WJU)'"></td>
                         <td th:if="${airplane.toArea.contains('제주시')}" th:text="'제주국제공항 (CJU)'"></td>
                         <td th:if="${airplane.toArea.contains('밀양시')}" th:text="'사랑나무공항 (KAG)'"></td>
+
                         <td th:text="${#temporals.format(airplane.fromTime, 'MM월 dd일 HH시 mm분')}"></td>
                         <td th:if="${airplane.fromArea.contains('중구')}" th:text="'인천국제공항 (ICN)'"></td>
                         <td th:if="${airplane.fromArea.contains('강서구')}" th:text="'김포국제공항 (GMP)'"></td>

@@ -10,4 +10,6 @@ public interface AirPlaneServiceInterface {
     void addAirplane(AirplaneDto airplaneDto);
 
     AirplaneDto airplaneDetail(Long id);
+
+    void airplaneDelete(Long id);
 }

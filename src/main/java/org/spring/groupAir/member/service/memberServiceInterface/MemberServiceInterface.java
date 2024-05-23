@@ -1,10 +1,5 @@
 package org.spring.groupAir.member.service.memberServiceInterface;
 
-<<<<<<< HEAD
-import org.spring.groupAir.airplane.dto.AirplaneDto;
-=======
-import org.spring.groupAir.department.entity.DepartmentEntity;
->>>>>>> dev
 import org.spring.groupAir.member.dto.MemberDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +11,6 @@ import java.util.List;
 public interface MemberServiceInterface {
 
     Page<MemberDto> memberList(Pageable pageable, String subject, String search);
-
-
-
 
     MemberDto memberDetail(Long id);
 

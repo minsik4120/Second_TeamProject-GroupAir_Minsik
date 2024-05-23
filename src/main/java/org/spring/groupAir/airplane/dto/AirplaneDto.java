@@ -2,6 +2,7 @@ package org.spring.groupAir.airplane.dto;
 
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
@@ -15,13 +16,17 @@ public class AirplaneDto {
 
     private Long id;
 
-    private String fromTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime fromTime;
 
     private String fromArea;
 
-    private String ToTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime toTime;
 
-    private String ToArea;
+    private String toArea;
+
+    private int timeTaken;
 
     private String airplane;
 

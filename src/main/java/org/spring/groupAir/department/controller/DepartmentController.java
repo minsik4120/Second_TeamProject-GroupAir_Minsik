@@ -53,6 +53,7 @@ public class DepartmentController {
         DepartmentDto department = departmentService.detail(id);
 
         model.addAttribute("department", department);
+        model.addAttribute("activeId", id); // 현재 활성화된 ID를 모델에 추가
 
         return "department/detail";
     }
@@ -117,6 +118,7 @@ public class DepartmentController {
         List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
 
         model.addAttribute("list", list);
+        model.addAttribute("activeId", null);
 
         return "department/top/deList";
     }
@@ -156,6 +158,13 @@ public class DepartmentController {
     public List<DepartmentDto> getSubDepartments(@RequestParam("topDepartmentId") Long topDepartmentId) {
         // 선택된 상위 부서에 해당하는 하위 부서 목록을 가져옴
         return departmentService.getSubDepartments(topDepartmentId);
+    }
+
+    // 날씨 테스트
+    @GetMapping("/weather")
+    public String weather() {
+
+        return "department/weather";
     }
 
 

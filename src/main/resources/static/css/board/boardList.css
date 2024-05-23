@@ -28,7 +28,23 @@ justify-content: center;
   padding: 20px;
  
 }
+.boardList .boardList-con .search form{
+  display: flex;
+  height: 30px;
+  gap: 5px;
+}
 
+.boardList .boardList-con .search form select{
+  width: 100px;
+
+  
+
+}
+
+
+.boardList .boardList-con .search form input:nth-child(3){
+ width: 40px;
+}
 .boardList .boardList-con h1{
   background-color: black;
   color: white;
@@ -51,15 +67,18 @@ justify-content: center;
   width: 100%;
 }
 th, td{
-  border: 1px solid #cccccc;
+  border: 0;
+  border-bottom: 1px solid #ebecef;
 }
 .boardList .boardList-con table th{
-  background-color: rgb(85, 129, 223);
+  background-color: rgb(246 248 251);
   padding: 5px;
   box-sizing: border-box;
+  border-collapse: collapse;
 }
 
 .boardList .boardList-con table tbody td{
+  height: 28px;
   background-color: white;
   color: black;
   padding: 2px;
@@ -143,5 +162,11 @@ span.now {
     padding: 0 10px;
     position: relative;
     cursor: pointer;
+
+}
+
+.adminContainer .boardList .boardList-con .write {
+  display: flex;
+  justify-content: flex-end;
 
 }

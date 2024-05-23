@@ -22,7 +22,7 @@
                     <form th:action="@{/commute/work}" method="get">
                         <select name="subject" id="subject">
                             <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
-                            <option value="userName" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
+                            <option value="name" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
                         </select>
                         <input type="text" name="search" id="search" th:value="${param.search}">
                         <input type="submit" value="SEARCH">
@@ -67,7 +67,7 @@
                                         <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}"
                                               class="span0">PRE</span>
                                         <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
-                                            <a th:href="@{/commute/work(page=${commuteDtoPage.pageable.pageNumber-1}
+                                            <a th:href="@{/commute/work(page=${memberDtoPage.pageable.pageNumber-1}
                                             ,search = ${param.search}, subject = ${param.subject})}"
                                                class="span1">이전</a>
                                     </span>

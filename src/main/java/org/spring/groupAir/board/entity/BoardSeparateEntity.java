@@ -24,6 +24,7 @@ public class BoardSeparateEntity extends BaseTimeEntity {
     @Column(name = "boardSeparate_id")  // id
     private Long id;
 
+
     @Column(nullable = false)
     private String boardSeparateName;
 

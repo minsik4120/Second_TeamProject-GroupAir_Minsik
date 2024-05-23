@@ -31,9 +31,13 @@ public class BoardDto {
 
   private Long memberId;  // 게시판 글 작 성 시
 
+  private Long boardSeparateId;
 
+  private String boardSeparateName;
 
   private String writer;
+
+
 
   private int boardAttachFile; //게시글 작성시 파일이 존재하면 1, 없으면 0
 
@@ -41,15 +45,11 @@ public class BoardDto {
 
   private MemberEntity memberEntity; // member_id 12345
 
-
   private BoardSeparateEntity boardSeparateEntity;
-
 
   private List<BoardReplyEntity> boardReplyEntityList;
 
-
   private List<BoardFileEntity> boardFileEntityList;
-
 
   private LocalDateTime createTime;
 
@@ -62,6 +62,7 @@ public class BoardDto {
 
 
 
+
   public static BoardDto toSelectBoardDto(BoardEntity boardEntity) {
 
     BoardDto boardDto = new BoardDto();
@@ -71,9 +72,16 @@ public class BoardDto {
     boardDto.setContent(boardEntity.getContent());
     boardDto.setHit(boardEntity.getHit());
     boardDto.setMemberEntity(boardEntity.getMemberEntity());
+    boardDto.setBoardAttachFile(boardEntity.getBoardAttachFile());
     boardDto.setCreateTime(boardEntity.getCreateTime());
     boardDto.setUpdateTime(boardEntity.getUpdateTime());
-    boardDto.setMemberId(boardEntity.getId());
+    boardDto.setMemberId(boardEntity.getMemberEntity().getId());
+
+    // 얘가 왜 안돼 ?
+   /* boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());*/
+
+//    boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());
+    /*boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());*/
 
     if (boardEntity.getBoardAttachFile()==0) {
       // 파일이 x

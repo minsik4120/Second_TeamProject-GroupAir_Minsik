@@ -67,10 +67,67 @@
     gap: 3px;
     background-color: #eff6ff;
 }
-.admin .left-con .top .left-menu>ul>li{
+
+.admin .left-con .top .left-menu>ul>.menuBar{
     padding: 2px 5px;
     box-sizing: border-box;
     text-align: center;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>a{
+    display: block;
+    font-size: 16px;
+    padding: 12px 5px;
+    border-radius: 20px;
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>li{
+   position: relative;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar:hover>a{
+    background-color: #3767a6;
+    color: #fff;
+    font-weight: bold;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu{
+    display: block;
+    position: relative;
+    max-height: 0px;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li{
+    padding: 4px 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar:hover>.subMenu {
+    max-height: 500px; /* 적절한 최대 높이 설정 */
+    opacity: 1;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li>a {
+    display: block;
+    width: 150px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #96b3d9;
+    padding: 4px 3px;
+    font-size: 14px;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li>a:hover{
+    color: #fff;
+    background-color: #3767a6;
+    transition: 0.2s;
 }
 
 .admin .left-con .bottom{

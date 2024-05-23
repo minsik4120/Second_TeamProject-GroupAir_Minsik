@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+<th:block layout:fragment="title">
+    <!-- 각 페이지 마다 변경 -->
+    <title>vacationCreate</title>
+</th:block>
+<th:block layout:fragment="css">
+    <!-- 각 페이지 마다 변경 -->
+    <link rel="stylesheet" th:href="@{/css/salary/update.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="salaryUpdate">
+            <div class="salaryUpdate-con">
+                <h1>[[${salaryDto.memberEntity.name}]]의 휴가 등록</h1>
+                <form th:action="@{/salary/update}" method="post">
+                    <ul>
+                        <li>
+                            <label for="employeeId" hidden="hidden">회원 번호</label>
+                            <input type="hidden" id="employeeId" name="employeeId" th:value="${salaryDto.memberEntity.id}">
+                        </li>
+                        <li>
+                            <label for="id" hidden="hidden">급여 번호</label>
+                            <input type="hidden" id="id" name="id" th:value="${salaryDto.id}">
+                        </li>
+                        <li>
+                            <label for="paymentDate">급여일</label>
+                            <input type="date" id="paymentDate" name="paymentDate" th:value="${salaryDto.paymentDate}">
+                        </li>
+
+                        <li>
+                            <label for="pay">급여액</label>
+                            <input type="text" id="pay" name="pay" th:value="${salaryDto.pay}">
+                        </li>
+
+                        <li class="li2">
+                            <input type="submit" value="급여 조정">
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

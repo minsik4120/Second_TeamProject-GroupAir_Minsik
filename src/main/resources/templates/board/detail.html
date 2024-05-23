@@ -12,6 +12,7 @@
 
 </th:block>
 <th:block layout:fragment="script">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script th:src="@{/js/board/reply.js}" defer></script>
   <!-- 각 페이지 마다 변경 -->
 </th:block>
@@ -54,6 +55,21 @@
                   <input type="text" name="memberId" id="memberId" th:value="${board.memberEntity.id}" readonly>
                 </li>
 
+                <li>
+                  <label for="boardSeparateName">boardSeparateId</label>           <!-- board.getMemberEntity().id -->
+                  <input type="text" name="boardSeparateEntity.boardSeparateName" id="boardSeparateName" th:value="${name}">
+                </li>
+
+
+                <!--    <li>
+                      <label for="boardSeparateId"></label>
+                      <select name="boardSeparateId" id="boardSeparateId" th:value="${board.boardSeparateEntity.id}">
+                        <option hidden>게시판을 선택해주세요</option>
+                        <option value="1">공지사항</option>
+                        <option value="2">자유게시판</option>
+                      </select>
+                    </li>-->
+
 
 
                 <li>
@@ -76,12 +92,12 @@
                   <input type="text" name="hit" id="hit" th:value="${board.hit}">
                 </li>
                 <li>
-                  <label for="createTime">작성시간</label>
-                  <input type="text" name="hit" id="createTime" th:value="${board.createTime}">
+                  <label>작성시간</label>
+                  <span  th:text="${board.createTime}"></span>
                 </li>
                 <li>
-                  <label for="updateTime">수정시간</label>
-                  <input type="text" name="updateTime" id="updateTime" th:value="${board.updateTime}">
+                  <label>수정시간</label>
+                  <span  th:text="${board.updateTime}"></span>
                 </li>
                 <li>
                   <input type="submit" value="수정" class="btn1">
@@ -95,7 +111,7 @@
         </div>
 
 
-        <div class="bottom">
+       <!-- <div class="bottom">
           <div class="reply">
 
             <div class="reply-con">
@@ -128,7 +144,7 @@
                   <td th:text="${reply.replyWriter}">data</td>
                   <td th:text="${reply.createTime}">data</td>
                 </tr>
-                <!--Ajax -->
+                &lt;!&ndash;Ajax &ndash;&gt;
                 </tbody>
               </table>
             </div>
@@ -136,6 +152,6 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 </th:block>
 </html>

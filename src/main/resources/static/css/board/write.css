@@ -10,23 +10,36 @@ width: 1080px;
 }
 
 .adminContainer .write .write-con{ 
+  padding: 30px;
  
   display: flex;
   justify-content: center;
 }
 
 .adminContainer .write .write-con .header-box{ 
-margin-bottom: 20px;
+/* margin-bottom: 20px; */
 height: 150px;
 border-radius: 30px;
 background-color: rgb(249 249 249);
 }
 
+
+.adminContainer .write .write-con .header-box .board-box{ 
+  
+  }
+  
+
+.adminContainer .write .write-con .header-box input{ 
+
+  border: 0;
+  border-bottom: 1px solid #ebecef;
+
+}
 .adminContainer .write .write-con .header-box .title{ 
 
-  height: 30px;
-  margin-left: 20px;
-  width: 680px;
+  height: 40px;
+  margin-left: 40px;
+  width: 600px;
   background-color: #f5f6f8;
   border: 1px solid rgb(235, 231, 231);
   display: flex;
@@ -41,15 +54,27 @@ background-color: rgb(249 249 249);
 
 }
 
+.adminContainer .write .write-con .board-header select{ 
+  border-bottom-color: #89b9db;
+  height: 40px;
+  width: 300px;
+  border-width: 0 0 1px;
+  box-sizing: border-box;
+
+
+ 
+
+}
+
 .adminContainer .write .write-con .board-header{ 
   
   padding: 40px;
   height: 30px;
- 
+  width: 680px;
   border-radius: 20px;
  
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
 }
@@ -59,22 +84,65 @@ background-color: rgb(249 249 249);
 
 .adminContainer .write .write-con .board-header > li:nth-child(1){ 
  
-  flex: 1;
+ width: 400px;
 
 }
-.adminContainer .write .write-con .board-header > li:nth-child(2){ 
+/* .adminContainer .write .write-con .board-header > li:nth-child(2){ 
  
   flex: 1;
+  height: 40px;
+} */
+
+ .adminContainer .write .write-con .board-header > li:nth-child(2) input{ 
+  
+  /* margin-right: 78px; */
+  border-bottom-color: aqua;
+  border-radius: 12px;
+  height: 40px;
+} 
+
+
+.adminContainer .write .write-con .board-header > li:nth-child(3){ 
+ 
+  display: flex;
+  justify-content: center;
 
 }
+
+.adminContainer .write .write-con .board-header > li:nth-child(3) label{ 
+
+  height: 40px;
+}
+
+
 
 .adminContainer .write .write-con .board-title{
   font-size: 30px;
   height: 100px;
 }
+.adminContainer .write .write-con .board-join { 
+
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+
+
+}
+
+.adminContainer .write .write-con .board-join li:nth-child(2) input{
+
+box-shadow: 1px 1px;
+    width: 50px;
+    height: 30px;
+    border-radius: 12px;
+  
+
+}
+
+
 
 .adminContainer .write .write-con textarea{ 
-  margin-top: 100px;
+  /* margin-top: 100px; */
   border: none;
   padding: 20px;
   border:1px solid rgb(231, 223, 223)

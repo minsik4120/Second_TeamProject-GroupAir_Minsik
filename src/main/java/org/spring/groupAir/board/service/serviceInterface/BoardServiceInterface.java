@@ -23,4 +23,7 @@ public interface BoardServiceInterface {
   void deleteBoard(Long id);
 
 
+  List<BoardEntity> getBoardsBySeparateId(Long boardSeparateId);
+
+/*  BoardSeparateEntity getBoardSeparateById(Long boardSeparateId);*/
 }

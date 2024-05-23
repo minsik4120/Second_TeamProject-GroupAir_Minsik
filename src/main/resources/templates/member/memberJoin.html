@@ -9,14 +9,14 @@
 <th:block layout:fragment="css">
     <!-- 각 페이지 마다 변경 -->
     <link rel="stylesheet" th:href="@{/css/member/memberJoin.css}">
-
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/member/member.js}" defer></script>
     <script th:src="@{/js/member/address.js}" defer></script>
+    <script th:src="@{/js/member/department.js}" defer></script>
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
@@ -55,7 +55,6 @@
                             </li>
                             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
 
-
                             <li>
                                 <label for="employeeDate">입사일</label>
                             </li>
@@ -77,71 +76,28 @@
 
                             </li>
                             <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error"></p>
-
-                            <!--<li>
-                                <label for="departmentEntity.departmentName">부서</label>
+                            <li>
+                                <label for="topDepartmentSelect">상위 부서</label>
                             </li>
                             <li>
-                                <select name="departmentEntity.departmentName" id="departmentEntity.departmentName">
-                                    <option value="영업부">영업부</option>
-                                    <option value="재무부">재무부</option>
-                                    <option value="경영본부">경영본부</option>
-                                    <option value="객실본부">객실본부</option>
-                                    <option value="운행본부">운행본부</option>
-                                    <option value="정비부">정비부</option>
-                                </select>
-
-                            </li>
-                            <p th:if="${#fields.hasErrors('departmentEntity.departmentName')}"
-                               th:errors="*{departmentEntity.departmentName}" class="error"></p>
-
-                            <script>
-
-                                document.getElementById('departmentEntity.departmentName').addEventListener('change', function() {
-                                    var selectedDepartment = this.value;
-                                    // 선택된 부서에 해당하는 topDepartmentEntity의 값을 설정
-                                     if (selectedDepartment === '영업부' || selectedDepartment === '재무부' || selectedDepartment === '경영본부') {
-                                        document.getElementById('topDepartmentEntity.topDepartmentName').value = 서비스부;
-                                        }else if (selectedDepartment === '객실본부' || selectedDepartment === '운행본부' || selectedDepartment === '정비부') {
-                                        document.getElementById('topDepartmentEntity.topDepartmentName').value = 기술부;
-                                    }
-
-                            </script>-->
-                            <li>
-                                <label for="departmentEntity.topDepartmentEntity.topDepartmentName">부서</label>
-                            </li>
-                            <li>
-                                <select onchange="categoryChange(this)" name="departmentEntity.topDepartmentEntity.topDepartmentName" id="departmentEntity.topDepartmentEntity.topDepartmentName">
-                                    <option>부서1를 선택하세요</option>
-                                    <option value="서비스부">서비스부</option>
-                                    <option value="기술부">기술부</option>
+                                <select name="departmentEntity.topDepartmentEntity" id="topDepartmentSelect">
+                                    <option value="">상위 부서를 선택하세요</option>
+                                    <th:block th:each="topDepartment : ${list}">
+                                        <option th:value="${topDepartment.id}"
+                                                th:utext="${topDepartment.topDepartmentName}"
+                                                th:attr="data-department-list=${topDepartment.departmentEntityList}"></option>
+                                    </th:block>
                                 </select>
                             </li>
 
-                            <select  name="departmentEntity.departmentName" id="departmentEntity.departmentName">
-                                <option>부서2</option>
-                            </select>
-<script>
-                            function categoryChange(e) {
-                            var good_서비스부 = ["영업부", "재무부", "경영본부"];
-                            var good_기술부 = ["객실본부", "운행본부", "정비부"];
-                            var target = document.getElementById("departmentEntity.departmentName");
-
-                            if(e.value == "서비스부") var d = good_서비스부;
-                            else if(e.value == "기술부") var d = good_기술부;
-
-
-                            target.options.length = 0;
-
-                            for (x in d) {
-                            var opt = document.createElement("option");
-                            opt.value = d[x];
-                            opt.innerHTML = d[x];
-                            target.appendChild(opt);
-                            }
-                            }
-</script>
-
+                            <li>
+                                <label for="departmentSelect">부서</label>
+                            </li>
+                            <li>
+                                <select name="departmentEntity" id="departmentSelect">
+                                    <option value="">부서를 선택하세요</option>
+                                </select>
+                            </li>
                             <li>
                                 <label for="positionEntity.positionName">직급</label>
                             </li>
@@ -152,47 +108,44 @@
                                     <option value="대표이사">대표이사</option>
                                 </select>
                             </li>
-                            <p th:if="${#fields.hasErrors('positionEntity.positionName')}" th:errors="*{positionEntity.positionName}"
+                            <p th:if="${#fields.hasErrors('positionEntity.positionName')}"
+                               th:errors="*{positionEntity.positionName}"
                                class="error"></p>
 
 
-                                                        <li>
-                                                            <label for="address">주 소</label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="text" id="sample6_postcode" placeholder="우편번호">
-                                                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                                                            <input type="text" id="sample6_address" placeholder="주소"><br>
-                                                            <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                                                            <input type="hidden" id="address" placeholder="결합된 주소" th:field="*{address}">
-                                                        </li>
+                            <li>
+                                <label for="address">주 소</label>
+                            </li>
+                            <li>
+                                <input type="text" id="sample6_postcode" placeholder="우편번호">
+                                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                                <input type="text" id="sample6_address" placeholder="주소"><br>
+                                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                                <input type="hidden" id="address" placeholder="결합된 주소" th:field="*{address}">
+                            </li>
+                            <li>
+                                <label for="phone">전 화 번 호</label>
+                            </li>
+                            <li>
+                                <input type="tel" id="phone" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+                                       th:field="*{phone}" placeholder="전화번호"> <br>
+                            </li>
 
 
-                                                        <li>
-                                                            <label for="phone">전 화 번 호</label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="tel" id="phone" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
-                                                                   th:field="*{phone}" placeholder="전화번호"> <br>
-                                                        </li>
+                            <li class="file">
+                                <label for="memberFile">사 진 첨 부</label>
+                                <input type="file" name="memberFile" id="memberFile">
+                            </li>
 
+                            <li>
+                                <input type="submit" value="회원등록">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
 
-                                                        <li class="file">
-                                                            <label for="memberFile">사 진 첨 부</label>
-                                                            <input type="file" name="memberFile" id="memberFile">
-                                                        </li>
-
-                                                        <li>
-                                                            <input type="submit" value="회원등록">
-                                                        </li>
-                                                    </ul>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </th:block>
-                            </html>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

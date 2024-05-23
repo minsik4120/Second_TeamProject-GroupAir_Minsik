@@ -1,6 +1,7 @@
 package org.spring.groupAir.board.repository;
 
 import org.spring.groupAir.board.entity.BoardEntity;
+import org.spring.groupAir.board.entity.BoardSeparateEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,4 +31,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity,Long> {
   @Modifying
   @Query(value = "update BoardEntity b set b.hit=b.hit+1 where b.id=:id")
   void updateHitById(@Param("id") Long id);
+
+  List<BoardEntity> findByBoardSeparateEntityId(Long boardSeparateId);
+
+/*  BoardSeparateEntity findByBoardSeparateId(Long boardSeparateId);*/
 }

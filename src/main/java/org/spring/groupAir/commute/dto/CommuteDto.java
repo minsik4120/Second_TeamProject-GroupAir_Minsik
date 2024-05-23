@@ -18,8 +18,6 @@ public class CommuteDto {
 
     private Long id;
 
-    private int vacation;
-
     private String status;
 
     private LocalDateTime inTime;
@@ -45,7 +43,6 @@ public class CommuteDto {
         commuteDto.setId(commuteEntity.getId());
         commuteDto.setInTime(commuteEntity.getInTime());
         commuteDto.setOutTime(commuteEntity.getOutTime());
-        commuteDto.setVacation(commuteEntity.getVacation());
         commuteDto.setCause(commuteEntity.getCause());
         commuteDto.setWork(commuteEntity.getWork());
         commuteDto.setTotalWork(commuteEntity.getTotalWork());
@@ -56,4 +53,5 @@ public class CommuteDto {
 
         return commuteDto;
     }
+
 }

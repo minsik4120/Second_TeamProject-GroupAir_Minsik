@@ -39,11 +39,12 @@
               <th>작성자</th>
               <th>내용</th>
               <th>조회수</th>
-              <th>작성시간</th>
+              <th>작성일</th>
               <th>updateTime</th>
               <th>보기</th> <!-- 게시글 상세보기 -->
               <th>삭제</th>
               <th>파일</th>
+              <th>분류</th>
             </tr>
             </thead>
             <tbody>
@@ -54,16 +55,21 @@
               <td th:text="${board.content}"></td>
               <td th:text="${board.hit}"></td>
               <td th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+
               <td th:text="${#temporals.format(board.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
               <td><a th:href="@{/board/detail/{id}(id=${board.id})}">보기</a></td><!-- 게시글 상세보기 -->
               <td><a th:href="@{/board/delete/{id}(id=${board.id})}">삭제</a></td>
+
               <th:block th:if="${board.boardAttachFile==1}">
                 <td>O</td>
               </th:block>
               <th:block th:unless="${board.boardAttachFile==1}">
                 <td>X</td>
               </th:block>
+              <td th:text="${board.boardSeparateId}"></td>
+
             </tr>
+
             </tbody>
           </table>
           <div class="paging">
@@ -112,10 +118,16 @@
                 <span th:unless="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}">
             <a th:href="@{/board/boardList(page=${pagingList.totalPages-1})}" class="span1">마지막</a>
           </span>
+
               </li>
+
             </ul>
           </div>
+          <li class="write">
+            <a th:href="@{/board/write}">글작성</a>
+          </li>
       </div>
+   
     </div>
 
   </div>

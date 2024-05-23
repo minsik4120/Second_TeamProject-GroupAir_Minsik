@@ -41,13 +41,14 @@ public class BoardEntity extends BaseTimeEntity {
   @Column(nullable = false)
   private int boardAttachFile; //게시글 작성시 파일이 존재하면 1, 없으면 0
 
+
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "employee_id")
   private MemberEntity memberEntity;
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "boardSeparate_id")
   private BoardSeparateEntity boardSeparateEntity;
 
@@ -66,8 +67,6 @@ public class BoardEntity extends BaseTimeEntity {
 
 
   public static BoardEntity toInsertBoardEntity(BoardDto boardDto) {
-
-
     BoardEntity boardEntity = new BoardEntity();
     boardEntity.setId(boardDto.getId());
     boardEntity.setHit(boardDto.getHit());
@@ -80,6 +79,9 @@ public class BoardEntity extends BaseTimeEntity {
     boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
     boardEntity.setMemberEntity(boardDto.getMemberEntity());
 
+
+
+
     return  boardEntity;
   }
 
@@ -90,14 +92,15 @@ public class BoardEntity extends BaseTimeEntity {
     boardEntity.setId(boardDto.getId());
     boardEntity.setHit(boardDto.getHit());
     boardEntity.setTitle(boardDto.getTitle());
+
     boardEntity.setContent(boardDto.getContent());
     boardEntity.setWriter(boardDto.getWriter());
     boardEntity.setBoardAttachFile(1);
+    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
     boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
     boardEntity.setMemberEntity(boardDto.getMemberEntity());
     boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
-    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
-
+   /* boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());*/
 
     return boardEntity;
   }
@@ -111,10 +114,10 @@ public class BoardEntity extends BaseTimeEntity {
     boardEntity.setContent(boardDto.getContent());
     boardEntity.setBoardAttachFile(0);
     boardEntity.setMemberEntity(boardDto.getMemberEntity());
-    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
     boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
     boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
-    System.out.println(boardEntity);
+   /* boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());*/
 
     return boardEntity;
   }
@@ -128,9 +131,10 @@ public class BoardEntity extends BaseTimeEntity {
     boardEntity.setContent(boardDto.getContent());
     boardEntity.setBoardAttachFile(1);
     boardEntity.setMemberEntity(boardDto.getMemberEntity());
-    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
     boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
     boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
+   /* boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());*/
     return boardEntity;
   }
 }

@@ -2,6 +2,7 @@ package org.spring.groupAir.airplane.dto;
 
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -29,6 +30,10 @@ public class AirplaneDto {
     private int timeTaken;
 
     private String airplane;
+
+    private MemberEntity memberEntity;
+
+    private Long memberId;
 
     private LocalDateTime createTime;
 

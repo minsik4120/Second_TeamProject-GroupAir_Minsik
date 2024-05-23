@@ -12,4 +12,10 @@ public interface AirPlaneServiceInterface {
     AirplaneDto airplaneDetail(Long id);
 
     void airplaneDelete(Long id);
+
+    Page<AirplaneDto> myAirplane(Pageable pageable, Long id);
+
+    Page<AirplaneDto> todayMyAirplane(Pageable pageable, Long id);
+
+    void deleteOverTimeAirplane();
 }

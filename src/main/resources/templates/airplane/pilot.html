@@ -2,12 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/layout/adminLayout}">
-
 <th:block layout:fragment="title">
     <!-- 각 페이지 마다 변경 -->
 </th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/commute/work.css}">
+    <link rel="stylesheet" th:href="@{/css/airplane/pilot.css}">
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
@@ -17,38 +16,28 @@
 
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
-        <h1>출 퇴근 관리</h1>
-        <div class="work">
-            <div class="work-con">
-                <div class="search">
-                    <form th:action="@{/commute/work}" method="get">
-                        <select name="subject" id="subject">
-                            <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
-                            <option value="name" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
-                        </select>
-                        <input type="text" name="search" id="search" th:value="${param.search}">
-                        <input type="submit" value="SEARCH">
-                    </form>
-                </div>
+        <h1>기장님</h1>
+        <div class="pilot">
+            <div class="pilot-con">
                 <table id="myTable">
                     <thead>
                     <tr>
                         <th onclick="sortTable(0)">번호</th>
-                        <th onclick="sortTable(1)">이름</th>
-                        <th onclick="sortTable(2)">부서</th>
-                        <th onclick="sortTable(3)">직급</th>
-                        <th onclick="sortTable(4)">출근상태</th>
-                        <th>출근 기록 확인하기</th>
+                        <th onclick="sortTable(1)">직급</th>
+                        <th onclick="sortTable(2)">이름</th>
+                        <th onclick="sortTable(3)">이메일</th>
+                        <th onclick="sortTable(4)">전화번호</th>
+                        <th>운행 정보</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${memberDtoPage}">
-                        <td th:text="${member.id}"></td>
-                        <td th:text="${member.name}"></td>
-                        <td th:text="${member.departmentEntity.departmentName}"></td>
-                        <td th:text="${member.positionEntity.positionName}"></td>
-                        <td th:text="${member.commuteEntityList[member.commuteEntityList.size()-1].status}"></td>
-                        <td><a id="workOut" th:href="@{/commute/workDetail/{id}(id = ${member.id})}">출근 기록</a></td>
+                    <tr th:each="pilot : ${memberDtoPage}">
+                        <td th:text="${pilot.id}"></td>
+                        <td th:text="${pilot.positionEntity.positionName}"></td>
+                        <td th:text="${pilot.name}"></td>
+                        <td th:text="${pilot.userEmail}"></td>
+                        <td th:text="${pilot.phone}"></td>
+                        <td><a th:href="@{/airplane/myAirplane/{id}(id=${pilot.id})}">운행정보 보기</a></td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -60,8 +49,8 @@
                                         <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}"
                                               class="span0"> START </span>
                                         <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
-                                            <a th:href="@{/commute/work(page=0,search=${param.search},
-                                                subject = ${param.subject})}"
+                                            <a th:href="@{/airplane/pilot(page=0,search=${param.search},
+                                                subject = ${param.subejct})}"
                                                class="span1"> << </a>
                                         </span>
                                     </li>
@@ -69,7 +58,7 @@
                                         <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}"
                                               class="span0">PRE</span>
                                         <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
-                                            <a th:href="@{/commute/work(page=${memberDtoPage.pageable.pageNumber-1}
+                                            <a th:href="@{/airplane/pilot(page=${memberDtoPage.pageable.pageNumber-1}
                                             ,search = ${param.search}, subject = ${param.subject})}"
                                                class="span1">이전</a>
                                     </span>
@@ -79,7 +68,7 @@
                                     <span th:if="${memberDtoPage.pageable.pageNumber +1 == i}" th:text="${i}"
                                           class="now"></span>
                                         <a th:unless="${memberDtoPage.pageable.pageNumber+1 == i}"
-                                           th:href="@{/commute/work(page=${i-1}
+                                           th:href="@{/airplane/pilot(page=${i-1}
                                     ,search=${param.search}, subject=${param.subject})}" th:text="${i}"></a>
                                     </li>
 
@@ -88,7 +77,7 @@
                                       class="span0">NEXT</span>
                                         <span
                                             th:unless="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}">
-                                    <a th:href="@{/commute/work(page=${memberDtoPage.pageable.pageNumber+1}
+                                    <a th:href="@{/airplane/pilot(page=${memberDtoPage.pageable.pageNumber+1}
                                     ,search=${param.search},subject=${param.subject})}" class="span1">다음</a>
                                 </span>
                                     </li>
@@ -99,7 +88,7 @@
                                     </span>
                                         <span
                                             th:unless="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}">
-                                        <a th:href="@{/commute/work(page=${memberDtoPage.totalPages-1}
+                                        <a th:href="@{/airplane/pilot(page=${memberDtoPage.totalPages-1}
                                         ,search=${param.search}, subject=${param.subject})}" class="span1">
                                             마지막
                                         </a>

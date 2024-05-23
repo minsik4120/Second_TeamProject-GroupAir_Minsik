@@ -45,6 +45,7 @@ public class CommuteController {
     public String commuteIndex(Model model) {
 
         vacationService.findVacationPerson();
+        vacationService.deleteOverTimeVacation();
         commuteService.notWorkOut();
         commuteService.notWorkIn();
 

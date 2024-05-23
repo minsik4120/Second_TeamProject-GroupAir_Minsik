@@ -4,7 +4,7 @@
       layout:decorate="~{common/layout/adminLayout}">
 <th:block layout:fragment="title">
     <!-- 각 페이지 마다 변경 -->
-    <title>vacationCreate</title>
+    <title>airplaneDetail</title>
 </th:block>
 <th:block layout:fragment="css">
     <!-- 각 페이지 마다 변경 -->
@@ -22,11 +22,6 @@
                 <h1>[[${airplaneDto.id}]]번 비행기 정보</h1>
                 <form th:action="@{/airplane/delete/{id}(id=${airplaneDto.id})}" method="post">
                     <ul>
-                        <!--                        <li>-->
-                        <!--                            <label for="id">비행기 번호</label>-->
-                        <!--                            <input type="text" id="id" name="id" th:value="${airplaneDto.id}">-->
-                        <!--                        </li>-->
-
                         <li>
                             <label for="toTime">출 발 시 간 : </label>
                             <input type="text" id="toTime" name="toTime"
@@ -80,8 +75,10 @@
                             </ul>
 
                         </li>
+
                     </ul>
                     <div id="map" style="width:100%;height:350px;"></div>
+                    <div class="delete"> <a th:href="@{/airplane/delete/{id}(id=${airplaneDto.id})}">항공편 삭제</a></div>
 
                     <script>
                         var mapContainer = document.getElementById('map'), // 지도를 표시할 div

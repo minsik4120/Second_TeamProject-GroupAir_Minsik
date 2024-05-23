@@ -78,7 +78,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td colspan="4">
+                            <td colspan="11" class="pagingBorder">
                                 <div class="paging">
                                     <ul>
                                         <li>
@@ -142,7 +142,14 @@
 
         <div class="memberDetail" style="display:none" id="memberDetail">
             <div class="detail-form">
+                <button class="close-btn" onclick="hidePopup()">×</button> 
+                <script>
+                    function hidePopup() {
+                        document.getElementById('memberDetail').style.display = 'none';
+                        }
+                </script>
                 <h3>회원상세보기</h3>
+                
                 <ul>
                     <li>
                         <label for="id">id</label>

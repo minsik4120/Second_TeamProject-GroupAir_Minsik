@@ -57,14 +57,17 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
-    public void memberJoin(MemberDto memberDto) throws IOException {
+    public Long memberJoin(MemberDto memberDto) throws IOException {
         memberRepository.findByUserEmail(memberDto.getUserEmail()).ifPresent(email -> {
             throw new RuntimeException(memberDto.getUserEmail() + " 이메일이 이미 존재합니다!");
         });
         if (memberDto.getMemberFile().isEmpty()) {
             MemberEntity memberEntity1 = MemberEntity.toMemberJoinEntity0(memberDto, passwordEncoder);
             memberRepository.save(memberEntity1);
-        } else {
+
+            return memberEntity1.getId();
+        }else {
+
             MultipartFile memberFile = memberDto.getMemberFile();
             String oldFileName = memberFile.getOriginalFilename();
             UUID uuid = UUID.randomUUID();
@@ -95,6 +98,8 @@ public class MemberService implements MemberServiceInterface {
                 .build();
 
             memberFileRepository.save(memberFileEntity);
+
+            return memberId;
         }
     }
 
@@ -107,121 +112,6 @@ public class MemberService implements MemberServiceInterface {
         MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
         return memberDto;
     }
-
-
-    /* @Override
-     public void memberUpdate(MemberDto memberDto) throws IOException {
-         MemberEntity memberEntity = memberRepository.findById(memberDto.getId()).orElseThrow(() -> {
-             throw new RuntimeException("해당 아이디가 없습니다");
-         });
-         Optional<MemberFileEntity> optionalMemberFileEntity
-             = memberFileRepository.findByMemberEntityId(memberDto.getId());
-
-         if (optionalMemberFileEntity.isPresent()) {
-             String newFileName = optionalMemberFileEntity.get().getMemberNewFile();
-             String filePath = "c:/groupAir/" + newFileName;
-             File deleteFile = new File(filePath);
-             if (deleteFile.exists()) {
-                 deleteFile.delete();
-             } else {
-                 System.out.println("파일이 존재하지 않습니다.");
-             }
-             memberFileRepository.delete(optionalMemberFileEntity.get());
-         }
-         String oldPw = memberEntity.getUserPw();
-
-         if (memberDto.getMemberFile().isEmpty() && memberDto.getUserPw().equals(oldPw)) {
-             //파일x + 비밀번호 변경x
-             memberEntity = MemberEntity.toMemberUpdateEntity0(memberDto);
-             memberRepository.save(memberEntity);
-         } else if (!memberDto.getMemberFile().isEmpty() && memberDto.getUserPw().equals(oldPw)) {
-             //파일O + 비밀번호 변경x
-             MultipartFile memberFile = memberDto.getMemberFile();
-             String oldFileName = memberFile.getOriginalFilename();
-             UUID uuid = UUID.randomUUID();
-             String newFileName = uuid + "_" + oldFileName;
-
-             String savePath = "c:/groupAir/" + newFileName;
-             memberFile.transferTo(new File(savePath));
-
-             memberDto.setMemberFileName(newFileName);
-
-             memberEntity = MemberEntity.toMemberUpdateEntity1(memberDto);
-
-             Long memberId = memberRepository.save(memberEntity).getId();
-             MemberEntity memberEntity1 =
-                 memberRepository.findById(memberId).orElseThrow(() -> {
-                     throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
-                 });
-
-             MemberFileDto memberFileDto
-                 = MemberFileDto.builder()
-                 .memberOldFile(oldFileName)
-                 .memberNewFile(newFileName)
-                 .memberEntity(memberEntity1)
-                 .build();
-
-             MemberFileEntity memberFileEntity = MemberFileEntity
-                 .builder()
-                 .memberEntity(memberFileDto.getMemberEntity())
-                 .memberOldFile(memberFileDto.getMemberOldFile())
-                 .memberNewFile(memberFileDto.getMemberNewFile())
-                 .build();
-
-             memberFileRepository.save(memberFileEntity);
-
-         } else if (memberDto.getMemberFile().isEmpty() && !memberDto.getUserPw().equals(oldPw)) {
-             //파일x + 비밀번호 변경O
-
-             String newPw = passwordEncoder.encode(memberDto.getUserPw());
-
-             memberDto.setUserPw(newPw);
-             memberEntity = MemberEntity.toMemberUpdateEntity0(memberDto);
-             memberRepository.save(memberEntity);
-         } else if (!memberDto.getMemberFile().isEmpty() && !memberDto.getUserPw().equals(oldPw)) {
-             //파일O + 비밀번호 변경O
-             MultipartFile memberFile = memberDto.getMemberFile();
-             String oldFileName = memberFile.getOriginalFilename();
-             UUID uuid = UUID.randomUUID();
-             String newFileName = uuid + "_" + oldFileName;
-
-             String savePath = "c:/groupAir/" + newFileName;
-             memberFile.transferTo(new File(savePath));
-
-             memberDto.setMemberFileName(newFileName);
-
-             String newPw = passwordEncoder.encode(memberDto.getUserPw());
-
-             memberDto.setUserPw(newPw);
-
-             memberEntity = MemberEntity.toMemberUpdateEntity1(memberDto);
-
-             Long memberId = memberRepository.save(memberEntity).getId();
-
-             MemberEntity memberEntity1 = memberRepository.findById(memberId).orElseThrow(() -> {
-                 throw new RuntimeException("해당 아이디가 존재하지 않습니다.");
-             });
-             MemberFileDto memberFileDto
-                 = MemberFileDto.builder()
-                 .memberOldFile(oldFileName)
-                 .memberNewFile(newFileName)
-                 .memberEntity(memberEntity1)
-                 .build();
-
-             MemberFileEntity memberFileEntity = MemberFileEntity
-                 .builder()
-                 .memberEntity(memberFileDto.getMemberEntity())
-                 .memberOldFile(memberFileDto.getMemberOldFile())
-                 .memberNewFile(memberFileDto.getMemberNewFile())
-                 .build();
-
-             memberFileRepository.save(memberFileEntity);
-
-         }
-     }
-
- */
-
 
     @Override
     public void memberUpdate(MemberDto memberDto) throws IOException {
@@ -318,8 +208,12 @@ public class MemberService implements MemberServiceInterface {
         memberRepository.deleteById(memberEntity.getId());
     }
 
+    public String findName(Long id) {
 
+        String name = memberRepository.findById(id).get().getName();
 
+        return name;
+    }
 
 }
 

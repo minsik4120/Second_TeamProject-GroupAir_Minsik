@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.board.entity.BoardEntity;
 import org.spring.groupAir.commute.entity.CommuteEntity;
+import org.spring.groupAir.commute.entity.VacationEntity;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.member.dto.MemberDto;
@@ -74,6 +75,11 @@ public class MemberEntity extends BaseTimeEntity {
         , fetch = FetchType.LAZY
         , cascade = CascadeType.REMOVE)
     private List<CommuteEntity> commuteEntityList;
+
+    @OneToMany(mappedBy = "memberEntity"
+        , fetch = FetchType.LAZY
+        , cascade = CascadeType.REMOVE)
+    private List<VacationEntity> vacationEntityList;
 
     @OneToMany(mappedBy = "memberEntity"
         , fetch = FetchType.LAZY

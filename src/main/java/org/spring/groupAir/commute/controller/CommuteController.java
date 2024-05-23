@@ -44,6 +44,10 @@ public class CommuteController {
     @GetMapping({"", "/", "/index"})
     public String commuteIndex(Model model) {
 
+        vacationService.findVacationPerson();
+        commuteService.notWorkOut();
+        commuteService.notWorkIn();
+
         int sickVacationPeople = vacationService.sickVacationPeople();
         int vacationPeople = vacationService.vacationPeople();
 
@@ -51,8 +55,7 @@ public class CommuteController {
         int leaveEarlyPeople = commuteService.leaveEarlyPeople();
         int workPeople = commuteService.workPeople();
         int workOutPeople = commuteService.workOutPeople();
-
-        vacationService.findVacationPerson();
+        int notWorkInPeople = commuteService.notWorkInPeople();
 
         model.addAttribute("sickVacationPeople", sickVacationPeople);
         model.addAttribute("vacationPeople", vacationPeople);
@@ -61,6 +64,7 @@ public class CommuteController {
         model.addAttribute("leaveEarlyPeople", leaveEarlyPeople);
         model.addAttribute("workPeople", workPeople);
         model.addAttribute("workOutPeople", workOutPeople);
+        model.addAttribute("notWorkInPeople", notWorkInPeople);
 
         return "commute/index";
     }

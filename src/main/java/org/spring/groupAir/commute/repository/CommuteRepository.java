@@ -33,4 +33,12 @@ public interface CommuteRepository extends JpaRepository<CommuteEntity, Long> {
 
     @Query(value="select sum(total_work) from commute where employee_id = :id", nativeQuery = true)
     Long findSumTotalWork(@Param("id") Long id);
+
+    @Query(value = "SELECT * FROM commute c LEFT JOIN employee e ON c.employee_id = e.employee_id WHERE c.commute_id IN (SELECT MAX(c2.commute_id) FROM commute c2 GROUP BY c2.employee_id )", nativeQuery = true)
+    List<CommuteEntity> findNotWorkOutPeople();
+    @Query(value = "SELECT * FROM commute c LEFT JOIN employee e ON c.employee_id = e.employee_id WHERE c.commute_id IN (SELECT MAX(c2.commute_id) FROM commute c2 GROUP BY c2.employee_id )", nativeQuery = true)
+    List<CommuteEntity> findNotWorkInPeople();
+
+    @Query(value = "SELECT count(*) FROM commute c LEFT JOIN employee e ON c.employee_id = e.employee_id WHERE c.status = '미출근' AND c.commute_id IN (SELECT MAX(c2.commute_id) FROM commute c2 GROUP BY c2.employee_id )", nativeQuery = true)
+    int findByNotWorkInPeople(LocalDate now);
 }

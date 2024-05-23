@@ -166,7 +166,7 @@ public class BoardController {
     model.addAttribute("board", board);
     model.addAttribute("replyList", replyList);
 
-    model.addAttribute("name", boardSeparateEntity.getBoardSeparateName());
+//    model.addAttribute("name", boardSeparateEntity.getBoardSeparateName());
 
 
     return "board/detail";

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+<th:block layout:fragment="title">
+    <!-- 각 페이지 마다 변경 -->
+    <title>memberDetail</title>
+</th:block>
+<th:block layout:fragment="css">
+    <!-- 각 페이지 마다 변경 -->
+<!--    <link rel="stylesheet" th:href="@{/css/member/memberJoin.css}">-->
+
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+
+</th:block>
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <div class="memberDetail">
+            <div class="memberDetail-con">
+                <h1>회원상세</h1>
+                <div class="memberJoin1" id="memberJoin1">
+                    <form th:action="@{/member/memberJoin}" method="post" th:object="${memberDto}"
+                          enctype="multipart/form-data">
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</th:block>
+</html>

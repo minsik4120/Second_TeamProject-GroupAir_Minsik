@@ -16,6 +16,13 @@ width: 1080px;
   justify-content: center;
 }
 
+.adminContainer .write .write-con .board-join ul{ 
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+}
+
+
 .adminContainer .write .write-con .header-box{ 
 /* margin-bottom: 20px; */
 height: 150px;
@@ -24,9 +31,6 @@ background-color: rgb(249 249 249);
 }
 
 
-.adminContainer .write .write-con .header-box .board-box{ 
-  
-  }
   
 
 .adminContainer .write .write-con .header-box input{ 

@@ -14,6 +14,7 @@
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
         <div class="make">
+            <a th:href="@{/department/top/deList}"><h1>부서관리</h1></a>
             <div class="make-con">
                 <div class="de_left">
                     <div class="creation">
@@ -28,7 +29,7 @@
                             </a>
                             <li class="low">
                                 <ul th:each="de : ${top.departmentEntityList}">
-<!--                                    <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">-->
+                                    <!--                                    <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">-->
                                     <a th:href="@{'/department/detail/' + ${de.id}}" id="lowDe">
                                         <li th:text="${de.departmentName}"></li>
                                     </a>

@@ -51,7 +51,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="8">
+                        <td colspan="6">
                             <div class="paging">
                                 <ul>
                                     <li>
@@ -59,7 +59,7 @@
                                               class="span0"> START </span>
                                         <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
                                             <a th:href="@{/commute/work(page=0,search=${param.search},
-                                                subject = ${param.subejct})}"
+                                                subject = ${param.subject})}"
                                                class="span1"> << </a>
                                         </span>
                                     </li>

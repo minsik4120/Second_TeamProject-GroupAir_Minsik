@@ -5,17 +5,20 @@ const connectBtn = document.querySelector('#connectBtn'); // 접속이벤트
 const sendBtn = document.querySelector('#sendBtn'); //메시지전송
 const chatWindowCon = document.querySelector('.chatWindow-con'); // 채팅창
 const msg = document.querySelector('#msg'); // 전송보낼 메세지
+const id = document.querySelector('#id').val; // 전송보낼 메세지
+
 
 const url = "localhost:8095";
 
 
 // 1. 웹소켓 접속
-connectBtn.addEventListener('DOMContentLoaded ', () => {
+connectBtn.addEventListener('click', () => {
     // 웹소켓 접속
     webSocket = new WebSocket("ws://" + url + "/chat");
+    console.log(webSocket);
     if (userId.value.length <= 0 || userId.value == "") {
-        alert("아이디가 없습니다");
-        history.go(-1);
+        alert("접속자를 입력하세요");
+        userId.focus();
         return false;
     }
     alert(userId.value + "님 접속했습니다.");

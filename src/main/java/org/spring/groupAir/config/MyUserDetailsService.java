@@ -29,4 +29,6 @@ public class MyUserDetailsService implements UserDetailsService {
         // 인증된 회원을 Security 가 관리하도록 설정
         return new MyUserDetailsImpl(memberEntity);
     }
+
+
 }

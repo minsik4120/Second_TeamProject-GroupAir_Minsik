@@ -1,13 +1,18 @@
+package org.spring.groupAir.chat;
 
 import org.springframework.stereotype.Service;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
+@ClientEndpoint
 @ServerEndpoint(value = "/chat")
-public class WebSocketConfigClass {
+public class ChatConfig {
+
     // 클라이언트 정보나 메세지를 set 설정
     // 채팅창에 메세지를 반환
     // 클라이언트 세션 정보를 가지고 있다, 접속(1), 해제 삭제

@@ -106,6 +106,7 @@ public class MemberEntity extends BaseTimeEntity {
         , cascade = CascadeType.REMOVE)
     private List<SignEntity> signEntityList;
 
+
     public static MemberEntity toMemberJoinEntity0(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         MemberEntity memberEntity=new MemberEntity();
         memberEntity.setId(memberDto.getId());
@@ -184,4 +185,5 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         return memberEntity;
     }
+
 }

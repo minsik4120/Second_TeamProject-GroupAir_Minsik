@@ -20,3 +20,4 @@ public class GlobalExceptionHandler {
     return  ResponseEntity.status(HttpStatus.OK).body(html);
   }
 }
+

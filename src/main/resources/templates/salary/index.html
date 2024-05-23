@@ -11,6 +11,8 @@
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
+    <script th:src="@{/js/autoDirection.js}" defer></script>
 </th:block>
 
 <th:block layout:fragment="adminContainer">
@@ -31,15 +33,15 @@
                         <input type="submit" value="SEARCH">
                     </form>
                 </div>
-                <table>
-                    <thead>
+                <table id="myTable">
+                    <thead >
                     <tr>
-                        <th>이름</th>
-                        <th>부서</th>
-                        <th>직급</th>
-                        <th>급여 (&#8361)</th>
-                        <th>급여일</th>
-                        <th>급여조정</th>
+                        <th onclick="sortTable(0)">이름</th>
+                        <th onclick="sortTable(1)">부서</th>
+                        <th onclick="sortTable(2)">직급</th>
+                        <th onclick="sortTable(3)">급여 (&#8361)</th>
+                        <th onclick="sortTable(4)">급여일</th>
+                        <th onclick="sortTable(5)">급여조정</th>
                     </tr>
                     </thead>
                     <tbody>

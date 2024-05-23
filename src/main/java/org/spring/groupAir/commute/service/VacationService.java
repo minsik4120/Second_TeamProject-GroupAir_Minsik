@@ -106,4 +106,10 @@ public class VacationService implements VacationServiceInterface {
         }
 
     }
+
+    @Override
+    public void deleteOverTimeVacation() {
+        LocalDateTime now = LocalDateTime.now();
+        vacationRepository.deleteByVacEndDateBefore(now.toLocalDate());
+    }
 }

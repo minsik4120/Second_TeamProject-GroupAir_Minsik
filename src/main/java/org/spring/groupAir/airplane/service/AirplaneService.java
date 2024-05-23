@@ -5,13 +5,19 @@ import org.spring.groupAir.airplane.dto.AirplaneDto;
 import org.spring.groupAir.airplane.entity.AirPlaneEntity;
 import org.spring.groupAir.airplane.repository.AirplaneRepository;
 import org.spring.groupAir.airplane.service.serviceInterface.AirPlaneServiceInterface;
+import org.spring.groupAir.member.dto.MemberDto;
+import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.salary.dto.SalaryDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Transactional
 @RequiredArgsConstructor
@@ -46,6 +52,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
                 .toTime(airPlaneEntity.getToTime())
                 .timeTaken(airPlaneEntity.getTimeTaken())
                 .airplane(airPlaneEntity.getAirplane())
+                .memberEntity(airPlaneEntity.getMemberEntity())
                 .build()
         );
 
@@ -58,6 +65,8 @@ public class AirplaneService implements AirPlaneServiceInterface {
         LocalDateTime toTime = airplaneDto.getToTime();
         LocalDateTime fromTime = airplaneDto.getFromTime();
 
+        airplaneDto.setMemberEntity(MemberEntity.builder().id(airplaneDto.getMemberId()).build());
+
         int timeTaken = (int) Duration.between(toTime, fromTime).toHours();
 
         AirPlaneEntity airPlaneEntity = AirPlaneEntity
@@ -68,6 +77,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
             .toTime(airplaneDto.getToTime())
             .timeTaken(timeTaken)
             .airplane(airplaneDto.getAirplane())
+            .memberEntity(airplaneDto.getMemberEntity())
             .build();
 
         airplaneRepository.save(airPlaneEntity);
@@ -85,7 +95,9 @@ public class AirplaneService implements AirPlaneServiceInterface {
             .toTime(airPlaneEntity.getToTime())
             .fromTime(airPlaneEntity.getFromTime())
             .airplane(airPlaneEntity.getAirplane())
-            .timeTaken(airPlaneEntity.getTimeTaken()).build();
+            .timeTaken(airPlaneEntity.getTimeTaken())
+            .memberEntity(airPlaneEntity.getMemberEntity())
+            .build();
 
         return airplaneDto;
     }
@@ -95,5 +107,57 @@ public class AirplaneService implements AirPlaneServiceInterface {
 
         airplaneRepository.deleteById(id);
 
+    }
+
+    @Override
+    public Page<AirplaneDto> myAirplane(Pageable pageable, Long id) {
+
+        Page<AirPlaneEntity> airPlaneEntityPage
+            = airplaneRepository.findByMemberEntityId(pageable, id);
+
+        Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity->
+            AirplaneDto.builder()
+                .id(airplaneEntity.getId())
+                .toArea(airplaneEntity.getToArea())
+                .fromArea(airplaneEntity.getFromArea())
+                .toTime(airplaneEntity.getToTime())
+                .fromTime(airplaneEntity.getFromTime())
+                .airplane(airplaneEntity.getAirplane())
+                .timeTaken(airplaneEntity.getTimeTaken())
+                .memberEntity(airplaneEntity.getMemberEntity())
+                .build()
+            );
+
+        return airplaneDtoPage;
+    }
+
+    @Override
+    public Page<AirplaneDto> todayMyAirplane(Pageable pageable, Long id) {
+
+        Date today = Date.valueOf(LocalDate.now());
+
+        Page<AirPlaneEntity> airPlaneEntityPage
+            = airplaneRepository.findTodayAirplane(pageable, id, today);
+
+        Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity->
+            AirplaneDto.builder()
+                .id(airplaneEntity.getId())
+                .toArea(airplaneEntity.getToArea())
+                .fromArea(airplaneEntity.getFromArea())
+                .toTime(airplaneEntity.getToTime())
+                .fromTime(airplaneEntity.getFromTime())
+                .airplane(airplaneEntity.getAirplane())
+                .timeTaken(airplaneEntity.getTimeTaken())
+                .memberEntity(airplaneEntity.getMemberEntity())
+                .build()
+        );
+
+        return airplaneDtoPage;
+    }
+
+    @Override
+    public void deleteOverTimeAirplane() {
+        LocalDateTime now = LocalDateTime.now();
+        airplaneRepository.deleteByFromTimeBefore(now);
     }
 }

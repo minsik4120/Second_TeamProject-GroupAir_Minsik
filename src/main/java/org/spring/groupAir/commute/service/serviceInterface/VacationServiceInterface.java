@@ -11,4 +11,6 @@ public interface VacationServiceInterface {
     int sickVacationPeople();
 
     void findVacationPerson();
+
+    void deleteOverTimeVacation();
 }

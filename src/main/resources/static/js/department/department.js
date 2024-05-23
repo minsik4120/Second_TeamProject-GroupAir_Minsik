@@ -1,19 +1,18 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the current URL
-    var currentURL = window.location.href;
+// 선택한 부서의 ID
+var selectedDepartmentId =
 
-    // Get the link elements
-    var links = document.querySelectorAll('a#lowDe');
+// select 태그
+var selectElement = document.getElementById('topDepartmentEntity');
 
-    // Loop through each link element
-    links.forEach(function(link) {
-        // Get the value of the href attribute
-        var hrefValue = link.getAttribute('href');
+// select 태그의 옵션 수
+var optionsCount = selectElement.options.length;
 
-        // Check if the href attribute value matches the current URL
-        if (hrefValue === currentURL) {
-            // Add a class to the anchor element
-            link.classList.add('highlighted-link');
-        }
-    });
-});
+// 각 옵션을 순회하며 선택한 부서와 일치하는 옵션을 찾음
+for (var i = 0; i < optionsCount; i++) {
+    var option = selectElement.options[i];
+    if (option.value === selectedDepartmentId) {
+        // 선택한 부서와 일치하는 경우 해당 옵션을 선택 상태로 설정
+        option.selected = true;
+        break;
+    }
+}

@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface MemberFileRepository extends JpaRepository<MemberFileEntity, Long> {
 
+
+    Optional<MemberFileEntity> findByMemberEntityId(Long id);
 }

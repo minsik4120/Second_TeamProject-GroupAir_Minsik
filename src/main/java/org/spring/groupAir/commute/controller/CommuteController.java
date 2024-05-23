@@ -1,6 +1,8 @@
 package org.spring.groupAir.commute.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.board.entity.BoardEntity;
+import org.spring.groupAir.board.service.BoardService;
 import org.spring.groupAir.commute.dto.CommuteDto;
 import org.spring.groupAir.commute.dto.VacationDto;
 import org.spring.groupAir.commute.service.CommuteService;
@@ -36,6 +38,7 @@ public class CommuteController {
     private final VacationService vacationService;
     private final MemberService memberService;
     private final SalaryService salaryService;
+    private final BoardService boardService;
 
 
     @GetMapping({"", "/", "/index"})
@@ -169,4 +172,15 @@ public class CommuteController {
 
         return "redirect:/commute/vacation";
     }
+
+
+
+
+
+
+
+
+    //-------------------------------------------------------
+
+
 }

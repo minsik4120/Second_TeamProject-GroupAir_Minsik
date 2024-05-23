@@ -11,6 +11,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Getter
 @Setter
@@ -20,8 +21,9 @@ public class BoardSeparateEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "boardSeparate_id")
+    @Column(name = "boardSeparate_id")  // id
     private Long id;
+
 
     @Column(nullable = false)
     private String boardSeparateName;

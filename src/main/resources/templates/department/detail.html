@@ -28,9 +28,8 @@
                                 <li th:text="${top.topDepartmentName}"></li>
                             </a>
                             <ul th:each="de : ${top.departmentEntityList}">
-                                <!--                                <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">-->
-                                <a th:href="@{'/department/detail/' + ${de.id}}" id="lowDe">
-                                    <li th:text="${de.departmentName}"></li>
+                                <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">
+                                    <li th:text="${de.departmentName}" th:classappend="${activeId == de.id} ? 'highlighted-link' : ''"></li>
                                 </a>
                             </ul>
                         </ul>

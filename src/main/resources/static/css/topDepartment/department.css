@@ -93,6 +93,12 @@ table , td {
     transition: 0.2s;
 }
 
+.make .make-con .de_left .top ul>a>li.highlighted-link {
+    background-color: #96b3d9;
+    border-radius: 5px;
+    color: white;
+}
+
 .make .make-con .de_right{
     align-content: center;
     width: 50%;
@@ -248,10 +254,4 @@ table , td {
 
 .de_left .top::-webkit-scrollbar-track {
     background:#eff6ff;
-}
-
-.highlighted-link {
-    background-color: red; /* 원하는 배경색 */
-    color: white; /* 원하는 글자색 */
-    /* 기타 원하는 스타일 */
 }

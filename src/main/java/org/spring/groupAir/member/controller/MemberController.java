@@ -1,9 +1,12 @@
 package org.spring.groupAir.member.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.commute.service.CommuteService;
 import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
+import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
@@ -13,6 +16,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,8 +48,8 @@ public class MemberController {
 
         List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
 
-        model.addAttribute("memberDto", memberDto);
         model.addAttribute("list", list);
+        model.addAttribute("memberDto", memberDto);
 
 
         return "member/memberJoin";
@@ -89,6 +96,57 @@ public class MemberController {
 
         return "member/memberList";
     }
+
+    @GetMapping("/memberDetail/{id}")
+    public ResponseEntity<MemberDto> memberDetail(@PathVariable("id") Long id, Model model){
+        MemberDto member= memberService.memberDetail(id);
+
+        if(member!=null) model.addAttribute("key","member");
+        return new ResponseEntity<>(member, HttpStatus.OK);
+    }
+
+    @GetMapping("/memberUpdate/{id}")
+    public String memberDetail1(@PathVariable("id") Long id,
+                               @AuthenticationPrincipal MyUserDetailsImpl myUserDetails,
+                               Model model,TopDepartmentDto topDepartmentDto) {
+        List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
+
+        model.addAttribute("list", list);
+        MemberDto memberDto = memberService.memberDetail(id);
+        if (myUserDetails != null) {
+            model.addAttribute("myUserDetails", myUserDetails);
+        }
+
+        model.addAttribute("memberDto", memberDto);
+
+        return "member/memberUpdate";
+    }
+    @PostMapping("/memberUpdate")
+    public String memberUpdate(MemberDto memberDto) throws IOException {
+
+        memberService.memberUpdate(memberDto);
+
+
+        return "redirect:/member/memberUpdate/" + memberDto.getId();
+    }
+
+    @GetMapping("/memberDelete/{id}")
+    @ResponseBody
+    public String memberDelete(@PathVariable("id") Long id) {
+        memberService.memberDelete(id);
+
+        String html = "<script>" +
+            "alert('회원 탈퇴 성공');" +
+            "location.href='/member/memberList'" +
+            "</script>";
+
+        return html;
+    }
+
+
+
+
+
 
 
 }

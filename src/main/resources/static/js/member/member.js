@@ -9,59 +9,26 @@ function ShowPwFn() {
         $("#userPw").attr("type", "password");
     }
 }
+const memberPhoneNumberInput = () => {
 
-//전화번호 자동 하이픈
-document.addEventListener("DOMContentLoaded", function() {
-document.getElementById("phone").addEventListener("keyup", function(event) {
-    inputPhoneNumber(event.target);
-    });
-});
-
-function inputPhoneNumber( phone ) {
- if( event.keyCode != 8 ) {
- const regExp = new RegExp( /^[0-9]{2,3}-^[0-9]{3,4}-^[0-9]{4}/g );
-if( phone.value.replace( regExp, "").length != 0 ) {
-if( checkPhoneNumber( phone.value ) == true ) {
-    let number = phone.value.replace( /[^0-9]/g, "" );
-     let tel = "";
-    let seoul = 0;
-     if( number.substring( 0, 2 ).indexOf( "02" ) == 0 ) {
-        seoul = 1;
-        phone.setAttribute("maxlength", "12");
-        console.log( phone );
-        } else {
-        phone.setAttribute("maxlength", "13");
-    }
-    if( number.length < ( 4 - seoul) ) {
-        return number;
-     } else if( number.length < ( 7 - seoul ) ) {
-        tel += number.substr( 0, (3 - seoul ) );
-        tel += "-";
-        tel += number.substr( 3 - seoul );
-    } else if(number.length < ( 11 - seoul ) ) {
-        tel += number.substr( 0, ( 3 - seoul ) );
-        tel += "-";
-        tel += number.substr( ( 3 - seoul ), 3 );
-         tel += "-";
-        tel += number.substr( 6 - seoul );
+    let val = memberPhoneNumber.value.replace(/\D/g, "");
+    let len = val.length;
+    let result = '';
+    if (len < 4) {
+        result = val;
+    } else if (len < 8) {
+        result += val.substring(0, 3);
+        result += "-";
+        result += val.substring(3);
+    } else if (len <= 13) {
+        result += val.substring(0, 3);
+        result += "-";
+        result += val.substring(3, 7);
+        result += "-";
+        result += val.substring(7, 13);
     } else {
-        tel += number.substr( 0, ( 3 - seoul ) );
-        tel += "-";
-        tel += number.substr( ( 3 - seoul), 4 );
-        tel += "-";
-        tel += number.substr( 7 - seoul );
+        result = val;
     }
-    phone.value = tel;
-    } else {
-        const regExp = new RegExp( /[^0-9|^-]*$/ );
-        phone.value = phone.value.replace(regExp, "");
-          }
-       }
-    }
+    memberPhoneNumber.value = result;
 }
 
-function checkPhoneNumber( number ) {
-    const regExp = new RegExp( /^[0-9|-]*$/ );
-    if( regExp.test( number ) == true ) { return true; }
-    else { return false; }
- }

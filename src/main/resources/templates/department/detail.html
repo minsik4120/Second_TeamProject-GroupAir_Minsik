@@ -14,6 +14,7 @@
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
         <div class="make">
+            <a th:href="@{/department/top/deList}"><h1>부서관리</h1></a>
             <div class="make-con">
                 <div class="de_left">
                     <div class="creation">
@@ -27,9 +28,8 @@
                                 <li th:text="${top.topDepartmentName}"></li>
                             </a>
                             <ul th:each="de : ${top.departmentEntityList}">
-                                <!--                                <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">-->
-                                <a th:href="@{'/department/detail/' + ${de.id}}" id="lowDe">
-                                    <li th:text="${de.departmentName}"></li>
+                                <a th:href="@{/department/detail/{id}(id=${de.id})}" id="lowDe">
+                                    <li th:text="${de.departmentName}" th:classappend="${activeId == de.id} ? 'highlighted-link' : ''"></li>
                                 </a>
                             </ul>
                         </ul>
@@ -57,7 +57,8 @@
                                     <option value="">부서명</option>
                                     <th:block th:each="de : ${list}">
                                         <option name="chose" th:value="${de.id}"
-                                                th:text="${de.topDepartmentName}"></option>
+                                                th:text="${de.topDepartmentName}"
+                                                th:selected="${de.id eq department.topDepartmentEntity.id}"></option>
                                     </th:block>
                                 </select>
                             </li>

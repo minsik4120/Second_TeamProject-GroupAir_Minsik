@@ -29,4 +29,10 @@ public interface CommuteServiceInterface {
     int workOutPeople();
 
     Duration totalWork(Long id);
+
+    void notWorkOut();
+
+    void notWorkIn();
+
+    int notWorkInPeople();
 }

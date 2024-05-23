@@ -38,6 +38,11 @@
                 <a class="workOut"
                    th:href="@{/commute/workOut/{id}(id = ${commuteDtoList[0].id})}">퇴근하기</a>
             </th:block>
+            <th:block th:if="${commuteDtoList[0].status == '미출근'}">
+                <a class="workIn"
+                   th:href="@{/commute/workIn/{id}(id = ${commuteDtoList[commuteDtoList.size()-1].id})}">출근하기</a>
+            </th:block>
+
         </div>
         <div class="work">
             <div class="work-con">

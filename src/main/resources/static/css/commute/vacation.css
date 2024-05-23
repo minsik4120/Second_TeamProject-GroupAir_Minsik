@@ -17,6 +17,7 @@
     text-align: center;
     padding: 0 20px;
     width: 100%;
+    table-layout: fixed;
 }
 
 .adminContainer .vacation .vacation-con table th{

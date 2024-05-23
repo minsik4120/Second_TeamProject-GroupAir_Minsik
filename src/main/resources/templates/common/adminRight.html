@@ -5,9 +5,22 @@
         <div class="top">
             <div class="gnb">
                 <ul>
-                    <li><a th:href="@{#}">m1@m1</a></li>
-                    <li><a th:href="@{#}">로그인</a></li>
-                    <li><a th:href="@{#}">회원가입</a></li>
+                    <th:block sec:authorize="hasAnyRole('ADMIN')">
+                        <li class="main">
+                            <a th:href="@{/admin}">admin</a>
+                            <ul class="bar">
+                                <li><a th:href="@{#}">member</a></li>
+                                <li><a th:href="@{#}">shop</a></li>
+                            </ul>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="isAnonymous()">
+                        <li><a th:href="@{/}">로그인</a></li>
+                        <li><a th:href="@{/member/memberJoin}">회원가입</a></li>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <li><a th:href="@{/member/logout}">로그아웃</a></li>
+                    </th:block>
                 </ul>
             </div>
         </div>

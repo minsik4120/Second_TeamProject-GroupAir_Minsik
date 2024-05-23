@@ -3,7 +3,7 @@
 	<div class="flex center date" th:if="${msg.today}" th:text="${msg.today}"></div>
 	<div class="msg bot flex">
 		<div  class="icon">
-			<img th:src="@{/images/icon/chat.svg}">
+			<img th:src="@{/images/chatBot.png}">
 		</div>
 		<div class="message" >
 			<div class="part" th:if="${msg.answerDto.keyword ne '전화' or msg.answerDto.keyword ne '부서' or  msg.answerDto.employeeInfo != null}">

@@ -28,46 +28,35 @@
                           enctype="multipart/form-data">
                         <ul>
                             <li>
-                                <label for="userEmail">이 메 일</label>
-                            </li>
-                            <li>
+                                <label for="userEmail" class="label1">이 메 일</label>
                                 <input type="email" id="userEmail" th:field="*{userEmail}" placeholder="이 메 일"> <br>
                             </li>
                             <p th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}" class="error"></p>
 
                             <li>
-                                <label for="userPw">비 밀 번 호</label>
-                                <div id="ShowPw" class="ShowPw">
+                                <label for="userPw" class="label1">비 밀 번 호</label>
+                                <div id="showPw" class="showPw">
                                     <img th:src="@{/images/eye.png}" alt="이미지대체문구" height="24px">
                                 </div>
-                            </li>
-                            <li>
                                 <input type="password" id="userPw" th:field="*{userPw}" placeholder="비 밀 번 호">
                             </li>
                             <p th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" class="error"></p>
 
-
                             <li>
-                                <label for="memberName">이 름</label>
-                            </li>
-                            <li>
+                                <label for="memberName" class="label1">이 름</label>
                                 <input type="text" id="memberName" th:field="*{name}" placeholder="이 름"> <br>
                             </li>
                             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
 
                             <li>
-                                <label for="employeeDate">입사일</label>
-                            </li>
-                            <li>
+                                <label for="employeeDate" class="label1">입사일</label>
                                 <input type="date" id="employeeDate" th:field="*{employeeDate}">
                             </li>
                             <p th:if="${#fields.hasErrors('employeeDate')}" th:errors="*{employeeDate}"
                                class="error"></p>
 
                             <li>
-                                <label for="role">권한</label>
-                            </li>
-                            <li>
+                                <label for="role" class="label1">권한</label>
                                 <select name="role" id="role">
                                     <option value="MEMBER">member</option>
                                     <option value="MANAGER">manager</option>
@@ -77,7 +66,7 @@
                             </li>
                             <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error"></p>
                             <li>
-                                <label for="topDepartmentSelect">상위 부서</label>
+                                <label for="topDepartmentSelect" class="label1">상위 부서</label>
                             </li>
                             <li>
                                 <select name="departmentEntity.topDepartmentEntity" id="topDepartmentSelect">
@@ -91,17 +80,12 @@
                             </li>
 
                             <li>
-                                <label for="departmentSelect">부서</label>
-                            </li>
-                            <li>
                                 <select name="departmentEntity" id="departmentSelect">
                                     <option value="">부서를 선택하세요</option>
                                 </select>
                             </li>
                             <li>
-                                <label for="positionEntity.positionName">직급</label>
-                            </li>
-                            <li>
+                                <label for="positionEntity.positionName" class="label1">직급</label>
                                 <select name="positionEntity.positionName" id="positionEntity.positionName">
                                     <option value="사원">사원</option>
                                     <option value="부장">부장</option>
@@ -114,31 +98,31 @@
 
 
                             <li>
-                                <label for="address">주 소</label>
+                                <label for="address" class="label1">주 소</label>
                             </li>
-                            <li>
+                            <li class="addressCss">
+                                <div class="address-con">
                                 <input type="text" id="sample6_postcode" placeholder="우편번호">
-                                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                                <input type="text" id="sample6_address" placeholder="주소"><br>
+                                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+                            </div>
+                                <input type="text" id="sample6_address" placeholder="주소">
                                 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                                 <input type="hidden" id="address" placeholder="결합된 주소" th:field="*{address}">
                             </li>
                             <li>
-                                <label for="phone">전 화 번 호</label>
-                            </li>
-                            <li>
-                                <input type="tel" id="phone" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+                                <label for="memberPhoneNumber" class="label1">전 화 번 호</label>
+
+                                <input type="text" id="memberPhoneNumber" oninput="memberPhoneNumberInput()" maxlength="13"
                                        th:field="*{phone}" placeholder="전화번호"> <br>
                             </li>
 
-
                             <li class="file">
-                                <label for="memberFile">사 진 첨 부</label>
+                                <label for="memberFile" class="label1">사 진 첨 부</label>
                                 <input type="file" name="memberFile" id="memberFile">
                             </li>
 
                             <li>
-                                <input type="submit" value="회원등록">
+                                <input type="submit" class="submitBtn" value="회원등록">
                             </li>
                         </ul>
                     </form>

@@ -1,5 +1,6 @@
 package org.spring.groupAir.member.service.memberServiceInterface;
 
+import org.spring.groupAir.airplane.dto.AirplaneDto;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,8 @@ public interface MemberServiceInterface {
     Long memberJoin(MemberDto memberDto) throws IOException;
 
     String findName(Long id);
+
+    List<MemberDto> selectPilot();
+
+    Page<MemberDto> pageSelectPilot(Pageable pageable);
 }

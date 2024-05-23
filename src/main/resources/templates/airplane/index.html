@@ -10,6 +10,8 @@
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
+    <script th:src="@{/js/autoDirection.js}" defer></script>
 </th:block>
 
 <th:block layout:fragment="adminContainer">
@@ -29,22 +31,24 @@
                         <input type="submit" value="SEARCH">
                     </form>
                 </div>
-                <table>
+                <table id="myTable">
                     <thead>
                     <tr>
-                        <th>번호</th>
-                        <th>출발시간</th>
-                        <th>출발지</th>
-                        <th>도착시간</th>
-                        <th>도착지</th>
-                        <th>소요시간</th>
-                        <th>항공기</th>
+                        <th onclick="sortTable(0)">번호</th>
+                        <th onclick="sortTable(1)">기장님</th>
+                        <th onclick="sortTable(2)">출발시간</th>
+                        <th onclick="sortTable(3)">출발지</th>
+                        <th onclick="sortTable(4)">도착시간</th>
+                        <th onclick="sortTable(5)">도착지</th>
+                        <th onclick="sortTable(6)">소요시간</th>
+                        <th onclick="sortTable(7)">항공기</th>
                         <th>상세보기</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="airplane : ${airplaneDtoPage}">
                         <td th:text="${airplane.id}"></td>
+                        <td th:text="${airplane.memberEntity.name}"></td>
                         <td th:text="${#temporals.format(airplane.toTime, 'MM월 dd일 HH시 mm분')}"></td>
                         <td th:if="${airplane.toArea.contains('중구')}" th:text="'인천국제공항 (ICN)'"></td>
                         <td th:if="${airplane.toArea.contains('강서구')}" th:text="'김포국제공항 (GMP)'"></td>
@@ -85,7 +89,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="8">
+                        <td colspan="9">
                             <div class="paging">
                                 <ul>
                                     <li>

@@ -1,6 +1,7 @@
 package org.spring.groupAir.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.airplane.dto.AirplaneDto;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.dto.MemberFileDto;
 import org.spring.groupAir.member.entity.MemberEntity;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -101,4 +103,32 @@ public class MemberService implements MemberServiceInterface {
 
         return name;
     }
+
+    @Override
+    public List<MemberDto> selectPilot() {
+
+        String pilot = "부장";
+
+        List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
+
+         List<MemberDto> memberDtoList = memberEntityList.stream().map(MemberDto :: toMemberDto).collect(Collectors.toList());
+
+        System.out.println("?>>>>>" + memberDtoList);
+
+        return memberDtoList;
+    }
+
+    @Override
+    public Page<MemberDto> pageSelectPilot(Pageable pageable) {
+
+        String pilot = "부장";
+        Page<MemberEntity> memberEntityPage =
+            memberRepository.findByPositionEntityPositionName(pageable, pilot);
+
+        Page<MemberDto> memberDtoPage = memberEntityPage.map(MemberDto::toMemberDto);
+
+        return memberDtoPage;
+    }
+
+
 }

@@ -2,6 +2,7 @@ package org.spring.groupAir.airplane.entity;
 
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -37,4 +38,8 @@ public class AirPlaneEntity extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String airplane;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private MemberEntity memberEntity;
 }

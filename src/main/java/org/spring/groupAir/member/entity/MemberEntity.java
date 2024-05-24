@@ -49,13 +49,13 @@ public class MemberEntity extends BaseTimeEntity {
     @Column(nullable = true)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String employeeDate;
 
     @Column(nullable = true)
     private String resignationDate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int memberAttachFile;
 
     @Column(nullable = true)
@@ -105,6 +105,7 @@ public class MemberEntity extends BaseTimeEntity {
         , fetch = FetchType.LAZY
         , cascade = CascadeType.REMOVE)
     private List<SignEntity> signEntityList;
+
 
     public static MemberEntity toMemberJoinEntity0(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         MemberEntity memberEntity=new MemberEntity();
@@ -184,4 +185,5 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         return memberEntity;
     }
+
 }

@@ -62,6 +62,17 @@
                             <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
                         </ul>
                     </li>
+                    <li class="menuBar">
+                        <a th:href="@{/board/write}">게시판 작성</a>
+                        <ul class="subMenu">
+                            <li><a th:href="@{/board/Lists(boardSeparateId=1)}">공지사항</a></li>
+                            <li><a th:href="@{/board/Lists(boardSeparateId=2)}">자유게시판</a></li>
+
+
+
+
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

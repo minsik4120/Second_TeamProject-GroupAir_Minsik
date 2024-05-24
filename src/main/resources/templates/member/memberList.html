@@ -48,11 +48,9 @@
                             <th>전화번호</th>
                             <th>입사일</th>
                             <th>퇴사일</th>
-                            <!--                            <th:block sec:authorize="hasAnyRole('ADMIN')">-->
-                            <th>보기</th>
-                            <th>수정</th>
+                            <th>간단보기</th>
+                            <th>상세보기</th>
 
-                            <!--                            </th:block>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -71,7 +69,7 @@
                                         th:onclick="memberDetailBtnFn(event, [[${member.id}]])">보기
                                 </button>
                             </td>
-                            <td><a th:href="@{/member/memberUpdate/{id}(id=${member.id})}">수정</a></td>
+                            <td><a th:href="@{/member/memberUpdate/{id}(id=${member.id})}">상세조회</a></td>
 
 
                         </tr>

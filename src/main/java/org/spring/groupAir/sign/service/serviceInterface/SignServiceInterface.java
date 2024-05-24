@@ -1,5 +1,6 @@
 package org.spring.groupAir.sign.service.serviceInterface;
 
+import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.sign.dto.SignDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,8 @@ public interface SignServiceInterface {
 
     public int deleteSign(Long id);
 
+    SignDto approveSignOne(Long id);
+
     void update(SignDto signDto);
 
     Long insertSign(SignDto signDto) throws IOException;
@@ -29,6 +32,7 @@ public interface SignServiceInterface {
     List<SignDto> signList(Pageable pageable);
 
     Page<SignDto> signListByAuthor(String currentUserName, Pageable unpaged);
+
 
 //    List<SignDto> getSignListByLastApprover(String currentUserName);
 
@@ -43,4 +47,12 @@ public interface SignServiceInterface {
     List<SignDto> signSubContnetList(String subContent);
 
     Page<SignDto> myApvList(Pageable pageable, String subject, String search, String name);
+
+    List<SignDto> getAllSignOk(String name);
+
+    List<SignDto> getAllSignNo(String name);
+
+
+
+
 }

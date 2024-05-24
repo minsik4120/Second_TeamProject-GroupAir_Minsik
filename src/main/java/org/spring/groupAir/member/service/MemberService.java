@@ -137,7 +137,12 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public String findPosition(String name) {
-        return null;
+
+        MemberEntity memberEntity = memberRepository.findByName(name).get();
+
+        String position = memberEntity.getPositionEntity().getPositionName();
+
+        return position;
     }
 
 }

@@ -18,43 +18,21 @@
         <div class="sign">
             <div class="sign-con">
                 <h1>결재</h1>
-               <div>
+                <div>
                    <span>
                        <p><a th:href="@{/sign/write}">결재작성</a></p>
                    </span>
+                    <th:block th:if="${position} == '부장'">
+                       <p><a th:href="@{/sign/signList}">나에게 온 결재함</a></p>
+                    </th:block>
 
-                   <span>
-                       <p><a th:href="@{/sign/signList}">결재함</a></p>
-                   </span>
-
-
-
-               </div>
-
+                    <th:block th:if="${position} == '사원'">
+                       <p><a th:href="@{/sign/approveSignList}">상신함</a></p>
+                    </th:block>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                </div>
 
 
             </div>

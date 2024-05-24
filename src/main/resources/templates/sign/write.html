@@ -30,8 +30,33 @@
                             <td>직급</td>
                         </tr>
                         <tr>
-                            <td><input type="text" th:field="*{approve}" id="approve"></td>
-                            <td><input type="text" th:field="*{deptName}" id="deptName"></td>
+                            <td><input type="text" th:value="${name}" name="approve" id="approve"></td>
+<!--                            <td>-->
+<!--                            <select th:field="*{approve}" id="approve">-->
+<!--                                <option value="#">선택하세요</option>-->
+<!--                                <option th:each="member : ${members}" th:value="${member.name}"-->
+<!--                                        th:text="${member.name}"></option>-->
+<!--                            </td>-->
+<!--                            </select>-->
+<!--                            <td><input type="text" th:field="*{deptName}" id="deptName"></td>-->
+
+
+                            <td>
+                                <select th:field="*{deptName}" id="deptName">
+                                    <option value="#">부서를 선택하세요</option>
+
+                                    <option th:each="dept : ${list}"
+                                            th:value="${dept.topDepartmentName}"
+                                            th:text="${dept.topDepartmentName}">
+                                    </option>
+
+
+
+
+
+
+                            </td>
+
                             <td><input type="text" th:field="*{level}" id="level"></td>
                         </tr>
                         <tr>
@@ -51,18 +76,19 @@
                                     <label for="lastApprover">최종승인자</label>
                                     <select th:field="*{lastApprover}" id="lastApprover">
                                         <option value="#">선택하세요</option>
-                                        <option th:each="member : ${members}" th:value="${member.name}"
+                                        <option th:each="member : ${members}"
+                                                th:value="${member.name}"
                                                 th:text="${member.name}"></option>
 
                                     </select>
                                 </div>
                             </td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <td colspan="4">반려사유 <textarea th:field="*{rejectReason}" id="rejectReason"-->
-<!--                                                           style="width: 100%; height: 80px;"></textarea></td>-->
+                        <tr>
+                            <td colspan="4">비고 <textarea th:field="*{rejectReason}" id="rejectReason"
+                                                           style="width: 100%; height: 80px;"></textarea></td>
 
-<!--                        </tr>-->
+                        </tr>
 
 
                         <tr>

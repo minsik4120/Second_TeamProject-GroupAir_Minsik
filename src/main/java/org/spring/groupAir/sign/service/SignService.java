@@ -102,6 +102,14 @@ public class SignService implements SignServiceInterface {
         return optionalSignEntity.map(SignDto::toSignDto).orElse(null);
     }
 
+    @Override
+    public SignDto approveSignOne(Long id) {
+        Optional<SignEntity> optionalSignEntity = signRepository.findById(id);
+
+
+        return optionalSignEntity.map(SignDto::toSignDto).orElse(null);
+    }
+
     @Transactional
     @Override
     public int deleteSign(Long id) {
@@ -189,6 +197,8 @@ public class SignService implements SignServiceInterface {
         return signRepository.findByMemberEntityName(currentUserName, pageable).map(SignDto::toSelectSignDto);
     }
 
+
+
 //    @Override
 //    public List<SignDto> getSignListByLastApprover(String name) {
 //        List<SignEntity> signEntities = signRepository.findByLastApprover(name);
@@ -215,34 +225,6 @@ public class SignService implements SignServiceInterface {
 
         return signDtoPage;
     }
-
-    @Override
-    public void signOk(SignDto signDto) {
-        SignEntity signEntity = SignEntity.toUpdateEntity(signDto);
-        Long id = signRepository.save(signEntity).getId();
-
-        Optional<SignEntity> optionalSignEntity = signRepository.findById(id);
-        if (optionalSignEntity.isPresent()) {
-            System.out.println("수정성공");
-            return;
-        }
-        System.out.println("수정실패");
-        throw new IllegalArgumentException("수정실패");
-
-    }
-
-    @Override
-    public List<SignDto> signSubContnetList(String subContent) {
-         List<SignEntity> signEntities=  signRepository.findAllBySubContent(subContent);
-
-
-        System.out.println(signEntities.size()+" size");
-
-        //List<Enity>  -> List<Dto>
-        List<SignDto>  signDtoList=  signEntities.stream().map(SignDto::toSelectSignDto).collect(Collectors.toList());
-        return signDtoList;
-    }
-
     @Override
     public Page<SignDto> myApvList(Pageable pageable, String subject, String search, String name) {
         Page<SignEntity> signEntityPage = null;
@@ -264,6 +246,77 @@ public class SignService implements SignServiceInterface {
     }
 
 
+
+    @Override
+    public void signOk(SignDto signDto) {
+        SignEntity signEntity = SignEntity.toUpdateEntity(signDto);
+        Long id = signRepository.save(signEntity).getId();
+
+        Optional<SignEntity> optionalSignEntity = signRepository.findById(id);
+
+        if (optionalSignEntity.isPresent()) {
+            System.out.println("수정성공");
+            return;
+        }
+        System.out.println("수정실패");
+        throw new IllegalArgumentException("수정실패");
+
+    }
+
+
+    @Override
+    public List<SignDto> signSubContnetList(String subContent) {
+         List<SignEntity> signEntities=  signRepository.findAllBySubContent(subContent);
+
+
+        System.out.println(signEntities.size()+" size");
+
+        //List<Enity>  -> List<Dto>
+        List<SignDto>  signDtoList=  signEntities.stream().map(SignDto::toSelectSignDto).collect(Collectors.toList());
+        return signDtoList;
+    }
+
+
+    @Override
+    public List<SignDto> getAllSignOk(String name) {
+
+        String subContent = "승인";
+
+       List<SignEntity> signEntities = signRepository.findAllByLastApproverAndSubContent(name, subContent);
+       return signEntities.stream().map(SignDto::toSignDto).collect(Collectors.toList());
+
+
+    }
+
+    @Override
+    public List<SignDto> getAllSignNo(String name) {
+
+        String subContent = "반려";
+
+       List<SignEntity> signEntities=signRepository.findAllByLastApproverAndSubContent(name , subContent);
+
+        return signEntities.stream().map(SignDto::toSignDto).collect(Collectors.toList());
+    }
+
+
+
+
+//    @Override
+//    public Page<SignDto> signListById(Pageable pageable, String subject, String search,Long id) {
+//        Page<SignEntity> signEntityPage = null;
+//
+//        MemberEntity memberEntity= MemberEntity.builder().id(id).build();
+//
+//        Page<SignEntity> signEntities=    signRepository.findAllByMemberEntity(pageable,search,memberEntity);
+//
+//
+//
+//       Page<SignDto> signDtoPage = signEntities.map(SignDto::toSignDto);
+//
+//
+//
+//        return signDtoPage;
+//   }
 }
 
 

@@ -1,5 +1,6 @@
 package org.spring.groupAir.sign.repository;
 
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.sign.entity.SignEntity;
 import org.spring.groupAir.sign.entity.SignFileEntity;
 import org.springframework.data.domain.Page;
@@ -29,9 +30,14 @@ public interface SignRepository  extends JpaRepository<SignEntity, Long> {
 
 //    List<SignEntity> findAllBySubcontent(String subContent);
 
-    List<SignEntity> findAllBySubContent(String subContent);
+    List<SignEntity> findAllBySubContent(String subContent );
 
     Page<SignEntity> findByApprove(Pageable pageable, String name);
+
+
+    Page<SignEntity>  findAllByMemberEntity(Pageable pageable, String search, MemberEntity memberEntity );
+
+    List<SignEntity> findAllByLastApproverAndSubContent(String name, String subContent);
 }
 
 

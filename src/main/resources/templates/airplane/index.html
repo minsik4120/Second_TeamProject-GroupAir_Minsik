@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout/adminLayout}">
+<th:block layout:fragment="title">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/airplane/index.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <!-- 각 페이지 마다 변경 -->
+</th:block>
+
+<th:block layout:fragment="adminContainer">
+    <div class="adminContainer">
+        <h1>항공편관리</h1>
+        <div class="airplane">
+            <div class="airplane-con">
+                <div class="search">
+                    <form th:action="@{/airplane/index}" method="get">
+                        <select name="subject" id="subject">
+                            <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
+                            <option value="airplane" th:selected="${#strings.equals(param.subject, 'name')}">항공기</option>
+                            <option value="toArea" th:selected="${#strings.equals(param.subject, 'name')}">출발지</option>
+                            <option value="fromArea" th:selected="${#strings.equals(param.subject, 'name')}">도착지</option>
+                        </select>
+                        <input type="text" name="search" id="search" th:value="${param.search}">
+                        <input type="submit" value="SEARCH">
+                    </form>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>출발시간</th>
+                        <th>출발지</th>
+                        <th>도착시간</th>
+                        <th>도착지</th>
+                        <th>소요시간</th>
+                        <th>항공기</th>
+                        <th>상세보기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="airplane : ${airplaneDtoPage}">
+                        <td th:text="${airplane.id}"></td>
+                        <td th:text="${#temporals.format(airplane.toTime, 'MM월 dd일 HH시 mm분')}"></td>
+                        <td th:text="${airplane.toArea}"></td>
+                        <td th:text="${#temporals.format(airplane.fromTime, 'MM월 dd일 HH시 mm분')}"></td>
+                        <td th:text="${airplane.fromArea}"></td>
+                        <td th:text="'약 '+${airplane.timeTaken}+' 시간'"></td>
+                        <td th:text="${airplane.airplane}"></td>
+                        <td><a th:href="@{/airplane/detail/{id}(id=${airplane.id})}">상세보기</a></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <div class="paging">
+                                <ul>
+                                    <li>
+                                        <span th:if="${airplaneDtoPage.pageable.pageNumber+1 eq 1}"
+                                              class="span0"> START </span>
+                                        <span th:unless="${airplaneDtoPage.pageable.pageNumber+1 eq 1}">
+                                            <a th:href="@{/airplane/index(page=0,search=${param.search},
+                                                subject = ${param.subejct})}"
+                                               class="span1"> << </a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span th:if="${airplaneDtoPage.pageable.pageNumber+1 eq 1}"
+                                              class="span0">PRE</span>
+                                        <span th:unless="${airplaneDtoPage.pageable.pageNumber+1 eq 1}">
+                                            <a th:href="@{/airplane/index(page=${airplaneDtoPage.pageable.pageNumber-1}
+                                            ,search = ${param.search}, subject = ${param.subject})}"
+                                               class="span1">이전</a>
+                                    </span>
+                                    </li>
+
+                                    <li th:each="i : ${#numbers.sequence(startPage, endPage)}" class="block">
+                                    <span th:if="${airplaneDtoPage.pageable.pageNumber +1 == i}" th:text="${i}"
+                                          class="now"></span>
+                                        <a th:unless="${airplaneDtoPage.pageable.pageNumber+1 == i}"
+                                           th:href="@{/airplane/index(page=${i-1}
+                                    ,search=${param.search}, subject=${param.subject})}" th:text="${i}"></a>
+                                    </li>
+
+                                    <li>
+                                <span th:if="${airplaneDtoPage.totalPages == airplaneDtoPage.pageable.pageNumber+1}"
+                                      class="span0">NEXT</span>
+                                        <span
+                                            th:unless="${airplaneDtoPage.totalPages == airplaneDtoPage.pageable.pageNumber+1}">
+                                    <a th:href="@{/airplane/index(page=${airplaneDtoPage.pageable.pageNumber+1}
+                                    ,search=${param.search},subject=${param.subject})}" class="span1">다음</a>
+                                </span>
+                                    </li>
+                                    <li>
+                                    <span th:if="${airplaneDtoPage.totalPages == airplaneDtoPage.pageable.pageNumber+1}"
+                                          class="span0">
+                                        END
+                                    </span>
+                                        <span
+                                            th:unless="${airplaneDtoPage.totalPages == airplaneDtoPage.pageable.pageNumber+1}">
+                                        <a th:href="@{/airplane/index(page=${airplaneDtoPage.totalPages-1}
+                                        ,search=${param.search}, subject=${param.subject})}" class="span1">
+                                            마지막
+                                        </a>
+                                    </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div class="registrationButton">
+                    <a th:href="@{/airplane/registration}">항공편 등록</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

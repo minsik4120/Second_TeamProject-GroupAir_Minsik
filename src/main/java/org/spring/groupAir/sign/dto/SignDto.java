@@ -32,7 +32,7 @@ public class SignDto {
     private int signAttachFile;
 
 
-    private String rejectReason;// 승인
+    private String rejectReason;// 비고
 
     private LocalDateTime createTime;
 
@@ -60,7 +60,7 @@ public class SignDto {
     private String lastApprover; //최종승인자
 
 
-    private String subContent;
+    private String subContent; //승인 , 반려
 
 
     private String level; //직급

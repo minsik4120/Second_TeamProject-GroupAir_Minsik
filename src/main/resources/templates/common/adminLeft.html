@@ -5,37 +5,25 @@
         <div class="top">
             <div class="title">
                 <h1 class="logo">
-                    <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt=""> </a>
+                    <a th:href="@{/member/memberList}"><img th:src="@{/images/logo.png}" alt="">
+                        <p>GroupAir</p>
+                    </a>
                 </h1>
-                <div class="profile">ADMIN</div>
+                <div class="weatherApi">
+                    <h6 class="nowTime"></h6>
+                    <div class="topWeather">
+                        <h3 class="SeoulIcon"></h3>
+                        <h5 class="nowWeather"></h5>
+                    </div>
+                    <h5 class="SeoulNowTemp"></h5>
+                    <h5 class="SeoulTempRange"></h5>
+                </div>
             </div>
             <div class="left-menu">
                 <ul>
-
-                    <a th:href="@{#}">사원관리</a>
-                    <li><a th:href="@{/commute/index}">근태</a></li>
-                    <li><a th:href="@{#}">급여</a></li>
-                    <li><a th:href="@{#}">사원정보</a></li>
-                </ul>
-                <ul>
-                    <a th:href="@{#}">부서관리</a>
-                    <li><a th:href="@{#}">부서</a></li>
-                    <li><a th:href="@{/sign}">결재</a></li>
-                </ul>
-                <ul>
-                    <a th:href="@{#}">게시판</a>
-                    <li><a th:href="@{#}">공지사항</a></li>
-                    <li><a th:href="@{#}">건의사항</a></li>
-                    <li><a th:href="@{#}">칭찬합시다</a></li>
-                </ul>
-                <ul>
-                    <li><a th:href="@{#}">회사일정</a></li>
-                </ul>
-                <ul>
-                    <li><a th:href="@{#}">항공편</a></li>
-
                     <li class="menuBar">
-                        <a th:href="@{#}">근태급여</a>
+                        <img th:src="@{/images/pay.png}" alt="member">
+                        <a th:href="@{/commute/index}">근태급여</a>
                         <ul class="subMenu">
                             <li><a th:href="@{/commute/index}">근태</a></li>
                             <li><a th:href="@{/salary/index}">급여</a></li>
@@ -43,19 +31,23 @@
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/department.png}" alt="member">
                         <a th:href="@{#}">부서</a>
                         <ul class="subMenu">
                             <li><a th:href="@{/department/top/deList}">부서관리</a></li>
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/employee.png}" alt="member">
                         <a th:href="@{#}">사원관리</a>
                         <ul class="subMenu">
                             <li><a th:href="@{#}">부서</a></li>
-                            <li><a th:href="@{#}">결재</a></li>
+                            <li><a th:href="@{/sign}">결재</a></li>
+                            <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/member.png}" alt="member">
                         <a th:href="@{#}">로그인</a>
                         <ul class="subMenu">
                             <li><a th:href="@{#}">부서</a></li>
@@ -63,9 +55,11 @@
                         </ul>
                     </li>
                     <li class="menuBar">
-                        <a th:href="@{#}">항공편</a>
+
+                        <img th:src="@{/images/plane.png}" alt="member">
+                        <a th:href="@{/airplane/index}">항공편</a>
                         <ul class="subMenu">
-                            <li><a th:href="@{#}">항공편 관리</a></li>
+                            <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
                         </ul>
                     </li>
 

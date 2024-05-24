@@ -4,10 +4,10 @@
       layout:decorate="~{common/layout/adminLayout}">
 
 <th:block layout:fragment="title">
-   <h1>승인된 결재 목록</h1>
+   <h1>반려된 결재 목록</h1>
 </th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/sign/signOk.css}">
+    <link rel="stylesheet" th:href="@{/css/sign/signNo.css}">
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
@@ -15,16 +15,15 @@
 
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
-        <div class="signOk">
-            <div class="signOk-con">
+        <div class="signNo">
+            <div class="signNo-con">
 
-               <h2>승인된 결재 목록</h2>
+               <h2>반려된 결재 목록</h2>
 
 <!--                <span><a th:href="@{/sign/signList}">결재함</a></span> <br>-->
-<!--                <span><a th:href="@{/sign/signNo}">반려된 결재 목록</a></span>-->
+<!--                <span><a th:href="@{/sign/signOk}">승인된 결재 목록</a></span>-->
 
-
-                <form th:action="@{/sign/signOk}" method="get">
+                <form th:action="@{/sign/signNo}" method="get">
 
 
                 </form>
@@ -46,7 +45,7 @@
                     </thead>
 
                     <tbody>
-                    <tr th:each="sign : ${signOkList}">
+                    <tr th:each="sign : ${signNoList}">
                         <td th:text="${sign.id}"></td>
                         <td th:text="${sign.approve}"></td>
                         <td th:text="${sign.deptName}"></td>
@@ -64,6 +63,7 @@
                         <td th:text="${sign.lastApprover}">승인자</td>
 
 
+
                         <!--                        <th:block th:if="${sign.signAttachFile==1}">-->
                         <!--                            <td>O</td>-->
                         <!--                        </th:block>-->
@@ -73,6 +73,16 @@
 
                     </tr>
                     </tbody>
+
+
+
+
+
+
+
+
+
+
 
 
             </div>

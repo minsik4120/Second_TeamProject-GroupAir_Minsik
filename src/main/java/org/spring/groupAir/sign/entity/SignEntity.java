@@ -126,6 +126,7 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setLastApprover(signDto.getLastApprover());
         signEntity.setSubContent(signDto.getSubContent());
         signEntity.setLevel(signDto.getLevel());
+
         return signEntity;
     }
 

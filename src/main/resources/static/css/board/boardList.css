@@ -10,7 +10,7 @@
 
 .boardList {
 width: 100%;
-border: 1px solid;
+/*border: 1px solid;*/
 box-sizing: border-box;
 
 display: flex;

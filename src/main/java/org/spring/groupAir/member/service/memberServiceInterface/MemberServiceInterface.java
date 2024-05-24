@@ -12,6 +12,8 @@ public interface MemberServiceInterface {
 
     Page<MemberDto> memberList(Pageable pageable, String subject, String search);
 
+    List<MemberDto> memberList();
+
     MemberDto memberDetail(Long id);
 
 

@@ -46,7 +46,45 @@ public class BoardController {
     return "redirect:/board/boardList";
   }
 
+
+
+    // ----------------------------------------
+
+
+    //  로그인 한 회원 만 들어 갈 수 있게 하는 거
+/*  @GetMapping("/write")
+  public String write(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails,
+                      BoardDto boardDto,
+                      Model model){
+    model.addAttribute("memberId"
+        , myUserDetails.getMemberEntity().getId());
+
+    return "board/write";
+  }
+
+
+  //  로그인 한 회원 만 들어 갈 수 있게 하는 거
+
+
+
+
+  @PostMapping("/write") // 유효성 검사 폼 데이터를 처리 Java 객체에 매핑
+  public String writeOk(@Valid BoardDto boardDto ,
+                          BindingResult bindingResult){
+    if (bindingResult.hasErrors()){
+      return "board/write";
+    }
+    boardService.insertBoard(boardDto);
+
+    return "redirect:/board/boardList";
+  }*/
+
+
+
+
+
   @GetMapping("/boardList")
+
   public String boardList(@RequestParam(name = "subject", required = false) String subject,
                           @RequestParam(name = "search", required = false) String search,
                           @PageableDefault(page = 0, size = 20, sort = "id", direction = Sort.Direction.DESC)
@@ -92,6 +130,7 @@ public class BoardController {
 
     return "redirect:/board/detail/" + boardDto.getId();
   }
+
 
   @GetMapping("/delete/{id}")
   public String delete(@PathVariable("id") Long id) {

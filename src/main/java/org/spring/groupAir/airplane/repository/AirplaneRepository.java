@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface AirplaneRepository extends JpaRepository<AirPlaneEntity, Long> {
@@ -28,5 +29,6 @@ public interface AirplaneRepository extends JpaRepository<AirPlaneEntity, Long> 
 
     void deleteByFromTimeBefore(LocalDateTime dateTime);
 
-
+    @Query(value="SELECT * FROM airplane a WHERE a.to_time <= :time AND a.from_time >= :time", nativeQuery = true)
+    List<AirPlaneEntity> updateStatus(@Param("time")LocalDateTime now);
 }

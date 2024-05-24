@@ -39,6 +39,9 @@ public class AirPlaneEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String airplane;
 
+    @Column(nullable = false)
+    private String status;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private MemberEntity memberEntity;

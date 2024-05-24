@@ -60,6 +60,16 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
+    public List<MemberDto> memberList() {
+
+         List<MemberEntity> memberEntityList = memberRepository.findAll();
+
+         List<MemberDto> memberDtoList = memberEntityList.stream().map(MemberDto :: toMemberDto).collect(Collectors.toList());
+
+        return memberDtoList;
+    }
+
+    @Override
     public Long memberJoin(MemberDto memberDto) throws IOException {
         memberRepository.findByUserEmail(memberDto.getUserEmail()).ifPresent(email -> {
             throw new RuntimeException(memberDto.getUserEmail() + " 이메일이 이미 존재합니다!");

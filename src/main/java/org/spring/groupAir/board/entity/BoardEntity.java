@@ -105,36 +105,7 @@ public class BoardEntity extends BaseTimeEntity {
     return boardEntity;
   }
 
-  public static BoardEntity toUpdateEntity(BoardDto boardDto) {
-    BoardEntity boardEntity = new BoardEntity();
-    boardEntity.setId(boardDto.getId());
-    boardEntity.setHit(boardDto.getHit());
-    boardEntity.setWriter(boardDto.getWriter());
-    boardEntity.setTitle(boardDto.getTitle());
-    boardEntity.setContent(boardDto.getContent());
-    boardEntity.setBoardAttachFile(0);
-    boardEntity.setMemberEntity(boardDto.getMemberEntity());
-    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
-    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
-    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
-   /* boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());*/
 
-    return boardEntity;
-  }
 
-  public static BoardEntity toUpdateFileBoardEntity(BoardDto boardDto) {
-    BoardEntity boardEntity = new BoardEntity();
-    boardEntity.setId(boardDto.getId());
-    boardEntity.setHit(boardDto.getHit());
-    boardEntity.setWriter(boardDto.getWriter());
-    boardEntity.setTitle(boardDto.getTitle());
-    boardEntity.setContent(boardDto.getContent());
-    boardEntity.setBoardAttachFile(1);
-    boardEntity.setMemberEntity(boardDto.getMemberEntity());
-    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
-    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
-    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
-   /* boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());*/
-    return boardEntity;
-  }
+
 }

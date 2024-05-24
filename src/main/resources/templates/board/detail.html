@@ -42,7 +42,7 @@
               </div>
               <ul>
                 <li>
-                  Board Detail1
+                  게시판 상세페이지 
                 </li>
                 <li>
                   <label for="id">ID</label>           <!-- board.getMemberEntity().id -->
@@ -111,7 +111,7 @@
         </div>
 
 
-       <!-- <div class="bottom">
+        <div class="bottom">
           <div class="reply">
 
             <div class="reply-con">
@@ -119,9 +119,13 @@
               <h1 class="title"> 댓글 </h1>
 
               <input type="hidden" name="boardId" id="boardId" th:valud="${board.id}">
-              <input type="text" name="replyContent" id="replyContent" placeholder="덧글내용">
               <input type="text" name="replyWriter" id="replyWriter" placeholder="작성자">
-              <input type="button" value="댓글작성" id="replyBtn">
+              
+        
+              <input type="text" name="replyContent" id="replyContent" placeholder="덧글을 남겨 보세요">
+             
+              <input type="button" value="등록" id="replyBtn">
+      
 
               <table>
                 <thead>
@@ -144,7 +148,7 @@
                   <td th:text="${reply.replyWriter}">data</td>
                   <td th:text="${reply.createTime}">data</td>
                 </tr>
-                &lt;!&ndash;Ajax &ndash;&gt;
+                <!--Ajax -->
                 </tbody>
               </table>
             </div>
@@ -152,6 +156,6 @@
         </div>
       </div>
     </div>
-  </div>-->
+  </div>
 </th:block>
 </html>

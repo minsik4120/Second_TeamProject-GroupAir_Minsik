@@ -18,7 +18,7 @@ public interface BoardServiceInterface {
   BoardDto detail(Long id);
 
 
-  void update(BoardDto boardDto) throws IOException;
+
 
   void deleteBoard(Long id);
 

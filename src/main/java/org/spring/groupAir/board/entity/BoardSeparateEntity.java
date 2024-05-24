@@ -1,10 +1,7 @@
 package org.spring.groupAir.board.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
-import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.schedule.entity.ScheduleEntity;
 
 import javax.persistence.*;
 import java.util.List;

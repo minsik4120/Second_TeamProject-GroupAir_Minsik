@@ -113,9 +113,6 @@ public class MemberController {
 
         model.addAttribute("list", list);
         MemberDto memberDto = memberService.memberDetail(id);
-        if (myUserDetails != null) {
-            model.addAttribute("myUserDetails", myUserDetails);
-        }
 
         model.addAttribute("memberDto", memberDto);
 

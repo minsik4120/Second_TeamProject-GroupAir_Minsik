@@ -46,8 +46,7 @@ public class WebSecurityConfigClass {
             .usernameParameter("userEmail")
             // *** password : 실제로는 userPw
             .passwordParameter("userPw")
-
-            // 로그인 폼 post <form th:action="@{/member/memberLogin}" method="post">
+//            <form th:action="@{/memberLogin}" method="post">
             .loginProcessingUrl("/memberLogin")
             // 로그인 성공시
 //            .defaultSuccessUrl("/commute/index")
@@ -59,6 +58,7 @@ public class WebSecurityConfigClass {
             .and()
             .oauth2Login()
 //            .loginPage("/member/memberLogin")
+            .defaultSuccessUrl("/member/memberList")
             .userInfoEndpoint() // google, naver, kakao
             .userService(myOAuth2UserService());
 

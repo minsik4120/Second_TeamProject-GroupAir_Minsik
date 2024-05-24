@@ -10,7 +10,12 @@ import org.spring.groupAir.board.repository.BoardFileRepository;
 import org.spring.groupAir.board.repository.BoardRepository;
 import org.spring.groupAir.board.repository.BoardSeparateRepository;
 import org.spring.groupAir.board.service.serviceInterface.BoardServiceInterface;
+import org.spring.groupAir.department.entity.DepartmentEntity;
+import org.spring.groupAir.member.dto.MemberDto;
+import org.spring.groupAir.member.dto.MemberFileDto;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.MemberFileEntity;
+import org.spring.groupAir.member.entity.PositionEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,9 +37,8 @@ public class BoardService implements BoardServiceInterface {
   private  final BoardRepository boardRepository;
   private final BoardFileRepository fileRepository;
   private final BoardSeparateRepository boardSeparateRepository;
+  private final BoardFileRepository boardFileRepository;
   private final MemberRepository memberRepository;
-
-
 
   @Override
   public void insertBoard(BoardDto boardDto) throws IOException {
@@ -72,12 +75,6 @@ public class BoardService implements BoardServiceInterface {
       String fileSavePath = "C:/groupAir/" + newFileName; // 여기 경로로 저장됨
       boardFile.transferTo(new File(fileSavePath)); // IoException
 
-
-      // 1.  게시글
-    /*  boardDto.setMemberEntity(MemberEntity.builder()
-              .id(boardDto.getMemberId())
-              .build());*/
-
       boardDto.setMemberEntity(MemberEntity.builder()
           .id(boardDto.getMemberId())
           .build());
@@ -108,7 +105,6 @@ public class BoardService implements BoardServiceInterface {
   }
 
 
-
   @Override
   public Page<BoardDto> boardSearchPagingList(Pageable pageable, String subject, String search) {
 
@@ -137,15 +133,10 @@ public class BoardService implements BoardServiceInterface {
   }
 
 
-
-
-
   @Override
   public BoardDto detail(Long id) {
     updateHit(id);
-
     Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
-
 
     if (optionalBoardEntity.isPresent()) {
 
@@ -156,15 +147,9 @@ public class BoardService implements BoardServiceInterface {
     }
     throw new IllegalArgumentException("아이디가 Fail!");
   }
-
   private void updateHit(Long id) {
     boardRepository.updateHitById(id);
-
   }
-
-
-
-
 
 
   @Override
@@ -202,12 +187,86 @@ public class BoardService implements BoardServiceInterface {
     return boardRepository.findByBoardSeparateEntityId(boardSeparateId);
   }
 
- /* @Override
-  public BoardSeparateEntity getBoardSeparateById(Long boardSeparateId) {
 
 
-    return boardRepository.findByBoardSeparateId(boardSeparateId);
+  @Override
+  public void boardUpdate(BoardDto boardDto) throws IOException {
+
+    boardDto.setMemberEntity(MemberEntity.builder().id(boardDto.getMemberId()).build());
+
+    if (boardDto == null || boardDto.getId() == null) {
+      throw new IllegalArgumentException("boardDto 또는 ID가 null입니다.");
+    }
+
+    BoardEntity boardEntity = boardRepository.findById(boardDto.getId())
+        .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
+
+    Optional<BoardFileEntity> optionalBoardFileEntity = boardFileRepository
+        .findByBoardEntityId(boardDto.getId());
+
+    optionalBoardFileEntity.ifPresent(boardFileEntity -> {
+      String newFileName = boardFileEntity.getBoardNewFile();
+      String filePath = "c:/groupAir/" + newFileName;
+      File deleteFile = new File(filePath);
+      if (deleteFile.exists()) {
+        if (!deleteFile.delete()) {
+          System.out.println("파일 삭제에 실패했습니다.");
+        }
+      } else {
+        System.out.println("파일이 존재하지 않습니다.");
+      }
+      boardFileRepository.delete(boardFileEntity);
+    });
+
+
+    boolean isFilePresent = boardDto.getBoardFile() != null && !boardDto.getBoardFile().isEmpty();
+
+    if (isFilePresent) {
+      processFile(boardDto); // 이 부분에서 NullPointerException이 발생할 수 있습니다.
+    }
+
+
+    if (isFilePresent ) {
+      boardEntity = BoardEntity.toUpdateFileBoardEntity1(boardDto);
+    } else {
+      boardEntity = BoardEntity.toUpdateFileBoardEntity0(boardDto);
+    }
+
+    boardRepository.save(boardEntity);
   }
-*/
+
+  private void processFile(BoardDto boardDto) throws IOException {
+    if (boardDto.getBoardFile() == null) {
+      throw new IllegalArgumentException("MemberDto에 파일이 없습니다.");
+    }
+
+    MultipartFile boardFile = boardDto.getBoardFile();
+    String oldFileName = boardFile.getOriginalFilename();
+    UUID uuid = UUID.randomUUID();
+    String newFileName = uuid + "_" + oldFileName;
+
+    String savePath = "c:/groupAir/" + newFileName;
+    boardFile.transferTo(new File(savePath));
+
+    boardDto.setBoardFileName(newFileName);
+
+    BoardFileDto boardFileDto = BoardFileDto.builder()
+        .boardOldFile(oldFileName)
+        .boardNewFile(newFileName)
+        .boardEntity(boardRepository.findById(boardDto.getId()).orElseThrow(() ->
+            new RuntimeException("해당 아이디가 존재하지 않습니다.")
+        ))
+        .build();
+
+    BoardFileEntity boardFileEntity = BoardFileEntity.builder()
+        .boardEntity(boardFileDto.getBoardEntity())
+        .boardOldFile(boardFileDto.getBoardOldFile())
+        .boardNewFile(boardFileDto.getBoardNewFile())
+        .build();
+
+    boardFileRepository.save(boardFileEntity);
+
+  }
+
 
 }

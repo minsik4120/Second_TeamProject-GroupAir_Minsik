@@ -37,8 +37,6 @@ public class BoardDto {
 
   private String writer;
 
-
-
   private int boardAttachFile; //게시글 작성시 파일이 존재하면 1, 없으면 0
 
   private MultipartFile boardFile;
@@ -60,6 +58,8 @@ public class BoardDto {
 
   private  String boardOldFile;
 
+  private  String boardFileName;
+
 
 
 
@@ -78,10 +78,9 @@ public class BoardDto {
     boardDto.setMemberId(boardEntity.getMemberEntity().getId());
 
     // 얘가 왜 안돼 ?
-   /* boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());*/
+   boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());
+   boardDto.setBoardSeparateEntity(boardEntity.getBoardSeparateEntity());
 
-//    boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());
-    /*boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());*/
 
     if (boardEntity.getBoardAttachFile()==0) {
       // 파일이 x
@@ -102,4 +101,22 @@ public class BoardDto {
   }
 
 
+  public static BoardDto toBoardDto(BoardEntity boardEntity) {
+    BoardDto boardDto = new BoardDto();
+    boardDto.setId(boardEntity.getId());
+    boardDto.setTitle(boardEntity.getTitle());
+    boardDto.setWriter(boardEntity.getWriter());
+    boardDto.setContent(boardEntity.getContent());
+    boardDto.setHit(boardEntity.getHit());
+    boardDto.setBoardAttachFile(boardEntity.getBoardAttachFile());
+    boardDto.setMemberEntity(boardEntity.getMemberEntity());
+    boardDto.setBoardSeparateEntity(boardEntity.getBoardSeparateEntity());
+    boardDto.setBoardReplyEntityList(boardEntity.getBoardReplyEntityList());
+    boardDto.setBoardFileEntityList(boardEntity.getBoardFileEntityList());
+    boardDto.setMemberId(boardEntity.getMemberEntity().getId());
+    boardDto.setBoardSeparateId(boardEntity.getBoardSeparateEntity().getId());
+    boardDto.setUpdateTime(boardEntity.getUpdateTime());
+    boardDto.setCreateTime(boardEntity.getCreateTime());
+    return boardDto;
+  }
 }

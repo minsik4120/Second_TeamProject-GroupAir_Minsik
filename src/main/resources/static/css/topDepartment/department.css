@@ -96,7 +96,7 @@ table , td {
 .make .make-con .de_left .top ul>a>li.highlighted-link {
     background-color: #96b3d9;
     border-radius: 5px;
-    color: white;
+    color: #000;
 }
 
 .make .make-con .de_right{
@@ -124,6 +124,7 @@ table , td {
 
 .make .make-con .de_right ul form li {
     display: flex;
+    align-items: center;
 }
 
 .make .make-con .de_right ul form .subDepartment {
@@ -134,9 +135,19 @@ table , td {
 .make .make-con .de_right ul form input#memberEntityList {
     border: none;
     border-radius: 10px;
-    text-align: left;
+    text-align: center;
     padding: 3px;
     box-sizing: border-box;
+    display: flex;
+    flex: 1;
+    width: 100%;
+    background: #fff;
+}
+
+.make .make-con .de_right ul form li.meList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
 }
 
 .make .make-con .de_right ul form li.deList {
@@ -180,12 +191,18 @@ table , td {
     width: 400px;
     flex: 3;
     margin: 5px;
+    border: none;
+    border-bottom: 1px solid;
+    background: transparent;
+    padding: 2px;
+    box-sizing: border-box;
 }
 
 .make .make-con .de_right ul form select {
     width: 100px;
     height: 20px;
     margin: 0 5px;
+    background-color: #eff6ff;
 }
 
 .make .make-con .de_right ul form li:last-child{

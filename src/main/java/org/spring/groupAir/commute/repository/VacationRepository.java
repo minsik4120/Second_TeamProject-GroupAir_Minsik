@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -25,4 +26,6 @@ public interface VacationRepository extends JpaRepository<VacationEntity, Long> 
 
     @Query(value = " SELECT COUNT(*) FROM vacation v WHERE v.vac_start_date <= :date AND v.vac_end_date >= :date AND v.vac_type = '병가'", nativeQuery = true)
     int findBySickVacationPeople(@Param("date")LocalDate now);
+
+    void deleteByVacEndDateBefore(LocalDate localDate);
 }

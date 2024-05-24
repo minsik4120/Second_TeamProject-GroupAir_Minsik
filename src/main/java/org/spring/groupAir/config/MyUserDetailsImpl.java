@@ -17,6 +17,11 @@ import java.util.Map;
 @Builder
 public class MyUserDetailsImpl implements UserDetails, OAuth2User {
 
+    // 로그인한 계정 id 가져오기
+    public Long getId() {
+        return memberEntity.getId();
+    }
+
     private MemberEntity
         memberEntity;
     private Map<String, Object> getAttributes;
@@ -87,4 +92,6 @@ public class MyUserDetailsImpl implements UserDetails, OAuth2User {
     public boolean isEnabled() {
         return true;
     }
+    
+    
 }

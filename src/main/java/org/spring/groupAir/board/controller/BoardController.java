@@ -30,48 +30,27 @@ public class BoardController {
 
   private final ReplyService boardReplyService;
 
-  // id 값을 가져오면 넘어가야하는곳
-// @GetMapping("/category/{id}")
-//  public String getBoardBySeparate(@PathVariable Long id) {
-//   boardService.findById(id);
-//   return "board/boardList"; // 해당 카테고리에 넘어가게 하고
-//  }
-//
-//  @GetMapping("/category/}")
-//  public String<BoardSeparateEntity> getAllCategories() {
-//   boardService.getAllCategories();
-//  }
-
 
   // 나중에 지울거
   @GetMapping("/write")
   public String write(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, BoardDto boardDto, Model model) {
 
-
     model.addAttribute("memberId", myUserDetails.getMemberEntity().getId());
     model.addAttribute("boardDto", boardDto);
-
     return "board/write";
   }
 
-
-
   @PostMapping("/write")
   public String writeOk(BoardDto boardDto) throws IOException {
-
     boardService.insertBoard(boardDto);
-
     return "redirect:/board/boardList";
   }
-
-
 
   @GetMapping("/boardList")
   public String boardList(@RequestParam(name = "subject", required = false) String subject,
                           @RequestParam(name = "search", required = false) String search,
                           @PageableDefault(page = 0, size = 20, sort = "id", direction = Sort.Direction.DESC)
                           Pageable pageable, Model model) {
-
 
     Page<BoardDto> pagingList = boardService.boardSearchPagingList(pageable, subject, search);
 
@@ -89,17 +68,14 @@ public class BoardController {
     model.addAttribute("endPage", endPage);
     model.addAttribute("pagingList", pagingList);
 
-
     return "board/boardList";
   }
-
 
   @GetMapping("/detail/{id}")
   public String detail(@PathVariable("id") Long id, Model model, BoardSeparateEntity boardSeparateEntity) {
 
     // 조회 -> BoardEntity id -> 파일있을 경우 FileEntity newFIleName
     BoardDto board = boardService.detail(id);
-
     //게시글 존재하면 ->게시글에 연결된 덧글리스트
     List<BoardReplyDto> replyList = boardReplyService.replyList(board.getId());
 
@@ -109,49 +85,13 @@ public class BoardController {
     return "board/detail";
   }
 
-/*
-  @GetMapping("/update/{id}")
-  public String boardUpdate(@PathVariable("id") Long id,
-                            @AuthenticationPrincipal MyUserDetailsImpl myUserDetails,
-                            Model model) {
-    BoardDto boardDto=boardService.boardDetailUpdate(id);
-
-    if (myUserDetails != null) {
-      model.addAttribute("myUserDetails", myUserDetails);
-    }
-
-    model.addAttribute("boardDto", boardDto);
-
-    return "board/detail";
-  }
-
-  @PostMapping("/update")
-  public String update(@ModelAttribute BoardDto boardDto) throws IOException {
-
-    boardService.update(boardDto);
-
-    return "redirect:/board/detail/" + boardDto.getId();
-  }*/
-
-
   @PostMapping("/boardUpdate")
   public String boardUpdate(BoardDto boardDto) throws IOException {
 
     boardService.boardUpdate(boardDto);
 
-
     return "redirect:/board/detail/" + boardDto.getId();
   }
-
-/*  @PostMapping("/update")
-  public String update(@ModelAttribute BoardDto boardDto) throws IOException {
-
-    boardService.update(boardDto);
-
-    return "redirect:/board/detail/" + boardDto.getId();
-  }*/
-
-
 
   @GetMapping("/delete/{id}")
   public String delete(@PathVariable("id") Long id) {
@@ -161,22 +101,14 @@ public class BoardController {
     return "redirect:/board/boardList";
   }
 
-
-
   @GetMapping("/Lists")
   public String getBoardsBySeparateId(@RequestParam("boardSeparateId") Long boardSeparateId, Model model) {
 
     List<BoardEntity> boards = boardService.getBoardsBySeparateId(boardSeparateId);
-
-
     model.addAttribute("boards", boards);
-
 
     return "board/boardsPage";
   }
-
-
-
 
 
 }

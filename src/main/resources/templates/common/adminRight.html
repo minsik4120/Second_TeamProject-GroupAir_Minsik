@@ -19,7 +19,8 @@
                         <li><a th:href="@{/member/memberJoin}">회원가입</a></li>
                     </th:block>
                     <th:block sec:authorize="isAuthenticated()">
-                        <li><a th:href="@{/member/logout}">로그아웃</a></li>
+                        <li><a th:href="@{/chat/{id}(id=${#authentication.principal.id})}">채팅</a></li>
+                        <li class="logout"><a th:href="@{/member/logout}">로그아웃</a></li>
                     </th:block>
                 </ul>
             </div>

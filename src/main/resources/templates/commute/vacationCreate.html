@@ -17,14 +17,16 @@
     <div class="adminContainer">
         <div class="vacationCreate">
             <div class="vacationCreate-con">
-                <h1>[[${name}]]의 휴가 등록</h1>
                 <form th:action="@{/commute/vacationCreate}" method="post">
                     <ul>
                         <li>
-                            <label for="employeeId" hidden="hidden">회원 번호</label>
-                        </li>
-                        <li>
-                            <input type="hidden" id="employeeId" name="employeeId" th:value="${employeeId}">
+                            <label for="employeeId">휴가자</label>
+                            <select name="employeeId" id="employeeId">
+                                <option th:each="member : ${memberDtoList}"
+                                        th:value="${member.id}"
+                                        th:text="${member.name}">
+                                </option>
+                            </select>
                         </li>
                         <li>
                             <label for="vacType">휴가종류</label>

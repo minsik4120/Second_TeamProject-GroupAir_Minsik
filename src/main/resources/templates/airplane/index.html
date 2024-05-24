@@ -42,6 +42,7 @@
                         <th onclick="sortTable(5)">도착지</th>
                         <th onclick="sortTable(6)">소요시간</th>
                         <th onclick="sortTable(7)">항공기</th>
+                        <th>현황</th>
                         <th>상세보기</th>
                     </tr>
                     </thead>
@@ -84,12 +85,21 @@
                         <td th:if="${airplane.fromArea.contains('밀양')}" th:text="'사랑나무공항 (KAG)'"></td>
                         <td th:text="'약 '+${airplane.timeTaken}+' 시간'"></td>
                         <td th:text="${airplane.airplane}"></td>
+                        <th:block th:if="${airplane.status} == '운행중'">
+                            <td><img th:src="@{/images/airplane/green.png}" alt="대체이미지" height="16px"></td>
+                        </th:block>
+                        <th:block th:if="${airplane.status} == '정상'">
+                            <td><img th:src="@{/images/airplane/gray.png}" alt="대체이미지" height="16px"></td>
+                        </th:block>
+                        <th:block th:if="${airplane.status} == '지연'">
+                            <td><img th:src="@{/images/airplane/red.png}" alt="대체이미지" height="16px"></td>
+                        </th:block>
                         <td><a th:href="@{/airplane/detail/{id}(id=${airplane.id})}">상세보기</a></td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="9">
+                        <td colspan="10">
                             <div class="paging">
                                 <ul>
                                     <li>

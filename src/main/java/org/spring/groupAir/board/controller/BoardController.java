@@ -112,15 +112,6 @@ public class BoardController {
   }*/
 
 
-/*
-  @GetMapping("/boards")
-  public String getBoardsBySeparateId(@RequestParam("boardSeparateId") Long boardSeparateId, Model model) {
-    List<BoardEntity> boards = boardService.getBoardsBySeparateId(boardSeparateId);
-    model.addAttribute("boards", boards);
-    return "boardsPage";
-  }
-
-*/
 
 
   @GetMapping("/boardList")
@@ -172,37 +163,8 @@ public class BoardController {
     return "board/detail";
   }
 
-/*  @GetMapping("/detail/{id}")
-  public String detail(@PathVariable("id") Long id, Model model) {
-
-    // 조회 -> BoardEntity id -> 파일있을 경우 FileEntity newFIleName
-    BoardDto board = boardService.detail(id);
-    // "board"이름으로 조회한 게시글(파일이있으면 파일포함)를 저장
-
-    // -- >board/detail1.html
-
-    //게시글 존재하면 ->게시글에 연결된 덧글리스트
-    List<BoardReplyDto> replyList = boardReplyService.replyList(board.getId());
-
-    model.addAttribute("board", board);
-    model.addAttribute("replyList", replyList);
 
 
-    return "board/detail";
-  }*/
-
-
-//  @GetMapping("/delete{id}")
-//  public String delete(@PathVariable("id") Long id , Model model)
-
-
-  @PostMapping("/update")
-  public String update(@ModelAttribute BoardDto boardDto) throws IOException {
-
-    boardService.update(boardDto);
-
-    return "redirect:/board/detail/" + boardDto.getId();
-  }
 
   @GetMapping("/delete/{id}")
   public String delete(@PathVariable("id") Long id) {
@@ -225,23 +187,6 @@ public class BoardController {
 
     return "board/boardsPage";
   }
-
-
-
-//  @GetMapping("/Lists")
-//  public String getBoardsBySeparateId(@RequestParam("boardSeparateId") Long boardSeparateId, Model model) {
-//    // boardSeparateId에 해당하는 BoardSeparateEntity를 조회합니다.
-//    BoardSeparateEntity boardSeparateEntity = boardService.getBoardSeparateById(boardSeparateId);
-//    // BoardSeparateEntity에서 이름을 가져옵니다.
-//    String boardSeparateName = boardSeparateEntity.getBoardSeparateName();
-//    // 컨트롤러에서 템플릿으로 전달할 데이터를 설정합니다.
-//    model.addAttribute("boardSeparateName", boardSeparateName);
-//    model.addAttribute("boardSeparateId", boardSeparateId);
-//
-//    // 보여줄 페이지의 경로를 반환합니다.
-//
-//    return "board/boardsPage";
-//  }
 
 
 

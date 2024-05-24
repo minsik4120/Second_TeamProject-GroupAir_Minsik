@@ -35,42 +35,42 @@
                             <ul>
                                 <li>
                                     출 발 지 :
-                                    <span th:if="${airplaneDto.toArea.contains('중구')}" th:text="'인천국제공항 (ICN)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('강서구')}" th:text="'김포국제공항 (GMP)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('김해시')}" th:text="'김해국제공항 (PUS)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('달성군')}" th:text="'대구국제공항 (TAE)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('광산구')}" th:text="'광주공항 (KWJ)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('남구')}" th:text="'울산공항 (USN)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('청주시')}" th:text="'청주공항 (CJJ)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('양양군')}" th:text="'양양국제공항 (YNY)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('군산시')}" th:text="'군산공항 (KUV)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('여수시')}" th:text="'여수공항 (RSU)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('사천시')}" th:text="'사천공항 (HIN)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('포항시')}" th:text="'포항공항 (KPO)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('횡성군')}" th:text="'원주공항 (WJU)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('제주시')}" th:text="'제주국제공항 (CJU)'"></span>
-                                    <span th:if="${airplaneDto.toArea.contains('밀양시')}" th:text="'사랑나무공항 (KAG)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('인천')}" th:text="'인천국제공항 (ICN)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('서울')}" th:text="'김포국제공항 (GMP)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('김해')}" th:text="'김해국제공항 (PUS)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('대구')}" th:text="'대구국제공항 (TAE)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('광주')}" th:text="'광주공항 (KWJ)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('울산')}" th:text="'울산공항 (USN)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('청주')}" th:text="'청주공항 (CJJ)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('양양')}" th:text="'양양국제공항 (YNY)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('군산')}" th:text="'군산공항 (KUV)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('여수')}" th:text="'여수공항 (RSU)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('사천')}" th:text="'사천공항 (HIN)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('포항')}" th:text="'포항공항 (KPO)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('횡성')}" th:text="'원주공항 (WJU)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('제주')}" th:text="'제주국제공항 (CJU)'"></span>
+                                    <span th:if="${airplaneDto.toArea.contains('밀양')}" th:text="'사랑나무공항 (KAG)'"></span>
                                 </li>
                             </ul>
 
                             <ul>
                                 <li>
                                     도 착 지 :
-                                    <span th:if="${airplaneDto.fromArea.contains('중구')}" th:text="'인천국제공항 (ICN)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('강서구')}" th:text="'김포국제공항 (GMP)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('김해시')}" th:text="'김해국제공항 (PUS)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('달성군')}" th:text="'대구국제공항 (TAE)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('광산구')}" th:text="'광주공항 (KWJ)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('남구')}" th:text="'울산공항 (USN)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('청주시')}" th:text="'청주공항 (CJJ)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('양양군')}" th:text="'양양국제공항 (YNY)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('군산시')}" th:text="'군산공항 (KUV)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('여수시')}" th:text="'여수공항 (RSU)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('사천시')}" th:text="'사천공항 (HIN)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('포항시')}" th:text="'포항공항 (KPO)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('횡성군')}" th:text="'원주공항 (WJU)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('제주시')}" th:text="'제주국제공항 (CJU)'"></span>
-                                    <span th:if="${airplaneDto.fromArea.contains('밀양시')}" th:text="'사랑나무공항 (KAG)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('인천')}" th:text="'인천국제공항 (ICN)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('서울')}" th:text="'김포국제공항 (GMP)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('김해')}" th:text="'김해국제공항 (PUS)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('대구')}" th:text="'대구국제공항 (TAE)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('광주')}" th:text="'광주공항 (KWJ)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('울산')}" th:text="'울산공항 (USN)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('청주')}" th:text="'청주공항 (CJJ)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('양양')}" th:text="'양양국제공항 (YNY)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('군산')}" th:text="'군산공항 (KUV)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('여수')}" th:text="'여수공항 (RSU)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('사천')}" th:text="'사천공항 (HIN)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('포항')}" th:text="'포항공항 (KPO)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('횡성')}" th:text="'원주공항 (WJU)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('제주')}" th:text="'제주국제공항 (CJU)'"></span>
+                                    <span th:if="${airplaneDto.fromArea.contains('밀양')}" th:text="'사랑나무공항 (KAG)'"></span>
                                 </li>
                             </ul>
 

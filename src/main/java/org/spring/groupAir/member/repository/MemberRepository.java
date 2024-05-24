@@ -32,5 +32,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
     Optional<MemberEntity> findByNameEquals(String name);
 
+    List<MemberEntity> findByPositionEntityPositionName(String pilot);
 
+    Page<MemberEntity> findByPositionEntityPositionName(Pageable pageable,String pilot);
 }

@@ -20,79 +20,88 @@
         <div class="vacation">
             <div class="vacation-con">
                 <h1>휴가 관리</h1>
+                <div class="search">
+                    <form th:action="@{/commute/vacation}" method="get">
+                        <select name="subject" id="subject">
+                            <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
+                            <option value="name" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
+                            <option value="positionName" th:selected="${#strings.equals(param.subject, 'positionName')}">직급</option>
+                            <option value="vacType" th:selected="${#strings.equals(param.subject, 'vacType')}">휴가종류</option>
+                        </select>
+                        <input type="text" name="search" id="search" th:value="${param.search}">
+                        <input type="submit" value="SEARCH">
+                    </form>
+                </div>
                 <table id="myTable">
                     <thead>
                     <tr>
-                        <th onclick="sortTable(0)">부서</th>
+                        <th onclick="sortTable(0)">이름</th>
                         <th onclick="sortTable(1)">직급</th>
-                        <th onclick="sortTable(2)">이름</th>
-                        <th onclick="sortTable(3)">휴가</th>
-                        <th>휴가등록</th>
+                        <th onclick="sortTable(2)">종류</th>
+                        <th onclick="sortTable(3)">출발일</th>
+                        <th onclick="sortTable(4)">복귀일</th>
+                        <th onclick="sortTable(5)">휴가 일수</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${memberDtoPage}">
-                        <td th:text="${member.departmentEntity.departmentName}"></td>
-                        <td th:text="${member.positionEntity.positionName}"></td>
-                        <td th:text="${member.name}"></td>
-                        <th:block th:if="${member.commuteEntityList[member.commuteEntityList.size()-1].status} == '휴가'">
-                            <td>O</td>
-                        </th:block>
-                        <th:block th:unless="${member.commuteEntityList[member.commuteEntityList.size()-1].status} == '휴가'">
-                            <td>X</td>
-                        </th:block>
-                        <td><a th:href="@{/commute/vacationCreate/{id}(id = ${member.id})}">휴가 등록</a></td>
+                    <tr th:each="vacation : ${vacationDtoPage}">
+                        <td th:text="${vacation.memberEntity.name}"></td>
+                        <td th:text="${vacation.memberEntity.positionEntity.positionName}"></td>
+                        <td th:text="${vacation.vacType}"></td>
+                        <td th:text="${vacation.vacStartDate}"></td>
+                        <td th:text="${vacation.vacEndDate}"></td>
+                        <td th:text="${vacation.vacDays}"></td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="5">
+                        <td colspan="6">
                             <div class="paging">
                                 <ul>
                                     <li>
-                                        <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}"
+                                        <span th:if="${vacationDtoPage.pageable.pageNumber+1 eq 1}"
                                               class="span0"> START </span>
-                                        <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
+                                        <span th:unless="${vacationDtoPage.pageable.pageNumber+1 eq 1}">
                                             <a th:href="@{/commute/vacation( page=0,search=${param.search},
                                                 subject = ${param.subejct})}"
                                                class="span1"> << </a>
                                         </span>
                                     </li>
                                     <li>
-                                        <span th:if="${memberDtoPage.pageable.pageNumber+1 eq 1}"
+                                        <span th:if="${vacationDtoPage.pageable.pageNumber+1 eq 1}"
                                               class="span0">PRE</span>
-                                        <span th:unless="${memberDtoPage.pageable.pageNumber+1 eq 1}">
-                                            <a th:href="@{/commute/vacation(page=${memberDtoPage.pageable.pageNumber-1}
+                                        <span th:unless="${vacationDtoPage.pageable.pageNumber+1 eq 1}">
+                                            <a th:href="@{/commute/vacation(page=${vacationDtoPage.pageable.pageNumber-1}
                                             ,search = ${param.search}, subject = ${param.subject})}"
                                                class="span1">이전</a>
                                     </span>
                                     </li>
 
                                     <li th:each="i : ${#numbers.sequence(startPage, endPage)}" class="block">
-                                    <span th:if="${memberDtoPage.pageable.pageNumber +1 == i}" th:text="${i}"
+                                    <span th:if="${vacationDtoPage.pageable.pageNumber +1 == i}" th:text="${i}"
                                           class="now"></span>
-                                        <a th:unless="${memberDtoPage.pageable.pageNumber+1 == i}"
+                                        <a th:unless="${vacationDtoPage.pageable.pageNumber+1 == i}"
                                            th:href="@{/commute/vacation(page=${i-1}
                                     ,search=${param.search}, subject=${param.subject})}" th:text="${i}"></a>
                                     </li>
 
                                     <li>
-                                <span th:if="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}"
+                                <span th:if="${vacationDtoPage.totalPages == vacationDtoPage.pageable.pageNumber+1}"
                                       class="span0">NEXT</span>
                                         <span
-                                            th:unless="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}">
-                                    <a th:href="@{/commute/vacation(page=${memberDtoPage.pageable.pageNumber+1}
+                                            th:unless="${vacationDtoPage.totalPages == vacationDtoPage.pageable.pageNumber+1}">
+                                    <a th:href="@{/commute/vacation(page=${vacationDtoPage.pageable.pageNumber+1}
                                     ,search=${param.search},subject=${param.subject})}" class="span1">다음</a>
                                 </span>
                                     </li>
                                     <li>
-                                    <span th:if="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}"
+                                    <span th:if="${vacationDtoPage.totalPages == vacationDtoPage.pageable.pageNumber+1}"
                                           class="span0">
                                         END
                                     </span>
                                         <span
-                                            th:unless="${memberDtoPage.totalPages == memberDtoPage.pageable.pageNumber+1}">
-                                        <a th:href="@{/commute/vacation(page=${memberDtoPage.totalPages-1}
+                                            th:unless="${vacationDtoPage.totalPages == vacationDtoPage.pageable.pageNumber+1}">
+                                        <a th:href="@{/commute/vacation(page=${vacationDtoPage.totalPages-1}
                                         ,search=${param.search}, subject=${param.subject})}" class="span1">
                                             마지막
                                         </a>
@@ -104,6 +113,9 @@
                     </tr>
                     </tfoot>
                 </table>
+                <div class="vacationCreateBtn">
+                    <a th:href="@{/commute/vacationCreate}">휴가 등록</a>
+                </div>
             </div>
         </div>
     </div>

@@ -137,5 +137,14 @@
     border-radius: 5px 5px;
     box-sizing: border-box;
     margin-top: 10px;
+}
 
+.airplaneDetail .airplaneDetail-con .update{
+    border: 1px solid #333333;
+    float : left;
+    background-color: #96b3d9;
+    padding: 5px;
+    border-radius: 5px 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
 }

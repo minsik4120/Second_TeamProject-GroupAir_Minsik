@@ -163,9 +163,6 @@ public class BoardController {
     return "board/detail";
   }
 
-
-
-
   @GetMapping("/delete/{id}")
   public String delete(@PathVariable("id") Long id) {
 

@@ -52,6 +52,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
                 .toTime(airPlaneEntity.getToTime())
                 .timeTaken(airPlaneEntity.getTimeTaken())
                 .airplane(airPlaneEntity.getAirplane())
+                .status(airPlaneEntity.getStatus())
                 .memberEntity(airPlaneEntity.getMemberEntity())
                 .build()
         );
@@ -67,7 +68,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
 
         airplaneDto.setMemberEntity(MemberEntity.builder().id(airplaneDto.getMemberId()).build());
 
-        int timeTaken = (int) Duration.between(toTime, fromTime).toHours();
+        int timeTaken = (int) Math.abs(Duration.between(toTime, fromTime).toHours());
 
         AirPlaneEntity airPlaneEntity = AirPlaneEntity
             .builder()
@@ -77,6 +78,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
             .toTime(airplaneDto.getToTime())
             .timeTaken(timeTaken)
             .airplane(airplaneDto.getAirplane())
+            .status("정상")
             .memberEntity(airplaneDto.getMemberEntity())
             .build();
 
@@ -96,6 +98,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
             .fromTime(airPlaneEntity.getFromTime())
             .airplane(airPlaneEntity.getAirplane())
             .timeTaken(airPlaneEntity.getTimeTaken())
+            .status(airPlaneEntity.getStatus())
             .memberEntity(airPlaneEntity.getMemberEntity())
             .build();
 
@@ -124,6 +127,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
                 .fromTime(airplaneEntity.getFromTime())
                 .airplane(airplaneEntity.getAirplane())
                 .timeTaken(airplaneEntity.getTimeTaken())
+                .status(airplaneEntity.getStatus())
                 .memberEntity(airplaneEntity.getMemberEntity())
                 .build()
             );
@@ -148,6 +152,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
                 .fromTime(airplaneEntity.getFromTime())
                 .airplane(airplaneEntity.getAirplane())
                 .timeTaken(airplaneEntity.getTimeTaken())
+                .status(airplaneEntity.getStatus())
                 .memberEntity(airplaneEntity.getMemberEntity())
                 .build()
         );
@@ -159,5 +164,59 @@ public class AirplaneService implements AirPlaneServiceInterface {
     public void deleteOverTimeAirplane() {
         LocalDateTime now = LocalDateTime.now();
         airplaneRepository.deleteByFromTimeBefore(now);
+    }
+
+    @Override
+    public AirplaneDto findAirplane(Long id) {
+
+       AirPlaneEntity airPlaneEntity
+           = airplaneRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        AirplaneDto airplaneDto = AirplaneDto.builder()
+            .id(airPlaneEntity.getId())
+            .toArea(airPlaneEntity.getToArea())
+            .fromArea(airPlaneEntity.getFromArea())
+            .toTime(airPlaneEntity.getToTime())
+            .fromTime(airPlaneEntity.getFromTime())
+            .airplane(airPlaneEntity.getAirplane())
+            .timeTaken(airPlaneEntity.getTimeTaken())
+            .status(airPlaneEntity.getStatus())
+            .memberEntity(airPlaneEntity.getMemberEntity())
+            .build();
+
+        return airplaneDto;
+    }
+
+    @Override
+    public void airplaneUpdate(AirplaneDto airplaneDto) {
+
+        airplaneDto.setMemberEntity(MemberEntity.builder().id(airplaneDto.getMemberId()).build());
+
+        AirPlaneEntity airPlaneEntity = AirPlaneEntity
+            .builder()
+            .id(airplaneDto.getId())
+            .fromTime(airplaneDto.getFromTime())
+            .fromArea(airplaneDto.getFromArea())
+            .toArea(airplaneDto.getToArea())
+            .toTime(airplaneDto.getToTime())
+            .timeTaken(airplaneDto.getTimeTaken())
+            .airplane(airplaneDto.getAirplane())
+            .status(airplaneDto.getStatus())
+            .memberEntity(airplaneDto.getMemberEntity())
+            .build();
+
+        airplaneRepository.save(airPlaneEntity);
+    }
+
+    @Override
+    public void updateStatus() {
+        List<AirPlaneEntity> airPlaneEntityList = airplaneRepository.updateStatus(LocalDateTime.now());
+
+        for(AirPlaneEntity airPlaneEntity : airPlaneEntityList){
+            if(!airPlaneEntity.getStatus().equals("운행중")){
+                airPlaneEntity.setStatus("운행중");
+                airplaneRepository.save(airPlaneEntity);
+            }
+        }
     }
 }

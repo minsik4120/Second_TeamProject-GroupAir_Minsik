@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -31,9 +32,10 @@ public class AirPlaneController {
                                 @RequestParam(name = "subject", required = false) String subject,
                                 @RequestParam(name = "search", required = false) String search) {
 
-        Page<AirplaneDto> airplaneDtoPage = airplaneService.allAirplane(pageable, subject, search);
-
+        airplaneService.updateStatus();
         airplaneService.deleteOverTimeAirplane();
+
+        Page<AirplaneDto> airplaneDtoPage = airplaneService.allAirplane(pageable, subject, search);
 
         int totalPage = airplaneDtoPage.getTotalPages();//전체page
         int newPage = airplaneDtoPage.getNumber();//현재page
@@ -42,6 +44,10 @@ public class AirPlaneController {
         int startPage = (int) ((Math.floor(newPage / blockNum) * blockNum) + 1 <= totalPage
             ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPage);
         int endPage = (startPage + blockNum) - 1 < totalPage ? (startPage + blockNum) - 1 : totalPage;
+
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        model.addAttribute("currentTime", currentTime);
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
@@ -63,6 +69,26 @@ public class AirPlaneController {
     public String airplaneRegistrationOk(AirplaneDto airplaneDto) {
 
         airplaneService.addAirplane(airplaneDto);
+
+        return "redirect:/airplane/index";
+    }
+    @GetMapping("/update/{id}")
+    public String airplaneUpdate(@PathVariable("id")Long id, Model model) {
+
+        AirplaneDto airplaneDto = airplaneService.findAirplane(id);
+
+        List<MemberDto> memberDtoList = memberService.selectPilot();
+
+        model.addAttribute("airplaneDto", airplaneDto);
+        model.addAttribute("memberDtoList", memberDtoList);
+
+        return "airplane/update";
+    }
+
+    @PostMapping("/update")
+    public String airplaneUpdateOk(AirplaneDto airplaneDto) {
+
+        airplaneService.airplaneUpdate(airplaneDto);
 
         return "redirect:/airplane/index";
     }

@@ -31,6 +31,8 @@ public class AirplaneDto {
 
     private String airplane;
 
+    private String status;
+
     private MemberEntity memberEntity;
 
     private Long memberId;

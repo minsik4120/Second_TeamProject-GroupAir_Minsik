@@ -1,6 +1,8 @@
 package org.spring.groupAir.commute.repository;
 
 import org.spring.groupAir.commute.entity.VacationEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,4 +30,10 @@ public interface VacationRepository extends JpaRepository<VacationEntity, Long> 
     int findBySickVacationPeople(@Param("date")LocalDate now);
 
     void deleteByVacEndDateBefore(LocalDate localDate);
+
+    Page<VacationEntity> findByMemberEntityNameContains(Pageable pageable, String search);
+
+    Page<VacationEntity> findByMemberEntityPositionEntityPositionNameContains(Pageable pageable, String search);
+
+    Page<VacationEntity> findByVacTypeContains(Pageable pageable, String search);
 }

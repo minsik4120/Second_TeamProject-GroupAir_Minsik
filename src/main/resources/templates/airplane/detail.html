@@ -79,6 +79,7 @@
                     </ul>
                     <div id="map" style="width:100%;height:350px;"></div>
                     <div class="delete"> <a th:href="@{/airplane/delete/{id}(id=${airplaneDto.id})}">항공편 삭제</a></div>
+                    <div class="update"> <a th:href="@{/airplane/update/{id}(id=${airplaneDto.id})}">항공편 수정</a></div>
 
                     <script>
                         var mapContainer = document.getElementById('map'), // 지도를 표시할 div

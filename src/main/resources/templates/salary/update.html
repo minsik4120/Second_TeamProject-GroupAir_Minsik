@@ -34,8 +34,13 @@
                         </li>
 
                         <li>
-                            <label for="pay">급여액</label>
+                            <label for="pay">기본수당</label>
                             <input type="text" id="pay" name="pay" th:value="${salaryDto.pay}">
+                        </li>
+
+                        <li>
+                            <label for="incentive">추가수당</label>
+                            <input type="text" id="incentive" name="incentive" th:value="${salaryDto.incentive}" readonly>
                         </li>
 
                         <li class="li2">

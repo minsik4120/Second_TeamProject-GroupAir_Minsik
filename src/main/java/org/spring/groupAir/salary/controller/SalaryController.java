@@ -61,4 +61,14 @@ public class SalaryController {
 
          return "redirect:/salary/index";
     }
+
+    @GetMapping("/mySalary/{id}")
+    public String mySalary(@PathVariable("id")Long id, Model model){
+
+        List<SalaryDto> salaryDtoList = salaryService.mySalary(id);
+
+        model.addAttribute("salaryDtoList", salaryDtoList);
+
+        return "salary/mySalary";
+    }
 }

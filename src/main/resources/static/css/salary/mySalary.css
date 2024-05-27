@@ -7,26 +7,26 @@
     border-bottom: 1px solid #ccc;
 }
 
-.adminContainer .salary .salary-con .search{
+.adminContainer .mySalary .mySalary-con .search{
     float: right;
     padding: 10px;
     padding-right: 20px;
 }
 
-.adminContainer .salary .salary-con table{
+.adminContainer .mySalary .mySalary-con table{
     text-align: center;
     padding: 0 20px;
     width: 100%;
     table-layout: fixed;
 }
 
-.adminContainer .salary .salary-con table th{
+.adminContainer .mySalary .mySalary-con table th{
     font-size: 20px;
     padding: 10px;
     border-bottom: 1px solid #333;
 }
 
-.adminContainer .salary .salary-con table td{
+.adminContainer .mySalary .mySalary-con table td{
     font-size: 15px;
     padding: 5px;
     border-bottom: 1px solid #ccc;

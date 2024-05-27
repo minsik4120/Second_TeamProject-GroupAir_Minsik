@@ -273,4 +273,22 @@ public class SalaryService implements SalaryServiceInterface {
             }
         }
     }
+
+    @Override
+    public List<SalaryDto> mySalary(Long id) {
+
+        List<SalaryEntity> salaryEntityList = salaryRepository.findByMemberEntityId(id);
+
+        List<SalaryDto> salaryDtoList = salaryEntityList.stream().map(salaryEntity ->
+            SalaryDto.builder()
+                .id(salaryEntity.getId())
+                .memberEntity(salaryEntity.getMemberEntity())
+                .pay(salaryEntity.getPay())
+                .incentive(salaryEntity.getIncentive())
+                .totalPay(salaryEntity.getPay() + salaryEntity.getIncentive())
+                .paymentDate(salaryEntity.getPaymentDate())
+                .build()).collect(Collectors.toList());
+
+        return salaryDtoList;
+    }
 }

@@ -22,6 +22,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -204,5 +205,24 @@ public class VacationService implements VacationServiceInterface {
                 .build()
         );
         return vacationDtoPage;
+    }
+
+    @Override
+    public List<VacationDto> myVacation(Long id) {
+
+        List<VacationEntity> vacationEntityList = vacationRepository.findByMemberEntityId(id);
+
+        List<VacationDto> vacationDtoList = vacationEntityList.stream().map(vacationEntity ->
+            VacationDto.builder()
+                .id(vacationEntity.getId())
+                .memberEntity(vacationEntity.getMemberEntity())
+                .vacType(vacationEntity.getVacType())
+                .vacStartDate(vacationEntity.getVacStartDate())
+                .vacEndDate(vacationEntity.getVacEndDate())
+                .vacDays(vacationEntity.getVacDays())
+                .build()
+        ).collect(Collectors.toList());
+
+        return vacationDtoList;
     }
 }

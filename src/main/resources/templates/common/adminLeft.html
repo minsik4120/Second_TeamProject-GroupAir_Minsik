@@ -67,13 +67,26 @@
                         <img th:src="@{/images/board.png}" alt="board">
                         <a th:href="@{/board/write}">게시판 작성</a>
                         <ul class="subMenu">
+                            <li><a th:href="@{/board/boardList}">전체게시판</a></li>
                             <li><a th:href="@{/board/Lists(boardSeparateId=1)}">공지사항</a></li>
                             <li><a th:href="@{/board/Lists(boardSeparateId=2)}">자유게시판</a></li>
 
 
+                        </ul>
 
+                    <li class="menuBar">
+                        <img th:src="@{/images/calendar.png}" alt="calender">
+
+                        <a th:href="@{/my/schedule}">일정 등록</a>
+                        <ul class="subMenu">
+
+                            <li><a th:href="@{/}">자유게시판</a></li>
 
                         </ul>
+
+
+
+
                     </li>
                 </ul>
             </div>

@@ -140,8 +140,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
 
         Date today = Date.valueOf(LocalDate.now());
 
-        Page<AirPlaneEntity> airPlaneEntityPage
-            = airplaneRepository.findTodayAirplane(pageable, id, today);
+        Page<AirPlaneEntity> airPlaneEntityPage = airplaneRepository.findTodayAirplane(pageable, id, today);
 
         Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity->
             AirplaneDto.builder()

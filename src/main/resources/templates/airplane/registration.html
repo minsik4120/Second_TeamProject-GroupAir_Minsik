@@ -32,39 +32,44 @@
                             <label for="toArea">출발지</label>
                         </li>
                         <li>
-                            <input type="text" id="toArea" name="toArea" class="address" placeholder="주소"
-                                   th:value="${toArea}">
+                            <input type="text" id="toArea"  class="address" placeholder="주소"
+                                   th:filed="*{toArea}">
                             <input type="button" onclick="toAreaFn()" value="출발지 찾기"><br>
                         </li>
+                        <p th:if="${#fields.hasErrors('toArea')}" th:errors="*{toArea}" class="error"></p>
 
                         <li>
                             <label for="fromArea">도착지</label>
                         </li>
                         <li>
-                            <input type="text" id="fromArea" name="fromArea" class="address" placeholder="주소"
-                                   th:value="${fromArea}">
+                            <input type="text" id="fromArea" class="address" placeholder="주소"
+                                   th:field="*{fromArea}">
                             <input type="button" onclick="fromAreaFn()" value="도착지 찾기"><br>
                         </li>
+                        <p th:if="${#fields.hasErrors('fromArea')}" th:errors="*{fromArea}" class="error"></p>
 
                         <li>
                             <label for="toTime">출발시간</label>
                         </li>
                         <li>
-                            <input type="datetime-local" id="toTime" name="toTime" th:value="${toTime}">
+                            <input type="datetime-local" id="toTime" th:field="*{toTime}">
                         </li>
+                        <p th:if="${#fields.hasErrors('toTime')}" th:errors="*{toTime}" class="error"></p>
                         <li>
                             <label for="fromTime">도착시간</label>
                         </li>
                         <li>
-                            <input type="datetime-local" id="fromTime" name="fromTime" th:value="${fromTime}">
+                            <input type="datetime-local" id="fromTime" th:field="*{fromTime}">
                         </li>
+                        <p th:if="${#fields.hasErrors('fromTime')}" th:errors="*{fromTime}" class="error"></p>
                         <li>
                             <label for="airplane">비행기</label>
                         </li>
 
                         <li>
-                            <input type="text" id="airplane" name="airplane" th:value="${airplane}">
+                            <input type="text" id="airplane"  th:field="*{airplane}">
                         </li>
+                        <p th:if="${#fields.hasErrors('airplane')}" th:errors="*{toArea}" class="error"></p>
 
                         <li>
                             <label for="pilot">기장</label>

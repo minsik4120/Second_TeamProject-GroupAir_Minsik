@@ -1,8 +1,7 @@
 package org.spring.groupAir.commute.repository;
 
 import org.spring.groupAir.commute.entity.CommuteEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -31,8 +31,8 @@ public interface CommuteRepository extends JpaRepository<CommuteEntity, Long> {
 
     int findByLatePeople(@Param("date") LocalDate now);
 
-    @Query(value="select sum(total_work) from commute where employee_id = :id", nativeQuery = true)
-    Long findSumTotalWork(@Param("id") Long id);
+    @Query(value="select sum(total_work) from commute where employee_id = :id and ((month)(in_time) = :month and (month)(out_time) = :month) ", nativeQuery = true)
+    Long findSumTotalWork(@Param("id") Long id, @Param("month") int month);
 
     @Query(value = "SELECT * FROM commute c LEFT JOIN employee e ON c.employee_id = e.employee_id WHERE c.commute_id IN (SELECT MAX(c2.commute_id) FROM commute c2 GROUP BY c2.employee_id )", nativeQuery = true)
     List<CommuteEntity> findNotWorkOutPeople();

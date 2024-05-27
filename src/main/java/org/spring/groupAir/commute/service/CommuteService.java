@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -157,7 +158,9 @@ public class CommuteService implements CommuteServiceInterface {
     @Override
     public Duration totalWork(Long id) {
 
-        Long allTotalWork = (long) (commuteRepository.findSumTotalWork(id) / Math.pow(10, 9));
+        int month = LocalDate.now().getMonth().getValue();
+
+        Long allTotalWork = (long) (commuteRepository.findSumTotalWork(id, month) / Math.pow(10, 9));
 
         // Long 값을 Duration으로 변환
         Duration totalWorkDuration = (allTotalWork != null)
@@ -181,6 +184,7 @@ public class CommuteService implements CommuteServiceInterface {
 
     @Override
     public void notWorkIn() {
+
         List<CommuteEntity> commuteEntityList = commuteRepository.findNotWorkInPeople();
 
         for (CommuteEntity commuteEntity : commuteEntityList) {

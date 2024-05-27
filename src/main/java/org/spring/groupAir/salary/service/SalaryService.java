@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +43,7 @@ public class SalaryService implements SalaryServiceInterface {
                 .builder()
                 .paymentDate(paymentDate)
                 .pay(5000000)
+                .totalPay(5000000)
                 .memberEntity(memberEntity)
                 .build();
 
@@ -51,6 +53,7 @@ public class SalaryService implements SalaryServiceInterface {
                 .builder()
                 .paymentDate(paymentDate)
                 .pay(2060000)
+                .totalPay(2060000)
                 .memberEntity(memberEntity)
                 .build();
             salaryRepository.save(salaryEntity);
@@ -59,6 +62,7 @@ public class SalaryService implements SalaryServiceInterface {
                 .builder()
                 .paymentDate(paymentDate)
                 .pay(0)
+                .totalPay(0)
                 .memberEntity(memberEntity)
                 .build();
             salaryRepository.save(salaryEntity);
@@ -66,25 +70,17 @@ public class SalaryService implements SalaryServiceInterface {
     }
 
     @Override
-    public Page<SalaryDto> memberSalary(Pageable pageable, String subject, String search) {
+    public Page<SalaryDto> memberSalary(Pageable pageable) {
 
-        Page<SalaryEntity> salaryEntityPage;
-
-        if (subject == null || search == null) {
-            salaryEntityPage = salaryRepository.findAll(pageable);
-        } else if (subject.equals("name")) {
-            salaryEntityPage = salaryRepository.findByMemberEntityNameContains(pageable, search);
-        } else if (subject.equals("positionName")) {
-            salaryEntityPage = salaryRepository.findByMemberEntityPositionEntityPositionNameContains(pageable, search);
-        } else {
-            salaryEntityPage = salaryRepository.findAll(pageable);
-        }
+        Page<SalaryEntity> salaryEntityPage = salaryRepository.findLastMonthSalaryPageList(pageable);
 
         Page<SalaryDto> salaryDtoPage = salaryEntityPage.map(salaryEntity ->
             SalaryDto.builder()
                 .id(salaryEntity.getId())
                 .memberEntity(salaryEntity.getMemberEntity())
                 .pay(salaryEntity.getPay())
+                .incentive(salaryEntity.getIncentive())
+                .totalPay(salaryEntity.getPay() + salaryEntity.getIncentive())
                 .paymentDate(salaryEntity.getPaymentDate())
                 .build()
         );
@@ -101,6 +97,8 @@ public class SalaryService implements SalaryServiceInterface {
             .id(salaryEntity.getId())
             .pay(salaryEntity.getPay())
             .paymentDate(salaryEntity.getPaymentDate())
+            .incentive(salaryEntity.getIncentive())
+            .totalPay(salaryEntity.getIncentive() + salaryEntity.getPay())
             .memberEntity(salaryEntity.getMemberEntity())
             .createTime(salaryEntity.getCreateTime())
             .updateTime(salaryEntity.getUpdateTime())
@@ -119,6 +117,8 @@ public class SalaryService implements SalaryServiceInterface {
         salaryEntity = SalaryEntity.builder()
             .id(salaryDto.getId())
             .pay(salaryDto.getPay())
+            .incentive(salaryDto.getIncentive())
+            .totalPay(salaryDto.getPay() + salaryDto.getIncentive())
             .paymentDate(salaryDto.getPaymentDate())
             .memberEntity(salaryDto.getMemberEntity())
             .build();
@@ -130,7 +130,7 @@ public class SalaryService implements SalaryServiceInterface {
     public void overWork(Long id) {
         CommuteEntity commuteEntity = commuteRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
-        Long allTotalWork = (long) (commuteRepository.findSumTotalWork(commuteEntity.getMemberEntity().getId()) / Math.pow(10, 9));
+        Long allTotalWork = (long) (commuteRepository.findSumTotalWork(commuteEntity.getMemberEntity().getId(), LocalDate.now().getMonth().getValue()) / Math.pow(10, 9));
 
         LocalDate paymentDate = YearMonth.now().plusMonths(1).atDay(10);
 
@@ -142,12 +142,16 @@ public class SalaryService implements SalaryServiceInterface {
             if (commuteEntity.getMemberEntity().getPositionEntity().getPositionName().equals("부장")) {
                 int overWorkSalary = (int) ((totalWorkDuration.toHours() - 14) * 30000);
 
-                SalaryEntity salaryEntity = salaryRepository.findByMemberEntityId(commuteEntity.getMemberEntity().getId());
+                SalaryEntity salaryEntity = salaryRepository.findLastMonthSalary(commuteEntity.getMemberEntity().getId());
+
+                salaryEntity.setIncentive(overWorkSalary);
 
                 SalaryEntity salary = SalaryEntity.builder()
                     .id(salaryEntity.getId())
                     .memberEntity(commuteEntity.getMemberEntity())
-                    .pay(5000000+ overWorkSalary)
+                    .pay(salaryEntity.getPay())
+                    .incentive(salaryEntity.getIncentive())
+                    .totalPay(salaryEntity.getPay() + salaryEntity.getIncentive())
                     .paymentDate(paymentDate)
                     .build();
 
@@ -157,16 +161,60 @@ public class SalaryService implements SalaryServiceInterface {
 
                 int overWorkSalary = (int) ((totalWorkDuration.toHours() - 14) * 15000);
 
-                SalaryEntity salaryEntity = salaryRepository.findByMemberEntityId(commuteEntity.getMemberEntity().getId());
+                SalaryEntity salaryEntity = salaryRepository.findLastMonthSalary(commuteEntity.getMemberEntity().getId());
+
+                salaryEntity.setIncentive(overWorkSalary);
 
                 SalaryEntity salary = SalaryEntity.builder()
                     .id(salaryEntity.getId())
                     .memberEntity(commuteEntity.getMemberEntity())
-                    .pay(2060000+ overWorkSalary)
+                    .pay(salaryEntity.getPay())
+                    .incentive(salaryEntity.getIncentive())
+                    .totalPay(salaryEntity.getPay() + salaryEntity.getIncentive())
                     .paymentDate(paymentDate)
                     .build();
 
                 salaryRepository.save(salary);
+            }
+        }
+    }
+
+    @Override
+    public void updateSalaryDate() {
+        List<SalaryEntity> salaryEntityList = salaryRepository.findLastMonthSalaryList();
+        LocalDate paymentDate = YearMonth.now().plusMonths(1).atDay(10);
+        LocalDate now = LocalDate.now();
+        for (SalaryEntity salaryEntity : salaryEntityList) {
+            if (salaryEntity.getPaymentDate().isBefore(now)) {
+                if (salaryEntity.getMemberEntity().getPositionEntity().getPositionName().equals("부장")) {
+                    salaryEntity = SalaryEntity
+                        .builder()
+                        .paymentDate(paymentDate)
+                        .pay(salaryEntity.getPay())
+                        .totalPay(salaryEntity.getPay())
+                        .memberEntity(salaryEntity.getMemberEntity())
+                        .build();
+
+                    salaryRepository.save(salaryEntity);
+                } else if (salaryEntity.getMemberEntity().getPositionEntity().getPositionName().equals("사원")) {
+                    salaryEntity = SalaryEntity
+                        .builder()
+                        .paymentDate(paymentDate)
+                        .pay(salaryEntity.getPay())
+                        .totalPay(salaryEntity.getPay())
+                        .memberEntity(salaryEntity.getMemberEntity())
+                        .build();
+                    salaryRepository.save(salaryEntity);
+                } else {
+                    salaryEntity = SalaryEntity
+                        .builder()
+                        .paymentDate(paymentDate)
+                        .pay(salaryEntity.getPay())
+                        .totalPay(0)
+                        .memberEntity(salaryEntity.getMemberEntity())
+                        .build();
+                    salaryRepository.save(salaryEntity);
+                }
             }
         }
     }

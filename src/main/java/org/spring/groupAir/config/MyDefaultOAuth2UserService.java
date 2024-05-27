@@ -1,6 +1,10 @@
 package org.spring.groupAir.config;
 
+import org.spring.groupAir.department.entity.DepartmentEntity;
+import org.spring.groupAir.department.entity.TopDepartmentEntity;
+import org.spring.groupAir.department.repository.DepartmentRepository;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.PositionEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
 import org.spring.groupAir.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,8 @@ public class MyDefaultOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+
 
     // OAuth (사용자)
     @Override
@@ -48,6 +54,7 @@ public class MyDefaultOAuth2UserService extends DefaultOAuth2UserService {
             System.out.println("구글 정보");
             userEmail = oAuth2User.getAttribute("email");
             name = oAuth2User.getAttribute("name");
+
         } else if (registrationId.equals("kakao")) {
             System.out.println("kakao");
             // JSON으로 받은 데이터 map으로 변환
@@ -67,6 +74,7 @@ public class MyDefaultOAuth2UserService extends DefaultOAuth2UserService {
             Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
             userEmail = (String) response.get("email");
             name = (String) response.get("name");
+
 //            oAuth2User = new MyUserDetailsImpl((Map)oAuth2User.getAttributes().get("response"));
         }
 
@@ -79,14 +87,20 @@ public class MyDefaultOAuth2UserService extends DefaultOAuth2UserService {
         userPw = passwordEncoder.encode("fdsafasdf");
 //        address = "서울";
 
+
+
         MemberEntity memberEntity
             = memberRepository.save(MemberEntity.builder()
             .userEmail(userEmail)
             .userPw(userPw)
             .name(name)
-//            .address(address)
+            .address(address)
             .role(Role.MEMBER)
+            .departmentEntity(DepartmentEntity.builder().departmentName("부서를 선택해주세요").build())
+            .positionEntity(PositionEntity.builder().positionName("사원").build())
             .build());
+
+
 
         return new MyUserDetailsImpl(memberEntity, oAuth2User.getAttributes());
     }

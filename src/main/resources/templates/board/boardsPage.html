@@ -13,22 +13,22 @@
 <th:block layout:fragment="script">
   <!-- 각 페이지 마다 변경 -->
 </th:block>
-
 <th:block layout:fragment="adminContainer">
   <div class="adminContainer">
 
     <div class="boardList">
       <div class="boardList-con">
+
         <h1 th:switch="${boardSeparateId}">
           <span th:case="1">공지사항</span>
           <span th:case="2">자유게시판</span>
         </h1>
-<!--        <h1>자유 게시판</h1>-->
-       <!-- <h1 th:text="${board.boardSeparateId}">></h1>-->
-<!--         <h1 th:text="${boardDto.boardSeparateId}"></h1>-->
+
         <div class="search">
-          <form th:action="@{/board/boardList}" method="get">
+          <form th:action="@{/board/Lists}" method="get">
+            <li><a th:href="@{/board/write}">글작성</a></li>
             <select name="subject" id="subject">
+
               <option value="title" th:selected="${#strings.equals( param.subject, 'title' )}">제목</option>
               <option value="content" th:selected="${#strings.equals( param.subject, 'content' )}">내용</option>
               <option value="nickName" th:selected="${#strings.equals( param.subject, 'nickName' )}">닉네임</option>
@@ -77,63 +77,117 @@
           </tr>
           </tbody>
         </table>
-       <!-- <div class="paging">
+    <div class="paging">
           <ul>
             <li>
-              &lt;!&ndash; 현재페이지가  첫번째 페이지이면   span표시 &ndash;&gt;
+              <!- 현재페이지가  첫번째 페이지이면   span표시 -->
               <span th:if="${pagingList.pageable.pageNumber+1 eq 1}" class="span0">START</span>
-              &lt;!&ndash; 처음 페이지가 아니면  a &ndash;&gt;
+              <!-- 처음 페이지가 아니면  a -->
               <span th:unless="${pagingList.pageable.pageNumber+1 eq 1}">
-              <a th:href="@{/board/boardList(page=0)}" class="span1">처음</a>
+<!--              <a th:href="@{/board/Lists?boardSeparateId=1(page=0)}" class="span1">처음</a>-->
+
+                              <!-- boardSeparateId=1일 때만 보이게 하기 -->
+              <div th:if="${boardSeparateId == 1}">
+
+                  <a th:href="@{/board/Lists?boardSeparateId=1(page=0)}" class="span1">처음 </a>
+              </div>
+                              <!-- boardSeparateId=2일 때만 보이게 하기 -->
+              <div th:if="${boardSeparateId == 2}">
+                  <a th:href="@{/board/Lists?boardSeparateId=2(page=0)}" class="span1">처음 </a>
+              </div>
+
+
             </span>
             </li>
+
             <li>
-              &lt;!&ndash; 이전페이지가  첫번째 페이지이면   span표시 &ndash;&gt;
+              <!-- 이전페이지가  첫번째 페이지이면   span표시 -->
               <span th:if="${1==pagingList.pageable.pageNumber+1}" class="span0">PRE</span>
               <span th:unless="${1==pagingList.pageable.pageNumber+1}">
-            &lt;!&ndash;boardList.pageable.pageNumber 현재페이지 -1 &ndash;&gt;
-            <a th:href="@{/board/boardList(page=${pagingList.pageable.pageNumber-1})}" class="span1">이전</a>
-          </span>
-            </li>
-            &lt;!&ndash; block  &ndash;&gt;
-            &lt;!&ndash; 페이지 번호 &ndash;&gt;
-            <li th:each="i: ${#numbers.sequence(startPage, endPage)}" class="block">
+            <!--boardList.pageable.pageNumber 현재페이지 -1 -->
 
+            <a th:if="${boardSeparateId == 1}"
+                th:href="@{/board/Lists?boardSeparateId=1(page=${pagingList.pageable.pageNumber-1})}" class="span1">이전</a>
+
+
+            <a th:if="${boardSeparateId == 2}"
+               th:href="@{/board/Lists?boardSeparateId=2(page=${pagingList.pageable.pageNumber-1})}" class="span1">이전</a>
+
+
+          </span>
+
+            </li>
+            <!-- block  -->
+            <!-- 페이지 번호 -->
+<!--        <li th:each="i: ${#numbers.sequence(startPage, endPage)}" class="block">-->
+<!--          <span th:if="${i == pagingList.pageable.pageNumber + 1}" th:text="${i}" class="now"></span>-->
+
+<!--          <a th:if="${boardSeparateId == 1}"-->
+<!--             th:href="@{/board/Lists(boardSeparateId=1, page=${i - 1})}"-->
+<!--             th:text="${i}"></a>-->
+
+<!--          <a th:if="${boardSeparateId == 2}"-->
+<!--             th:href="@{/board/Lists(boardSeparateId=2, page=${i - 1})}"-->
+<!--             th:text="${i}"></a>-->
+<!--        </li>-->
+
+        <li th:each="i: ${#numbers.sequence(startPage, endPage)}" class="block">
+
+            <div th:if = "${boardSeparateId == 1}">
               <span th:if="${i == pagingList.pageable.pageNumber+1}" th:text="${i}" class="now"></span>
-
-
               <a th:unless="${i == pagingList.pageable.pageNumber+1}"
-                 th:href="@{/board/boardList(page=${ i - 1})}" th:text="${i}"></a>
+                      th:href="@{/board/Lists?boardSeparateId=1(page=${ i - 1})}" th:text="${i}"></a>
+            </div>
+
+            <div th:if = "${boardSeparateId == 2}">
+              <span th:if="${i == pagingList.pageable.pageNumber+1}" th:text="${i}" class="now"></span>
+              <a th:unless="${i == pagingList.pageable.pageNumber+1}"
+                 th:href="@{/board/Lists?boardSeparateId=2(page=${ i - 1})}" th:text="${i}"></a>
+            </div>
 
             </li>
 
 
             <li>
-              &lt;!&ndash; 현재페이지가 마지막 페이지이면   span표시 &ndash;&gt;
+              <!-- 현재페이지가 마지막 페이지이면   span표시 -->
               <span th:if="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}" class="span0">NEXT</span>
-              &lt;!&ndash; 현재페이지가 마지막 페이지아니면    a 표시 현재페이지 +1 &ndash;&gt;
+              <!-- 현재페이지가 마지막 페이지아니면    a 표시 현재페이지 +1 -->
               <span th:unless="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}">
-             <a th:href="@{/board/boardList(page=${pagingList.pageable.pageNumber+1})}" class="span1">다음</a>
+
+               <a th:if="${boardSeparateId == 1}"
+                  th:href="@{/board/Lists?boardSeparateId=1(page=${pagingList.pageable.pageNumber + 1})}"
+                  class="span1">다음 </a>
+
+                <!-- boardSeparateId가 2일 때만 보이게 하기 -->
+            <a th:if="${boardSeparateId == 2}"
+               th:href="@{/board/Lists?boardSeparateId=2(page=${pagingList.pageable.pageNumber + 1})}"
+               class="span1">다음 </a>
+
           </span>
             </li>
             <li>
-              &lt;!&ndash; 현재페이지가 마지막 페이지이면   span표시 &ndash;&gt;
+              <!-- 현재페이지가 마지막 페이지이면   span표시 -->
               <span th:if="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}" class="span0">END</span>
-              &lt;!&ndash; 현재페이지가 마지막 페이지가 아니면 마지막 페이지로 이동 해라  a &ndash;&gt;
+              <!-- 현재페이지가 마지막 페이지가 아니면 마지막 페이지로 이동 해라  a -->
               <span th:unless="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}">
-            <a th:href="@{/board/boardList(page=${pagingList.totalPages-1})}" class="span1">마지막</a>
+
+            <a  th:if="${boardSeparateId == 1}"
+                th:href="@{/board/Lists?boardSeparateId=1(page=${pagingList.totalPages-1})}" class="span1">마지막</a>
+
+                <a  th:if="${boardSeparateId == 2}"
+                    th:href="@{/board/Lists?boardSeparateId=2(page=${pagingList.totalPages-1})}" class="span1">마지막</a>
+
+
+
+
+
           </span>
-
             </li>
-
           </ul>
-        </div>-->
-        <li class="write">
-          <a th:href="@{/board/write}">글작성</a>
-        </li>
+        </div>
+
       </div>
 
-    </div>
 
   </div>
 </th:block>

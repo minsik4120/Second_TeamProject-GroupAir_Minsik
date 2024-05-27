@@ -28,11 +28,11 @@
                                 <li>
                                     <th:block th:if="${memberDto.memberAttachFile == 1}">
                                         <img th:src="@{|/upload/${memberDto.memberFileName}|}" alt="file"
-                                             style="width: 200px; height: 400px;">
+                                             style="width: 200px; height: 350px;border-radius: 10px;">
                                     </th:block>
                                     <th:block th:unless="${memberDto.memberAttachFile == 1}">
                                         <img src="http://placehold.co/600X500?text=NOIMAGE" alt="이미지대체문구"
-                                             style="width: 200px; height: 400px;">
+                                             style="width: 200px; height: 350px;border-radius: 10px;">
                                     </th:block>
                                 </li>
                             </ul>
@@ -79,6 +79,8 @@
                                         <option th:value="2" th:selected="${memberDto.positionEntity.id == 2}">부장
                                         </option>
                                         <option th:value="3" th:selected="${memberDto.positionEntity.id == 3}">사원
+                                        </option>
+                                        <option th:value="3" th:selected="${memberDto.positionEntity.id > 3}">직급을 변경해주세요
                                         </option>
                                     </select>
                                 </li>
@@ -127,6 +129,7 @@
                                 <li class="updateBtn">
                                     <input type="submit" value="수정하기" id="finalUpdateBtn">
                                     <a th:href="@{/member/memberDelete/{id}(id=${memberDto.id})}">회원 탈퇴</a>
+                                    <a th:href="@{/member/memberList}">목 록</a>
                                 </li>
                             </ul>
                         </div>

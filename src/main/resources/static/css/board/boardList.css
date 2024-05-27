@@ -18,20 +18,40 @@ justify-content: center;
 }
 
 .boardList .boardList-con{
+  border-radius: 20px;
+  border-bottom: 1px solid #2e473e;
+  background-color: #f8f8ff75;
+  margin-top: 20px;
   flex-basis: 1400px;
-  /* min-height: calc(100vh - 70px - 150px); */
-  height: calc(100vh - 70px - 150px);
-  /*overflow: scroll; */
-  
-  /* border: 1px solid; */
+  border: 1px solid #f5f0f0;
   box-sizing: border-box;
-  padding: 20px;
- 
+ /* padding: 40px;*/
+  /* min-height: calc(100vh - 70px - 150px); */
+/*  height: calc(100vh - 70px - 150px);*/
+  /*overflow: scroll; */
+  /* border: 1px solid; */
 }
 .boardList .boardList-con .search form{
   display: flex;
   height: 30px;
   gap: 5px;
+}
+
+.boardList .boardList-con .search form li{
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: white;
+  /* justify-content: center; */
+  display: flex;
+  text-align: center;
+  align-items: center;
+  width: 100px;
+  background: url(/images/board/write.png) no-repeat 95%/cover; 
+  background-size: 20px;
+}
+.boardList .boardList-con .search form li a{
+
+  margin-left: 15px;
 }
 
 .boardList .boardList-con .search form select{
@@ -42,12 +62,20 @@ justify-content: center;
 }
 
 
-.boardList .boardList-con .search form input:nth-child(3){
- width: 40px;
-}
+
+
+.boardList .boardList-con .search form input:nth-child(4){
+  width: 40px;
+  border-radius: 5px;
+  background: local;
+  box-shadow: 1px 1px 1px 0px;
+ }
+
 .boardList .boardList-con h1{
-  background-color: black;
-  color: white;
+
+  border-bottom: 1px solid #ebecef;
+  /* background-color: black; */
+  color: rgb(0, 0, 0);
   text-align: center;
   padding: 10px;
   box-sizing: border-box;
@@ -55,7 +83,7 @@ justify-content: center;
 
 
 .boardList .boardList-con .search{
-  background-color: rgb(185, 217, 221);
+  /* background-color: rgb(185, 217, 221); */
   display: flex;
   justify-content: end;
   padding: 10px;
@@ -89,7 +117,8 @@ th, td{
     width: 100%;
     /*  padding: 10px 0;*/
     box-sizing: border-box;
-    background-color: #3767a6;
+    /* background-color: #3767a6; */
+    background-color: rgb(246 248 251);
     display: flex;
     justify-content: center;
 }

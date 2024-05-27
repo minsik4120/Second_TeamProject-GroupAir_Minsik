@@ -5,8 +5,6 @@ import lombok.*;
 import org.spring.groupAir.board.dto.BoardDto;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.schedule.entity.ScheduleEntity;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -92,7 +90,6 @@ public class BoardEntity extends BaseTimeEntity {
     boardEntity.setId(boardDto.getId());
     boardEntity.setHit(boardDto.getHit());
     boardEntity.setTitle(boardDto.getTitle());
-
     boardEntity.setContent(boardDto.getContent());
     boardEntity.setWriter(boardDto.getWriter());
     boardEntity.setBoardAttachFile(1);
@@ -107,5 +104,35 @@ public class BoardEntity extends BaseTimeEntity {
 
 
 
+
+  public static BoardEntity toUpdateFileBoardEntity0(BoardDto boardDto) {
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setId(boardDto.getId());
+    boardEntity.setHit(boardDto.getHit());
+    boardEntity.setWriter(boardDto.getWriter());
+    boardEntity.setTitle(boardDto.getTitle());
+    boardEntity.setContent(boardDto.getContent());
+    boardEntity.setBoardAttachFile(0);
+    boardEntity.setMemberEntity(boardDto.getMemberEntity());
+    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
+    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
+    return boardEntity;
+  }
+
+  public static BoardEntity toUpdateFileBoardEntity1(BoardDto boardDto) {
+    BoardEntity boardEntity = new BoardEntity();
+    boardEntity.setId(boardDto.getId());
+    boardEntity.setHit(boardDto.getHit());
+    boardEntity.setWriter(boardDto.getWriter());
+    boardEntity.setTitle(boardDto.getTitle());
+    boardEntity.setContent(boardDto.getContent());
+    boardEntity.setBoardAttachFile(1);
+    boardEntity.setMemberEntity(boardDto.getMemberEntity());
+    boardEntity.setBoardSeparateEntity(boardDto.getBoardSeparateEntity());
+    boardEntity.setBoardReplyEntityList(boardDto.getBoardReplyEntityList());
+    boardEntity.setBoardFileEntityList(boardDto.getBoardFileEntityList());
+    return boardEntity;
+  }
 
 }

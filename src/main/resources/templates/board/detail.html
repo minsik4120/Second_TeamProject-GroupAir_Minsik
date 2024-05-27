@@ -27,7 +27,7 @@
         <div class="top">
           <div class="detail-form">
 
-            <form th:action="@{/board/update}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/board/boardUpdate}" method="post" enctype="multipart/form-data">
               <div class="left-img">
                 <div class="left-img-con">
                   <th:block th:if="${board.boardAttachFile==1}"> <!--  이미지 표시 -->
@@ -56,20 +56,10 @@
                 </li>
 
                 <li>
-                  <label for="boardSeparateName">boardSeparateId</label>           <!-- board.getMemberEntity().id -->
-                  <input type="text" name="boardSeparateEntity.boardSeparateName" id="boardSeparateName" th:value="${name}">
+                  <label for="boardSeparateId">카테고리 ID</label>           <!-- board.getMemberEntity().id -->
+                  <input type="text" name="boardSeparateEntity.id" id="boardSeparateId"
+                         th:value="${board.boardSeparateEntity.id}" readonly>
                 </li>
-
-
-                <!--    <li>
-                      <label for="boardSeparateId"></label>
-                      <select name="boardSeparateId" id="boardSeparateId" th:value="${board.boardSeparateEntity.id}">
-                        <option hidden>게시판을 선택해주세요</option>
-                        <option value="1">공지사항</option>
-                        <option value="2">자유게시판</option>
-                      </select>
-                    </li>-->
-
 
 
                 <li>
@@ -118,7 +108,9 @@
 
               <h1 class="title"> 댓글 </h1>
 
-              <input type="hidden" name="boardId" id="boardId" th:valud="${board.id}">
+
+              <input type="hidden" name="boardId" id="boardId" th:value="${board.id}">
+
               <input type="text" name="replyWriter" id="replyWriter" placeholder="작성자">
               
         
@@ -130,8 +122,8 @@
               <table>
                 <thead>
                 <tr>
-                  <th>게시글 번호</th>
-                  <th>번호</th>
+                  <th>게시판번호</th>
+                  <th>댓글번호</th>
                   <th>내용</th>
                   <th>작성자</th>
                   <th>작성시간</th>
@@ -142,11 +134,11 @@
 
                 <tbody class="tData">
                 <tr th:each="reply:${replyList}">
-                  <td th:text="${reply.boardEntity.id}">data</td>
-                  <td th:text="${reply.id}">data</td>
-                  <td th:text="${reply.replyContent}">data</td>
-                  <td th:text="${reply.replyWriter}">data</td>
-                  <td th:text="${reply.createTime}">data</td>
+                  <td th:text="${reply.boardEntity.id}"></td>
+                  <td th:text="${reply.id}"></td>
+                  <td th:text="${reply.replyContent}"></td>
+                  <td th:text="${reply.replyWriter}"></td>
+                  <td th:text="${#temporals.format(reply.createTime, 'yy/MM/dd HH:mm:ss')}"></td>
                 </tr>
                 <!--Ajax -->
                 </tbody>

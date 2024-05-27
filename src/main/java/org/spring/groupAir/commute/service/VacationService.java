@@ -7,8 +7,12 @@ import org.spring.groupAir.commute.entity.VacationEntity;
 import org.spring.groupAir.commute.repository.CommuteRepository;
 import org.spring.groupAir.commute.repository.VacationRepository;
 import org.spring.groupAir.commute.service.serviceInterface.VacationServiceInterface;
+import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
+import org.spring.groupAir.salary.dto.SalaryDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -76,10 +80,11 @@ public class VacationService implements VacationServiceInterface {
     @Override
     public void findVacationPerson() {
         List<VacationEntity> vacationEntityList1 = vacationRepository.findVacationPerson(LocalDate.now());
-        List<MemberEntity> memberEntityList  = memberRepository.findNotVacationPerson(LocalDate.now());
+        List<MemberEntity> memberEntityList = memberRepository.findNotVacationPerson(LocalDate.now());
 
         for (VacationEntity vacationEntity : vacationEntityList1) {
-            if (!vacationEntity.getMemberEntity().getCommuteEntityList().get(vacationEntity.getMemberEntity().getCommuteEntityList().size() - 1).getStatus().equals("휴가")) {
+            List<CommuteEntity> commuteList = vacationEntity.getMemberEntity().getCommuteEntityList();
+            if (!commuteList.isEmpty() && !vacationEntity.getMemberEntity().getCommuteEntityList().get(vacationEntity.getMemberEntity().getCommuteEntityList().size() - 1).getStatus().equals("휴가")) {
                 CommuteEntity commuteEntity = CommuteEntity.builder()
                     .id(vacationEntity.getMemberEntity().getCommuteEntityList().get(vacationEntity.getMemberEntity().getCommuteEntityList().size() - 1).getId())
                     .work(0)
@@ -93,7 +98,8 @@ public class VacationService implements VacationServiceInterface {
 
 
         for (MemberEntity memberEntity : memberEntityList) {
-            if (memberEntity.getCommuteEntityList().get(memberEntity.getCommuteEntityList().size() - 1).getStatus().equals("휴가")) {
+            List<CommuteEntity> commuteList = memberEntity.getCommuteEntityList();
+            if (!commuteList.isEmpty() && memberEntity.getCommuteEntityList().get(memberEntity.getCommuteEntityList().size() - 1).getStatus().equals("휴가")) {
                 CommuteEntity commuteEntity = CommuteEntity.builder()
                     .id(memberEntity.getCommuteEntityList().get(memberEntity.getCommuteEntityList().size() - 1).getId())
                     .work(0)
@@ -111,5 +117,36 @@ public class VacationService implements VacationServiceInterface {
     public void deleteOverTimeVacation() {
         LocalDateTime now = LocalDateTime.now();
         vacationRepository.deleteByVacEndDateBefore(now.toLocalDate());
+    }
+
+    @Override
+    public Page<VacationDto> vacationList(Pageable pageable, String subject, String search) {
+
+
+        Page<VacationEntity> vacationEntityPage;
+
+            if (subject == null || search == null) {
+                vacationEntityPage = vacationRepository.findAll(pageable);
+            } else if (subject.equals("name")) {
+                vacationEntityPage = vacationRepository.findByMemberEntityNameContains(pageable, search);
+            } else if (subject.equals("positionName")) {
+                vacationEntityPage = vacationRepository.findByMemberEntityPositionEntityPositionNameContains(pageable, search);
+            }else if (subject.equals("vacType")) {
+                vacationEntityPage = vacationRepository.findByVacTypeContains(pageable, search);
+            } else {
+                vacationEntityPage = vacationRepository.findAll(pageable);
+            }
+
+            Page<VacationDto> vacationDtoPage = vacationEntityPage.map(vacationEntity ->
+                VacationDto.builder()
+                    .id(vacationEntity.getId())
+                    .memberEntity(vacationEntity.getMemberEntity())
+                    .vacType(vacationEntity.getVacType())
+                    .vacStartDate(vacationEntity.getVacStartDate())
+                    .vacEndDate(vacationEntity.getVacEndDate())
+                    .vacDays(vacationEntity.getVacDays())
+                    .build()
+            );
+        return vacationDtoPage;
     }
 }

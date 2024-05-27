@@ -18,4 +18,10 @@ public interface AirPlaneServiceInterface {
     Page<AirplaneDto> todayMyAirplane(Pageable pageable, Long id);
 
     void deleteOverTimeAirplane();
+
+    AirplaneDto findAirplane(Long id);
+
+    void airplaneUpdate(AirplaneDto airplaneDto);
+
+    void updateStatus();
 }

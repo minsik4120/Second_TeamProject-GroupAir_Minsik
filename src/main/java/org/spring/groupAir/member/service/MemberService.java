@@ -60,6 +60,16 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
+    public List<MemberDto> memberList() {
+
+         List<MemberEntity> memberEntityList = memberRepository.findAll();
+
+         List<MemberDto> memberDtoList = memberEntityList.stream().map(MemberDto :: toMemberDto).collect(Collectors.toList());
+
+        return memberDtoList;
+    }
+
+    @Override
     public Long memberJoin(MemberDto memberDto) throws IOException {
         memberRepository.findByUserEmail(memberDto.getUserEmail()).ifPresent(email -> {
             throw new RuntimeException(memberDto.getUserEmail() + " 이메일이 이미 존재합니다!");
@@ -125,7 +135,8 @@ public class MemberService implements MemberServiceInterface {
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
             .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
 
-        Optional<MemberFileEntity> optionalMemberFileEntity = memberFileRepository.findByMemberEntityId(memberDto.getId());
+        Optional<MemberFileEntity> optionalMemberFileEntity = memberFileRepository
+            .findByMemberEntityId(memberDto.getId());
 
         optionalMemberFileEntity.ifPresent(memberFileEntity -> {
             String newFileName = memberFileEntity.getMemberNewFile();
@@ -159,7 +170,7 @@ public class MemberService implements MemberServiceInterface {
         memberDto.setAddress(memberDto.getAddress());
 
 
-        if (isFilePresent && isPasswordChanged) {
+        if (isFilePresent) {
             memberEntity = MemberEntity.toMemberUpdateEntity1(memberDto);
         } else {
             memberEntity = MemberEntity.toMemberUpdateEntity0(memberDto);

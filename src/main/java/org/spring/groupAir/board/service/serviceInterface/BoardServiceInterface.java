@@ -2,7 +2,6 @@ package org.spring.groupAir.board.service.serviceInterface;
 
 import org.spring.groupAir.board.dto.BoardDto;
 import org.spring.groupAir.board.entity.BoardEntity;
-import org.spring.groupAir.board.entity.BoardSeparateEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,12 +17,19 @@ public interface BoardServiceInterface {
   BoardDto detail(Long id);
 
 
-  void update(BoardDto boardDto) throws IOException;
+//  void update(BoardDto boardDto) throws IOException;
+
 
   void deleteBoard(Long id);
 
 
   List<BoardEntity> getBoardsBySeparateId(Long boardSeparateId);
 
-/*  BoardSeparateEntity getBoardSeparateById(Long boardSeparateId);*/
+//  BoardDto boardDetailUpdate(Long id);
+
+//  void update(BoardDto boardDto) throws IOException;
+
+  void boardUpdate(BoardDto boardDto) throws IOException;
+
+  /*  BoardSeparateEntity getBoardSeparateById(Long boardSeparateId);*/
 }

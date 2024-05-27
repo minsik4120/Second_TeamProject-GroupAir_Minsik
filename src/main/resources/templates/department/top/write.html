@@ -38,10 +38,14 @@
                 <div class="de_right">
                     <h2>상위부서 생성</h2>
                     <ul>
-                        <form th:action="@{/department/top/deTopWrite}" method="POST">
+                        <form th:action="@{/department/top/deTopWrite}" method="POST" th:object="${topDepartmentDto}" enctype="multipart/form-data">
                             <li>
                                 <label for="topDepartmentName">부서명</label>
                                 <input type="text" name="topDepartmentName" id="topDepartmentName">
+                            </li>
+                            <li>
+                                <p th:if="${#fields.hasErrors('topDepartmentName')}"
+                                   th:errors="*{topDepartmentName}" class="error"></p>
                             </li>
                             <li>
                                 <input type="submit" value="생성" name="btn">

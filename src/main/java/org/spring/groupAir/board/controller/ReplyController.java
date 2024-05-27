@@ -3,7 +3,6 @@ package org.spring.groupAir.board.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.board.dto.BoardReplyDto;
-import org.spring.groupAir.board.repository.BoardRepository;
 import org.spring.groupAir.board.service.ReplyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

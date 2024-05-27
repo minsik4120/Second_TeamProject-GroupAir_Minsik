@@ -135,7 +135,8 @@ public class MemberService implements MemberServiceInterface {
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
             .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
 
-        Optional<MemberFileEntity> optionalMemberFileEntity = memberFileRepository.findByMemberEntityId(memberDto.getId());
+        Optional<MemberFileEntity> optionalMemberFileEntity = memberFileRepository
+            .findByMemberEntityId(memberDto.getId());
 
         optionalMemberFileEntity.ifPresent(memberFileEntity -> {
             String newFileName = memberFileEntity.getMemberNewFile();
@@ -169,7 +170,7 @@ public class MemberService implements MemberServiceInterface {
         memberDto.setAddress(memberDto.getAddress());
 
 
-        if (isFilePresent && isPasswordChanged) {
+        if (isFilePresent) {
             memberEntity = MemberEntity.toMemberUpdateEntity1(memberDto);
         } else {
             memberEntity = MemberEntity.toMemberUpdateEntity0(memberDto);

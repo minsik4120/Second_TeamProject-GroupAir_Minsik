@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.board.dto.BoardReplyDto;
 import org.spring.groupAir.contraint.BaseTimeEntity;
-import org.spring.groupAir.member.entity.MemberEntity;
 
 import javax.persistence.*;
 

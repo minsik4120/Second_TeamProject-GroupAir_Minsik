@@ -37,8 +37,9 @@ public class BoardReplyDto {
   public static BoardReplyDto toSelectReplyDto(BoardReplyEntity replyEntity) {
     BoardReplyDto boardReplyDto = new BoardReplyDto();
     boardReplyDto.setId(replyEntity.getId());
-
     boardReplyDto.setReplyWriter(replyEntity.getReplyWriter());
+    boardReplyDto.setReplyContent(replyEntity.getReplyContent());
+
     boardReplyDto.setBoardEntity(replyEntity.getBoardEntity());
     boardReplyDto.setCreateTime(replyEntity.getCreateTime());
     boardReplyDto.setUpdateTime(replyEntity.getUpdateTime());
@@ -46,17 +47,17 @@ public class BoardReplyDto {
 
   }
 
-  public static BoardReplyDto toAjaxReplyEntity(BoardReplyEntity replyEntity1) {
+  public static BoardReplyDto toAjaxReplyEntity(BoardReplyEntity replyEntity) {
 
     BoardReplyDto replyDto = new BoardReplyDto();
-    replyDto.setId(replyEntity1.getId());
-    replyDto.setReplyWriter(replyEntity1.getReplyWriter());
-    replyDto.setReplyContent(replyEntity1.getReplyContent());
+    replyDto.setId(replyEntity.getId());
+    replyDto.setReplyWriter(replyEntity.getReplyWriter());
+    replyDto.setReplyContent(replyEntity.getReplyContent());
 
 //    replyDto.setBoardId(replyEntity.getBoardEntity().getId());
-    replyDto.setBoardEntity(replyEntity1.getBoardEntity());
-    replyDto.setCreateTime(replyEntity1.getCreateTime());
-    replyDto.setUpdateTime(replyEntity1.getUpdateTime());
+    replyDto.setBoardEntity(replyEntity.getBoardEntity());
+    replyDto.setCreateTime(replyEntity.getCreateTime());
+    replyDto.setUpdateTime(replyEntity.getUpdateTime());
 
     return replyDto;
   }

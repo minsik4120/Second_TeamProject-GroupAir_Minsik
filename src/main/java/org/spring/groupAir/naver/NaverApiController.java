@@ -22,7 +22,7 @@ public class NaverApiController {
 	@Value("${navar.api.client-secret}")
 	String CLIENT_SECRET;
 
-	@GetMapping({"/naver","/naver/index"})
+	@GetMapping("/naver")
 	public String index() {
 		return "naver/index";
 	}
@@ -65,12 +65,12 @@ public class NaverApiController {
 		ObjectMapper mapper=new ObjectMapper();
 		NaverTokenDTO dto=mapper.readValue(responseJSONData, NaverTokenDTO.class);
 
-	
+
 		OrgResponse orgResponse=getOrgUnit(dto);
-	
+
 		System.out.println("====================");
 
-		model.addAttribute("list", orgResponse.getOrgUnits()); 
+		model.addAttribute("list", orgResponse.getOrgUnits());
 
 		return "naver/naver-auth2"; //View
 	}
@@ -110,7 +110,7 @@ public class NaverApiController {
 	private String get(InputStream inputStream) throws IOException {
 		InputStreamReader streamReader=new InputStreamReader(inputStream);
 		BufferedReader lineReader=new BufferedReader(streamReader);
-		
+
 		StringBuilder responseBody=new StringBuilder();
 
 		String data;

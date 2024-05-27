@@ -49,13 +49,13 @@ public class MemberEntity extends BaseTimeEntity {
     @Column(nullable = true)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String employeeDate;
 
     @Column(nullable = true)
     private String resignationDate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int memberAttachFile;
 
     @Column(nullable = true)

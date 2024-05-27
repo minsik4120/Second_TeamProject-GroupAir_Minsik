@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{common/layout/adminLayout}">
 <th:block layout:fragment="title">
     <!-- 각 페이지 마다 변경 -->
@@ -145,9 +146,11 @@
                     </tr>
                     </tfoot>
                 </table>
+                <th:block sec:authorize="hasAnyRole('ADMIN')">
                 <div class="registrationButton">
                     <a th:href="@{/airplane/registration}">항공편 등록</a>
                 </div>
+                </th:block>
             </div>
         </div>
     </div>

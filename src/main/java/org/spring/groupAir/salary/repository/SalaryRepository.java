@@ -12,6 +12,8 @@ import java.util.List;
 
 @Repository
 public interface SalaryRepository extends JpaRepository<SalaryEntity, Long> {
+    List<SalaryEntity> findByMemberEntityId(Long id);
+
 //
 //    @Query(value = "SELECT * FROM salary s LEFT JOIN employee e ON s.employee_id = e.employee_id WHERE s.salary_id IN (SELECT MAX(s2.salary_id) FROM salary s2 GROUP BY s2.employee_id) ", nativeQuery = true)
 //    List<SalaryEntity> findLastMonthSalaryList();

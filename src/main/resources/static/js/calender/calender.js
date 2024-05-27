@@ -35,7 +35,7 @@
             text: "일정 추가",
             click: function () {
 
-              $("#calendarModal").modal('show'); // 커스텀 하게 제작
+              $('#calendarModal').modal('show'); // 커스텀 하게 제작
 
               $("#addBtn").on("click", function () {
 

@@ -36,4 +36,6 @@ public interface VacationRepository extends JpaRepository<VacationEntity, Long> 
     Page<VacationEntity> findByMemberEntityPositionEntityPositionNameContains(Pageable pageable, String search);
 
     Page<VacationEntity> findByVacTypeContains(Pageable pageable, String search);
+
+    List<VacationEntity> findByMemberEntityId(Long id);
 }

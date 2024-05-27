@@ -173,4 +173,13 @@ public class CommuteController {
         return "redirect:/commute/vacation";
     }
 
+    @GetMapping("/myVacation/{id}")
+    public String myVacation(@PathVariable("id")Long id, Model model){
+
+        List<VacationDto> vacationDtoList = vacationService.myVacation(id);
+
+        model.addAttribute("vacationDtoList", vacationDtoList);
+        
+        return "commute/myVacation";
+    }
 }

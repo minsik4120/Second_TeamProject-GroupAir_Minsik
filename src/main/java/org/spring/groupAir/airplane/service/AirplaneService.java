@@ -1,14 +1,20 @@
 package org.spring.groupAir.airplane.service;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.airplane.dto.AirplaneDto;
 import org.spring.groupAir.airplane.entity.AirPlaneEntity;
+import org.spring.groupAir.airplane.entity.QAirPlaneEntity;
 import org.spring.groupAir.airplane.repository.AirplaneRepository;
 import org.spring.groupAir.airplane.service.serviceInterface.AirPlaneServiceInterface;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.salary.dto.SalaryDto;
+import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +31,7 @@ import java.util.List;
 public class AirplaneService implements AirPlaneServiceInterface {
 
     private final AirplaneRepository airplaneRepository;
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public Page<AirplaneDto> allAirplane(Pageable pageable, String subject, String search) {
@@ -138,10 +145,21 @@ public class AirplaneService implements AirPlaneServiceInterface {
     @Override
     public Page<AirplaneDto> todayMyAirplane(Pageable pageable, Long id) {
 
-        Date today = Date.valueOf(LocalDate.now());
+        LocalDate now = LocalDate.now();
 
-        Page<AirPlaneEntity> airPlaneEntityPage
-            = airplaneRepository.findTodayAirplane(pageable, id, today);
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+
+        QueryResults<AirPlaneEntity> airplaneEntityResults = queryFactory.select(airPlane)
+            .from(airPlane)
+            .where(airPlane.toTime.dayOfMonth().eq(now.getDayOfMonth()).and(airPlane.memberEntity.id.eq(id)))
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .fetchResults();
+
+        Page<AirPlaneEntity> airPlaneEntityPage = new PageImpl<>(airplaneEntityResults.getResults(), pageable, airplaneEntityResults.getTotal());
+
+//
+//        Page<AirPlaneEntity> airPlaneEntityPage = airplaneRepository.findTodayAirplane(pageable, id, today);
 
         Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity->
             AirplaneDto.builder()
@@ -210,7 +228,18 @@ public class AirplaneService implements AirPlaneServiceInterface {
 
     @Override
     public void updateStatus() {
-        List<AirPlaneEntity> airPlaneEntityList = airplaneRepository.updateStatus(LocalDateTime.now());
+
+        LocalDateTime now = LocalDateTime.now();
+
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+
+        List<AirPlaneEntity> airPlaneEntityList =
+            queryFactory.select(airPlane)
+                .from(airPlane)
+                .where(airPlane.toTime.loe(now).and(airPlane.fromTime.goe(now)))
+                .fetch();
+
+//        List<AirPlaneEntity> airPlaneEntityList = airplaneRepository.updateStatus(LocalDateTime.now());
 
         for(AirPlaneEntity airPlaneEntity : airPlaneEntityList){
             if(!airPlaneEntity.getStatus().equals("운행중")){

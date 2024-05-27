@@ -1,6 +1,8 @@
 package org.spring.groupAir.commute.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.board.entity.BoardEntity;
+import org.spring.groupAir.board.service.BoardService;
 import org.spring.groupAir.commute.dto.CommuteDto;
 import org.spring.groupAir.commute.dto.VacationDto;
 import org.spring.groupAir.commute.service.CommuteService;
@@ -8,6 +10,7 @@ import org.spring.groupAir.commute.service.VacationService;
 import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
+import org.spring.groupAir.salary.dto.SalaryDto;
 import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.spring.groupAir.salary.service.SalaryService;
 import org.springframework.data.domain.Page;
@@ -36,10 +39,16 @@ public class CommuteController {
     private final VacationService vacationService;
     private final MemberService memberService;
     private final SalaryService salaryService;
+    private final BoardService boardService;
 
 
     @GetMapping({"", "/", "/index"})
     public String commuteIndex(Model model) {
+
+        vacationService.findVacationPerson();
+        vacationService.deleteOverTimeVacation();
+        commuteService.notWorkOut();
+        commuteService.notWorkIn();
 
         int sickVacationPeople = vacationService.sickVacationPeople();
         int vacationPeople = vacationService.vacationPeople();
@@ -48,8 +57,7 @@ public class CommuteController {
         int leaveEarlyPeople = commuteService.leaveEarlyPeople();
         int workPeople = commuteService.workPeople();
         int workOutPeople = commuteService.workOutPeople();
-
-        vacationService.findVacationPerson();
+        int notWorkInPeople = commuteService.notWorkInPeople();
 
         model.addAttribute("sickVacationPeople", sickVacationPeople);
         model.addAttribute("vacationPeople", vacationPeople);
@@ -58,6 +66,7 @@ public class CommuteController {
         model.addAttribute("leaveEarlyPeople", leaveEarlyPeople);
         model.addAttribute("workPeople", workPeople);
         model.addAttribute("workOutPeople", workOutPeople);
+        model.addAttribute("notWorkInPeople", notWorkInPeople);
 
         return "commute/index";
     }
@@ -126,10 +135,10 @@ public class CommuteController {
                            @RequestParam(name = "subject", required = false) String subject,
                            @RequestParam(name = "search", required = false) String search) {
 
-        Page<MemberDto> memberDtoPage = memberService.memberList(pageable, subject, search);
+        Page<VacationDto> vacationDtoPage = vacationService.vacationList(pageable, subject, search);
 
-        int totalPage = memberDtoPage.getTotalPages();//전체page
-        int newPage = memberDtoPage.getNumber();//현재page
+        int totalPage = vacationDtoPage.getTotalPages();//전체page
+        int newPage = vacationDtoPage.getNumber();//현재page
 
         int blockNum = 3; //브라우저에 보이는 페이지 갯수
 
@@ -140,19 +149,18 @@ public class CommuteController {
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        model.addAttribute("memberDtoPage", memberDtoPage);
+        model.addAttribute("vacationDtoPage", vacationDtoPage);
 
         return "commute/vacation";
     }
 
-    @GetMapping("/vacationCreate/{id}")
-    public String vacationCreate(@PathVariable("id")Long id, VacationDto vacationDto, Model model){
+    @GetMapping("/vacationCreate")
+    public String vacationCreate(VacationDto vacationDto, Model model){
 
-        String name = memberService.findName(id);
+        List<MemberDto> memberDtoList = memberService.memberList();
 
-        model.addAttribute("employeeId",id);
-        model.addAttribute("name",name);
         model.addAttribute("vacationDto", vacationDto);
+        model.addAttribute("memberDtoList", memberDtoList);
 
         return "commute/vacationCreate";
     }
@@ -164,4 +172,15 @@ public class CommuteController {
 
         return "redirect:/commute/vacation";
     }
+
+
+
+
+
+
+
+
+    //-------------------------------------------------------
+
+
 }

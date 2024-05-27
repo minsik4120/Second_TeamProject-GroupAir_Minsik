@@ -4,6 +4,7 @@ import org.spring.groupAir.member.dto.MemberDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.net.ssl.SSLSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface MemberServiceInterface {
 
     Page<MemberDto> memberList(Pageable pageable, String subject, String search);
 
-    Long memberJoin(MemberDto memberDto) throws IOException;
+    List<MemberDto> memberList();
 
 //sign추가한거
     Page<MemberDto> findMembersByNameContaining(String name, Pageable pageable);
@@ -22,4 +23,20 @@ public interface MemberServiceInterface {
     List<MemberDto> findBujang();
 
     String findPosition(String name);
+
+    MemberDto memberDetail(Long id);
+
+
+    void memberUpdate(MemberDto memberDto) throws IOException;
+
+    void memberDelete(Long id);
+
+    Long memberJoin(MemberDto memberDto) throws IOException;
+
+
+    List<MemberDto> selectPilot();
+
+    Page<MemberDto> pageSelectPilot(Pageable pageable);
+
+
 }

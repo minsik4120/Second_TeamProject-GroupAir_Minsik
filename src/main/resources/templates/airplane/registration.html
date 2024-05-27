@@ -32,7 +32,8 @@
                             <label for="toArea">출발지</label>
                         </li>
                         <li>
-                            <input type="text" id="toArea" name="toArea" class="address" placeholder="주소" th:value="${toArea}">
+                            <input type="text" id="toArea" name="toArea" class="address" placeholder="주소"
+                                   th:value="${toArea}">
                             <input type="button" onclick="toAreaFn()" value="출발지 찾기"><br>
                         </li>
 
@@ -40,7 +41,8 @@
                             <label for="fromArea">도착지</label>
                         </li>
                         <li>
-                            <input type="text" id="fromArea" name="fromArea" class="address" placeholder="주소" th:value="${fromArea}">
+                            <input type="text" id="fromArea" name="fromArea" class="address" placeholder="주소"
+                                   th:value="${fromArea}">
                             <input type="button" onclick="fromAreaFn()" value="도착지 찾기"><br>
                         </li>
 
@@ -59,8 +61,22 @@
                         <li>
                             <label for="airplane">비행기</label>
                         </li>
+
                         <li>
                             <input type="text" id="airplane" name="airplane" th:value="${airplane}">
+                        </li>
+
+                        <li>
+                            <label for="pilot">기장</label>
+                        </li>
+
+                        <li>
+                            <select name="memberId" id="pilot">
+                                <option th:each="pilot : ${memberDtoList}"
+                                        th:value="${pilot.id}"
+                                        th:text="${pilot.name}">
+                                </option>
+                            </select>
                         </li>
 
                         <li class="li2">

@@ -1,3 +1,4 @@
+
 package org.spring.groupAir.exception;
 
 import org.springframework.http.HttpStatus;
@@ -20,3 +21,5 @@ public class GlobalExceptionHandler {
     return  ResponseEntity.status(HttpStatus.OK).body(html);
   }
 }
+
+

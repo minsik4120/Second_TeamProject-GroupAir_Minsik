@@ -21,22 +21,26 @@
                 </li>
                 <li>
                     <label for="userPw">Pw</label>
-                    <input type="text" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요"> <br>
+                    <input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요"> <br>
                 </li>
 
                 <li class="loginBtn">
-                    <input type="submit" value="로그인">
                     <input type="reset" value="초기화">
+                    <input type="submit" value="로그인">
                 </li>
             </ul>
         </form>
-        <div class="sns">
-            <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google"></a>
-            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a>
-            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>
-        </div>
+
+<!--        <div class="sns">-->
+<!--            <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google"></a>-->
+<!--            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a>-->
+<!--            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>-->
+<!--        </div>-->
+
     </div>
+
 </div>
+
 </body>
 
 </html>

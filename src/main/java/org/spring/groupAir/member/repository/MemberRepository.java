@@ -2,6 +2,7 @@ package org.spring.groupAir.member.repository;
 
 import org.spring.groupAir.commute.entity.VacationEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.MemberFileEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,12 +19,15 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
     Page<MemberEntity> findByNameContains(Pageable pageable, String search);
 
-
     Page<MemberEntity> findByUserEmailContains(Pageable pageable, String search);
+
 
 
     //sign추가
     Page<MemberEntity> findByNameContainingIgnoreCase(Pageable pageable, String name);
+
+
+    Page<MemberEntity> findByPhoneContains(Pageable pageable, String search);
 
 
     Optional<MemberEntity> findByName(String name);
@@ -35,5 +39,10 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Optional<MemberEntity> findByNameEquals(String name);
 
 
-    List<MemberEntity> findByPositionEntityPositionName(String position);
+
+
+    List<MemberEntity> findByPositionEntityPositionName(String pilot);
+
+    Page<MemberEntity> findByPositionEntityPositionName(Pageable pageable,String pilot);
+
 }

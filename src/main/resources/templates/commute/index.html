@@ -16,7 +16,12 @@
     <div class="adminContainer">
         <div class="commute">
             <div class="status">
-                <div class="people"><img th:src="@{/images/commute/check.png}" alt="대체이미지" height="50px">
+                <div class="people"><img th:src="@{/images/commute/substract.png}" alt="대체이미지" height="50px">
+                    <div class="people-con">
+                    미출근 : [[${notWorkInPeople}]] 명
+                    </div>
+                </div>
+                <div class="people"><img th:src="@{/images/commute/correct.png}" alt="대체이미지" height="50px">
                     <div class="people-con">
                     출근 : [[${workPeople}]] 명
                     </div>

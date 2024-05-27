@@ -8,6 +8,7 @@ import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.PositionEntity;
 import org.spring.groupAir.member.service.MemberService;
 import org.spring.groupAir.member.service.memberServiceInterface.MemberServiceInterface;
 import org.spring.groupAir.sign.dto.SignDto;
@@ -75,6 +76,7 @@ public class SignController {
        List<MemberDto> memberDtoList = memberService.findBujang();
 
 
+
         List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
 
         //List<DepartmentDto> deptList = departmentService.getSubDepartments(departmentDto.getId());
@@ -83,6 +85,7 @@ public class SignController {
         model.addAttribute("members", memberDtoList);
         model.addAttribute("name", name);
         model.addAttribute("list", list);
+
        // model.addAttribute("deptList", deptList);
 
 

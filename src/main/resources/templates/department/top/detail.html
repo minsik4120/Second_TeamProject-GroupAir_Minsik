@@ -24,7 +24,8 @@
                     <h1><a th:href="@{/department/top/deList}">부서목록</a></h1>
                     <div class="top">
                         <ul th:each="top : ${list}">
-                            <a th:href="@{/department/top/detail/{id}(id=${top.id})}" th:classappend="${activeId == top.id} ? 'highlighted-link' : ''" id="topDe">
+                            <a th:href="@{/department/top/detail/{id}(id=${top.id})}"
+                               th:classappend="${activeId == top.id} ? 'highlighted-link' : ''" id="topDe">
                                 <li th:text="${top.topDepartmentName}"></li>
                             </a>
                             <ul th:each="de : ${top.departmentEntityList}">
@@ -57,7 +58,9 @@
                             </li>
                             <li>
                                 <input type="submit" value="수정" name="btn">
-                                <a th:href="@{/department/top/delete/{id}(id=${topDepartment.id})}" name="btn">삭제</a>
+                                <!--                                <a th:href="@{/department/top/delete/{id}(id=${topDepartment.id})}" name="btn">삭제</a>-->
+                                <a th:href="@{'/department/top/delete/' + ${topDepartment.id}}"
+                                   onclick="return confirm('부서를 삭제하시겠습니까?\n※ 하위부서 및 직원도 삭제됩니다! ※');" name="btn">삭제</a>
                             </li>
                         </form>
                     </ul>

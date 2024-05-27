@@ -23,31 +23,39 @@
             <div class="left-menu">
                 <ul>
                     <li class="menuBar">
-                        <img th:src="@{/images/pay.png}" alt="member">
                         <th:block sec:authorize="hasAnyRole('ADMIN')">
-                        <a th:href="@{/commute/index}">근태급여</a>
-                        <ul class="subMenu">
-                            <li><a th:href="@{/commute/index}">근태</a></li>
-                            <li><a th:href="@{/salary/index}">급여</a></li>
-                            <li><a th:href="@{#}">사원정보</a></li>
-                        </ul>
+                            <img th:src="@{/images/pay.png}" alt="member">
+                            <a th:href="@{/commute/index}">근태급여</a>
+                            <ul class="subMenu">
+                                <li><a th:href="@{/commute/index}">근태</a></li>
+                                <li><a th:href="@{/salary/index}">급여</a></li>
+                                <li><a th:href="@{#}">사원정보</a></li>
+                            </ul>
                         </th:block>
                         <th:block sec:authorize="hasAnyRole('MEMBER','MANAGER')">
-                        <a th:href="@{/commute/index}">근태</a>
-                        <ul class="subMenu">
-                            <li><a id="work" th:href="@{/commute/workDetail/{id}(id = ${#authentication.principal.memberEntity.id})}">출근 기록</a></li>
-                            <li><a id="salary" th:href="@{/salary/mySalary/{id}(id = ${#authentication.principal.memberEntity.id})}">내 급여</a></li>
-                            <li><a id="vacation" th:href="@{/commute/myVacation/{id}(id = ${#authentication.principal.memberEntity.id})}">내 휴가</a></li>
-                        </ul>
+                            <a th:href="@{/commute/index}">근태</a>
+                            <ul class="subMenu">
+                                <li><a id="work"
+                                       th:href="@{/commute/workDetail/{id}(id = ${#authentication.principal.memberEntity.id})}">출근
+                                    기록</a></li>
+                                <li><a id="salary"
+                                       th:href="@{/salary/mySalary/{id}(id = ${#authentication.principal.memberEntity.id})}">내
+                                    급여</a></li>
+                                <li><a id="vacation"
+                                       th:href="@{/commute/myVacation/{id}(id = ${#authentication.principal.memberEntity.id})}">내
+                                    휴가</a></li>
+                            </ul>
                         </th:block>
                     </li>
-                    <li class="menuBar">
-                        <img th:src="@{/images/department.png}" alt="member">
-                        <a th:href="@{#}">부서</a>
-                        <ul class="subMenu">
-                            <li><a th:href="@{/department/top/deList}">부서관리</a></li>
-                        </ul>
-                    </li>
+                    <th:block sec:authorize="hasAnyRole('MEMBER','MANAGER')">
+                        <li class="menuBar">
+                            <img th:src="@{/images/department.png}" alt="member">
+                            <a th:href="@{#}">부서</a>
+                            <ul class="subMenu">
+                                <li><a th:href="@{/department/top/deList}">부서관리</a></li>
+                            </ul>
+                        </li>
+                    </th:block>
                     <li class="menuBar">
                         <img th:src="@{/images/employee.png}" alt="member">
                         <a th:href="@{#}">사원관리</a>
@@ -62,12 +70,12 @@
                         <a th:href="@{/airplane/index}">항공편</a>
                         <ul class="subMenu">
                             <th:block sec:authorize="hasAnyRole('ADMIN')">
-                            <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
-                            <li><a th:href="@{/airplane/pilot}">기장님 관리</a></li>
+                                <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
+                                <li><a th:href="@{/airplane/pilot}">기장님 관리</a></li>
                             </th:block>
                             <th:block sec:authorize="hasAnyRole('MEMBER','MANAGER')">
-                            <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
-<!--                            <li><a th:href="@{/airplane/pilot}">기장님 관리</a></li>-->
+                                <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
+                                <!--                            <li><a th:href="@{/airplane/pilot}">기장님 관리</a></li>-->
                             </th:block>
                         </ul>
                     </li>

@@ -1,15 +1,22 @@
 package org.spring.groupAir.salary.service;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.commute.entity.CommuteEntity;
+import org.spring.groupAir.commute.entity.QCommuteEntity;
 import org.spring.groupAir.commute.repository.CommuteRepository;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.QMemberEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
 import org.spring.groupAir.salary.dto.SalaryDto;
+import org.spring.groupAir.salary.entity.QSalaryEntity;
 import org.spring.groupAir.salary.entity.SalaryEntity;
 import org.spring.groupAir.salary.repository.SalaryRepository;
 import org.spring.groupAir.salary.service.serviceInterface.SalaryServiceInterface;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +38,13 @@ public class SalaryService implements SalaryServiceInterface {
     private final MemberRepository memberRepository;
     private final CommuteRepository commuteRepository;
     private final SalaryRepository salaryRepository;
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public void createSalary(Long id) {
         MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
-        LocalDate paymentDate = YearMonth.now().plusMonths(1).atDay(10);
+        LocalDate paymentDate = YearMonth.now().atEndOfMonth();
 
         if (memberEntity.getPositionEntity().getPositionName().equals("부장")) {
             SalaryEntity salaryEntity = SalaryEntity
@@ -72,7 +80,22 @@ public class SalaryService implements SalaryServiceInterface {
     @Override
     public Page<SalaryDto> memberSalary(Pageable pageable) {
 
-        Page<SalaryEntity> salaryEntityPage = salaryRepository.findLastMonthSalaryPageList(pageable);
+//        Page<SalaryEntity> salaryEntityPage = salaryRepository.findLastMonthSalaryPageList(pageable);
+
+        QSalaryEntity salary = QSalaryEntity.salaryEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        QueryResults<SalaryEntity> salaryEntityResults = queryFactory.select(salary)
+            .from(salary)
+            .leftJoin(salary.memberEntity, member)
+            .where(salary.id.in(JPAExpressions.select(salary.id.max())
+                    .from(salary)
+                    .groupBy(salary.memberEntity.id)))
+             .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .fetchResults();
+
+        Page<SalaryEntity> salaryEntityPage = new PageImpl<>(salaryEntityResults.getResults(), pageable, salaryEntityResults.getTotal());
 
         Page<SalaryDto> salaryDtoPage = salaryEntityPage.map(salaryEntity ->
             SalaryDto.builder()
@@ -132,7 +155,7 @@ public class SalaryService implements SalaryServiceInterface {
 
         Long allTotalWork = (long) (commuteRepository.findSumTotalWork(commuteEntity.getMemberEntity().getId(), LocalDate.now().getMonth().getValue()) / Math.pow(10, 9));
 
-        LocalDate paymentDate = YearMonth.now().plusMonths(1).atDay(10);
+        LocalDate paymentDate = YearMonth.now().atEndOfMonth();
 
         Duration totalWorkDuration = (allTotalWork != null)
             ? Duration.ofSeconds(allTotalWork)
@@ -142,11 +165,23 @@ public class SalaryService implements SalaryServiceInterface {
             if (commuteEntity.getMemberEntity().getPositionEntity().getPositionName().equals("부장")) {
                 int overWorkSalary = (int) ((totalWorkDuration.toHours() - 14) * 30000);
 
-                SalaryEntity salaryEntity = salaryRepository.findLastMonthSalary(commuteEntity.getMemberEntity().getId());
+//                SalaryEntity salaryEntity = salaryRepository.findLastMonthSalary(commuteEntity.getMemberEntity().getId());
+
+                QSalaryEntity salary = QSalaryEntity.salaryEntity;
+                QMemberEntity member = QMemberEntity.memberEntity;
+
+                SalaryEntity salaryEntity = queryFactory.select(salary)
+                    .from(salary)
+                    .leftJoin(salary.memberEntity, member)
+                    .where(member.id.eq(commuteEntity.getMemberEntity().getId())
+                        .and(salary.id.in(JPAExpressions.select(salary.id.max())
+                            .from(salary)
+                            .groupBy(salary.memberEntity.id))))
+                    .fetchOne();
 
                 salaryEntity.setIncentive(overWorkSalary);
 
-                SalaryEntity salary = SalaryEntity.builder()
+                SalaryEntity salaryEntity1 = SalaryEntity.builder()
                     .id(salaryEntity.getId())
                     .memberEntity(commuteEntity.getMemberEntity())
                     .pay(salaryEntity.getPay())
@@ -155,17 +190,27 @@ public class SalaryService implements SalaryServiceInterface {
                     .paymentDate(paymentDate)
                     .build();
 
-                salaryRepository.save(salary);
+                salaryRepository.save(salaryEntity1);
 
             } else if (commuteEntity.getMemberEntity().getPositionEntity().getPositionName().equals("사원")) {
 
                 int overWorkSalary = (int) ((totalWorkDuration.toHours() - 14) * 15000);
 
-                SalaryEntity salaryEntity = salaryRepository.findLastMonthSalary(commuteEntity.getMemberEntity().getId());
+                QSalaryEntity salary = QSalaryEntity.salaryEntity;
+                QMemberEntity member = QMemberEntity.memberEntity;
+
+                SalaryEntity salaryEntity = queryFactory.select(salary)
+                    .from(salary)
+                    .leftJoin(salary.memberEntity, member)
+                    .where(member.id.eq(commuteEntity.getMemberEntity().getId())
+                        .and(salary.id.in(JPAExpressions.select(salary.id.max())
+                            .from(salary)
+                            .groupBy(salary.memberEntity.id))))
+                    .fetchOne();
 
                 salaryEntity.setIncentive(overWorkSalary);
 
-                SalaryEntity salary = SalaryEntity.builder()
+                SalaryEntity salaryEntity1 = SalaryEntity.builder()
                     .id(salaryEntity.getId())
                     .memberEntity(commuteEntity.getMemberEntity())
                     .pay(salaryEntity.getPay())
@@ -174,15 +219,25 @@ public class SalaryService implements SalaryServiceInterface {
                     .paymentDate(paymentDate)
                     .build();
 
-                salaryRepository.save(salary);
+                salaryRepository.save(salaryEntity1);
             }
         }
     }
 
     @Override
     public void updateSalaryDate() {
-        List<SalaryEntity> salaryEntityList = salaryRepository.findLastMonthSalaryList();
-        LocalDate paymentDate = YearMonth.now().plusMonths(1).atDay(10);
+        QSalaryEntity salary = QSalaryEntity.salaryEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        List<SalaryEntity> salaryEntityList = queryFactory.select(salary)
+            .from(salary)
+            .leftJoin(salary.memberEntity, member)
+            .where(salary.id.in(JPAExpressions.select(salary.id.max())
+                .from(salary)
+                .groupBy(salary.memberEntity.id)))
+            .fetch();
+
+        LocalDate paymentDate = YearMonth.now().atEndOfMonth();
         LocalDate now = LocalDate.now();
         for (SalaryEntity salaryEntity : salaryEntityList) {
             if (salaryEntity.getPaymentDate().isBefore(now)) {

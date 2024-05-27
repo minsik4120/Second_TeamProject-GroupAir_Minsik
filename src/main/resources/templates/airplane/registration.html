@@ -21,20 +21,20 @@
             <div class="registration-con">
                 <form th:action="@{/airplane/registration}" method="post" th:object="${airplaneDto}">
                     <ul>
-                        <li>
-                            <label for="id" hidden="hidden">회원 번호</label>
-                        </li>
-                        <li>
-                            <input type="hidden" id="id" name="id" th:value="${id}">
-                        </li>
+<!--                        <li>-->
+<!--                            <label for="id" hidden="hidden">회원 번호</label>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <input type="hidden" id="id" name="id" th:value="${id}">-->
+<!--                        </li>-->
 
                         <li>
-                            <label for="toArea">출발지</label>
+                            <label for="toArea">도착지</label>
                         </li>
                         <li>
-                            <input type="text" id="toArea"  class="address" placeholder="주소"
-                                   th:filed="*{toArea}">
-                            <input type="button" onclick="toAreaFn()" value="출발지 찾기"><br>
+                            <input type="text" id="toArea" class="address" placeholder="주소"
+                                   th:field="*{toArea}">
+                            <input type="button" onclick="toAreaFn()" value="도착지 찾기"><br>
                         </li>
                         <p th:if="${#fields.hasErrors('toArea')}" th:errors="*{toArea}" class="error"></p>
 

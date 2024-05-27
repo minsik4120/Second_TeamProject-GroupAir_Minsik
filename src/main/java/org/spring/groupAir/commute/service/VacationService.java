@@ -1,16 +1,18 @@
 package org.spring.groupAir.commute.service;
 
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.commute.dto.VacationDto;
 import org.spring.groupAir.commute.entity.CommuteEntity;
+import org.spring.groupAir.commute.entity.QVacationEntity;
 import org.spring.groupAir.commute.entity.VacationEntity;
 import org.spring.groupAir.commute.repository.CommuteRepository;
 import org.spring.groupAir.commute.repository.VacationRepository;
 import org.spring.groupAir.commute.service.serviceInterface.VacationServiceInterface;
-import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.QMemberEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
-import org.spring.groupAir.salary.dto.SalaryDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,6 @@ import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -30,15 +31,26 @@ public class VacationService implements VacationServiceInterface {
     private final CommuteRepository commuteRepository;
     private final MemberRepository memberRepository;
     private final VacationRepository vacationRepository;
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public void vacationCreate(VacationDto vacationDto) {
 
+        QVacationEntity vacation = QVacationEntity.vacationEntity;
+
         LocalDate vacStartDate = vacationDto.getVacStartDate();
         LocalDate vacEndDate = vacationDto.getVacEndDate();
+        Long memberId = vacationDto.getEmployeeId();
+//
+//        List<VacationEntity> overlappingVacations = vacationRepository.findOverlappingVacations(
+//            vacationDto.getEmployeeId(), vacStartDate, vacEndDate);
 
-        List<VacationEntity> overlappingVacations = vacationRepository.findOverlappingVacations(
-            vacationDto.getEmployeeId(), vacStartDate, vacEndDate);
+        List<VacationEntity> overlappingVacations =
+            queryFactory.select(vacation)
+                .from(vacation)
+                .where(vacation.memberEntity.id.eq(memberId)
+                    .and(vacation.vacStartDate.loe(vacEndDate))
+                    .and(vacation.vacEndDate.goe(vacStartDate))).fetch();
 
         if (!overlappingVacations.isEmpty()) {
             throw new IllegalStateException("이미 등록된 휴가와 겹칩니다.");
@@ -67,22 +79,66 @@ public class VacationService implements VacationServiceInterface {
     @Override
     public int vacationPeople() {
 
-        int vPeople = vacationRepository.findAllByDate(LocalDate.now());
+//        int vPeople = vacationRepository.findAllByDate(LocalDate.now());
+
+        QVacationEntity vacation = QVacationEntity.vacationEntity;
+
+        LocalDate now = LocalDate.now();
+
+        int vPeople = (int) queryFactory.select(vacation.count())
+            .from(vacation)
+            .where(vacation.vacStartDate.loe(now)
+                .and(vacation.vacEndDate.goe(now)
+                    .and(vacation.vacType.eq("휴가"))))
+            .fetchCount();
+
         return vPeople;
     }
 
     @Override
     public int sickVacationPeople() {
-        int sickVacationPeople = vacationRepository.findBySickVacationPeople(LocalDate.now());
-        return sickVacationPeople;
+        QVacationEntity vacation = QVacationEntity.vacationEntity;
+
+        LocalDate now = LocalDate.now();
+
+        int sicVacationPeople = (int) queryFactory.select(vacation.count())
+            .from(vacation)
+            .where(vacation.vacStartDate.loe(now)
+                .and(vacation.vacEndDate.goe(now)
+                    .and(vacation.vacType.eq("병가"))))
+            .fetchCount();
+
+        return sicVacationPeople;
     }
 
     @Override
     public void findVacationPerson() {
-        List<VacationEntity> vacationEntityList1 = vacationRepository.findVacationPerson(LocalDate.now());
-        List<MemberEntity> memberEntityList = memberRepository.findNotVacationPerson(LocalDate.now());
+//        List<VacationEntity> vacationEntityList1 = vacationRepository.findVacationPerson(LocalDate.now());
 
-        for (VacationEntity vacationEntity : vacationEntityList1) {
+        QVacationEntity vacation = QVacationEntity.vacationEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        LocalDate now = LocalDate.now();
+
+        List<VacationEntity> vacationEntityList = queryFactory.select(vacation)
+            .from(vacation)
+            .where(vacation.vacStartDate.loe(now)
+                .and(vacation.vacEndDate.goe(now))
+                .and(vacation.vacType.eq("병가").or(vacation.vacType.eq("휴가"))))
+            .fetch();
+
+//        List<MemberEntity> memberEntityList = memberRepository.findNotVacationPerson(LocalDate.now());
+        List<MemberEntity> memberEntityList =
+            queryFactory.select(member)
+                .from(member)
+                .where(member.id.notIn(JPAExpressions.select(member.id)
+                    .from(vacation)
+                    .where(vacation.vacStartDate.loe(now)
+                        .and(vacation.vacEndDate.goe(now))
+                        .and(vacation.vacType.eq("병가").or(vacation.vacType.eq("휴가"))))))
+                .fetch();
+
+        for (VacationEntity vacationEntity : vacationEntityList) {
             List<CommuteEntity> commuteList = vacationEntity.getMemberEntity().getCommuteEntityList();
             if (!commuteList.isEmpty() && !vacationEntity.getMemberEntity().getCommuteEntityList().get(vacationEntity.getMemberEntity().getCommuteEntityList().size() - 1).getStatus().equals("휴가")) {
                 CommuteEntity commuteEntity = CommuteEntity.builder()
@@ -125,28 +181,28 @@ public class VacationService implements VacationServiceInterface {
 
         Page<VacationEntity> vacationEntityPage;
 
-            if (subject == null || search == null) {
-                vacationEntityPage = vacationRepository.findAll(pageable);
-            } else if (subject.equals("name")) {
-                vacationEntityPage = vacationRepository.findByMemberEntityNameContains(pageable, search);
-            } else if (subject.equals("positionName")) {
-                vacationEntityPage = vacationRepository.findByMemberEntityPositionEntityPositionNameContains(pageable, search);
-            }else if (subject.equals("vacType")) {
-                vacationEntityPage = vacationRepository.findByVacTypeContains(pageable, search);
-            } else {
-                vacationEntityPage = vacationRepository.findAll(pageable);
-            }
+        if (subject == null || search == null) {
+            vacationEntityPage = vacationRepository.findAll(pageable);
+        } else if (subject.equals("name")) {
+            vacationEntityPage = vacationRepository.findByMemberEntityNameContains(pageable, search);
+        } else if (subject.equals("positionName")) {
+            vacationEntityPage = vacationRepository.findByMemberEntityPositionEntityPositionNameContains(pageable, search);
+        } else if (subject.equals("vacType")) {
+            vacationEntityPage = vacationRepository.findByVacTypeContains(pageable, search);
+        } else {
+            vacationEntityPage = vacationRepository.findAll(pageable);
+        }
 
-            Page<VacationDto> vacationDtoPage = vacationEntityPage.map(vacationEntity ->
-                VacationDto.builder()
-                    .id(vacationEntity.getId())
-                    .memberEntity(vacationEntity.getMemberEntity())
-                    .vacType(vacationEntity.getVacType())
-                    .vacStartDate(vacationEntity.getVacStartDate())
-                    .vacEndDate(vacationEntity.getVacEndDate())
-                    .vacDays(vacationEntity.getVacDays())
-                    .build()
-            );
+        Page<VacationDto> vacationDtoPage = vacationEntityPage.map(vacationEntity ->
+            VacationDto.builder()
+                .id(vacationEntity.getId())
+                .memberEntity(vacationEntity.getMemberEntity())
+                .vacType(vacationEntity.getVacType())
+                .vacStartDate(vacationEntity.getVacStartDate())
+                .vacEndDate(vacationEntity.getVacEndDate())
+                .vacDays(vacationEntity.getVacDays())
+                .build()
+        );
         return vacationDtoPage;
     }
 }

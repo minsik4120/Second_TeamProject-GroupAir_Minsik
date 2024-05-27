@@ -1,12 +1,17 @@
 package org.spring.groupAir.commute.service;
 
+import antlr.TokenStreamSelector;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.commute.dto.CommuteDto;
 import org.spring.groupAir.commute.entity.CommuteEntity;
+import org.spring.groupAir.commute.entity.QCommuteEntity;
 import org.spring.groupAir.commute.repository.CommuteRepository;
 import org.spring.groupAir.commute.service.serviceInterface.CommuteServiceInterface;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.QMemberEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +33,8 @@ public class CommuteService implements CommuteServiceInterface {
 
     private final CommuteRepository commuteRepository;
     private final MemberRepository memberRepository;
+    private final JPAQueryFactory queryFactory;
+
 
     @Override
     public Long workIn(Long id) {
@@ -122,36 +129,101 @@ public class CommuteService implements CommuteServiceInterface {
 
     @Override
     public int latePeople() {
-        int latePeople = commuteRepository.findByLatePeople(LocalDate.now());
+
+        QCommuteEntity commute = QCommuteEntity.commuteEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        LocalDate now = LocalDate.now();
+
+        int latePeople = (int) queryFactory.select(commute.count())
+            .from(commute)
+            .leftJoin(commute.memberEntity, member)
+            .where(commute.inTime.gt(now.atStartOfDay())
+                .and(commute.status.eq("지각"))
+                .and(commute.id.in(JPAExpressions.select(commute.id.max())
+                    .from(commute)
+                    .groupBy(commute.memberEntity.id))))
+            .fetchCount();
 
         return latePeople;
     }
 
     @Override
     public int leaveEarlyPeople() {
-        int leaveEarlyPeople = commuteRepository.findByLeaveEarlyPeople(LocalDate.now());
+        QCommuteEntity commute = QCommuteEntity.commuteEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        LocalDate now = LocalDate.now();
+
+        int leaveEarlyPeople = (int) queryFactory.select(commute.count())
+            .from(commute)
+            .leftJoin(commute.memberEntity, member)
+            .where(commute.inTime.gt(now.atStartOfDay())
+                .and(commute.status.eq("조퇴"))
+                .and(commute.id.in(JPAExpressions.select(commute.id.max())
+                    .from(commute)
+                    .groupBy(commute.memberEntity.id))))
+            .fetchCount();
 
         return leaveEarlyPeople;
     }
 
     @Override
     public int workPeople() {
-        int workPeople = commuteRepository.findByWorkPeople(LocalDate.now());
+        QCommuteEntity commute = QCommuteEntity.commuteEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
 
-        return workPeople;
+        LocalDate now = LocalDate.now();
+
+        int workInPeople = (int) queryFactory.select(commute.count())
+            .from(commute)
+            .leftJoin(commute.memberEntity, member)
+            .where(commute.inTime.gt(now.atStartOfDay())
+                .and(commute.status.eq("출근"))
+                .and(commute.id.in(JPAExpressions.select(commute.id.max())
+                    .from(commute)
+                    .groupBy(commute.memberEntity.id))))
+            .fetchCount();
+
+        return workInPeople;
     }
 
     @Override
     public int workOutPeople() {
 
-        int workOutPeople = commuteRepository.findByWorkOutPeople(LocalDate.now());
+        QCommuteEntity commute = QCommuteEntity.commuteEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        LocalDate now = LocalDate.now();
+
+        int workOutPeople = (int) queryFactory.select(commute.count())
+            .from(commute)
+            .leftJoin(commute.memberEntity, member)
+            .where(commute.inTime.gt(now.atStartOfDay())
+                .and(commute.status.eq("퇴근"))
+                .and(commute.id.in(JPAExpressions.select(commute.id.max())
+                    .from(commute)
+                    .groupBy(commute.memberEntity.id))))
+            .fetchCount();
+
         return workOutPeople;
     }
 
     @Override
     public int notWorkInPeople() {
 
-        int notWorkInPeople = commuteRepository.findByNotWorkInPeople(LocalDate.now());
+        QCommuteEntity commute = QCommuteEntity.commuteEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        int notWorkInPeople = (int) queryFactory.select(commute.count())
+            .from(commute)
+            .leftJoin(commute.memberEntity, member)
+            .where(commute.status.eq("미출근")
+                .and(commute.id.in(JPAExpressions.select(commute.id.max())
+                    .from(commute)
+                    .groupBy(commute.memberEntity.id))))
+            .fetchCount();
+
         return notWorkInPeople;
     }
 
@@ -172,7 +244,17 @@ public class CommuteService implements CommuteServiceInterface {
 
     @Override
     public void notWorkOut() {
-        List<CommuteEntity> commuteEntityList = commuteRepository.findNotWorkOutPeople();
+
+        QCommuteEntity commute = QCommuteEntity.commuteEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        List<CommuteEntity> commuteEntityList = queryFactory.select(commute)
+            .from(commute)
+            .leftJoin(commute.memberEntity, member)
+            .where(commute.id.in(JPAExpressions.select(commute.id.max())
+                .from(commute)
+                .groupBy(commute.memberEntity.id))).fetch();
+
         for (CommuteEntity commuteEntity : commuteEntityList) {
             if (commuteEntity.getInTime() != null
                 && !commuteEntity.getInTime().toLocalDate().isEqual(LocalDate.now())
@@ -185,7 +267,15 @@ public class CommuteService implements CommuteServiceInterface {
     @Override
     public void notWorkIn() {
 
-        List<CommuteEntity> commuteEntityList = commuteRepository.findNotWorkInPeople();
+        QCommuteEntity commute = QCommuteEntity.commuteEntity;
+        QMemberEntity member = QMemberEntity.memberEntity;
+
+        List<CommuteEntity> commuteEntityList = queryFactory.select(commute)
+            .from(commute)
+            .leftJoin(commute.memberEntity, member)
+            .where(commute.id.in(JPAExpressions.select(commute.id.max())
+                .from(commute)
+                .groupBy(commute.memberEntity.id))).fetch();
 
         for (CommuteEntity commuteEntity : commuteEntityList) {
             if (!commuteEntity.getStatus().equals("휴가")) {

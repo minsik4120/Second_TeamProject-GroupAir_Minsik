@@ -3,6 +3,13 @@
     align-items: center;
     min-height: calc(100vh - 230px);
     flex-direction: column;
+    width: 100%;
+}
+
+.make>a {
+    display:flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .make>a>h1 {
@@ -10,7 +17,7 @@
     margin: 50px 0px 0px 0px;
     background: linear-gradient(90deg, rgba(55, 103, 166, 1) 20.5625%, rgba(150, 179, 217, 1) 80.5625%);
     border-radius: 20px;
-    width: 1500px;
+    width: 80%;
     height: 50px;
     justify-content: center;
     align-items: center;
@@ -18,7 +25,7 @@
 }
 
 .make .make-con {
-    width: 1500px;
+    width: 80%;
     margin: 50px;
     display: flex;
     justify-content: center;
@@ -271,4 +278,16 @@ table , td {
 
 .de_left .top::-webkit-scrollbar-track {
     background:#eff6ff;
+}
+
+/* ì—ëŸ¬ ë©”ì„¸ì§€ */
+
+p.error {
+    color: red;
+    font-weight: bold;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    padding: 2px;
+    box-sizing: border-box;
 }

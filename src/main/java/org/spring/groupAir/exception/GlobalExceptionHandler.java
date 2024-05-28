@@ -1,6 +1,7 @@
 
 package org.spring.groupAir.exception;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,5 +20,6 @@ public class GlobalExceptionHandler {
 
     return  ResponseEntity.status(HttpStatus.OK).body(html);
   }
+
 }
 

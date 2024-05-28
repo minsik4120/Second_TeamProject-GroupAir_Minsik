@@ -87,15 +87,15 @@ public class KomoranService {
                 messageDto.today(today.format(dateTimeFormatter)); // 처음 접속할 때만 날짜 표기
             } else if (token.contains("부서")) {
                 EmployeeInfo dept = analyzeTokenIsDept(next);
-                System.out.println("dept >> :" + dept);
-                System.out.println("부서이름 >>>: " + dept.getDeptName());
-                System.out.println("상위부서이름 >>>: " + dept.getTopDeptName());
-                System.out.println("이름 >>>: " + dept.getName());
+//                System.out.println("dept >> :" + dept);
+//                System.out.println("부서이름 >>>: " + dept.getDeptName());
+//                System.out.println("상위부서이름 >>>: " + dept.getTopDeptName());
+//                System.out.println("이름 >>>: " + dept.getName());
                 answer.employeeInfo(dept);
             } else if (token.contains("이메일")) {
                 EmployeeInfo email = analyzeTokenIsEmail(next);
-                System.out.println("이메일: " + email.getEmail());
-                System.out.println("이름" + email.getName());
+//                System.out.println("이메일: " + email.getEmail());
+//                System.out.println("이름" + email.getName());
                 answer.employeeInfo(email);
             }
 
@@ -132,6 +132,7 @@ public class KomoranService {
                     .build();
 
         }
+        System.out.println("이메일 못찾음");
         return null;
     }
 
@@ -159,6 +160,7 @@ public class KomoranService {
                     .build();
 
         }
+        System.out.println("부서 못찾음");
         return null;
     }
 
@@ -191,7 +193,7 @@ public class KomoranService {
                     .build();
         }
 
-        System.out.println("못찾음");
+        System.out.println("전화 못찾음");
         return null;
     }
 

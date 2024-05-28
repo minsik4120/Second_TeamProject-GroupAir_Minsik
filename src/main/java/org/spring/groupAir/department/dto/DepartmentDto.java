@@ -5,6 +5,8 @@ import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.department.entity.TopDepartmentEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -16,11 +18,14 @@ public class DepartmentDto {
 
     private Long id;
 
+    @NotBlank(message = "부서명을 입력하세요!")
     private String departmentName;
 
     private List<MemberEntity> memberEntityList;
 
+    @NotNull(message = "상위부서를 선택하세요!")
     private TopDepartmentEntity topDepartmentEntity;
+
 
     public static DepartmentEntity toWriteDeEntity(DepartmentDto departmentDto) {
 

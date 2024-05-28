@@ -9,6 +9,8 @@ import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -20,6 +22,7 @@ public class TopDepartmentDto{
 
     private Long id;
 
+    @NotBlank(message = "부서명을 입력하세요!")
     private String topDepartmentName;
 
     private List<DepartmentEntity> departmentEntityList;

@@ -11,15 +11,10 @@
     height: calc( 100vh - 100px - 150px);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
-.adminContainer .vacation .vacation-con .bottom{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-}
+
 
 .adminContainer .vacation .vacation-con .search{
     float: right;
@@ -46,7 +41,7 @@
     border-bottom: 1px solid #ccc;
 }
 
-.adminContainer .vacation .vacation-con .bottom .vacationCreateBtn{
+.adminContainer .vacation .vacation-con .paging .vacationCreateBtn{
     width: 100px;
     border: 1px solid #333333;
     float: right;

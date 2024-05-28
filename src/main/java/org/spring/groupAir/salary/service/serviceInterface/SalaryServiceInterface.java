@@ -18,4 +18,6 @@ public interface SalaryServiceInterface {
     void overWork(Long id);
 
     void updateSalaryDate();
+
+    List<SalaryDto> mySalary(Long id);
 }

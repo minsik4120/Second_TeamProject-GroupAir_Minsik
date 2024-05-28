@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.airplane.dto.AirplaneDto;
 import org.spring.groupAir.airplane.entity.AirPlaneEntity;
 import org.spring.groupAir.airplane.entity.QAirPlaneEntity;
+import org.spring.groupAir.airplane.entity.QAirPlaneEntity;
 import org.spring.groupAir.airplane.repository.AirplaneRepository;
 import org.spring.groupAir.airplane.service.serviceInterface.AirPlaneServiceInterface;
 import org.spring.groupAir.member.dto.MemberDto;

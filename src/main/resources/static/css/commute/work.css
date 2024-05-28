@@ -1,15 +1,17 @@
 @import url(../common/reset.css);
 @import url(../common/paging.css);
 
-.adminContainer{
-    width: 100%;
-    height: auto;
-}
-
 .adminContainer h1{
     text-align: center;
     padding: 28px;
     border-bottom: 1px solid #ccc;
+}
+
+.adminContainer .work .work-con{
+    height: calc( 100vh - 100px - 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .adminContainer .work .work-con .search{

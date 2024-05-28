@@ -44,6 +44,7 @@
                 let content = $("#calendar_content").val();
                 let start_date = $("#calendar_start_date").val();
                 let end_date = $("#calendar_end_date").val();
+                let employeeId = $("#employeeId").val();
 
                 if (content == null || content == "") {
                   alert("내용을 입력하세요.");
@@ -55,9 +56,14 @@
                   let obj = {
                     "content": content,
                     "start": start_date,
-                    "end": end_date
+                    "end": end_date,
+                    "employeeId": employeeId
                   }
-                  setCalendar(content, start_date, end_date)
+
+                  // console.log(content);
+                  // console.log(start_date);
+                  // console.log(end_date);
+                  setCalendar(content, start_date, end_date, employeeId)
                 }
               });
               $("#calendarModal").modal('hide');
@@ -76,7 +82,7 @@
       });
 
       // ajax  DB 데이터 set
-      function setCalendar(content, start, end) {
+      function setCalendar(content, start, end, employeeId) {
         $.ajax({
             url: "/api/calendar",
             method: "POST",
@@ -85,7 +91,8 @@
             data: {
               content: content,
               start: start,
-              end: end
+              end: end,
+              employeeId: employeeId
             }
           })
           .done(function (data) {
@@ -119,12 +126,15 @@
             console.log(data);
             // data -> DB data
             $.each(data, function (index, element) {
+              console.log(element);
               console.log(element.content, element.start);
+              console.log(element);
               calendar.addEvent({
                 // title ->
                 title: element.content,
                 start: element.start,
                 end: element.end,
+                employeeId : element.employeeId
               })
             })
             //calendar.render();

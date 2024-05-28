@@ -13,8 +13,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -57,18 +59,25 @@ public class AirPlaneController {
     }
 
     @GetMapping("/registration")
-    public String airplaneRegistration(Model model) {
+    public String airplaneRegistration(AirplaneDto airplaneDto, Model model) {
 
         List<MemberDto> memberDtoList = memberService.selectPilot();
         model.addAttribute("memberDtoList", memberDtoList);
+        model.addAttribute("airplaneDto", airplaneDto);
 
         return "airplane/registration";
     }
 
     @PostMapping("/registration")
-    public String airplaneRegistrationOk(AirplaneDto airplaneDto) {
+    public String airplaneRegistrationOk(@Valid AirplaneDto airplaneDto, BindingResult bindingResult, Model model) {
 
-        airplaneService.addAirplane(airplaneDto);
+        if (bindingResult.hasErrors()) {
+            List<MemberDto> memberDtoList = memberService.selectPilot();
+            model.addAttribute("memberDtoList", memberDtoList);
+            return "airplane/registration";
+        } else {
+            airplaneService.addAirplane(airplaneDto);
+        }
 
         return "redirect:/airplane/index";
     }

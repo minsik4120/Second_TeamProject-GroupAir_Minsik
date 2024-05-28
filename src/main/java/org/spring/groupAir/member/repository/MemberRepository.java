@@ -27,8 +27,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Optional<MemberEntity> findByName(String name);
 
 
-    @Query(value = "SELECT * FROM employee  WHERE employee_id NOT IN(SELECT v.employee_id FROM vacation v WHERE v.vac_start_date <= :date AND v.vac_end_date >= :date AND (v.vac_type = '병가' or v.vac_type = '휴가'))",nativeQuery = true)
-    List<MemberEntity> findNotVacationPerson(@Param("date") LocalDate now);
+//    @Query(value = "SELECT * FROM employee  WHERE employee_id NOT IN(SELECT v.employee_id FROM vacation v WHERE v.vac_start_date <= :date AND v.vac_end_date >= :date AND (v.vac_type = '병가' or v.vac_type = '휴가'))",nativeQuery = true)
+//    List<MemberEntity> findNotVacationPerson(@Param("date") LocalDate now);
 
     Optional<MemberEntity> findByNameEquals(String name);
 

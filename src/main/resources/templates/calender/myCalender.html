@@ -2,42 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/layout/adminLayout}">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"> </script>
-<!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
-
 
 <th:block layout:fragment="title">
   <!-- 각 페이지 마다 변경 -->
   <title>개인일정</title>
 </th:block>
 <th:block layout:fragment="css">
-
-  <link rel="stylesheet" th:href="@{/css/board/write.css}">
-
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/css/calender/calender.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 </th:block>
 <th:block layout:fragment="script">
   <!-- 각 페이지 마다 변경 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"> </script>
+  <script src="/js/calender/calender.js" defer></script>
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"> </script>-->
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="/js/calender/calender.js" defer></script>
-
 
 </th:block>
 
 <th:block layout:fragment="adminContainer">
   <div class="adminContainer">
-
-    <body>
     <main>
       <div id="content">
         <h1 class="title">
@@ -48,8 +35,6 @@
           <div id='calendar'></div>
         </div>
       </div>
-
-
       <!-- 모달 창 수정 필요하면 , 새롭게 만들면 필요 없음   -->
       <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"   aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -80,6 +65,5 @@
       </div>
 
     </main>
-    </body>
 </th:block>
 </html>

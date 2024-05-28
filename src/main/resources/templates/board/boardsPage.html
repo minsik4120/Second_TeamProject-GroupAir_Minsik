@@ -7,7 +7,7 @@
   <!-- 각 페이지 마다 변경 -->
 </th:block>
 <th:block layout:fragment="css">
-  <link rel="stylesheet" th:href="@{/css/board/boardList.css}">
+  <link rel="stylesheet" th:href="@{/css/board/boardsPage.css}">
   <!-- 각 페이지 마다 변경 -->
 </th:block>
 <th:block layout:fragment="script">
@@ -25,17 +25,37 @@
         </h1>
 
         <div class="search">
-          <form th:action="@{/board/Lists}" method="get">
-            <li><a th:href="@{/board/write}">글작성</a></li>
-            <select name="subject" id="subject">
+          <div th:if="${boardSeparateId == 1}">
+            <form th:action="@{/board/Lists(boardSeparateId=1)}" method="get">
+              <li><a th:href="@{/board/write}">글작성</a></li>
+              <input type="hidden" name="boardSeparateId" value="1">
+              <label for="subject1"></label>
+              <select name="subject" id="subject1">
+                <option value="title" th:selected="${#strings.equals(param.subject, 'title')}">제목</option>
+                <option value="content" th:selected="${#strings.equals(param.subject, 'content')}">내용</option>
+                <option value="nickName" th:selected="${#strings.equals(param.subject, 'nickName')}">닉네임</option>
+              </select>
+              <label for="search1"></label>
+              <input type="text" name="search" id="search1" th:value="${param.search}">
+              <input type="submit" value="검색">
+            </form>
+          </div>
 
-              <option value="title" th:selected="${#strings.equals( param.subject, 'title' )}">제목</option>
-              <option value="content" th:selected="${#strings.equals( param.subject, 'content' )}">내용</option>
-              <option value="nickName" th:selected="${#strings.equals( param.subject, 'nickName' )}">닉네임</option>
-            </select>
-            <input type="text" name="search" id="search" th:value="${param.search}">
-            <input type="submit" value="검색">
-          </form>
+          <div th:if="${boardSeparateId == 2}">
+            <form th:action="@{/board/Lists(boardSeparateId=2)}" method="get">
+              <input type="hidden" name="boardSeparateId" value="2">
+              <li><a th:href="@{/board/write}">글작성</a></li>
+              <label for="subject2"></label>
+              <select name="subject" id="subject2">
+                <option value="title" th:selected="${#strings.equals(param.subject, 'title')}">제목</option>
+                <option value="content" th:selected="${#strings.equals(param.subject, 'content')}">내용</option>
+                <option value="nickName" th:selected="${#strings.equals(param.subject, 'nickName')}">닉네임</option>
+              </select>
+              <label for="search2"></label>
+              <input type="text" name="search" id="search2" th:value="${param.search}">
+              <input type="submit" value="검색">
+            </form>
+          </div>
         </div>
         <table>
           <thead>
@@ -53,7 +73,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="board : ${boards}">
+          <tr th:each="board : ${pagingList}">
             <td th:text="${board.id}"></td>
 
 <!--            <p>게시판 구분 ID: <span th:text="${boardSeparateId}"></span></p>-->
@@ -80,7 +100,7 @@
     <div class="paging">
           <ul>
             <li>
-              <!- 현재페이지가  첫번째 페이지이면   span표시 -->
+<!--              <!- 현재페이지가  첫번째 페이지이면   span표시 &ndash;&gt;-->
               <span th:if="${pagingList.pageable.pageNumber+1 eq 1}" class="span0">START</span>
               <!-- 처음 페이지가 아니면  a -->
               <span th:unless="${pagingList.pageable.pageNumber+1 eq 1}">

@@ -6,9 +6,21 @@
         <div class="top">
             <div class="title">
                 <h1 class="logo">
-                    <a th:href="@{/member/memberList}"><img th:src="@{/images/logo.png}" alt="">
+                    <th:block sec:authorize="hasAnyRole('ADMIN')">
+                    <a th:href="@{/role/admin}"><img th:src="@{/images/logo.png}" alt="대체이미지">
                         <p>GroupAir</p>
                     </a>
+                    </th:block>
+                    <th:block sec:authorize="hasAnyRole('MANAGER')">
+                    <a th:href="@{/role/manager}"><img th:src="@{/images/logo.png}" alt="대체이미지">
+                        <p>GroupAir</p>
+                    </a>
+                    </th:block>
+                    <th:block sec:authorize="hasAnyRole('MEMBER')">
+                    <a th:href="@{/role/member}"><img th:src="@{/images/logo.png}" alt="대체이미지">
+                        <p>GroupAir</p>
+                    </a>
+                    </th:block>
                 </h1>
                 <div class="weatherApi">
                     <h6 class="nowTime"></h6>
@@ -33,6 +45,7 @@
                             </ul>
                         </th:block>
                         <th:block sec:authorize="hasAnyRole('MEMBER','MANAGER')">
+                            <img th:src="@{/images/pay.png}" alt="member">
                             <a th:href="@{/commute/index}">근태</a>
                             <ul class="subMenu">
                                 <li><a id="work"
@@ -47,7 +60,7 @@
                             </ul>
                         </th:block>
                     </li>
-                    <th:block sec:authorize="hasAnyRole('MEMBER','MANAGER')">
+                    <th:block sec:authorize="hasAnyRole('MANAGER','ADMIN')">
                         <li class="menuBar">
                             <img th:src="@{/images/department.png}" alt="member">
                             <a th:href="@{#}">부서</a>
@@ -74,11 +87,13 @@
                                 <li><a th:href="@{/airplane/pilot}">기장님 관리</a></li>
                             </th:block>
                             <th:block sec:authorize="hasAnyRole('MEMBER')">
-                            <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
+                                <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
                             </th:block>
                             <th:block sec:authorize="hasAnyRole('MANAGER')">
-                            <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
-                            <li><a th:href="@{/airplane/myAirplane/{id}(id = ${#authentication.principal.memberEntity.id})}">내 운행정보</a></li>
+                                <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
+                                <li><a
+                                    th:href="@{/airplane/myAirplane/{id}(id = ${#authentication.principal.memberEntity.id})}">내
+                                    운행정보</a></li>
                             </th:block>
                         </ul>
                     </li>
@@ -96,9 +111,7 @@
 
                         <a th:href="@{/my/schedule}">일정 등록</a>
                         <ul class="subMenu">
-
                             <li><a th:href="@{/}">자유게시판</a></li>
-
                         </ul>
                     </li>
                 </ul>

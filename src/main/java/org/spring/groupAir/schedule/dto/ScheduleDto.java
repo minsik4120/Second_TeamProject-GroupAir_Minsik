@@ -17,7 +17,7 @@ import javax.persistence.Id;
 public class ScheduleDto {
 
   private Long id;
-//
+
 //  private String title;
 
   private String content;
@@ -31,4 +31,6 @@ public class ScheduleDto {
   private Long employeeId;
 
   private MemberEntity memberEntity;
+
 }
+

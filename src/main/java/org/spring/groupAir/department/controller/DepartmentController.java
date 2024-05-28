@@ -1,14 +1,17 @@
 package org.spring.groupAir.department.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.websocket.Session;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -119,19 +124,6 @@ public class DepartmentController {
         return "redirect:/department/top/deList";
     }
 
-
-    @GetMapping("/top/deList")
-    public String deList(TopDepartmentDto topDepartmentDto,
-                         HttpSession session, Model model) {
-
-        List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
-
-        model.addAttribute("list", list);
-        model.addAttribute("activeId", null);
-
-        return "department/top/deList";
-    }
-
     @PostMapping("top/update")
     public String update(TopDepartmentDto topDepartmentDto) {
 
@@ -148,6 +140,36 @@ public class DepartmentController {
 
 
         return "redirect:/department/top/deList";
+    }
+
+
+    @GetMapping("/top/deList")
+    public String deList(TopDepartmentDto topDepartmentDto,
+                         HttpSession session, Model model, @AuthenticationPrincipal MyUserDetailsImpl myUserDetails, MemberEntity memberEntity) {
+
+
+
+        if (myUserDetails.getMemberEntity().getRole().toString() == "ADMIN") {
+
+            List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
+            model.addAttribute("list", list);
+
+        } else if (myUserDetails.getMemberEntity().getRole().toString() == "MANAGER") {
+
+            Long id = myUserDetails.getMemberEntity().getId();
+
+            List<TopDepartmentDto> list = topDepartmentService.ListManager(topDepartmentDto, id);
+            model.addAttribute("list", list);
+
+        } else {
+            List<TopDepartmentDto> list = List.of();
+            model.addAttribute("list", list);
+        }
+
+
+        model.addAttribute("activeId", null);
+
+        return "department/top/deList";
     }
 
 

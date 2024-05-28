@@ -36,8 +36,10 @@ public class ScheduleService {
 
   public void setCalendar(ScheduleDto scheduleDto) {
 
+
     System.out.println(scheduleDto+"  <<< scheduleDto ");
     System.out.println(scheduleDto.getEmployeeId()+"  <<<   scheduleDto.getEmployeeId() ");
+
 
     scheduleDto.setMemberEntity(MemberEntity.builder().id(scheduleDto.getEmployeeId()).build());
 

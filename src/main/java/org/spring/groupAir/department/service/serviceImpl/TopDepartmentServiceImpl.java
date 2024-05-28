@@ -1,6 +1,8 @@
 package org.spring.groupAir.department.service.serviceImpl;
 
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +20,6 @@ public interface TopDepartmentServiceImpl {
     void detele(Long id);
 
     void update(TopDepartmentDto topDepartmentDto);
+
+    List<TopDepartmentDto> ListManager(TopDepartmentDto topDepartmentDto, Long id);
 }

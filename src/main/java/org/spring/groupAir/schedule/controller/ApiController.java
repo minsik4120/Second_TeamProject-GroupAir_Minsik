@@ -1,8 +1,10 @@
 package org.spring.groupAir.schedule.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.schedule.dto.ScheduleDto;
 import org.spring.groupAir.schedule.service.ScheduleService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +26,12 @@ public class ApiController {
 
 
   // 일정 저장
-  @PostMapping("/calender")
-  public List<ScheduleDto> setCalender(@ModelAttribute ScheduleDto scheduleDto){
-    scheduleService.setCalender(scheduleDto);
+  @PostMapping("/calendar")
+  public List<ScheduleDto> setCalendar(@ModelAttribute ScheduleDto scheduleDto,
+                                       @AuthenticationPrincipal MyUserDetailsImpl myUserDetails){
+
+    scheduleDto.setEmployeeId(myUserDetails.getMemberEntity().getId());
+    scheduleService.setCalendar(scheduleDto);
 
     return scheduleService.scheduleListAll();
 

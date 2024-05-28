@@ -37,6 +37,7 @@
 
               $('#calendarModal').modal('show'); // 커스텀 하게 제작
 
+              // 실행
               $("#addBtn").on("click", function () {
 
                 location.replace(location.href);

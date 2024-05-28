@@ -124,10 +124,13 @@
               <h1 class="title"> 댓글 </h1>
 
 
+
               <input type="hidden" name="boardId" id="boardId" th:value="${board.id}">
 
               <input type="text" name="replyWriter" id="replyWriter" placeholder="작성자">
-              
+
+<!--              <input type="text" name="replyWriter" id="replyWriter" th:value="${myUserDetails.name}" readonly>-->
+
 
         
                 <input type="text" name="replyContent" id="replyContent" placeholder="덧글을 남겨 보세요">

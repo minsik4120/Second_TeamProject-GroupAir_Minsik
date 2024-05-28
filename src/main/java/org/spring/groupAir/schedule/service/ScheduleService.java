@@ -1,6 +1,7 @@
 package org.spring.groupAir.schedule.service;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.schedule.dto.ScheduleDto;
 import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.spring.groupAir.schedule.repository.ScheduleRepository;
@@ -21,10 +22,10 @@ public class ScheduleService {
     for (ScheduleEntity entity : scheduleEntities) {
       ScheduleDto scheduleDto = ScheduleDto.builder()
           .id(entity.getId())
-          .title(entity.getTitle())
           .content(entity.getContent())
-          .startDate(entity.getStartDate())
-          .endDate(entity.getEndDate())
+          .start(entity.getStart())
+          .end(entity.getEnd())
+          .memberEntity(entity.getMemberEntity())
           .build();
 
       scheduleDtoList.add(scheduleDto);
@@ -33,16 +34,27 @@ public class ScheduleService {
     return scheduleDtoList;
   }
 
-  public void setCalender(ScheduleDto scheduleDto) {
+  public void setCalendar(ScheduleDto scheduleDto) {
+
+    System.out.println(scheduleDto+"  <<< scheduleDto ");
+    System.out.println(scheduleDto.getEmployeeId()+"  <<<   scheduleDto.getEmployeeId() ");
+
+    scheduleDto.setMemberEntity(MemberEntity.builder().id(scheduleDto.getEmployeeId()).build());
+
     ScheduleEntity entity = ScheduleEntity
         .builder()
-        .title(scheduleDto.getContent())
+//        .title(scheduleDto.getContent())
         .content(scheduleDto.getContent())
-        .startDate(scheduleDto.getStartDate())
-        .endDate(scheduleDto.getEndDate())
+        .start(scheduleDto.getStart())
+        .end(scheduleDto.getEnd())
+        .memberEntity(scheduleDto.getMemberEntity())
         .build();
 
-   ScheduleEntity scheduleEntity = scheduleRepository.save(entity);
+
+    System.out.println(entity.getEnd()+"  <<< getEnd ");
+    System.out.println(entity.getStart()+"  <<< scheduleDto ");
+
+    ScheduleEntity scheduleEntity = scheduleRepository.save(entity);
 
   }
 }

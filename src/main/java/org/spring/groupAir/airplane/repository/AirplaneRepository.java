@@ -28,6 +28,7 @@ public interface AirplaneRepository extends JpaRepository<AirPlaneEntity, Long> 
 
 //    @Query("SELECT a FROM AirPlaneEntity a WHERE DATE(a.toTime) = :date AND a.memberEntity.id = :id ORDER BY a.toTime DESC")
 //    Page<AirPlaneEntity> findTodayAirplane(Pageable pageable, @Param("id") Long id, @Param("date") Date date);
+
 //    @Query(value="SELECT * FROM airplane a WHERE a.to_time <= :time AND a.from_time >= :time", nativeQuery = true)
 //    List<AirPlaneEntity> updateStatus(@Param("time")LocalDateTime now);
 }

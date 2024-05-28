@@ -15,7 +15,6 @@ import org.spring.groupAir.member.entity.QMemberEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

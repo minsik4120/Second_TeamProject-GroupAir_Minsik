@@ -16,7 +16,7 @@ import java.util.Collection;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
@@ -29,8 +29,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             } else if (authority.getAuthority().equals("ROLE_MANAGER")) {
                 targetUrl = "/role/manager";
                 break;
-            }
-            else if (authority.getAuthority().equals("ROLE_MEMBER")) {
+            } else if (authority.getAuthority().equals("ROLE_MEMBER")) {
                 targetUrl = "/role/member";
                 break;
             }
@@ -40,9 +39,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         response.setContentType("text/html; charset=utf-8");
         PrintWriter out = response.getWriter();
         out.println("<script> " +
-            " alert('" + authentication.getName() + "님 반갑습니다.') ; " +
-            "location.href='" + targetUrl + "'; " +
-            " </script>");
+                " alert('" + authentication.getName() + "님 반갑습니다.') ; " +
+                "location.href='" + targetUrl + "'; " +
+                " </script>");
 
         out.close();
     }

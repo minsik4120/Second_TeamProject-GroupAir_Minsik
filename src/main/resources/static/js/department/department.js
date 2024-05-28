@@ -1,5 +1,5 @@
 // 선택한 부서의 ID
-var selectedDepartmentId =
+var selectedDepartmentId = document.getElementById('#topId');
 
 // select 태그
 var selectElement = document.getElementById('topDepartmentEntity');

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{common/layout/adminLayout}">
-
 
 
 <th:block layout:fragment="title">
@@ -11,7 +11,12 @@
 </th:block>
 <th:block layout:fragment="css">
 
-    <link rel="stylesheet" th:href="@{/css/board/write.css}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/calendar/calendar.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+</th:block>
+
 
 </th:block>
 <th:block layout:fragment="script">
@@ -19,11 +24,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>-->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script th:src="@{/js/calender/calender.js}" defer></script>
+    <script th:src="@{/js/calendar/calendar.js}" defer></script>
 </th:block>
 
 <th:block layout:fragment="adminContainer">
@@ -58,6 +63,10 @@
                             <input type="datetime-local" class="form-control" id="calendar_start_date" name="start">
                             <label for="calendar_end_date" class="col-form-label">종료 날짜</label>
                             <input type="datetime-local" class="form-control" id="calendar_end_date" name="end">
+
+                            <label for="employeeId" class="col-form-label">회원 아이디</label>
+                            <input type="text" class="form-control" id="employeeId" name="employeeId"
+                                   th:value="${#authentication.principal.memberEntity.id}">
                         </div>
                     </div>
                     <div class="modal-footer">

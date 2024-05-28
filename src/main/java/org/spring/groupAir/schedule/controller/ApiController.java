@@ -16,7 +16,7 @@ public class ApiController {
 
 
   @GetMapping("/events")
-  public List<ScheduleDto> eventsCalender() {
+  public List<ScheduleDto> eventsCalendar() {
     List<ScheduleDto> scheduleDtoList = scheduleService.scheduleListAll();
 
     return scheduleDtoList;
@@ -24,9 +24,9 @@ public class ApiController {
 
 
   // 일정 저장
-  @PostMapping("/calender")
-  public List<ScheduleDto> setCalender(@ModelAttribute ScheduleDto scheduleDto){
-    scheduleService.setCalender(scheduleDto);
+  @PostMapping("/calendar")
+  public List<ScheduleDto> setCalendar(@ModelAttribute ScheduleDto scheduleDto){
+    scheduleService.setCalendar(scheduleDto);
 
     return scheduleService.scheduleListAll();
 
@@ -36,9 +36,4 @@ public class ApiController {
   public List<ScheduleDto> getCalendar() {
     return scheduleService.scheduleListAll();
   }
-
-
-
-
-
 }

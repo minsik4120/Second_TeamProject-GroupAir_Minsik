@@ -1,6 +1,7 @@
 package org.spring.groupAir.schedule.dto;
 
 import lombok.*;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -15,19 +16,19 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class ScheduleDto {
 
-
-
   private Long id;
-
-
-  private String title;
-
+//
+//  private String title;
 
   private String content;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-  private String startDate;
+  private String start;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-  private String endDate;
+  private String end;
+
+  private Long employeeId;
+
+  private MemberEntity memberEntity;
 }

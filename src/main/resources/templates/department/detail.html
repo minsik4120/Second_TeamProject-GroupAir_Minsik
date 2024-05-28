@@ -14,12 +14,16 @@
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
         <div class="make">
-            <a th:href="@{/department/top/deList}"><h1>부서관리</h1></a>
+            <a th:href="@{/department/top/deList}"><h1>부  서  관  리</h1></a>
             <div class="make-con">
                 <div class="de_left">
                     <div class="creation">
-                        <a th:href="@{/department/write}">부서생성</a>
-                        <a th:href="@{/department/top/write}">상위부서생성</a>
+                        <th:block sec:authorize="hasAnyRole('ADMIN','MANAGER')">
+                            <a th:href="@{/department/write}">부서생성</a>
+                            <th:block sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/department/top/write}">상위부서생성</a>
+                            </th:block>
+                        </th:block>
                     </div>
                     <h1><a th:href="@{/department/top/deList}">부서목록</a></h1>
                     <div class="top">
@@ -45,7 +49,7 @@
                             <input type="hidden" name="topId" id="topId"
                                    th:value="${department.topDepartmentEntity.id}" readonly>
                             <li>
-                                <label for="departmentName">부서명</label>
+                                <label for="departmentName">부 서 명</label>
                                 <input type="text" name="departmentName" id="departmentName"
                                        th:value="${department.departmentName}">
                             </li>
@@ -55,7 +59,7 @@
                             <!--                                       th:value="${department.topDepartmentEntity.TopDepartmentName}">-->
                             <!--                            </li>-->
                             <li class="subDepartment">
-                                <label for="topDepartmentEntity">소속본부</label>
+                                <label for="topDepartmentEntity">소 속 본 부</label>
                                 <select name="topDepartmentEntity" id="topDepartmentEntity">
                                     <option value="">부서명</option>
                                     <th:block th:each="de : ${list}">
@@ -65,7 +69,7 @@
                                     </th:block>
                                 </select>
                             </li>
-                            <label for="memberEntityList" class="mem">소속멤버</label>
+                            <label for="memberEntityList" class="mem">소 속 멤 버</label>
                             <li class="meList">
                                 <div th:each="de : ${department.memberEntityList}" class="subDepartment">
                                     <input type="text" id="memberEntityList"
@@ -73,10 +77,12 @@
                                 </div>
                             </li>
                             <li>
-                                <input type="submit" value="수정" name="btn">
-                                <!--                                <a th:href="@{/department/delete/{id}(id=${department.id})}" name="btn">삭제</a>-->
-                                <a th:href="@{'/department/delete/' + ${department.id}}"
-                                   onclick="return confirm('부서를 삭제하시겠습니까?\n※ 소속멤버도 삭제됩니다! ※');" name="btn">삭제</a>
+                                <th:block sec:authorize="hasAnyRole('ADMIN','MANAGER')">
+                                    <input type="submit" value="수정" name="btn">
+                                    <!--                                <a th:href="@{/department/delete/{id}(id=${department.id})}" name="btn">삭제</a>-->
+                                    <a th:href="@{'/department/delete/' + ${department.id}}"
+                                       onclick="return confirm('부서를 삭제하시겠습니까?\n※ 소속멤버도 삭제됩니다! ※');" name="btn">삭제</a>
+                                </th:block>
                             </li>
                         </form>
                     </ul>

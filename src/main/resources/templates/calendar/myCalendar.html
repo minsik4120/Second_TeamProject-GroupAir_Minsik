@@ -1,58 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{common/layout/adminLayout}">
-<<<<<<< HEAD
-=======
 
-
->>>>>>> dev
 
 <th:block layout:fragment="title">
     <!-- 각 페이지 마다 변경 -->
     <title>개인일정</title>
 </th:block>
 <th:block layout:fragment="css">
-<<<<<<< HEAD
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" th:href="@{/css/calender/calender.css}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-</th:block>
-<th:block layout:fragment="script">
-  <!-- 각 페이지 마다 변경 -->
-  <script src="/js/calender/calender.js" defer></script>
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"> </script>-->
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/calendar/calendar.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 </th:block>
 
-<th:block layout:fragment="adminContainer">
-  <div class="adminContainer">
-    <main>
-      <div id="content">
-        <h1 class="title">
-          My ScheduleCalendar
-        </h1>
-        <div class="img"> </div>
-        <div id='calendar-container'>
-          <div id='calendar'></div>
-        </div>
-      </div>
-      <!-- 모달 창 수정 필요하면 , 새롭게 만들면 필요 없음   -->
-      <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"   aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-=======
-
-    <link rel="stylesheet" th:href="@{/css/board/write.css}">
 
 </th:block>
 <th:block layout:fragment="script">
@@ -60,11 +24,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>-->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script th:src="@{/js/calender/calender.js}" defer></script>
+    <script th:src="@{/js/calendar/calendar.js}" defer></script>
 </th:block>
 
 <th:block layout:fragment="adminContainer">
@@ -99,6 +63,10 @@
                             <input type="datetime-local" class="form-control" id="calendar_start_date" name="start">
                             <label for="calendar_end_date" class="col-form-label">종료 날짜</label>
                             <input type="datetime-local" class="form-control" id="calendar_end_date" name="end">
+
+                            <label for="employeeId" class="col-form-label">회원 아이디</label>
+                            <input type="text" class="form-control" id="employeeId" name="employeeId"
+                                   th:value="${#authentication.principal.memberEntity.id}">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -108,15 +76,8 @@
                         </button>
                     </div>
                 </div>
->>>>>>> dev
             </div>
         </div>
-<<<<<<< HEAD
-      </div>
-
-    </main>
-=======
     </div>
->>>>>>> dev
 </th:block>
 </html>

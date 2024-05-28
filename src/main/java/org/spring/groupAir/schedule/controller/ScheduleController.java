@@ -10,6 +10,6 @@ public class ScheduleController {
 
   @GetMapping("/schedule")
   public String schedule(){
-    return "calender/myCalender";
+    return "calendar/myCalendar";
   }
 }

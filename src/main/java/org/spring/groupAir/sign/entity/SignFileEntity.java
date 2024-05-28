@@ -3,10 +3,8 @@ package org.spring.groupAir.sign.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

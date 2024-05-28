@@ -7,6 +7,13 @@
     border-bottom: 1px solid #ccc;
 }
 
+.adminContainer .pilot .pilot-con{
+    height: calc( 100vh - 100px - 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .adminContainer .pilot .pilot-con table{
     text-align: center;
     padding: 0 20px;

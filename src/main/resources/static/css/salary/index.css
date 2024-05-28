@@ -6,7 +6,12 @@
     padding: 28px;
     border-bottom: 1px solid #ccc;
 }
-
+.adminContainer .salary .salary-con{
+    height: calc( 100vh - 100px - 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .adminContainer .salary .salary-con .search{
     float: right;
     padding: 10px;

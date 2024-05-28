@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{common/layout/adminLayout}">
 <th:block layout:fragment="title">
     <!-- 각 페이지 마다 변경 -->
@@ -8,7 +9,7 @@
 </th:block>
 <th:block layout:fragment="css">
     <!-- 각 페이지 마다 변경 -->
-    <link rel="stylesheet" th:href="@{/css/commute/vacation.css}">
+    <link rel="stylesheet" th:href="@{/css/commute/myVacation.css}">
 </th:block>
 <th:block layout:fragment="script">
     <!-- 각 페이지 마다 변경 -->
@@ -19,7 +20,9 @@
     <div class="adminContainer">
         <div class="vacation">
             <div class="vacation-con">
-                <h1>[[${vacationDtoList[0].memberEntity.name}]]님의 휴가</h1>
+                <th:block sec:authorize="hasAnyRole('MANAGER')">
+                <h1>[[${#authentication.principal.memberEntity.name}]]님의 휴가</h1>
+                </th:block>
                 <table id="myTable">
                     <thead>
                     <tr>

@@ -20,7 +20,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         PrintWriter out = response.getWriter();
         out.println("<script> " +
             " alert('" + authentication.getName() + "님 반갑습니다.') ; " +
-            " location.href='/department/top/deList' ; " +
+            " location.href='/board/boardList'; " +
             " </script>");
 
         out.close();

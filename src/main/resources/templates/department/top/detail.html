@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/topDepartment/department.css}">
 </th:block>
 <th:block layout:fragment="script">
-    <script th:src="@{/js/department/department.js}" defer></script>
+<!--    <script th:src="@{/js/department/department.js}" defer></script>-->
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
@@ -47,7 +47,7 @@
                                 <input type="text" name="topDepartmentName" id="topDepartmentName"
                                        th:value="${topDepartment.topDepartmentName}">
                             </li>
-                            <label for="departmentEntityList">하위부서</label>
+                            <label for="departmentEntityList" class="mem">하위부서</label>
                             <li class="deList">
                                 <div th:each="de : ${topDepartment.departmentEntityList}" class="subDepartment">
                                     <a th:href="@{/department/detail/{id}(id=${de.id})}">

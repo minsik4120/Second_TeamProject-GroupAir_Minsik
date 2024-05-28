@@ -42,6 +42,8 @@
                         <form th:action="@{/department/update}" method="POST">
                             <input type="hidden" name="id" id="id"
                                    th:value="${department.id}" readonly>
+                            <input type="hidden" name="topId" id="topId"
+                                   th:value="${department.topDepartmentEntity.id}" readonly>
                             <li>
                                 <label for="departmentName">부서명</label>
                                 <input type="text" name="departmentName" id="departmentName"
@@ -63,7 +65,7 @@
                                     </th:block>
                                 </select>
                             </li>
-                            <label for="memberEntityList">소속멤버</label>
+                            <label for="memberEntityList" class="mem">소속멤버</label>
                             <li class="meList">
                                 <div th:each="de : ${department.memberEntityList}" class="subDepartment">
                                     <input type="text" id="memberEntityList"

@@ -144,7 +144,9 @@ public class BoardController {
   public String getBoardsBySeparateId(@RequestParam("boardSeparateId") Long boardSeparateId, Model model) {
 
     List<BoardEntity> boards = boardService.getBoardsBySeparateId(boardSeparateId);
+
     model.addAttribute("boards", boards);
+    model.addAttribute("boardSeparateId", boardSeparateId);
 
     return "board/boardsPage";
   }

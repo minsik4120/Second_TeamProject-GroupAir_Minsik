@@ -28,10 +28,62 @@
                           enctype="multipart/form-data">
                         <ul>
                             <li>
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                <script type="text/javascript">
+                                    function sendNumber(){
+                                      $("#mail_number").css("display","block");
+                                        $.ajax({
+                                            url:"/mail",
+                                            type:"post",
+                                            dataType:"json",
+                                            data:{"mail" : $("#userEmail").val()},
+                                            success: function(data){
+                                                alert("인증번호 발송완료! 발송된 인증번호를 입력해주세요.");
+                                                $("#Confirm").attr("value",data);
+                                                $("#mail_number").css("display", "block");
+                                            }
+                                        });
+                                    }
+
+                                    function confirmNumber(){
+                                        var number1 = $("#number").val();
+                                        var number2 = $("#Confirm").val();
+
+                                        if (number1.trim() === "") {
+                                            alert("인증번호를 입력해주세요.");
+                                        } else if(number1 == number2){
+                                            alert("인증되었습니다.");
+                                        }else{
+                                            alert("번호가 다릅니다.");
+                                            $("#number").val(""); // 입력된 인증번호 삭제
+                                        }
+                                    }
+
+                                    function AllConfirm(){
+                                        var number1 = $("#number").val();
+                                        if (number1.trim() === "") {
+                                            alert("이메일 인증은 필수입니다");
+                                        }
+                                    }
+                                </script>
+
+
                                 <label for="userEmail" class="label1">이 메 일</label>
-                                <input type="email" id="userEmail" th:field="*{userEmail}" placeholder="이 메 일"> <br>
+                                <div id="mail_input" name="mail_input">
+                                    <input type="text" name="userEmail" id="userEmail" placeholder="이메일 입력">
+                                    <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
+                                </div>
+                                <br>
+                                <div id="mail_number" name="mail_number" style="display:none">
+                                    <input type="text" name="number" id="number" placeholder="인증번호 입력">
+                                    <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+                                </div>
+                                <br>
+                                <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+
+<!--                                <input type="email" id="userEmail" th:field="*{userEmail}" placeholder="이 메 일"> <br>-->
                             </li>
-                            <p th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}" class="error"></p>
+                            <p th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}" class="error"  style="color: #ff0000; font-size: 12px;"></p>
 
                             <li>
                                 <label for="userPw" class="label1">비 밀 번 호</label>
@@ -40,13 +92,13 @@
                                 </div>
                                 <input type="password" id="userPw" th:field="*{userPw}" placeholder="비 밀 번 호">
                             </li>
-                            <p th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" class="error"></p>
+                            <p th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" class="error"  style="color: #ff0000; font-size: 12px;"></p>
 
                             <li>
                                 <label for="memberName" class="label1">이 름</label>
                                 <input type="text" id="memberName" th:field="*{name}" placeholder="이 름"> <br>
                             </li>
-                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"  style="color: #ff0000; font-size: 12px;"></p>
 
                             <li>
                                 <label for="employeeDate" class="label1">입사일</label>
@@ -110,9 +162,9 @@
                                 <input type="hidden" id="address" placeholder="결합된 주소" th:field="*{address}">
                             </li>
                             <li>
-                                <label for="memberPhoneNumber" class="label1">전 화 번 호</label>
+                                <label for="phone" class="label1">전 화 번 호</label>
 
-                                <input type="text" id="memberPhoneNumber" oninput="memberPhoneNumberInput()" maxlength="13"
+                                <input type="text" id="phone" oninput="memberPhoneNumberInput()" maxlength="13"
                                        th:field="*{phone}" placeholder="전화번호"> <br>
                             </li>
 
@@ -122,7 +174,12 @@
                             </li>
 
                             <li>
-                                <input type="submit" class="submitBtn" value="회원등록">
+                                <input type="submit" class="submitBtn" onclick="AllConfirm()" value="회원등록">
+                            </li>
+                            <li>
+                                <th:block th:if="error">
+                                    <p style="color: #ff0000; font-size: 12px;"></p>
+                                </th:block>
                             </li>
                         </ul>
                     </form>

@@ -21,11 +21,9 @@
       <div class="boardList-con">
         <h1 th:switch="${boardSeparateId}">
           <span th:case="1">공지사항</span>
-          <span th:case="2">자유게시판</span>
+          <span th:case="2">자유</span>
         </h1>
-<!--        <h1>자유 게시판</h1>-->
-       <!-- <h1 th:text="${board.boardSeparateId}">></h1>-->
-<!--         <h1 th:text="${boardDto.boardSeparateId}"></h1>-->
+
         <div class="search">
           <form th:action="@{/board/boardList}" method="get">
             <select name="subject" id="subject">

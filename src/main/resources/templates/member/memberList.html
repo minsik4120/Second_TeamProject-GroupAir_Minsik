@@ -36,7 +36,7 @@
                     </form>
                 </div>
                 <div class="list">
-                    <table>
+                    <table id="table">
                         <thead>
                         <tr>
                             <th>번호</th>
@@ -49,12 +49,13 @@
                             <th>입사일</th>
                             <th>퇴사일</th>
                             <th>간단보기</th>
-                            <th>상세보기</th>
-
+                            <th:block sec:authorize="hasAnyRole('ADMIN')">
+                                <th>상세보기</th>
+                            </th:block>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="member : ${memberList}">
+                        <tr th:each="member : ${memberList}" >
                             <td th:text="${member.id}"></td>
                             <td th:text="${member.name}"></td>
                             <td th:text="${member.departmentEntity.departmentName}"></td>
@@ -69,8 +70,9 @@
                                         th:onclick="memberDetailBtnFn(event, [[${member.id}]])">보기
                                 </button>
                             </td>
-                            <td><a th:href="@{/member/memberUpdate/{id}(id=${member.id})}">상세조회</a></td>
-
+                            <th:block sec:authorize="hasAnyRole('ADMIN')">
+                                <td><a th:href="@{/member/memberUpdate/{id}(id=${member.id})}">상세조회</a></td>
+                            </th:block>
 
                         </tr>
                         </tbody>

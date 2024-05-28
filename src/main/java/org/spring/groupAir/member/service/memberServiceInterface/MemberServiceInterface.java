@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import javax.net.ssl.SSLSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface MemberServiceInterface {
 
@@ -28,4 +29,15 @@ public interface MemberServiceInterface {
 
     Page<MemberDto> pageSelectPilot(Pageable pageable);
 
+    List<MemberDto> fireList(MemberDto memberDto);
+
+
+    String findUserEmailByNameAndPhone(String name, String phone);
+
+    String findUserPwByUserEmailAndName(String userEmail, String name);
+
+    boolean changePasswordByEmailAndName(String email, String name, String newPassword);
+
+
+    MemberDto findMyId(String userEmail);
 }

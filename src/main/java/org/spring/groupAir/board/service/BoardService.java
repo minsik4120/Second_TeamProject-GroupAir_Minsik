@@ -53,11 +53,7 @@ public class BoardService implements BoardServiceInterface {
       System.out.println(">>>>>" + boardDto.getBoardSeparateId());
 
       BoardSeparateEntity boardSeparateEntity = boardSeparateRepository.findById(boardDto.getBoardSeparateId()).orElseThrow(IllegalArgumentException::new);
-
-
-
-      boardDto.setBoardSeparateEntity(BoardSeparateEntity.builder().id(boardDto.getBoardSeparateId())
-          .boardSeparateName(boardSeparateEntity.getBoardSeparateName()).build());
+      boardDto.setBoardSeparateEntity(BoardSeparateEntity.builder().id(boardDto.getBoardSeparateId()).build());
 
       BoardEntity boardEntity = BoardEntity.toInsertBoardEntity(boardDto);
 
@@ -65,6 +61,8 @@ public class BoardService implements BoardServiceInterface {
 
     } else {
 
+      BoardSeparateEntity boardSeparateEntity = boardSeparateRepository.findById(boardDto.getBoardSeparateId()).orElseThrow(IllegalArgumentException::new);
+      boardDto.setBoardSeparateEntity(BoardSeparateEntity.builder().id(boardDto.getBoardSeparateId()).build());
       // 파일이 있는 경우
       // 로컬에 실제 파일을 저장 시킴
       MultipartFile boardFile = boardDto.getBoardFile(); // 실제 파일
@@ -79,6 +77,8 @@ public class BoardService implements BoardServiceInterface {
           .id(boardDto.getMemberId())
           .build());
 
+
+
       BoardEntity boardEntity = BoardEntity.toInsertFileBoardEntity(boardDto);
       Long id = boardRepository.save(boardEntity).getId();
 
@@ -88,11 +88,15 @@ public class BoardService implements BoardServiceInterface {
         BoardEntity boardEntity1 = optionalBoardEntity.get(); // Entity
         // 게시글에 정상 저장되면 -> 파일 Entity 저장
 
+
+
         BoardFileDto fileDto = BoardFileDto.builder()
             .boardOldFile(oldFileName)
             .boardNewFile(newFileName)
             .boardEntity(boardEntity1)
             .build();
+
+
 
         BoardFileEntity fileEntity = BoardFileEntity.toInsertFile(fileDto);
         fileRepository.save(fileEntity);

@@ -83,7 +83,6 @@
      justify-content: space-between;
      align-items: center;
      font-size: 12px;
-     padding: 35px 0px;
 }
 
 .login .login-con form li.loginBtn>input {
@@ -104,16 +103,27 @@
     cursor: pointer;
 }
 
-.sns {
+li.find {
   display: flex;
 }
 
-.sns a {
+li.find a {
     flex: 1;
-}
+    font-size: 12px;
+    border-bottom: 1px solid #CCC;
+    border-bottom-style: dashed;
+    border-block-end-width: 2px;
+    padding-bottom: 5px;
+    }
 
-.sns a img {
-    width: 80%;
-    height: 90%;
-    border-radius: 3px;
+    li.find a:hover {
+        flex: 1;
+        font-size: 12px;
+        border-bottom: 1px solid #CCC;
+        border-bottom-style: dashed;
+        border-block-end-width: 2px;
+        padding-bottom: 5px;
+        font-weight: bold;
+        }
+
 }

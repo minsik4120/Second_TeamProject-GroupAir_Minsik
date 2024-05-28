@@ -54,4 +54,13 @@ public class ReplyController {
 
   }
 
+  @GetMapping("/boardReplyDelete/{id}")
+  public String boardReplyDelete(@PathVariable("id") Long id) {
+
+    Long boardId = replyService.boardReplyDeleteById(id);
+
+    return "redirect:/board/boardDetail/" + boardId;
+  }
+
+
 }

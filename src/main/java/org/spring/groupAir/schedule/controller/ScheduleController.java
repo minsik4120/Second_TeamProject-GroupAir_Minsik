@@ -23,7 +23,6 @@ public class ScheduleController {
     return "calendar/myCalendar";
   }
 
-
   //----------------------------------------------------------//
   @GetMapping("/schedule/{id}")
   public String mySchedule(@PathVariable("id") Long id, Model model) {

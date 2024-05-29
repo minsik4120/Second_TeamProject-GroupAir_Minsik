@@ -97,7 +97,10 @@ public class MemberService implements MemberServiceInterface {
                 memberRepository.findById(memberId).orElseThrow(() -> {
                     throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
                 });
+
+
             MemberFileDto memberFileDto = MemberFileDto.builder()
+
                 .memberOldFile(oldFileName)
                 .memberNewFile(newFileName)
                 .memberEntity(memberEntity2)
@@ -114,6 +117,28 @@ public class MemberService implements MemberServiceInterface {
             return memberId;
         }
     }
+
+    @Override
+    public List<MemberDto> selectPilot() {
+        String pilot = "부장";
+
+        List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
+
+        List<MemberDto> memberDtoList = memberEntityList.stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
+
+        System.out.println("?>>>>>" + memberDtoList);
+
+        return memberDtoList;
+    }
+
+
+    //sign추가
+    @Override
+    public Page<MemberDto> findMembersByNameContaining(String name, Pageable pageable) {
+        Page<MemberEntity> memberEntities = memberRepository.findByNameContains(pageable, name);
+        return memberEntities.map(MemberDto::toMemberDto);
+    }
+
 
     @Override
     public MemberDto memberDetail(Long id) {
@@ -182,6 +207,7 @@ public class MemberService implements MemberServiceInterface {
         MemberEntity savedEntity = memberRepository.save(memberEntity);
         return savedEntity;
     }
+
 
     @Override
     public MemberEntity memberUpdate(MemberDto memberDto) throws IOException {
@@ -272,7 +298,7 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public void memberDelete(Long id) {
-            MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(() -> {
+        MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException("해당 아이디가 없습니다.");
         });
 
@@ -287,17 +313,27 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
-    public List<MemberDto> selectPilot() {
+    public List<MemberDto> findBujang() {
 
-        String pilot = "부장";
+        String position = "부장";
+        List<MemberEntity> memberEntityList
+            = memberRepository.findByPositionEntityPositionName(position);
 
-        List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
+        List<MemberDto> memberDtoList =
+            memberEntityList.stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
 
-        List<MemberDto> memberDtoList = memberEntityList.stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
-
-        System.out.println("?>>>>>" + memberDtoList);
 
         return memberDtoList;
+    }
+
+    @Override
+    public String findPosition(String name) {
+
+        MemberEntity memberEntity = memberRepository.findByName(name).get();
+
+        String position = memberEntity.getPositionEntity().getPositionName();
+
+        return position;
     }
 
     @Override
@@ -311,7 +347,6 @@ public class MemberService implements MemberServiceInterface {
 
         return memberDtoPage;
     }
-
 
 
     @Override
@@ -349,9 +384,9 @@ public class MemberService implements MemberServiceInterface {
         return memberDto;
 
     }
+
     @Override
     public int countMember() {
-
         String pilot = "사원";
 
         List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
@@ -359,11 +394,9 @@ public class MemberService implements MemberServiceInterface {
         int members = memberEntityList.size();
 
         return members;
-
     }
 
 }
-
 
 
 

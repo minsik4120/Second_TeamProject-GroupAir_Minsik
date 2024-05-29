@@ -23,7 +23,13 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     Page<MemberEntity> findByUserEmailContains(Pageable pageable, String search);
 
 
+
+    //sign추가
+    Page<MemberEntity> findByNameContainingIgnoreCase(Pageable pageable, String name);
+
+
     Page<MemberEntity> findByPhoneContains(Pageable pageable, String search);
+
 
     Optional<MemberEntity> findByName(String name);
 
@@ -33,9 +39,13 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
     Optional<MemberEntity> findByNameEquals(String name);
 
+
+
+
     List<MemberEntity> findByPositionEntityPositionName(String pilot);
 
     Page<MemberEntity> findByPositionEntityPositionName(Pageable pageable,String pilot);
+
 
 
     @Query("SELECT u.userEmail FROM MemberEntity u WHERE u.name = :name AND u.phone = :phone")
@@ -47,4 +57,5 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
 
 //    MemberEntity findByUserEmailAndUserName(String userEmail, String name);
+
 }

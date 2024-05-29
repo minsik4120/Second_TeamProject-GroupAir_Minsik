@@ -4,6 +4,8 @@ import org.spring.groupAir.commute.dto.VacationDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface VacationServiceInterface {
 
     void vacationCreate(VacationDto vacationDto);
@@ -17,4 +19,6 @@ public interface VacationServiceInterface {
     void deleteOverTimeVacation();
 
     Page<VacationDto> vacationList(Pageable pageable, String subject, String search);
+
+    List<VacationDto> myVacation(Long id);
 }

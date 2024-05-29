@@ -9,11 +9,15 @@ import java.util.List;
 public interface SalaryServiceInterface {
     void createSalary(Long id);
 
-    Page<SalaryDto> memberSalary(Pageable pageable, String subject, String search);
+    Page<SalaryDto> memberSalary(Pageable pageable);
 
     SalaryDto updateSalary(Long id);
 
     void update(SalaryDto salaryDto);
 
     void overWork(Long id);
+
+    void updateSalaryDate();
+
+    List<SalaryDto> mySalary(Long id);
 }

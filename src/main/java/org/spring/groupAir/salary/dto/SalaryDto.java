@@ -26,6 +26,10 @@ public class SalaryDto {
 
     private int pay;
 
+    private int incentive;
+
+    private int totalPay;
+
     private Long employeeId;
 
     private MemberEntity memberEntity;

@@ -19,10 +19,13 @@
 
       <div class="boardList">
         <div class="boardList-con">
-          <h1>자유 게시판</h1>
+          <h1>전체 게시판</h1>
           <div class="search">
+
             <form th:action="@{/board/boardList}" method="get">
+              <li><a th:href="@{/board/write}">글작성</a></li>
               <select name="subject" id="subject">
+
                 <option value="title" th:selected="${#strings.equals( param.subject, 'title' )}">제목</option>
                 <option value="content" th:selected="${#strings.equals( param.subject, 'content' )}">내용</option>
                 <option value="nickName" th:selected="${#strings.equals( param.subject, 'nickName' )}">닉네임</option>
@@ -40,7 +43,7 @@
               <th>내용</th>
               <th>조회수</th>
               <th>작성일</th>
-              <th>updateTime</th>
+              <th>수정시간</th>
               <th>보기</th> <!-- 게시글 상세보기 -->
               <th>삭제</th>
               <th>파일</th>
@@ -123,9 +126,9 @@
 
             </ul>
           </div>
-          <li class="write">
-            <a th:href="@{/board/write}">글작성</a>
-          </li>
+
+
+
       </div>
    
     </div>

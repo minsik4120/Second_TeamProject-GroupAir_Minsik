@@ -30,6 +30,12 @@ public class SalaryEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private int pay;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int incentive;
+
+    @Column(nullable = false)
+    private int totalPay;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")

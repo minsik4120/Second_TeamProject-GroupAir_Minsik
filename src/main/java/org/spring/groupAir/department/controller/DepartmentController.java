@@ -1,21 +1,28 @@
 package org.spring.groupAir.department.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import javax.websocket.Session;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,17 +40,24 @@ public class DepartmentController {
     }
 
     @GetMapping("/write")
-    public String write(@ModelAttribute("list") List<TopDepartmentDto> list, Model model) {
+    public String write(@ModelAttribute("list") List<TopDepartmentDto> list, DepartmentDto departmentDto, Model model) {
+
+        model.addAttribute("departmentDto", departmentDto);
 
         return "department/write";
     }
 
     @PostMapping("/deWrite")
-    public String deWrite(DepartmentDto departmentDto) {
+    public String deWrite(@Valid DepartmentDto departmentDto, BindingResult bindingResult) {
 
-        departmentService.write(departmentDto);
+        if (bindingResult.hasErrors()) {
+            return "department/write";
+        } else {
+            departmentService.write(departmentDto);
+        }
 
-        return "redirect:top/deList";
+
+        return "redirect:/department/top/deList";
     }
 
     @GetMapping("/detail/{id}")
@@ -67,14 +81,9 @@ public class DepartmentController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deDelete(@PathVariable("id") Long id) {
+    public String deCheckDelete(@PathVariable("id") Long id) {
 
         departmentService.delete(id);
-
-        String html = "<script>" +
-                "alert('부서삭제성공');" +
-                "location.href='/top/deList';" +
-                "</script>";
 
         return "redirect:/department/top/deList";
     }
@@ -95,32 +104,24 @@ public class DepartmentController {
     }
 
     @GetMapping("/top/write")
-    public String tWrite(@ModelAttribute("list") List<TopDepartmentDto> list, Model model) {
+    public String tWrite(@ModelAttribute("list") List<TopDepartmentDto> list, TopDepartmentDto topDepartmentDto, Model model) {
 
-//        model.addAttribute("list", list);
+        model.addAttribute("topDepartmentDto", topDepartmentDto);
 
         return "department/top/write";
     }
 
     @PostMapping("/top/deTopWrite")
-    public String deWrite(TopDepartmentDto topDepartmentDto, Model model) {
+    public String deWrite(@Valid TopDepartmentDto topDepartmentDto, BindingResult bindingResult, Model model) {
 
-        topDepartmentService.write(topDepartmentDto);
+        if (bindingResult.hasErrors()) {
+            return "department/top/write";
+        } else {
+            topDepartmentService.write(topDepartmentDto);
+        }
+
 
         return "redirect:/department/top/deList";
-    }
-
-
-    @GetMapping("/top/deList")
-    public String deList(TopDepartmentDto topDepartmentDto,
-                         HttpSession session, Model model) {
-
-        List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
-
-        model.addAttribute("list", list);
-        model.addAttribute("activeId", null);
-
-        return "department/top/deList";
     }
 
     @PostMapping("top/update")
@@ -137,12 +138,38 @@ public class DepartmentController {
 
         topDepartmentService.detele(id);
 
-        String html = "<script>" +
-                "alert('부서삭제성공');" +
-                "location.href='/top/deList';" +
-                "</script>";
 
         return "redirect:/department/top/deList";
+    }
+
+
+    @GetMapping("/top/deList")
+    public String deList(TopDepartmentDto topDepartmentDto,
+                         HttpSession session, Model model, @AuthenticationPrincipal MyUserDetailsImpl myUserDetails, MemberEntity memberEntity) {
+
+
+
+        if (myUserDetails.getMemberEntity().getRole().toString() == "ADMIN") {
+
+            List<TopDepartmentDto> list = topDepartmentService.List(topDepartmentDto);
+            model.addAttribute("list", list);
+
+        } else if (myUserDetails.getMemberEntity().getRole().toString() == "MANAGER") {
+
+            Long id = myUserDetails.getMemberEntity().getId();
+
+            List<TopDepartmentDto> list = topDepartmentService.ListManager(topDepartmentDto, id);
+            model.addAttribute("list", list);
+
+        } else {
+            List<TopDepartmentDto> list = List.of();
+            model.addAttribute("list", list);
+        }
+
+
+        model.addAttribute("activeId", null);
+
+        return "department/top/deList";
     }
 
 

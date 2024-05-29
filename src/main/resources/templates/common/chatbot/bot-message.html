@@ -6,7 +6,7 @@
 			<img th:src="@{/images/chatBot.png}">
 		</div>
 		<div class="message" >
-			<div class="part" th:if="${msg.answerDto.keyword ne '전화' or msg.answerDto.keyword ne '부서' or  msg.answerDto.employeeInfo != null}">
+			<div class="part" th:if="${msg.answerDto.keyword ne '전화' or msg.answerDto.keyword ne '부서' or msg.answerDto.keyword ne '이메일' or msg.answerDto.employeeInfo != null}">
 				<p th:utext="${msg.answerDto.content}"></p>
 			</div>
 			<div th:if="${msg.answerDto.keyword eq '전화'}" >

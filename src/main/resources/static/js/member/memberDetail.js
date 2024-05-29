@@ -6,14 +6,15 @@ const userEmailInput = document.querySelector('#userEmail');
 const roleInput = document.querySelector('#role');
 const addressInput = document.querySelector('#address');
 const phoneInput = document.querySelector('#phone');
+const nameInput = document.querySelector('#name');
 const employeeDateInput = document.querySelector('#employeeDate');
 const resignationDateInput = document.querySelector('#resignationDate');
 const memberDetail = document.querySelector('#memberDetail');
 
 function memberDetailBtnFn(event, id) {
-  event.preventDefault();
+  //event.preventDefault();
 //  console.log("Member ID:", id);
-  const url = "/member/memberDetail/" + id;
+  let url = "/member/memberDetail/" + id;
   fetch(url, {
       method: "GET",
       headers: {
@@ -27,6 +28,7 @@ function memberDetailBtnFn(event, id) {
       userPwInput.value = data.userPw;
       userEmailInput.value = data.userEmail;
       roleInput.value = data.role;
+      nameInput.value = data.name;
       addressInput.value = data.address;
       phoneInput.value = data.phone;
       employeeDateInput.value = data.employeeDate;
@@ -39,42 +41,87 @@ function memberDetailBtnFn(event, id) {
 }
 
 // 수정
+function memberUpdateBtnFn() {
 
-const updateBtn = document.querySelector('#updateBtn');
-updateBtn.addEventListener('click', (event) => {
+    let data = {
+      id: memberIdInput.value,
+      userPw: userPwInput.value,
+      userEmail: userEmailInput.value,
+      phone:phoneInput.value,
+      name: nameInput.value,
+      address: addressInput.value,
+      employeeDate: employeeDateInput.value,
+      resignationDate: resignationDateInput.value,
+      role: roleInput.value,
+    }
 
-event.preventDefault();
-
-  const member_data = {
-    'id':id1.value,
-    'pw': pw1.value,
-    'email': email1.value,
-    'nickName': nickName1.value,
-    'createTime': createTime1.value,
-    'updateTime':updateTime1.value,
-  };
-  const url = "/api/admin/member/update";
+  let url = "/member/memberUpdate2";
   fetch(url, {
-      method: "PUT",
-      body: JSON.stringify(member_data),
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(data)
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      id1.value = data.id;
-      pw1.value = data.pw;
-      nickName1.value = data.nickName;
-      email1.value = data.email;
-      createTime1.value = data.createTime;
-      updateTime1.value = data.updateTime;
+          memberDetailBtnFn(null, data);
 
-      ajaxMemberList();
     }).catch((error) => {
       console.log(error);
     });
-});
+}
 
 
+// 삭제
+function memberDelete2BtnFn() {
+
+    let data = {
+      id: memberIdInput.value,
+    }
+
+  //event.preventDefault();
+  let url = "/member/memberDelete2";
+  fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+          location.href = location.href;
+    }).catch((error) => {
+      console.log(error);
+    });
+}
+const memberPhoneNumberInput = () => {
+
+    let val = phone.value.replace(/\D/g, "");
+    let len = val.length;
+    let result = '';
+    if (len < 4) {
+        result = val;
+    } else if (len < 8) {
+        result += val.substring(0, 3);
+        result += "-";
+        result += val.substring(3);
+    } else if (len <= 13) {
+        result += val.substring(0, 3);
+        result += "-";
+        result += val.substring(3, 7);
+        result += "-";
+        result += val.substring(7, 13);
+    } else {
+        result = val;
+    }
+    phone.value = result;
+}
+
+
+function hidePopup() {
+    document.getElementById('memberDetail').style.display = 'none';
+     location.href = location.href;
+
+    }

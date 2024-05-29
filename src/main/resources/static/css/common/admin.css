@@ -8,7 +8,7 @@
     font-style: normal;
 }
 
-.container{
+.groupAir{
     font-family: 'TTLaundryGothicB';
     width:100%;
     background-color: #eff6ff;
@@ -179,6 +179,22 @@
 .admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li>a:hover{
     color: #fff;
     background-color: #3767a6;
+    transition: 0.2s;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li input.naverBtn{
+    display: block;
+    width: 150px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #96b3d9 !important;
+    padding: 4px 3px;
+    font-size: 14px;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li input.naverBtn:hover{
+    color: #fff;
+    background-color: #3767a6 !important;
     transition: 0.2s;
 }
 

@@ -74,6 +74,7 @@
                         <img th:src="@{/images/employee.png}" alt="member">
                         <a th:href="@{#}">사원관리</a>
                         <ul class="subMenu">
+<<<<<<< HEAD
                             <li><a th:href="@{#}">부서</a></li>
                             <li><a th:href="@{/sign}">결재</a></li>
                             <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
@@ -91,6 +92,44 @@
                         </li>
                     </th:block>
 
+=======
+                            <th:block sec:authorize="hasAnyRole('ADMIN')">
+                            <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
+                            </th:block>
+                            <li><a th:href="@{/member/memberList}">사원조회</a></li>
+                        </ul>
+                    </li>
+                    <li class="menuBar">
+                        <img th:src="@{/images/employee.png}" alt="member">
+                        <a th:href="@{#}">naver</a>
+                        <ul class="subMenu">
+                            <li>
+                                <a href="https://groupair2.ncpworkplace.com/v/home/" class="naverBtn">네이버API연동</a>
+                            </li>
+                            <li>
+                                <!-- https://developers.worksmobile.com/kr/docs/auth-oauth -->
+                                <!-- 클라이언트 앱에서 사용자 인증을 통해 Authorization Code를 발급받으려면 아래와 같은 URL을 호출 -->
+                                <form action="https://auth.worksmobile.com/oauth2/v2.0/authorize" method="get">
+                                    <input type="hidden" name="client_id" value="FlR_0mjyLZ4jddlkIcaD">
+                                    <input type="hidden" name="redirect_uri" value="http://localhost:8095/naver/auth2">
+                                    <input type="hidden" name="scope" value="directory,directory.read,orgunit,orgunit.read,user,user.read">
+                                    <input type="hidden" name="response_type" value="code">
+                                    <input type="hidden" name="state" value="test">
+                                    <input type="submit" value="조직인증"  class="naverBtn" style="background-color:transparent;  border:0px transparent solid;">
+                                </form>
+                            </li>
+
+                            <li>
+                                <!-- naver 이메일 연동 기본 주소 -->
+                                <form id="mail"	onsubmit="window.open('https://mail.worksmobile.com/write/popup', '_blank', 'width=600, height=400,resizeable,scrollbars');">
+                                    <input type="submit" value="메일연동"  class="naverBtn" style="background-color:transparent;  border:0px transparent solid;">
+                                </form>
+                            </li>
+
+                        </ul>
+                    </li>
+
+>>>>>>> dev
                     <li class="menuBar">
                         <img th:src="@{/images/plane.png}" alt="member">
                         <a th:href="@{/airplane/index}">항공편</a>
@@ -122,15 +161,23 @@
                     <li class="menuBar">
                         <img th:src="@{/images/calendar.png}" alt="calender">
 
-                        <a th:href="@{/my/schedule}">일정 등록</a>
+                    <th:block sec:authorize="hasAnyRole('ADMIN')">
+                        <a th:href="@{/my/schedule}">전체 일정 관리</a>
+                    </th:block>
+
                         <ul class="subMenu">
-                            <li><a th:href="@{/}">자유게시판</a></li>
+                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 확인</a></li>
+
+<!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->
+<!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->
+
+
                         </ul>
                     </li>
 
                 </ul>
             </div>
-        </div>
+    </div>
         <div class="bottom">
             <div class="bottom-con">
                 <p>저작권, 주소</p>

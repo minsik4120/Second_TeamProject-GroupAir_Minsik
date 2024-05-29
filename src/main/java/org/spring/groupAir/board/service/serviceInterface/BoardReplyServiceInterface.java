@@ -17,4 +17,6 @@ public interface BoardReplyServiceInterface {
   List<BoardReplyDto> replyList(Long id);
 
   List<BoardReplyDto> ajaxReplyList(Long id);
+
+  Long boardReplyDeleteById(Long id);
 }

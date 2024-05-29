@@ -69,8 +69,6 @@
                   <label>수정시간</label>
                   <span  th:text="${board.updateTime}"></span>
                 </li>
-    
-          
 
               </ul>
                 </div>
@@ -88,13 +86,13 @@
               <li class="btns">
                 <input type="submit" value="수정" class="btn1">
 
-                <a th:href="@{/board/delete/{id}(id=${board.id})}" class="btn1">삭제</a>
-                <a th:href="@{/board/boardList}" class="btn1">목록</a>
-              </li>
-            </div>
-              <li>
-                <!-- <label for="id">ID</label>       -->
-                     <!-- board.getMemberEntity().id -->
+<!--                <a th:href="@{/board/delete/{id}(id=${board.id})}" class="btn1">삭제</a>&ndash;&gt;-->
+<!--                <th:block-->
+<!--                    th:if="${board.memberEntity.userEmail==myUserDetails.username}">-->
+<!--                      <th:block sec:authorize="hasAnyRole('MANAGER',MEMBER)">-->
+<!--                    <a th:href="@{/board/delete/{id}(id=${board.id})}" class="btn1">삭제</a>-->
+
+                        <li>
                 <input type="hidden" name="id" id="id" th:value="${board.id}" readonly style="display:none;">
               </li>
 
@@ -122,13 +120,17 @@
 
             <div class="reply-con">
 
+
               <h1 class="title"> 댓글 </h1>
+
 
 
               <input type="hidden" name="boardId" id="boardId" th:value="${board.id}">
 
               <input type="text" name="replyWriter" id="replyWriter" placeholder="작성자">
-              
+
+<!--              <input type="text" name="replyWriter" id="replyWriter" th:value="${myUserDetails.name}" readonly>-->
+
 
         
                 <input type="text" name="replyContent" id="replyContent" placeholder="덧글을 남겨 보세요">
@@ -136,10 +138,13 @@
                 <li class="replyBtn">
                   <input type="button" value="등록" id="replyBtn">
                 </li>
-                
-      
-        
 
+
+             <!-- <th:block sec:authorize="isAuthenticated()">
+                <th:block sec:authorize="hasAnyRole('ADMIN')">
+                  <td><a th:href="@{/reply/boardReplyDelete/{id}(id=${boardReply.id})}">삭제</a>
+                  </td>
+                </th:block>-->
       
 
               <table>
@@ -162,6 +167,7 @@
                   <td th:text="${reply.replyContent}"></td>
                   <td th:text="${reply.replyWriter}"></td>
                   <td th:text="${#temporals.format(reply.createTime, 'yy/MM/dd HH:mm:ss')}"></td>
+
                 </tr>
                 <!--Ajax -->
                 </tbody>
@@ -171,6 +177,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </th:block>
 </html>

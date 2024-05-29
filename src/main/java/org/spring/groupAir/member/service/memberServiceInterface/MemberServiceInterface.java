@@ -39,4 +39,8 @@ public interface MemberServiceInterface {
     Page<MemberDto> pageSelectPilot(Pageable pageable);
 
 
+
+
+    int countMember();
+
 }

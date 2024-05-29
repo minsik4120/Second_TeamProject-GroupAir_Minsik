@@ -46,7 +46,8 @@ public class ApiController {
     return scheduleService.scheduleListAll();
   }
 
-  @PostMapping("/calendar")
+
+/*  @PostMapping("/calendar")
   public List<ScheduleDto> setMyCalendar(@ModelAttribute ScheduleDto scheduleDto,
                                        @AuthenticationPrincipal MyUserDetailsImpl myUserDetails){
 
@@ -56,7 +57,7 @@ public class ApiController {
 
     // 사용자의 일정만을 조회하여 반환
     return scheduleService.getScheduleByEmployeeId(myUserDetails.getMemberEntity().getId());
-  }
+  }*/
 
 
   @GetMapping("/calendar/{employeeId}")

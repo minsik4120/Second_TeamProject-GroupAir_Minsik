@@ -1,6 +1,7 @@
 @import url(../common/reset.css);
 @import url(../common/paging.css);
 
+/*
 .adminContainer{
     width: 100%;
     height: calc(100vh - 100px);
@@ -8,6 +9,7 @@
     overflow: scroll;
     box-sizing: border-box;
 }
+*/
 
 .adminContainer h1{
     text-align: center;

@@ -110,14 +110,22 @@
                     <li class="menuBar">
                         <img th:src="@{/images/calendar.png}" alt="calender">
 
-                        <a th:href="@{/my/schedule}">일정 등록</a>
+                    <th:block sec:authorize="hasAnyRole('ADMIN')">
+                        <a th:href="@{/my/schedule}">전체 일정 관리</a>
+                    </th:block>
+
                         <ul class="subMenu">
-                            <li><a th:href="@{/}">자유게시판</a></li>
+                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 확인</a></li>
+
+<!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->
+<!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->
+
+
                         </ul>
                     </li>
                 </ul>
             </div>
-        </div>
+    </div>
         <div class="bottom">
             <div class="bottom-con">
                 <p>저작권, 주소</p>

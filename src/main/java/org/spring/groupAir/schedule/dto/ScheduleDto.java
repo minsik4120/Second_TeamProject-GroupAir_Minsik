@@ -18,7 +18,7 @@ import javax.persistence.Id;
 public class ScheduleDto {
 
   private Long id;
-//
+
 //  private String title;
 
   private String content;
@@ -34,14 +34,5 @@ public class ScheduleDto {
   private MemberEntity memberEntity;
 
 
-  public static ScheduleDto toScheduleDto(ScheduleEntity scheduleEntity) {
-    ScheduleDto scheduleDto=new ScheduleDto();
-    scheduleDto.setId(scheduleEntity.getId());
-    scheduleDto.setStart(scheduleEntity.getStart());
-    scheduleDto.setEnd(scheduleEntity.getEnd());
-    scheduleDto.setContent(scheduleEntity.getContent());
-    scheduleDto.setMemberEntity(scheduleEntity.getMemberEntity());
-    scheduleDto.setEmployeeId(scheduleEntity.getMemberEntity().getId());
-    return scheduleDto;
-  }
 }
+

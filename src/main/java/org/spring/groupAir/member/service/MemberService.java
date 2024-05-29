@@ -348,6 +348,7 @@ public class MemberService implements MemberServiceInterface {
 
         return memberDto;
     }
+
     @Override
     public int countMember() {
 

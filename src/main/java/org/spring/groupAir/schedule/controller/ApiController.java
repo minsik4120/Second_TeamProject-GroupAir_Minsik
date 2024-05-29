@@ -65,8 +65,5 @@ public class ApiController {
 
     return scheduleService.getScheduleByEmployeeId(employeeId);
   }
-
-
-
 }
 

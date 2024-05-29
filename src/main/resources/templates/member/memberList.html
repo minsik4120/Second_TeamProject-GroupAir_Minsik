@@ -36,7 +36,7 @@
                     </form>
                 </div>
                 <div class="list">
-                    <table>
+                    <table id="table">
                         <thead>
                         <tr>
                             <th>번호</th>
@@ -44,13 +44,14 @@
                             <th>부서</th>
                             <th>직급</th>
                             <th>권한</th>
-                            <th>이메일</th>
                             <th>전화번호</th>
+                            <th>이메일</th>
                             <th>입사일</th>
                             <th>퇴사일</th>
                             <th>간단보기</th>
-                            <th>상세보기</th>
-
+                            <th:block sec:authorize="hasAnyRole('ADMIN')">
+                                <th>상세보기</th>
+                            </th:block>
                         </tr>
                         </thead>
                         <tbody>
@@ -69,8 +70,9 @@
                                         th:onclick="memberDetailBtnFn(event, [[${member.id}]])">보기
                                 </button>
                             </td>
-                            <td><a th:href="@{/member/memberUpdate/{id}(id=${member.id})}">상세조회</a></td>
-
+                            <th:block sec:authorize="hasAnyRole('ADMIN')">
+                                <td><a th:href="@{/member/memberUpdate/{id}(id=${member.id})}">상세조회</a></td>
+                            </th:block>
 
                         </tr>
                         </tbody>
@@ -140,14 +142,10 @@
 
         <div class="memberDetail" style="display:none" id="memberDetail">
             <div class="detail-form">
-                <button class="close-btn" onclick="hidePopup()">×</button> 
-                <script>
-                    function hidePopup() {
-                        document.getElementById('memberDetail').style.display = 'none';
-                        }
-                </script>
+                <button class="close-btn" onclick="hidePopup()">×</button>
+
                 <h3>회원상세보기</h3>
-                
+
                 <ul>
                     <li>
                         <label for="id">id</label>
@@ -166,12 +164,16 @@
                         <input type="text" name="role" id="role">
                     </li>
                     <li>
+                        <label for="name">name</label>
+                        <input type="text" name="name" id="name">
+                    </li>
+                    <li>
                         <label for="address">address</label>
                         <input type="text" name="address" id="address">
                     </li>
                     <li>
                         <label for="phone">phone</label>
-                        <input type="tel" name="phone" id="phone">
+                        <input type="tel" name="phone" oninput="memberPhoneNumberInput()" maxlength="13" id="phone">
                     </li>
                     <li>
                         <label for="employeeDate">employeeDate</label>
@@ -181,6 +183,14 @@
                         <label for="resignationDate">resignationDate</label>
                         <input type="text" name="resignationDate" id="resignationDate">
                     </li>
+
+                    <th:block sec:authorize="hasAnyRole('ADMIN')">
+                        <li class="btnbtn">
+                            <button onclick="memberUpdateBtnFn()">수정하기</button>
+                            <button onclick="memberDelete2BtnFn()">삭제하기</button>
+                        </li>
+                    </th:block>
+
 
                 </ul>
 

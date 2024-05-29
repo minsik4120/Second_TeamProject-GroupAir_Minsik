@@ -1,3 +1,4 @@
+
 .memberDetail {
   display: flex;
   justify-content: center;
@@ -6,8 +7,10 @@
 
 .memberDetail .detail-form {
 
+  padding: 0 50px;
+  padding-bottom: 50px;
   border: 3px solid #3767a6;
-  padding: 50px;
+  border-radius: 10px;
   width: 700px;
   margin-top: 100px;
 }
@@ -16,7 +19,7 @@
 
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 ul.detail-ul {

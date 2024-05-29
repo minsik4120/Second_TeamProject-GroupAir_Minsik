@@ -14,6 +14,16 @@ public interface MemberServiceInterface {
 
     List<MemberDto> memberList();
 
+//sign추가한거
+    Page<MemberDto> findMembersByNameContaining(String name, Pageable pageable);
+
+
+    String findName(Long id);
+
+    List<MemberDto> findBujang();
+
+    String findPosition(String name);
+
     MemberDto memberDetail(Long id);
 
 
@@ -22,7 +32,7 @@ public interface MemberServiceInterface {
     void memberDelete(Long id);
 
     Long memberJoin(MemberDto memberDto) throws IOException;
-    String findName(Long id);
+
 
     List<MemberDto> selectPilot();
 
@@ -38,6 +48,7 @@ public interface MemberServiceInterface {
     MemberDto findMyId(String userEmail);
 
     MemberEntity memberUpdate2(MemberDto memberDto) throws IOException;
+
 
     int countMember();
 

@@ -1,7 +1,10 @@
 package org.spring.groupAir.sign.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.spring.groupAir.sign.entity.SignEntity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
@@ -25,5 +28,7 @@ public class SignFileDto {
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
+
+    private SignEntity signEntity;
 
 }

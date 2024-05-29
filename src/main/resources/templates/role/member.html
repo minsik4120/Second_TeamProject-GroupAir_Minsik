@@ -7,7 +7,7 @@
     <!-- 각 페이지 마다 변경 -->
 </th:block>
 <th:block layout:fragment="css">
-
+    <link rel="stylesheet" th:href="@{/css/role/member.css}">
 </th:block>
 <th:block layout:fragment="script">
 
@@ -15,7 +15,112 @@
 
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
-        <h1>MEMBER</h1>
+
+        <div class="role_member">
+            <div class="role_member-con">
+                <div class="commute">
+                    <div class="plus">
+                        <a th:href="@{/commute/workDetail/{id}(id = ${#authentication.principal.memberEntity.id})}">내 출근 기록</a>
+                    </div>
+                    <div id="clock" class="clock"></div>
+                    <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '퇴근'}">
+                        <div class="status">퇴근</div>
+                    </th:block>
+                    <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '출근'}">
+                        <div class="status">출근</div>
+                    </th:block>
+                    <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '지각'}">
+                        <div class="status">출근(지각)</div>
+                    </th:block>
+                    <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '조퇴'}">
+                        <div class="status">퇴근(조퇴)</div>
+                    </th:block>
+                    <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '미출근'}">
+                        <div class="status">미출근</div>
+                    </th:block>
+                    <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '휴가'}">
+                        <div class="status">휴가</div>
+                    </th:block>
+                </div>
+                <div class="department">
+                    <div class="plus">
+                        <a th:href="@{/department/top/deList}">부서 관리</a>
+                    </div>
+                    <ul class="department-tree">
+                        <li th:each="department : ${departmentDtoList}">
+                            <span th:text="${department.topDepartmentEntity.topDepartmentName}">Top Department</span>
+                            <ul>
+                                <li>
+                                    <span th:text="${department.departmentName}">Department</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="schedule">
+                    <div class="plus">
+                        <a th:href="@{/calendar/myCalendar}">마이 스케줄</a>
+                    </div>
+                    스케쥴
+                </div>
+                <div class="board">
+                    <div class="plus">
+                        <a th:href="@{/board/boardList}">게 시 판</a>
+                    </div>
+                    <div class="board-con">
+                        내가 쓴 글 : [[${boardCount}]]개
+                    </div>
+                </div>
+                <div class="vacation">
+                    <div class="plus">
+                        <a th:href="@{/vacation/myAirplane/{id}(id = ${#authentication.principal.memberEntity.id})}">휴가</a>
+                    </div>
+                    <div class="vacation-con">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>휴가일수</th>
+                                <th>출발일</th>
+                                <th>복귀일</th>
+                                <th>종류</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="vacation : ${vacationDtoList}">
+                                <td th:text="${vacation.vacDays}"></td>
+                                <td th:text="${vacation.vacStartDate}"></td>
+                                <td th:text="${vacation.vacEndDate}"></td>
+                                <td th:text="${vacation.vacType}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="plus">
+                        <a th:href="@{/member/memberUpdate/{id}(id = ${#authentication.principal.memberEntity.id})}">내 정보</a>
+                    </div>
+                    <div class="member-con">
+                        <div class="userImage">
+                            <th:block th:if="${#authentication.principal.memberEntity.memberAttachFile == 1}">
+                                <img th:src="@{|/upload/${#authentication.principal.memberEntity.memberFileName}|}"
+                                     alt="photo" height="100px">
+                            </th:block>
+                            <th:block th:unless="${#authentication.principal.memberEntity.memberAttachFile == 1}">
+                                <img th:src="@{/images/user.png}" alt="이미지대체문구" height="100px">
+                            </th:block>
+                        </div>
+                        <div class="userDetail">
+                            부 서 : [[${memberDto.departmentEntity.departmentName}]] <br>
+                            직 급 : [[${memberDto.positionEntity.positionName}]]<br>
+                            이 메 일 : [[${memberDto.userEmail}]]<br>
+                            이 름 : [[${memberDto.name}]]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </th:block>

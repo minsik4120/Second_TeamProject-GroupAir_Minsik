@@ -1,15 +1,22 @@
 package org.spring.groupAir.department.service;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.config.MyUserDetailsImpl;
+import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
+import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.department.entity.TopDepartmentEntity;
 import org.spring.groupAir.department.repository.TopDepartmentRepository;
 import org.spring.groupAir.department.service.serviceImpl.TopDepartmentServiceImpl;
+import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +48,8 @@ public class TopDepartmentService implements TopDepartmentServiceImpl {
         return topDepartmentDtos;
     }
 
+    private final MemberRepository memberRepository;
+
     @Override
     public List<TopDepartmentDto> List(TopDepartmentDto topDepartmentDto) {
 
@@ -50,6 +59,15 @@ public class TopDepartmentService implements TopDepartmentServiceImpl {
             .map(TopDepartmentDto::toDepartmentDto).collect(Collectors.toList());
 
         return topDepartmentDtos;
+    }
+
+    @Override
+    public List<TopDepartmentDto> ListManager(TopDepartmentDto topDepartmentDto, Long id) {
+
+        List<TopDepartmentEntity> topDepartmentEntities = topDepartmentRepository.findByDepartmentEntityListMemberEntityListId(id);
+
+
+        return topDepartmentEntities.stream().map(TopDepartmentDto::toDepartmentDto).collect(Collectors.toList());
     }
 
     @Override

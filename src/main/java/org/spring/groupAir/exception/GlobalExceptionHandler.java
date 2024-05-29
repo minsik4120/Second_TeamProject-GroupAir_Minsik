@@ -1,4 +1,3 @@
-
 package org.spring.groupAir.exception;
 
 import org.hibernate.exception.ConstraintViolationException;

@@ -241,6 +241,46 @@ public class BoardService implements BoardServiceInterface {
     boardRepository.save(boardEntity);
   }
 
+  @Override
+  public int board1() {
+
+    int board1 = boardRepository.findByBoardSeparateEntityId(1L).size();
+
+    return board1;
+  }
+
+  @Override
+  public int board2() {
+
+    int board2 = boardRepository.findByBoardSeparateEntityId(2L).size();
+
+    return board2;
+  }
+
+  @Override
+  public int board3() {
+
+    int board3 = boardRepository.findByBoardSeparateEntityId(3L).size();
+
+    return board3;
+  }
+
+  @Override
+  public int board4() {
+
+    int board4 = boardRepository.findByBoardSeparateEntityId(4L).size();
+
+    return board4;
+  }
+
+  @Override
+  public int myBoardCount(Long id) {
+
+    int boardCount = boardRepository.findByMemberEntityId(id).size();
+
+    return boardCount;
+  }
+
   private void processFile(BoardDto boardDto) throws IOException {
     if (boardDto.getBoardFile() == null) {
       throw new IllegalArgumentException("MemberDto에 파일이 없습니다.");

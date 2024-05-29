@@ -28,8 +28,6 @@ public interface MemberServiceInterface {
 
     Page<MemberDto> pageSelectPilot(Pageable pageable);
 
-
-
     String findUserEmailByNameAndPhone(String name, String phone);
 
     String findUserPwByUserEmailAndName(String userEmail, String name);
@@ -40,4 +38,7 @@ public interface MemberServiceInterface {
     MemberDto findMyId(String userEmail);
 
     MemberEntity memberUpdate2(MemberDto memberDto) throws IOException;
+
+    int countMember();
+
 }

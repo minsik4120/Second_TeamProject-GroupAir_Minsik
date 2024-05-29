@@ -68,6 +68,8 @@ public class DepartmentService implements DepartmentServiceImpl {
 
     @Override
     public List<DepartmentDto> getSubDepartments(Long topDepartmentId) {
+
+
         // 선택된 상위 부서에 해당하는 하위 부서 목록을 가져오는 로직을 구현
 //        List<DepartmentDto> subDepartments = departmentRepository.findByTopDepartmentEntityId(topDepartmentId)
 //                .stream()

@@ -1,6 +1,15 @@
 @import url(/css/common/reset.css);
 /*admin*/
+
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 .container{
+    font-family: 'TTLaundryGothicB';
     width:100%;
     background-color: #eff6ff;
 }
@@ -174,12 +183,45 @@
 }
 
 .admin .left-con .bottom{
+    width: 100%;
     height: 10vh;
     background-color: #324153;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.admin .left-con .bottom .bottom-con {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin .left-con .bottom .bottom-con p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #7c8289;
+}
+
+.admin .left-con .bottom .bottom-con .bottom-sns {
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.admin .left-con .bottom .bottom-con .bottom-sns a i {
+    justify-content: center;
+    display: flex;
+    padding: 12px;
+    font-size: 1.4rem;
+    color: #eff6ff;
 }
 
 .admin .right{

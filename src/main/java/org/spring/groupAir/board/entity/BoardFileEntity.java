@@ -43,4 +43,5 @@ public class BoardFileEntity extends BaseTimeEntity {
       fileEntity.setBoardEntity(fileDto.getBoardEntity());
       return fileEntity;
   }
+
 }

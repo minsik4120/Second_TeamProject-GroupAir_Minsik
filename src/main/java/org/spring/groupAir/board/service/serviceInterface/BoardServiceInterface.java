@@ -31,5 +31,10 @@ public interface BoardServiceInterface {
 
   void boardUpdate(BoardDto boardDto) throws IOException;
 
-  /*  BoardSeparateEntity getBoardSeparateById(Long boardSeparateId);*/
+    int board1();
+    int board2();
+    int board3();
+    int board4();
+
+    /*  BoardSeparateEntity getBoardSeparateById(Long boardSeparateId);*/
 }

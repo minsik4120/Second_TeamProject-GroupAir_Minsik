@@ -87,4 +87,15 @@ public class DepartmentService implements DepartmentServiceImpl {
 
         return subDepartments;
     }
+
+    @Override
+    public List<DepartmentDto> subDepartments() {
+
+        List<DepartmentEntity> departmentEntityList = departmentRepository.findAll();
+
+        List<DepartmentDto> departmentDtoList
+            = departmentEntityList.stream().map(DepartmentDto :: fromEntity).collect(Collectors.toList());
+
+        return departmentDtoList;
+    }
 }

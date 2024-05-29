@@ -24,4 +24,8 @@ public interface AirPlaneServiceInterface {
     void airplaneUpdate(AirplaneDto airplaneDto);
 
     void updateStatus();
+
+    int findTodayAirplane();
+
+    int findAllAirplane();
 }

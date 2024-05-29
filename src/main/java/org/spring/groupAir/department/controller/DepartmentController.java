@@ -83,10 +83,6 @@ public class DepartmentController {
         return "redirect:/department/top/deList";
     }
 
-
-//    topDepartment ===========================
-//    =========================================
-
     @GetMapping("top/detail/{id}")
     public String topDeDetail(@PathVariable("id") Long id, Model model
             , @ModelAttribute("list") List<TopDepartmentDto> list) {

@@ -190,14 +190,13 @@
 }
 
 .admin .left-con .bottom{
-    height: 100px;
+    height: 10vh;
     background-color: #324153;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 
 .admin .right{
     flex:1;
@@ -230,7 +229,8 @@
     height: 40px;
     gap: 10px;
 }
-.admin .right .right-con .top .gnb>ul>li{
+
+.admin .right .right-con .top .gnb>ul>li {
     box-sizing: border-box;
     border-radius: 20px;
     transition: 0.5s;
@@ -239,6 +239,8 @@
     display: flex;
     align-items: center;
 }
+
+
 .admin .right .right-con .top .gnb>ul>li>a{
     color: inherit;
     font-size: 15px;
@@ -253,8 +255,21 @@
     background-color: red;
     color: #000;
 }
+/*.admin .right .right-con .top .gnb>ul>li.logout>a:hover{*/
+/*    background-color: red;*/
+/*    color: #000;*/
+/*}*/
 
-
+.admin .right .right-con .top .gnb>ul>li.chatBtn:hover{
+    background-color: #3767a6;
+    color: #ffffff;
+    transition: 0.5s;
+}
+/*.admin .right .right-con .top .gnb>ul>li.chat>a:hover{*/
+/*    background-color: #3767a6;*/
+/*    color: #ffffff;*/
+/*    transition: 0.5s;*/
+/*}*/
 
 .admin .right .right-con .bottom{
 }

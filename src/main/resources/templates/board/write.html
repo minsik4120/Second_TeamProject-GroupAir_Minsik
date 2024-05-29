@@ -43,7 +43,15 @@
                       <label for="boardSeparateId"></label>
                       <select name="boardSeparateId" id="boardSeparateId">
                         <option hidden>게시판을 선택해주세요</option>
+                        <!--관리자 , 매니저만-->
+
+                        <!-- <th:block sec:authroize="hasAnyRole('ADMIN','MANAGER')">  
+                          <option value="1">공지사항</option>
+                        </th:block> -->
+                        <th:block sec:authorize="hasAnyRole('ADMIN')">
                         <option value="1">공지사항</option>
+
+                        </th:block>
                         <option value="2"> 자유게시판</option>
                         <option value="3">수다방</option>
                         <option value="4">Q&A</option>

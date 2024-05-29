@@ -29,41 +29,42 @@
                         <ul>
                             <li>
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                <script type="text/javascript">
-                                    function sendNumber(){
-                                      $("#mail_number").css("display","block");
+<!--                                <script type="text/javascript">-->
+<!--                                    function sendNumber(){-->
+
+<!--                                        $.ajax({-->
+<!--                                            url:"/mail",-->
+<!--                                            type:"post",-->
+<!--                                            dataType:"json",-->
+<!--                                            data:{"mail" : $("#userEmail").val()},-->
+<!--                                            success: function(data){-->
+<!--                                                alert("입력된 이메일로 초기 비빌번호를 전송하였습니다!");-->
+<!--&lt;!&ndash;                                                $("#Confirm").attr("value",data);&ndash;&gt;-->
+<!--                                            $("#userPw").val(data.number); // 서버에서 반환된 난수를 비밀번호 필드에 설정-->
+<!--                                            }-->
+<!--                                        });-->
+<!--                                    }-->
+
+<!--                                </script>-->
+
+                                <script>
+                                    function sendNumber() {
+                                        var email = $("#userEmail").val();
+
                                         $.ajax({
-                                            url:"/mail",
-                                            type:"post",
-                                            dataType:"json",
-                                            data:{"mail" : $("#userEmail").val()},
-                                            success: function(data){
-                                                alert("인증번호 발송완료! 발송된 인증번호를 입력해주세요.");
-                                                $("#Confirm").attr("value",data);
-                                                $("#mail_number").css("display", "block");
+                                            url: "/mail",
+                                            type: "post",
+                                            data: {
+                                                "mail": email
+                                            },
+                                            success: function(data) {
+                                                alert("입력된 이메일로 초기 비밀번호를 전송하였습니다!");
+                                                $("#userPw").val(data); // 서버에서 반환된 난수를 비밀번호 필드에 설정
+                                            },
+                                            error: function(error) {
+                                                console.error("Error sending mail", error);
                                             }
                                         });
-                                    }
-
-                                    function confirmNumber(){
-                                        var number1 = $("#number").val();
-                                        var number2 = $("#Confirm").val();
-
-                                        if (number1.trim() === "") {
-                                            alert("인증번호를 입력해주세요.");
-                                        } else if(number1 == number2){
-                                            alert("인증되었습니다.");
-                                        }else{
-                                            alert("번호가 다릅니다.");
-                                            $("#number").val(""); // 입력된 인증번호 삭제
-                                        }
-                                    }
-
-                                    function AllConfirm(){
-                                        var number1 = $("#number").val();
-                                        if (number1.trim() === "") {
-                                            alert("이메일 인증은 필수입니다");
-                                        }
                                     }
                                 </script>
 
@@ -71,13 +72,10 @@
                                 <label for="userEmail" class="label1">이 메 일</label>
                                 <div id="mail_input" name="mail_input">
                                     <input type="text" name="userEmail" id="userEmail" placeholder="이메일 입력">
-                                    <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
+                                    <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()"> 메일보내기</button>
                                 </div>
                                 <br>
-                                <div id="mail_number" name="mail_number" style="display:none">
-                                    <input type="text" name="number" id="number" placeholder="인증번호 입력">
-                                    <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
-                                </div>
+
                                 <br>
                                 <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
 
@@ -108,16 +106,6 @@
                                class="error"></p>
 
                             <li>
-                                <label for="role" class="label1">권한</label>
-                                <select name="role" id="role">
-                                    <option value="MEMBER">member</option>
-                                    <option value="MANAGER">manager</option>
-                                    <option value="ADMIN">admin</option>
-                                </select>
-
-                            </li>
-                            <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error"></p>
-                            <li>
                                 <label for="topDepartmentSelect" class="label1">상위 부서</label>
                             </li>
                             <li>
@@ -147,8 +135,6 @@
                             <p th:if="${#fields.hasErrors('positionEntity.positionName')}"
                                th:errors="*{positionEntity.positionName}"
                                class="error"></p>
-
-
                             <li>
                                 <label for="address" class="label1">주 소</label>
                             </li>

@@ -23,11 +23,11 @@ public class SalaryController {
 
     @GetMapping({"/", "/index", ""})
     public String salaryIndex(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-                              Model model,
-                              @RequestParam(name = "subject", required = false) String subject,
-                              @RequestParam(name = "search", required = false) String search) {
+                              Model model) {
 
-        Page<SalaryDto> salaryDtoPage = salaryService.memberSalary(pageable, subject, search);
+        salaryService.updateSalaryDate();
+
+        Page<SalaryDto> salaryDtoPage = salaryService.memberSalary(pageable);
 
         int totalPage = salaryDtoPage.getTotalPages();//전체page
         int newPage = salaryDtoPage.getNumber();//현재page
@@ -60,5 +60,15 @@ public class SalaryController {
          salaryService.update(salaryDto);
 
          return "redirect:/salary/index";
+    }
+
+    @GetMapping("/mySalary/{id}")
+    public String mySalary(@PathVariable("id")Long id, Model model){
+
+        List<SalaryDto> salaryDtoList = salaryService.mySalary(id);
+
+        model.addAttribute("salaryDtoList", salaryDtoList);
+
+        return "salary/mySalary";
     }
 }

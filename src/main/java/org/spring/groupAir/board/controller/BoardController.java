@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.io.IOException;
 import java.util.List;
 
@@ -84,10 +85,9 @@ public class BoardController {
 
 
   @GetMapping("/boardList")
-
   public String boardList(@RequestParam(name = "subject", required = false) String subject,
                           @RequestParam(name = "search", required = false) String search,
-                          @PageableDefault(page = 0, size = 20, sort = "id", direction = Sort.Direction.DESC)
+                          @PageableDefault(page = 0, size = 17, sort = "id", direction = Sort.Direction.DESC)
                           Pageable pageable, Model model) {
 
     Page<BoardDto> pagingList = boardService.boardSearchPagingList(pageable, subject, search);
@@ -140,16 +140,72 @@ public class BoardController {
     return "redirect:/board/boardList";
   }
 
+//  @GetMapping("/Lists")
+//  public String getBoardsBySeparateId(@RequestParam("boardSeparateId") Long boardSeparateId, Model model) {
+//
+//    List<BoardEntity> boards = boardService.getBoardsBySeparateId(boardSeparateId);
+//    model.addAttribute("boards", boards);
+//
+//    return "board/boardsPage";
+//  }
+
   @GetMapping("/Lists")
-  public String getBoardsBySeparateId(@RequestParam("boardSeparateId") Long boardSeparateId, Model model) {
+  public String getBoardsBySeparateId(@RequestParam("boardSeparateId") Long boardSeparateId,
+                                      @RequestParam(name="subject", required = false) String subject,
+                                      @RequestParam(name = "search" , required = false) String search,
+                                      @PageableDefault(page = 0 , size = 17 , sort = "id" , direction = Sort.Direction.DESC)
+                                      Pageable pageable,Model model) {
+
+    Page<BoardDto> pagingList = boardService.boardSearchPagingList(pageable, subject, search);
+
+    int totalPages = pagingList.getTotalPages(); // 전체
+    int nowPage = pagingList.getNumber(); // 현재
+    long totalElements = pagingList.getTotalElements(); // 전체 레코드
+    int size = pagingList.getSize(); // 보이는 개수
+
+    int blockNum = 3;  // 브라우저에 보이는 페이지 번호
+
+    int startPage = (int) ((Math.floor(nowPage / blockNum) * blockNum) + 1 <= totalPages ? (Math.floor(nowPage / blockNum) * blockNum) + 1 : totalPages);
+    int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
+
+    model.addAttribute("startPage", startPage);
+    model.addAttribute("endPage", endPage);
+    model.addAttribute("pagingList", pagingList);
+
 
     List<BoardEntity> boards = boardService.getBoardsBySeparateId(boardSeparateId);
 
     model.addAttribute("boards", boards);
     model.addAttribute("boardSeparateId", boardSeparateId);
 
+
     return "board/boardsPage";
   }
+
+/*  @GetMapping("/List")
+  public String boardList(@RequestParam(name = "subject", required = false) String subject,
+                          @RequestParam(name = "search", required = false) String search,
+                          @PageableDefault(page = 0, size = 18, sort = "id", direction = Sort.Direction.DESC)
+                          Pageable pageable, Model model) {
+
+    Page<BoardDto> pagingList = boardService.boardSearchPagingList(pageable, subject, search);
+
+    int totalPages = pagingList.getTotalPages(); // 전체
+    int nowPage = pagingList.getNumber(); // 현재
+    long totalElements = pagingList.getTotalElements(); // 전체 레코드
+    int size = pagingList.getSize(); // 보이는 개수
+
+    int blockNum = 3;  // 브라우저에 보이는 페이지 번호
+
+    int startPage = (int) ((Math.floor(nowPage / blockNum) * blockNum) + 1 <= totalPages ? (Math.floor(nowPage / blockNum) * blockNum) + 1 : totalPages);
+    int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
+
+    model.addAttribute("startPage", startPage);
+    model.addAttribute("endPage", endPage);
+    model.addAttribute("pagingList", pagingList);
+
+    return "board/boardList";
+  }*/
 
 
 }

@@ -116,10 +116,20 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setAddress(memberDto.getAddress());
         memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
         memberEntity.setResignationDate(memberDto.getResignationDate());
-        memberEntity.setRole(memberDto.getRole());
-        memberEntity.setPhone(memberDto.getPhone());
         memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
         memberEntity.setPositionEntity(memberDto.getPositionEntity());
+
+        if(memberDto.getPositionEntity().getPositionName().equals("대표이사")){
+            memberEntity.setRole(Role.ADMIN);
+        }
+        else if(memberDto.getPositionEntity().getPositionName().equals("부장")){
+            memberEntity.setRole(Role.MANAGER);
+        }
+        else if(memberDto.getPositionEntity().getPositionName().equals("사원")){
+            memberEntity.setRole(Role.MEMBER);
+        }
+        memberEntity.setPhone(memberDto.getPhone());
+
         memberEntity.setMemberAttachFile(0);
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         memberEntity.setMemberFileName(memberDto.getMemberFileName());
@@ -134,10 +144,19 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setAddress(memberDto.getAddress());
         memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
         memberEntity.setResignationDate(memberDto.getResignationDate());
-        memberEntity.setRole(memberDto.getRole());
-        memberEntity.setPhone(memberDto.getPhone());
         memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
         memberEntity.setPositionEntity(memberDto.getPositionEntity());
+
+        if(memberDto.getPositionEntity().getPositionName().equals("대표이사")){
+            memberEntity.setRole(Role.ADMIN);
+        }
+        else if(memberDto.getPositionEntity().getPositionName().equals("부장")){
+            memberEntity.setRole(Role.MANAGER);
+        }
+        else if(memberDto.getPositionEntity().getPositionName().equals("사원")){
+            memberEntity.setRole(Role.MEMBER);
+        }
+        memberEntity.setPhone(memberDto.getPhone());
         memberEntity.setMemberAttachFile(1);
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         memberEntity.setMemberFileName(memberDto.getMemberFileName());
@@ -158,8 +177,8 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setResignationDate(memberDto.getResignationDate());
         memberEntity.setRole(memberDto.getRole());
         memberEntity.setPhone(memberDto.getPhone());
-        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
-        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        if (memberDto.getDepartmentEntity() != null) memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        if (memberDto.getPositionEntity() != null)memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(0);
         memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
@@ -178,12 +197,13 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setResignationDate(memberDto.getResignationDate());
         memberEntity.setRole(memberDto.getRole());
         memberEntity.setPhone(memberDto.getPhone());
-        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
-        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        if (memberDto.getDepartmentEntity() != null) memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        if (memberDto.getPositionEntity() != null)memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(1);
         memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         return memberEntity;
     }
+
 
 }

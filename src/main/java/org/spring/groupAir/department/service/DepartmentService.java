@@ -1,8 +1,10 @@
 package org.spring.groupAir.department.service;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.entity.DepartmentEntity;
+import org.spring.groupAir.department.entity.QDepartmentEntity;
 import org.spring.groupAir.department.repository.DepartmentRepository;
 import org.spring.groupAir.department.service.serviceImpl.DepartmentServiceImpl;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 public class DepartmentService implements DepartmentServiceImpl {
 
     private final DepartmentRepository departmentRepository;
+
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public void write(DepartmentDto departmentDto) {
@@ -65,10 +69,22 @@ public class DepartmentService implements DepartmentServiceImpl {
     @Override
     public List<DepartmentDto> getSubDepartments(Long topDepartmentId) {
         // 선택된 상위 부서에 해당하는 하위 부서 목록을 가져오는 로직을 구현
-        List<DepartmentDto> subDepartments = departmentRepository.findByTopDepartmentEntityId(topDepartmentId)
+//        List<DepartmentDto> subDepartments = departmentRepository.findByTopDepartmentEntityId(topDepartmentId)
+//                .stream()
+//                .map(DepartmentDto::fromEntity)
+//                .collect(Collectors.toList());
+
+
+        // queryDsl
+        QDepartmentEntity departmentEntity = QDepartmentEntity.departmentEntity;
+
+        List<DepartmentDto> subDepartments = queryFactory.selectFrom(departmentEntity)
+                .where(departmentEntity.topDepartmentEntity.id.eq(topDepartmentId))
+                .fetch()
                 .stream()
                 .map(DepartmentDto::fromEntity)
                 .collect(Collectors.toList());
+
         return subDepartments;
     }
 }

@@ -1,8 +1,8 @@
 package org.spring.groupAir.member.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.commute.service.CommuteService;
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
@@ -17,16 +17,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +75,8 @@ public class MemberController {
     public String work(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                        Model model,
                        @RequestParam(name = "subject", required = false) String subject,
-                       @RequestParam(name = "search", required = false) String search) {
+                       @RequestParam(name = "search", required = false) String search,
+                       @AuthenticationPrincipal MyUserDetailsImpl myUserDetails) {
         Page<MemberDto> memberList = memberService.memberList(pageable, subject, search);
 
         int totalPage = memberList.getTotalPages();//전체page
@@ -96,6 +94,8 @@ public class MemberController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("memberList", memberList);
 
+        model.addAttribute("myUserDetails", myUserDetails);
+
         return "member/memberList";
     }
 
@@ -106,6 +106,19 @@ public class MemberController {
         if(member!=null) model.addAttribute("key","member");
         return new ResponseEntity<>(member, HttpStatus.OK);
     }
+
+    @PostMapping("/memberUpdate2")
+    public ResponseEntity<Long> memberUpdate2(@RequestBody MemberDto memberDto) throws IOException {
+        MemberEntity memberEntity = memberService.memberUpdate2(memberDto);
+        return new ResponseEntity<>(memberEntity.getId(), HttpStatus.OK);
+    }
+
+    @PostMapping("/memberDelete2")
+    public ResponseEntity<Long> memberDelete2(@RequestBody MemberDto memberDto){
+        memberService.memberDelete(memberDto.getId());
+        return new ResponseEntity<>(memberDto.getId(), HttpStatus.OK);
+    }
+
 
     @GetMapping("/memberUpdate/{id}")
     public String memberDetail1(@PathVariable("id") Long id,
@@ -132,9 +145,6 @@ public class MemberController {
     @GetMapping("/memberDelete/{id}")
     @ResponseBody
     public String memberDelete(@PathVariable("id") Long id, Model model,MemberDto memberDto) {
-
-        List<MemberDto> fireList = memberService.fireList(memberDto);
-        model.addAttribute("fireList",fireList);
 
         memberService.memberDelete(id);
 

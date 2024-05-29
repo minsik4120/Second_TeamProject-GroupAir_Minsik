@@ -53,6 +53,7 @@ public class BoardService implements BoardServiceInterface {
       System.out.println(">>>>>" + boardDto.getBoardSeparateId());
 
       BoardSeparateEntity boardSeparateEntity = boardSeparateRepository.findById(boardDto.getBoardSeparateId()).orElseThrow(IllegalArgumentException::new);
+
       boardDto.setBoardSeparateEntity(BoardSeparateEntity.builder().id(boardDto.getBoardSeparateId()).build());
 
       BoardEntity boardEntity = BoardEntity.toInsertBoardEntity(boardDto);
@@ -60,9 +61,10 @@ public class BoardService implements BoardServiceInterface {
       boardRepository.save(boardEntity);
 
     } else {
-
       BoardSeparateEntity boardSeparateEntity = boardSeparateRepository.findById(boardDto.getBoardSeparateId()).orElseThrow(IllegalArgumentException::new);
+
       boardDto.setBoardSeparateEntity(BoardSeparateEntity.builder().id(boardDto.getBoardSeparateId()).build());
+
       // 파일이 있는 경우
       // 로컬에 실제 파일을 저장 시킴
       MultipartFile boardFile = boardDto.getBoardFile(); // 실제 파일

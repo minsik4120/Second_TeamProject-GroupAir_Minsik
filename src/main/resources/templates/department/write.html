@@ -38,10 +38,14 @@
                 <div class="de_right">
                     <h2>부서 생성</h2>
                     <ul>
-                        <form th:action="@{/department/deWrite}" method="POST">
+                        <form th:action="@{/department/deWrite}" method="POST" th:object="${departmentDto}" enctype="multipart/form-data">
                             <li>
                                 <label for="departmentName">부서명</label>
                                 <input type="text" name="departmentName" id="departmentName">
+                            </li>
+                            <li>
+                                <p th:if="${#fields.hasErrors('departmentName')}"
+                                   th:errors="*{departmentName}" class="error"></p>
                             </li>
                             <li>
                                 <label for="topDepartmentEntity">상위부서</label>
@@ -52,6 +56,10 @@
                                         <option th:value="${de.id}" th:text="${de.topDepartmentName}"></option>
                                     </th:block>
                                 </select>
+                            </li>
+                            <li>
+                                <p th:if="${#fields.hasErrors('topDepartmentEntity')}"
+                                   th:errors="*{topDepartmentEntity}" class="error"></p>
                             </li>
                             <li>
                                 <input type="submit" value="생성" name="btn">

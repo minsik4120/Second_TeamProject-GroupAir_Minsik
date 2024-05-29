@@ -1,13 +1,12 @@
 package org.spring.groupAir.member.service.memberServiceInterface;
 
 import org.spring.groupAir.member.dto.MemberDto;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.net.ssl.SSLSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public interface MemberServiceInterface {
 
@@ -18,7 +17,7 @@ public interface MemberServiceInterface {
     MemberDto memberDetail(Long id);
 
 
-    void memberUpdate(MemberDto memberDto) throws IOException;
+    MemberEntity memberUpdate(MemberDto memberDto) throws IOException;
 
     void memberDelete(Long id);
 
@@ -29,7 +28,6 @@ public interface MemberServiceInterface {
 
     Page<MemberDto> pageSelectPilot(Pageable pageable);
 
-    List<MemberDto> fireList(MemberDto memberDto);
 
 
     String findUserEmailByNameAndPhone(String name, String phone);
@@ -40,4 +38,6 @@ public interface MemberServiceInterface {
 
 
     MemberDto findMyId(String userEmail);
+
+    MemberEntity memberUpdate2(MemberDto memberDto) throws IOException;
 }

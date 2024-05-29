@@ -46,7 +46,8 @@ public class TopDepartmentService implements TopDepartmentServiceImpl {
 
         List<TopDepartmentEntity> topDepartmentEntities = topDepartmentRepository.findAll();
 
-        List<TopDepartmentDto> topDepartmentDtos = topDepartmentEntities.stream().map(TopDepartmentDto::toDepartmentDto).collect(Collectors.toList());
+        List<TopDepartmentDto> topDepartmentDtos = topDepartmentEntities.stream()
+            .map(TopDepartmentDto::toDepartmentDto).collect(Collectors.toList());
 
         return topDepartmentDtos;
     }

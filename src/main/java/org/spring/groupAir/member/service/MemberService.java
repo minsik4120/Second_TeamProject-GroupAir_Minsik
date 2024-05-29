@@ -2,7 +2,6 @@ package org.spring.groupAir.member.service;
 
 import lombok.RequiredArgsConstructor;
 
-import org.apache.catalina.User;
 import org.spring.groupAir.department.entity.DepartmentEntity;
 
 import org.spring.groupAir.member.dto.MemberDto;
@@ -15,8 +14,6 @@ import org.spring.groupAir.member.repository.MemberRepository;
 import org.spring.groupAir.member.service.memberServiceInterface.MemberServiceInterface;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.support.SQLErrorCodes;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,6 +72,7 @@ public class MemberService implements MemberServiceInterface {
         memberRepository.findByUserEmail(memberDto.getUserEmail()).ifPresent(email -> {
             throw new RuntimeException(memberDto.getUserEmail() + " 이메일이 이미 존재합니다!");
         });
+
         if (memberDto.getMemberFile().isEmpty()) {
             MemberEntity memberEntity1 = MemberEntity.toMemberJoinEntity0(memberDto, passwordEncoder);
             memberRepository.save(memberEntity1);
@@ -128,7 +126,65 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
-    public void memberUpdate(MemberDto memberDto) throws IOException {
+    public MemberEntity memberUpdate2(MemberDto memberDto) throws IOException {
+        if (memberDto == null || memberDto.getId() == null) {
+            throw new IllegalArgumentException("MemberDto 또는 ID가 null입니다.");
+        }
+
+        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
+
+        // 기존 엔티티 값을 유지하면서 수정된 값만 덮어쓰기
+        if (memberDto.getMemberFileName() != null) {
+            memberEntity.setMemberFileName(memberDto.getMemberFileName());
+        }
+        if (memberDto.getName() != null) {
+            memberEntity.setName(memberDto.getName());
+        }
+        if (memberDto.getUserEmail() != null) {
+            memberEntity.setUserEmail(memberDto.getUserEmail());
+        }
+        if (memberDto.getUserPw() != null) {
+            memberEntity.setUserPw(memberDto.getUserPw());
+        }
+        if (memberDto.getAddress() != null) {
+            memberEntity.setAddress(memberDto.getAddress());
+        }
+        if (memberDto.getEmployeeDate() != null) {
+            memberEntity.setEmployeeDate(memberDto.getEmployeeDate());
+        }
+        if (memberDto.getResignationDate() != null) {
+            memberEntity.setResignationDate(memberDto.getResignationDate());
+        }
+        if (memberDto.getRole() != null) {
+            memberEntity.setRole(memberDto.getRole());
+        }
+        if (memberDto.getPhone() != null) {
+            memberEntity.setPhone(memberDto.getPhone());
+        }
+        if (memberDto.getDepartmentEntity() != null && memberDto.getDepartmentEntity().getId() != null) {
+            DepartmentEntity departmentEntity = new DepartmentEntity();
+            departmentEntity.setId(memberDto.getDepartmentEntity().getId());
+            memberEntity.setDepartmentEntity(departmentEntity);
+        }
+        if (memberDto.getPositionEntity() != null && memberDto.getPositionEntity().getId() != null) {
+            PositionEntity positionEntity = new PositionEntity();
+            positionEntity.setId(memberDto.getPositionEntity().getId());
+            memberEntity.setPositionEntity(positionEntity);
+        }
+
+        // 추가된 파일 처리
+        if (memberDto.getMemberFileEntityList() != null) {
+            memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+            memberEntity.setMemberAttachFile(1);
+        }
+
+        MemberEntity savedEntity = memberRepository.save(memberEntity);
+        return savedEntity;
+    }
+
+    @Override
+    public MemberEntity memberUpdate(MemberDto memberDto) throws IOException {
         if (memberDto == null || memberDto.getId() == null) {
             throw new IllegalArgumentException("MemberDto 또는 ID가 null입니다.");
         }
@@ -177,7 +233,8 @@ public class MemberService implements MemberServiceInterface {
             memberEntity = MemberEntity.toMemberUpdateEntity0(memberDto);
         }
 
-        memberRepository.save(memberEntity);
+        MemberEntity save = memberRepository.save(memberEntity);
+        return save;
     }
 
 
@@ -215,7 +272,7 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public void memberDelete(Long id) {
-        MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(() -> {
+            MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException("해당 아이디가 없습니다.");
         });
 
@@ -255,14 +312,7 @@ public class MemberService implements MemberServiceInterface {
         return memberDtoPage;
     }
 
-    @Override
-    public List<MemberDto> fireList(MemberDto memberDto) {
-        List<MemberEntity> memberEntityList = memberRepository.findAll();
 
-        List<MemberDto> memberDtoList = memberEntityList.stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
-
-        return memberDtoList;
-    }
 
     @Override
     public String findUserEmailByNameAndPhone(String name, String phone) {

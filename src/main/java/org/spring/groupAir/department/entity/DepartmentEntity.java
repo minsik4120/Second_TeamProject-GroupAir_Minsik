@@ -5,8 +5,6 @@ import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.schedule.entity.ScheduleEntity;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,7 +32,7 @@ public class DepartmentEntity extends BaseTimeEntity {
     private List<MemberEntity> memberEntityList;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topDepartment_id")
     private TopDepartmentEntity topDepartmentEntity;
 

@@ -111,12 +111,13 @@
 
                         <a th:href="@{/my/schedule}">일정 등록</a>
                         <ul class="subMenu">
-                            <li><a th:href="@{/}">자유게시판</a></li>
+                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 등록 </a></li>
+<!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->
                         </ul>
                     </li>
                 </ul>
             </div>
-        </div>
+    </div>
         <div class="bottom">
             주소,저작권
         </div>

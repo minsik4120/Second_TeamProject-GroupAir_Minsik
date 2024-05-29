@@ -119,7 +119,7 @@
           month = "0" + month
         }
         $.ajax({
-            url: "/api/calendar",
+            url: "/api/calendar" ,
             dataType: "json",
             async: false
           })
@@ -154,6 +154,10 @@
         title: "월요일",
         start: "2024-05-13"
       })
+
+
+
+
       calendar.render(); // 그린다(실제 브라우저에 표시)
 
       getCalendar(calendar.getDate()); // getCalendar함수 호출

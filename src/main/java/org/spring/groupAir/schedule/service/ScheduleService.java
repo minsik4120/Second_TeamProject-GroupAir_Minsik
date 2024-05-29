@@ -25,6 +25,7 @@ public class ScheduleService implements ScheduleInterface {
     for (ScheduleEntity entity : scheduleEntities) {
       ScheduleDto scheduleDto = ScheduleDto.builder()
           .id(entity.getId())
+          .employeeId(entity.getId())
           .content(entity.getContent())
           .start(entity.getStart())
           .end(entity.getEnd())
@@ -49,6 +50,7 @@ public class ScheduleService implements ScheduleInterface {
     ScheduleEntity entity = ScheduleEntity
         .builder()
 //        .title(scheduleDto.getContent())
+
         .content(scheduleDto.getContent())
         .start(scheduleDto.getStart())
         .end(scheduleDto.getEnd())
@@ -76,6 +78,7 @@ public class ScheduleService implements ScheduleInterface {
             .id(scheduleEntity.getId())
             .memberEntity(scheduleEntity.getMemberEntity())
             .content(scheduleEntity.getContent())
+            .employeeId(scheduleEntity.getId())
             .start(scheduleEntity.getStart())
             .end(scheduleEntity.getEnd())
             .build()).collect(Collectors.toList());
@@ -92,6 +95,7 @@ public class ScheduleService implements ScheduleInterface {
         .map(scheduleEntity -> ScheduleDto.builder()
             .id(scheduleEntity.getId())
             .memberEntity(scheduleEntity.getMemberEntity())
+            .employeeId(scheduleEntity.getId())
             .content(scheduleEntity.getContent())
             .start(scheduleEntity.getStart())
             .end(scheduleEntity.getEnd())

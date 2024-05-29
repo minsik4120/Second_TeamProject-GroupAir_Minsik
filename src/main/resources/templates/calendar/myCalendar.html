@@ -33,8 +33,9 @@
     <div class="adminContainer">
         <div id="content">
             <h1 class="title">
-                My ScheduleCalendar
+               전체 일정 관리
             </h1>
+            <input type="hidden" id="employeeId" th:value="${#authentication.principal.memberEntity.id}" />
             <div class="img"></div>
             <div id='calendar-container'>
                 <div id='calendar'></div>

@@ -42,5 +42,4 @@ application-oauth2.yml
 ### user.dic ###
 user.dic
 
-### emailConfilm ###
 src/main/resources/application.properties

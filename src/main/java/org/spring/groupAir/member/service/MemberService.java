@@ -347,7 +347,7 @@ public class MemberService implements MemberServiceInterface {
         MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
 
         return memberDto;
-      
+    }
 
     @Override
     public int countMember() {

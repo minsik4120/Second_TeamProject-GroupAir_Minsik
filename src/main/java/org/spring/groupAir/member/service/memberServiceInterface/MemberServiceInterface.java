@@ -28,9 +28,6 @@ public interface MemberServiceInterface {
 
     Page<MemberDto> pageSelectPilot(Pageable pageable);
 
-
-
-
     String findUserEmailByNameAndPhone(String name, String phone);
 
     String findUserPwByUserEmailAndName(String userEmail, String name);

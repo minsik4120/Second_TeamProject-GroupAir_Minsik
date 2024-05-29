@@ -14,7 +14,7 @@
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
         <div class="make">
-            <a th:href="@{/department/top/deList}"><h1>부  서  관  리</h1></a>
+            <a th:href="@{/department/top/deList}"><h1>부 서 관 리</h1></a>
             <div class="make-con">
                 <div class="de_left">
                     <div class="creation">
@@ -77,11 +77,12 @@
                                 </div>
                             </li>
                             <li>
-                                <th:block sec:authorize="hasAnyRole('ADMIN','MANAGER')">
-                                    <input type="submit" value="수정" name="btn">
-                                    <!--                                <a th:href="@{/department/delete/{id}(id=${department.id})}" name="btn">삭제</a>-->
-                                    <a th:href="@{'/department/delete/' + ${department.id}}"
-                                       onclick="return confirm('부서를 삭제하시겠습니까?\n※ 소속멤버도 삭제됩니다! ※');" name="btn">삭제</a>
+                                <th:block sec:authorize="hasAnyRole('ADMIN')">
+                                        <input type="submit" value="수정" name="btn">
+                                        <!--                                <a th:href="@{/department/delete/{id}(id=${department.id})}" name="btn">삭제</a>-->
+                                        <a th:href="@{'/department/delete/' + ${department.id}}"
+                                           onclick="return confirm('부서를 삭제하시겠습니까?\n※ 소속멤버도 삭제됩니다! ※');"
+                                           name="btn">삭제</a>
                                 </th:block>
                             </li>
                         </form>

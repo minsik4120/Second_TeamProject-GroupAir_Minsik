@@ -1,6 +1,7 @@
 package org.spring.groupAir.department.service.serviceImpl;
 
 import org.spring.groupAir.department.dto.DepartmentDto;
+import org.spring.groupAir.member.dto.MemberDto;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface DepartmentServiceImpl {
     List<DepartmentDto> getSubDepartments(Long topDepartmentId);
 
     List<DepartmentDto> subDepartments();
+
+    List<MemberDto> getMembers(Long deId);
 }

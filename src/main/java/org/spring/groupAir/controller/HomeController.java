@@ -102,6 +102,16 @@ public class HomeController {
         int myAirplaneCount = airplaneService.myAirplanes(myUserDetails.getMemberEntity().getId());
         MemberDto memberDto = memberService.memberDetail(myUserDetails.getMemberEntity().getId());
 
+//        Long id = myUserDetails.getMemberEntity().getId();
+//        TopDepartmentDto topDepartmentDto = new TopDepartmentDto();
+//
+//        List<TopDepartmentDto> list = topDepartmentService.ListManager(topDepartmentDto, id);
+
+        Long deId = myUserDetails.getMemberEntity().getDepartmentEntity().getId();
+
+        List<MemberDto> list = departmentService.getMembers(deId);
+
+        model.addAttribute("list", list);
         model.addAttribute("commuteDtoList", commuteDtoList);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("myAirplaneCount", myAirplaneCount);

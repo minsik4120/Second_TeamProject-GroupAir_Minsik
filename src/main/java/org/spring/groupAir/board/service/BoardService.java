@@ -267,6 +267,14 @@ public class BoardService implements BoardServiceInterface {
     return board4;
   }
 
+  @Override
+  public int myBoardCount(Long id) {
+
+    int boardCount = boardRepository.findByMemberEntityId(id).size();
+
+    return boardCount;
+  }
+
   private void processFile(BoardDto boardDto) throws IOException {
     if (boardDto.getBoardFile() == null) {
       throw new IllegalArgumentException("MemberDto에 파일이 없습니다.");

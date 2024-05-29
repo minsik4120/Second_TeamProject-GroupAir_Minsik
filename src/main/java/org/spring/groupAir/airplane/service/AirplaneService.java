@@ -275,4 +275,32 @@ public class AirplaneService implements AirPlaneServiceInterface {
 
         return allAirplane;
     }
+
+    @Override
+    public int todayMyAirplaneCount(Long id) {
+
+        LocalDate now = LocalDate.now();
+
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+
+        int myAirplaneCount = (int) queryFactory.select(airPlane.count())
+            .from(airPlane)
+            .where(airPlane.toTime.dayOfMonth().eq(now.getDayOfMonth())
+                .and(airPlane.memberEntity.id.eq(id)))
+            .fetchCount();
+        return myAirplaneCount;
+    }
+
+    @Override
+    public int myAirplanes(Long id) {
+
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+
+        int myAirplaneCount = (int) queryFactory.select(airPlane.count())
+            .from(airPlane)
+            .where(airPlane.memberEntity.id.eq(id))
+            .fetchCount();
+
+        return myAirplaneCount;
+    }
 }

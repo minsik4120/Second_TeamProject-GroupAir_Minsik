@@ -3,14 +3,19 @@ package org.spring.groupAir.controller;
 import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.airplane.service.AirplaneService;
 import org.spring.groupAir.board.service.BoardService;
+import org.spring.groupAir.commute.dto.CommuteDto;
+import org.spring.groupAir.commute.dto.VacationDto;
 import org.spring.groupAir.commute.service.CommuteService;
 import org.spring.groupAir.commute.service.VacationService;
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
+import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
 import org.spring.groupAir.schedule.service.ScheduleService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,14 +37,13 @@ public class HomeController {
     private final DepartmentService departmentService;
 
 
-
-    @GetMapping({"/","/index"})
-    public String index(){
+    @GetMapping({"/", "/index"})
+    public String index() {
         return "index";
     }
 
     @GetMapping("/role/admin")
-    public String adminPage(Model model){
+    public String adminPage(Model model) {
 
         int sickVacationPeople = vacationService.sickVacationPeople();
         int vacationPeople = vacationService.vacationPeople();
@@ -88,13 +92,38 @@ public class HomeController {
 
         return "role/admin";
     }
+
     @GetMapping("/role/manager")
-    public String managerPage(){
+    public String managerPage(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, Model model) {
+
+        List<CommuteDto> commuteDtoList = commuteService.commuteList(myUserDetails.getMemberEntity().getId());
+        int boardCount = boardService.myBoardCount(myUserDetails.getMemberEntity().getId());
+        int todayMyAirplaneCount = airplaneService.todayMyAirplaneCount(myUserDetails.getMemberEntity().getId());
+        int myAirplaneCount = airplaneService.myAirplanes(myUserDetails.getMemberEntity().getId());
+        MemberDto memberDto = memberService.memberDetail(myUserDetails.getMemberEntity().getId());
+
+        model.addAttribute("commuteDtoList", commuteDtoList);
+        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("myAirplaneCount", myAirplaneCount);
+        model.addAttribute("todayMyAirplaneCount", todayMyAirplaneCount);
+        model.addAttribute("memberDto", memberDto);
 
         return "role/manager";
     }
+
     @GetMapping("/role/member")
-    public String memberPage(){
+    public String memberPage(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, Model model) {
+
+        List<CommuteDto> commuteDtoList = commuteService.commuteList(myUserDetails.getMemberEntity().getId());
+        int boardCount = boardService.myBoardCount(myUserDetails.getMemberEntity().getId());
+        MemberDto memberDto = memberService.memberDetail(myUserDetails.getMemberEntity().getId());
+
+        List<VacationDto> vacationDtoList = vacationService.myVacation(myUserDetails.getMemberEntity().getId());
+
+        model.addAttribute("commuteDtoList", commuteDtoList);
+        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("memberDto", memberDto);
+        model.addAttribute("vacationDtoList", vacationDtoList);
 
         return "role/member";
     }

@@ -36,5 +36,7 @@ public interface BoardServiceInterface {
     int board3();
     int board4();
 
+    int myBoardCount(Long id);
+
     /*  BoardSeparateEntity getBoardSeparateById(Long boardSeparateId);*/
 }

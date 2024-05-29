@@ -28,4 +28,8 @@ public interface AirPlaneServiceInterface {
     int findTodayAirplane();
 
     int findAllAirplane();
+
+    int todayMyAirplaneCount(Long id);
+
+    int myAirplanes(Long id);
 }

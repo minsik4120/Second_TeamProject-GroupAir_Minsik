@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/sign/signList.css}">
 </th:block>
 <th:block layout:fragment="script">
-
+    <script th:src="@{/js/sign/signList.js}" defer></script>
 </th:block>
 
 <th:block layout:fragment="adminContainer">
@@ -33,7 +33,9 @@
                         <input type="submit" value="SEARCH">
                     </form>
                 </div>
-                <h2>결재함목록:<span th:text="'(' + ${signDtoPage.totalElements} + '건)'"></span></h2>
+                <h2>결재함목록:<span th:text="'(' + ${signDtoPage.totalElements} + '건)'"></span>
+
+                </h2>
                 <span>
                     <p>
                     <a th:href="@{/sign/signOk}">승인된 결재 페이지</a>
@@ -68,6 +70,7 @@
                         <th>상세보기</th>
                         <th>삭제</th>
                         <th>최종승인자</th>
+
                     </tr>
                     </thead>
 

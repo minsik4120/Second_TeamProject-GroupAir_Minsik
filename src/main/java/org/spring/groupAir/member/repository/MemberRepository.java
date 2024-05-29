@@ -1,5 +1,6 @@
 package org.spring.groupAir.member.repository;
 
+import org.apache.catalina.User;
 import org.spring.groupAir.commute.entity.VacationEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.member.entity.MemberFileEntity;
@@ -35,4 +36,15 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     List<MemberEntity> findByPositionEntityPositionName(String pilot);
 
     Page<MemberEntity> findByPositionEntityPositionName(Pageable pageable,String pilot);
+
+
+    @Query("SELECT u.userEmail FROM MemberEntity u WHERE u.name = :name AND u.phone = :phone")
+    String findEmailByNameAndPhone(@Param("name") String name, @Param("phone") String phone);
+
+    @Query("SELECT u.userPw FROM MemberEntity u WHERE u.userEmail = :userEmail AND u.name = :name")
+    String findUserPwByUserEmailAndName(@Param("userEmail") String userEmail, @Param("name")String name);
+
+
+
+//    MemberEntity findByUserEmailAndUserName(String userEmail, String name);
 }

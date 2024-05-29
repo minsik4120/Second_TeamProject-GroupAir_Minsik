@@ -1,3 +1,4 @@
+
 .memberJoin {
     width: 100%;
     display: flex;
@@ -117,7 +118,10 @@
 
 .memberJoin .memberJoin-con .memberJoin1 ul li input.submitBtn {
    display: flex;
-   justify-content: space-between;
+   justify-content: center;
+   height: 50px;
+   background-color: #3767a6;
+   margin: 20px 0;
 
 }
 

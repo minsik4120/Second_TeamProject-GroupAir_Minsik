@@ -2,8 +2,11 @@ package org.spring.groupAir.airplane.entity;
 
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
+import org.spring.groupAir.member.entity.MemberEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,20 +22,27 @@ public class AirPlaneEntity extends BaseTimeEntity {
     @Column(name = "airplane_id")
     private Long id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime fromTime;
 
     @Column(nullable = false)
-    public String fromTime;
+    private String fromArea;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime toTime;
 
     @Column(nullable = false)
-    public String fromArea;
+    private String toArea;
 
-
-    @Column(nullable = false)
-    public String ToTime;
+    private int timeTaken;
 
     @Column(nullable = false)
-    public String ToArea;
+    private String airplane;
 
     @Column(nullable = false)
-    public String airplane;
+    private String status;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private MemberEntity memberEntity;
 }

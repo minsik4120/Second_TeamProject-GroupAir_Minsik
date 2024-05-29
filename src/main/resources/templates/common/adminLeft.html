@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div class="left" th:fragment="adminLeftFragment">
+    <div class="left-con">
+        <div class="top">
+            <div class="title">
+                <h1 class="logo">
+                    <th:block sec:authorize="hasAnyRole('ADMIN')">
+                        <a th:href="@{/role/admin}"><img th:src="@{/images/logo.png}" alt="대체이미지">
+                            <p>GroupAir</p>
+                        </a>
+                    </th:block>
+                    <th:block sec:authorize="hasAnyRole('MANAGER')">
+                        <a th:href="@{/role/manager}"><img th:src="@{/images/logo.png}" alt="대체이미지">
+                            <p>GroupAir</p>
+                        </a>
+                    </th:block>
+                    <th:block sec:authorize="hasAnyRole('MEMBER')">
+                        <a th:href="@{/role/member}"><img th:src="@{/images/logo.png}" alt="대체이미지">
+                            <p>GroupAir</p>
+                        </a>
+                    </th:block>
+                </h1>
+                <div class="weatherApi">
+                    <h6 class="nowTime"></h6>
+                    <div class="topWeather">
+                        <h3 class="SeoulIcon"></h3>
+                        <h5 class="nowWeather"></h5>
+                    </div>
+                    <h5 class="SeoulNowTemp"></h5>
+                    <h5 class="SeoulTempRange"></h5>
+                </div>
+            </div>
+            <div class="left-menu">
+                <ul>
+                    <li class="menuBar">
+                        <th:block sec:authorize="hasAnyRole('ADMIN')">
+                            <img th:src="@{/images/pay.png}" alt="member">
+                            <a th:href="@{/commute/index}">근태급여</a>
+                            <ul class="subMenu">
+                                <li><a th:href="@{/commute/index}">근태</a></li>
+                                <li><a th:href="@{/salary/index}">급여</a></li>
+                                <li><a th:href="@{#}">사원정보</a></li>
+                            </ul>
+                        </th:block>
+                        <th:block sec:authorize="hasAnyRole('MEMBER','MANAGER')">
+                            <img th:src="@{/images/pay.png}" alt="member">
+                            <a th:href="@{/commute/index}">근태</a>
+                            <ul class="subMenu">
+                                <li><a id="work"
+                                       th:href="@{/commute/workDetail/{id}(id = ${#authentication.principal.memberEntity.id})}">출근
+                                    기록</a></li>
+                                <li><a id="salary"
+                                       th:href="@{/salary/mySalary/{id}(id = ${#authentication.principal.memberEntity.id})}">내
+                                    급여</a></li>
+                                <li><a id="vacation"
+                                       th:href="@{/commute/myVacation/{id}(id = ${#authentication.principal.memberEntity.id})}">내
+                                    휴가</a></li>
+                            </ul>
+                        </th:block>
+                    </li>
+                    <th:block sec:authorize="hasAnyRole('MANAGER','ADMIN')">
+                        <li class="menuBar">
+                            <img th:src="@{/images/department.png}" alt="member">
+                            <a th:href="@{#}">부서</a>
+                            <ul class="subMenu">
+                                <li><a th:href="@{/department/top/deList}">부서관리</a></li>
+                            </ul>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="hasAnyRole('ADMIN')">
+                        <li class="menuBar">
+                            <img th:src="@{/images/employee.png}" alt="member">
+                            <a th:href="@{#}">사원관리</a>
+                            <ul class="subMenu">
+                                <li><a th:href="@{/member/memberList}">사원목록</a></li>
+                                <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
+                            </ul>
+                        </li>
+                    </th:block>
+                    <li class="menuBar">
+                        <img th:src="@{/images/plane.png}" alt="member">
+                        <a th:href="@{/airplane/index}">항공편</a>
+                        <ul class="subMenu">
+                            <th:block sec:authorize="hasAnyRole('ADMIN')">
+                                <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
+                                <li><a th:href="@{/airplane/pilot}">기장님 관리</a></li>
+                            </th:block>
+                            <th:block sec:authorize="hasAnyRole('MEMBER')">
+                                <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
+                            </th:block>
+                            <th:block sec:authorize="hasAnyRole('MANAGER')">
+                                <li><a th:href="@{/airplane/index}">항공편 관리</a></li>
+                                <li><a
+                                        th:href="@{/airplane/myAirplane/{id}(id = ${#authentication.principal.memberEntity.id})}">내
+                                    운행정보</a></li>
+                            </th:block>
+                        </ul>
+                    </li>
+                    <li class="menuBar">
+                        <img th:src="@{/images/board.png}" alt="board">
+                        <a th:href="@{/board/write}">게시판 작성</a>
+                        <ul class="subMenu">
+                            <li><a th:href="@{/board/boardList}">전체게시판</a></li>
+                            <li><a th:href="@{/board/Lists(boardSeparateId=1)}">공지사항</a></li>
+                            <li><a th:href="@{/board/Lists(boardSeparateId=2)}">자유게시판</a></li>
+                        </ul>
+
+                    <li class="menuBar">
+                        <img th:src="@{/images/calendar.png}" alt="calender">
+
+                        <a th:href="@{/my/schedule}">일정 등록</a>
+                        <ul class="subMenu">
+                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 등록 </a></li>
+<!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+    </div>
+        <div class="bottom">
+            <div class="bottom-con">
+                <p>저작권, 주소</p>
+                <div class="bottom-sns">
+                    <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.youtube.com"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://github.com/1thsdpdms1/Project2GroupAirTeam"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="right" th:fragment="adminRightFragment">
+    <div class="right-con">
+        <div class="top">
+            <div class="gnb">
+                <ul>
+                    <li><a th:href="@{#}">로그인</a></li>
+                    <li><a th:href="@{#}">회원가입</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="admin-data">
+                data
+            </div>
+        </div>
+    </div>
+</div>
+</html>

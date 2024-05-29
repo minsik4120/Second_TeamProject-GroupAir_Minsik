@@ -10,4 +10,20 @@ public class HomeController {
     public String index(){
         return "index";
     }
+
+    @GetMapping("/role/admin")
+    public String adminPage(){
+
+        return "role/admin";
+    }
+    @GetMapping("/role/manager")
+    public String managerPage(){
+
+        return "role/manager";
+    }
+    @GetMapping("/role/member")
+    public String memberPage(){
+
+        return "role/member";
+    }
 }

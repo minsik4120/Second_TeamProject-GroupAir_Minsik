@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,14 +23,20 @@ public class CommuteEntity extends BaseTimeEntity {
     @Column(name = "commute_id")
     private Long id;
 
-    @Column(nullable = true)
-    public int vacation;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int work;
+
+    @Column(nullable = false)
+    private String status;
 
     @Column(nullable = true)
-    public String inTime;
+    private Duration totalWork;
 
     @Column(nullable = true)
-    private String outTime;
+    private LocalDateTime inTime;
+
+    @Column(nullable = true)
+    private LocalDateTime outTime;
 
     @Column(nullable = true)
     private String cause;

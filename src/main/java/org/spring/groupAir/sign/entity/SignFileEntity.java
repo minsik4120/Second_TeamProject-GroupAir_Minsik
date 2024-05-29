@@ -3,10 +3,8 @@ package org.spring.groupAir.sign.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,13 +21,13 @@ public class SignFileEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String signNewFile;
+    private String signNewFile;
 
     @Column(nullable = false)
-    public String signOldFile;
+    private String signOldFile;
 
     @Column(nullable = false)
-    public String content;
+    private String content;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

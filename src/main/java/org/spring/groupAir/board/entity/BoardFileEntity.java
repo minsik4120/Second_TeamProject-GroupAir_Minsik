@@ -2,14 +2,14 @@ package org.spring.groupAir.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.spring.groupAir.board.dto.BoardFileDto;
 import org.spring.groupAir.contraint.BaseTimeEntity;
-import org.spring.groupAir.member.entity.MemberEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Getter
 @Setter
@@ -23,10 +23,10 @@ public class BoardFileEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String boardNewFile;
+    private String boardNewFile;
 
     @Column(nullable = false)
-    public String boardOldFile;
+    private String boardOldFile;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,4 +34,13 @@ public class BoardFileEntity extends BaseTimeEntity {
     private BoardEntity boardEntity;
 
 
+
+
+  public static BoardFileEntity toInsertFile(BoardFileDto fileDto) {
+      BoardFileEntity fileEntity = new BoardFileEntity();
+      fileEntity.setBoardNewFile(fileDto.getBoardNewFile());
+      fileEntity.setBoardOldFile(fileDto.getBoardOldFile());
+      fileEntity.setBoardEntity(fileDto.getBoardEntity());
+      return fileEntity;
+  }
 }

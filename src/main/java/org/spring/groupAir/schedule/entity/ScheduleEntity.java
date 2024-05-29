@@ -21,26 +21,22 @@ public class ScheduleEntity extends BaseTimeEntity {
     @Column(name = "schedule_id")
     private Long id;
 
-    @Column(nullable = false)
-    public String title;
+//    @Column(nullable = false)
+//    private String title;
 
     @Column(nullable = false)
-    public String content;
+    private String content;
 
     @Column(nullable = false)
-    public String startDate;
+    private String start;
 
     @Column(nullable = false)
-    public String endDate;
+    private String end;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private MemberEntity memberEntity;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "scheduleSeparate_id")
-    private ScheduleSeparateEntity scheduleSeparateEntity;
-
 }
+

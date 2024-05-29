@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
 import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.schedule.entity.ScheduleEntity;
-import org.spring.groupAir.schedule.entity.ScheduleSeparateEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,19 +23,19 @@ public class SignEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public String approve;
+    private String approve;
 
     @Column(nullable = false)
-    public String title;
+    private String title;
 
     @Column(nullable = false)
-    public String content;
+    private String content;
 
     @Column(nullable = false)
-    public int signAttachFile;
+    private int signAttachFile;
 
     @Column(nullable = true)
-    public String rejectReason;
+    private String rejectReason;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

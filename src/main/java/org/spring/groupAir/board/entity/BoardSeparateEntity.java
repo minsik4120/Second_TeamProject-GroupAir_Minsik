@@ -1,16 +1,14 @@
 package org.spring.groupAir.board.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.groupAir.contraint.BaseTimeEntity;
-import org.spring.groupAir.member.entity.MemberEntity;
-import org.spring.groupAir.schedule.entity.ScheduleEntity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Getter
 @Setter
@@ -20,11 +18,12 @@ public class BoardSeparateEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "boardSeparate_id")
+    @Column(name = "boardSeparate_id")  // id
     private Long id;
 
+
     @Column(nullable = false)
-    public String boardSeparateName;
+    private String boardSeparateName;
 
     @OneToMany(mappedBy = "boardSeparateEntity"
         , fetch = FetchType.LAZY

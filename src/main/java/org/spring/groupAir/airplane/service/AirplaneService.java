@@ -126,7 +126,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
         Page<AirPlaneEntity> airPlaneEntityPage
             = airplaneRepository.findByMemberEntityId(pageable, id);
 
-        Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity->
+        Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity ->
             AirplaneDto.builder()
                 .id(airplaneEntity.getId())
                 .toArea(airplaneEntity.getToArea())
@@ -138,7 +138,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
                 .status(airplaneEntity.getStatus())
                 .memberEntity(airplaneEntity.getMemberEntity())
                 .build()
-            );
+        );
 
         return airplaneDtoPage;
     }
@@ -162,7 +162,7 @@ public class AirplaneService implements AirPlaneServiceInterface {
 //
 //        Page<AirPlaneEntity> airPlaneEntityPage = airplaneRepository.findTodayAirplane(pageable, id, today);
 
-        Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity->
+        Page<AirplaneDto> airplaneDtoPage = airPlaneEntityPage.map(airplaneEntity ->
             AirplaneDto.builder()
                 .id(airplaneEntity.getId())
                 .toArea(airplaneEntity.getToArea())
@@ -188,8 +188,8 @@ public class AirplaneService implements AirPlaneServiceInterface {
     @Override
     public AirplaneDto findAirplane(Long id) {
 
-       AirPlaneEntity airPlaneEntity
-           = airplaneRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        AirPlaneEntity airPlaneEntity
+            = airplaneRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
         AirplaneDto airplaneDto = AirplaneDto.builder()
             .id(airPlaneEntity.getId())
@@ -242,11 +242,65 @@ public class AirplaneService implements AirPlaneServiceInterface {
 
 //        List<AirPlaneEntity> airPlaneEntityList = airplaneRepository.updateStatus(LocalDateTime.now());
 
-        for(AirPlaneEntity airPlaneEntity : airPlaneEntityList){
-            if(!airPlaneEntity.getStatus().equals("운행중")){
+        for (AirPlaneEntity airPlaneEntity : airPlaneEntityList) {
+            if (!airPlaneEntity.getStatus().equals("운행중")) {
                 airPlaneEntity.setStatus("운행중");
                 airplaneRepository.save(airPlaneEntity);
             }
         }
+    }
+
+    @Override
+    public int findTodayAirplane() {
+
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+        LocalDate now = LocalDate.now();
+
+        int todayAirplane = (int) queryFactory.select(airPlane.count())
+            .from(airPlane)
+            .where(airPlane.toTime.dayOfMonth().eq(now.getDayOfMonth()))
+            .fetchCount();
+
+        return todayAirplane;
+    }
+
+    @Override
+    public int findAllAirplane() {
+
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+
+        int allAirplane = (int) queryFactory.select(airPlane.count())
+            .from(airPlane)
+            .fetchCount();
+
+        return allAirplane;
+    }
+
+    @Override
+    public int todayMyAirplaneCount(Long id) {
+
+        LocalDate now = LocalDate.now();
+
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+
+        int myAirplaneCount = (int) queryFactory.select(airPlane.count())
+            .from(airPlane)
+            .where(airPlane.toTime.dayOfMonth().eq(now.getDayOfMonth())
+                .and(airPlane.memberEntity.id.eq(id)))
+            .fetchCount();
+        return myAirplaneCount;
+    }
+
+    @Override
+    public int myAirplanes(Long id) {
+
+        QAirPlaneEntity airPlane = QAirPlaneEntity.airPlaneEntity;
+
+        int myAirplaneCount = (int) queryFactory.select(airPlane.count())
+            .from(airPlane)
+            .where(airPlane.memberEntity.id.eq(id))
+            .fetchCount();
+
+        return myAirplaneCount;
     }
 }

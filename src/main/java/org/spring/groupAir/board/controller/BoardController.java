@@ -174,8 +174,10 @@ public class BoardController {
 
 
     List<BoardEntity> boards = boardService.getBoardsBySeparateId(boardSeparateId);
+
     model.addAttribute("boards", boards);
-    model.addAttribute("boardSeparateId",boardSeparateId);
+    model.addAttribute("boardSeparateId", boardSeparateId);
+
 
     return "board/boardsPage";
   }

@@ -79,6 +79,8 @@ public class BoardService implements BoardServiceInterface {
           .id(boardDto.getMemberId())
           .build());
 
+
+
       BoardEntity boardEntity = BoardEntity.toInsertFileBoardEntity(boardDto);
       Long id = boardRepository.save(boardEntity).getId();
 
@@ -88,11 +90,15 @@ public class BoardService implements BoardServiceInterface {
         BoardEntity boardEntity1 = optionalBoardEntity.get(); // Entity
         // 게시글에 정상 저장되면 -> 파일 Entity 저장
 
+
+
         BoardFileDto fileDto = BoardFileDto.builder()
             .boardOldFile(oldFileName)
             .boardNewFile(newFileName)
             .boardEntity(boardEntity1)
             .build();
+
+
 
         BoardFileEntity fileEntity = BoardFileEntity.toInsertFile(fileDto);
         fileRepository.save(fileEntity);

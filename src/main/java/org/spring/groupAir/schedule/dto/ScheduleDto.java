@@ -2,6 +2,7 @@ package org.spring.groupAir.schedule.dto;
 
 import lombok.*;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.schedule.entity.ScheduleEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.Id;
 public class ScheduleDto {
 
   private Long id;
-//
+
 //  private String title;
 
   private String content;
@@ -31,4 +32,7 @@ public class ScheduleDto {
   private Long employeeId;
 
   private MemberEntity memberEntity;
+
+
 }
+

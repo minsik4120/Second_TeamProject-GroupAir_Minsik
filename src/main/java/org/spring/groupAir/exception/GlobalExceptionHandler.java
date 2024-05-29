@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GlobalExceptionHandler {
 
+
   @ExceptionHandler(value = Exception.class)
   public ResponseEntity<?> exceptionHandlerMethod(Exception e){
     String js="<script> alert('"+e.getMessage()+"'); " +
@@ -20,6 +21,7 @@ public class GlobalExceptionHandler {
 
     return  ResponseEntity.status(HttpStatus.OK).body(html);
   }
+
 
 }
 

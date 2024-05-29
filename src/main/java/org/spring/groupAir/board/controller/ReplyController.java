@@ -2,9 +2,13 @@ package org.spring.groupAir.board.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.board.dto.BoardDto;
 import org.spring.groupAir.board.dto.BoardReplyDto;
 import org.spring.groupAir.board.service.ReplyService;
+import org.spring.groupAir.config.MyUserDetailsImpl;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +43,11 @@ public class ReplyController {
 
   @PostMapping("/ajaxWrite")
   @ResponseBody
-  public BoardReplyDto ajaxWrite(BoardReplyDto boardReplyDto) {
+  public BoardReplyDto ajaxWrite(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails ,
+                                 Model model, BoardReplyDto boardReplyDto, BoardDto boardDto) {
+
+    model.addAttribute("memberName" , myUserDetails.getMemberEntity().getName());
+
     BoardReplyDto reply = replyService.ajaxInsert(boardReplyDto);
 
     return reply;
@@ -53,5 +61,14 @@ public class ReplyController {
     return replyList;
 
   }
+
+  @GetMapping("/boardReplyDelete/{id}")
+  public String boardReplyDelete(@PathVariable("id") Long id) {
+
+    Long boardId = replyService.boardReplyDeleteById(id);
+
+    return "redirect:/board/boardDetail/" + boardId;
+  }
+
 
 }

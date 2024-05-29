@@ -18,7 +18,7 @@
 <body>
 <div class="naver-group">
   <ul class="parent-node">
-    <!-- 조직 연동 기본 구조 -->
+     조직 연동 기본 구조
     <li class="node" th:each="dto1:${list}" th:if="${#strings.isEmpty(dto1.parentOrgUnitId)}">
       <a th:text="${dto1.orgUnitName}"></a>
       <ul class="group">

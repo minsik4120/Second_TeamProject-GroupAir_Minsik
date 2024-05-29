@@ -65,10 +65,26 @@ public class ReplyService implements BoardReplyServiceInterface {
 
       }
 
+
       return boardReplyDtos;
     }
 
     return null;
+  }
+
+  @Override
+  public Long boardReplyDeleteById(Long id) {
+
+    Long boardId = replyRepository.findById(id).get().getBoardEntity().getId(); // 댓글 if 찾기
+
+    if(boardId != null) {
+      replyRepository.deleteById(id);
+
+    } else {
+      System.out.println("댓글 작성 식패");
+    }
+
+    return boardId;
   }
 
 

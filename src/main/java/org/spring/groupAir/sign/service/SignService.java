@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.spring.groupAir.member.entity.MemberEntity;
 import org.spring.groupAir.member.repository.MemberRepository;
 import org.spring.groupAir.sign.dto.SignDto;
-import org.spring.groupAir.sign.dto.SignFileDto;
 import org.spring.groupAir.sign.entity.SignEntity;
-import org.spring.groupAir.sign.entity.SignFileEntity;
 import org.spring.groupAir.sign.repository.SignFileRepository;
 import org.spring.groupAir.sign.repository.SignRepository;
 import org.spring.groupAir.sign.service.serviceInterface.SignServiceInterface;
@@ -14,13 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -138,52 +133,66 @@ public class SignService implements SignServiceInterface {
     public Long insertSign(SignDto signDto) throws IOException {
 
 
-
         MemberEntity memberEntity = signDto.getMemberEntity();
         if (memberEntity != null && memberEntity.getId() == null) {
-
             memberEntity = memberRepository.save(memberEntity);
-
-
         }
         signDto.setMemberEntity(memberEntity);
 
+        // 파일 전송 부분을 제외한 코드
 
-        System.out.println(signDto.getRejectReason()+" rejectReason");
+        SignEntity signEntity = SignEntity.toInsertSignEntity(signDto);
+        Long signId = signRepository.save(signEntity).getId();
+        return signId;
 
 
-        if (signDto.getSignFile().isEmpty()) {
-            SignEntity signEntity = SignEntity.toInsertSignEntity(signDto);
+//        MemberEntity memberEntity = signDto.getMemberEntity();
+//        if (memberEntity != null && memberEntity.getId() == null) {
+//
+//            memberEntity = memberRepository.save(memberEntity);
+//
+//
+//        }
+//        signDto.setMemberEntity(memberEntity);
+//
+//
+//        System.out.println(signDto.getRejectReason()+" rejectReason");
+//
+//
+//        if (signDto.getSignFile().isEmpty()) {
+//            SignEntity signEntity = SignEntity.toInsertSignEntity(signDto);
+//
+//           Long signId= signRepository.save(signEntity).getId();
+//           return signId;
+//        } else {
+//            MultipartFile signFile = signDto.getSignFile();
+//            String signOldFile = signFile.getOriginalFilename();
+//            UUID uuid = UUID.randomUUID();
+//            String signNewFile = uuid + "_" + signOldFile;
+//            String fileSavePath = "c:/groupAir/" + signNewFile;
+//            signFile.transferTo(new File(fileSavePath));
+//
+//            SignEntity signEntity = SignEntity.toInsertFileSignEntity(signDto);
+//            Long id = signRepository.save(signEntity).getId();
+//
+//            System.out.println(id+" <<< id");
+//            SignEntity signEntity1 = signRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
+//            SignFileDto signFileDto = SignFileDto.builder()
+//                    .signOldFile(signOldFile)
+//                    .signNewFile(signNewFile)
+//                    .content(signEntity.getContent())
+//                    .signEntity(signEntity1)
+//                    .build();
+//
+//            SignFileEntity signFileEntity2 = SignFileEntity.toInsertFile(signFileDto);
+//            signFileRepository.save(signFileEntity2);
+//
+//            return id;
 
-           Long signId= signRepository.save(signEntity).getId();
-           return signId;
-        } else {
-            MultipartFile signFile = signDto.getSignFile();
-            String signOldFile = signFile.getOriginalFilename();
-            UUID uuid = UUID.randomUUID();
-            String signNewFile = uuid + "_" + signOldFile;
-            String fileSavePath = "c:/groupAir/" + signNewFile;
-            signFile.transferTo(new File(fileSavePath));
 
-            SignEntity signEntity = SignEntity.toInsertFileSignEntity(signDto);
-            Long id = signRepository.save(signEntity).getId();
-
-            System.out.println(id+" <<< id");
-            SignEntity signEntity1 = signRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
-            SignFileDto signFileDto = SignFileDto.builder()
-                    .signOldFile(signOldFile)
-                    .signNewFile(signNewFile)
-                    .content(signEntity.getContent())
-                    .signEntity(signEntity1)
-                    .build();
-
-            SignFileEntity signFileEntity2 = SignFileEntity.toInsertFile(signFileDto);
-            signFileRepository.save(signFileEntity2);
-
-            return id;
 
         }
-    }
+
 
 
 
@@ -214,10 +223,16 @@ public class SignService implements SignServiceInterface {
             signEntityPage = signRepository.findByLastApprover(pageable ,name);
         }else {
             if (subject.equals("title")){
-                signEntityPage=signRepository.findByTitleContains(pageable,search,name);
-            } else if (subject.equals("content")) {
-                signEntityPage=signRepository.findByContentContains(pageable,search,name);
-            }else {
+                signEntityPage=signRepository.findByTitleContaining(pageable,search);
+            }
+
+            else if(subject.equals("approve")){
+                signEntityPage=signRepository.findByApproveContaining(pageable , search);
+            }
+            else if(subject.equals("content")){
+                signEntityPage=signRepository.findByApproveContaining(pageable , search);
+            }
+            else {
                 signEntityPage= signRepository.findByLastApprover(pageable, name);
             }
         }
@@ -232,11 +247,14 @@ public class SignService implements SignServiceInterface {
         if(subject==null || search==null){
             signEntityPage = signRepository.findByApprove(pageable ,name);
         }else {
-            if (subject.equals("title")){
-                signEntityPage=signRepository.findByTitleContains(pageable,search,name);
-            } else if (subject.equals("content")) {
-                signEntityPage=signRepository.findByContentContains(pageable,search,name);
-            }else {
+            if (subject.equals("title")) {
+                signEntityPage = signRepository.findByTitleContaining(pageable, search);
+            } else if (subject.equals("lastApprover") ){
+                signEntityPage = signRepository.findByLastApprover(pageable , search);
+
+        }else if(subject.equals("content")){
+                    signEntityPage=signRepository.findByContentContaining(pageable , search);
+                }else {
                 signEntityPage= signRepository.findByApprove(pageable, name);
             }
         }
@@ -317,6 +335,10 @@ public class SignService implements SignServiceInterface {
 //
 //        return signDtoPage;
 //   }
+
+
+
+
 }
 
 

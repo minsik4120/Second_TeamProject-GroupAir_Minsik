@@ -159,6 +159,7 @@ public class SignController {
 
 
         Page<SignDto> signDtoPage = signService.apvList(pageable, subject, search, name);
+
         int totalPages = signDtoPage.getTotalPages();
         int newPage = signDtoPage.getNumber();
 
@@ -172,6 +173,8 @@ public class SignController {
         model.addAttribute("newPage", newPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("signDtoPage", signDtoPage);
+
+
 
 
         return "sign/signList";
@@ -225,26 +228,30 @@ public class SignController {
 
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails,
+                         @PathVariable("id") Long id,
+                         Model model) {
         SignDto sign = signService.signOne(id);
-        String selectedUserName = sign.getLastApprover(); // 선택된 사용자의 이름 가져오기
+        String selectedUserName = sign.getLastApprover();
+        String position = memberService.findPosition(myUserDetails.getName());
         model.addAttribute("sign", sign);
         model.addAttribute("selectedUserName", selectedUserName);
+        model.addAttribute("position", position);
         return "sign/detail";
     }
 
-    @GetMapping("/submitDetail/{id}")
-    public String submitDetail(@PathVariable("id") Long id , Model model){
-        SignDto approveSign= signService.approveSignOne(id);
-        String selectedUserName = approveSign.getLastApprover(); // 선택된 사용자의 이름 가져오기
-        model.addAttribute("approveSign" , approveSign);
-        model.addAttribute("selectedUserName", selectedUserName);
-
-        return "sign/submitDetail";
-
-
-
-    }
+//    @GetMapping("/submitDetail/{id}")
+//    public String submitDetail(@PathVariable("id") Long id , Model model){
+//        SignDto approveSign= signService.approveSignOne(id);
+//        String selectedUserName = approveSign.getLastApprover(); // 선택된 사용자의 이름 가져오기
+//        model.addAttribute("approveSign" , approveSign);
+//        model.addAttribute("selectedUserName", selectedUserName);
+//
+//        return "sign/submitDetail";
+//
+//
+//
+//    }
 
 
     //승인자만보이게
@@ -356,10 +363,6 @@ public class SignController {
         // return "sign/signOk";
 
     }
-
-
-
-
 
 
 

@@ -81,6 +81,7 @@ public class SignDto {
         signDto.setRejectReason(signEntity.getRejectReason());
         signDto.setCreateTime(signEntity.getCreateTime());
         signDto.setUpdateTime(signEntity.getUpdateTime());
+        signDto.setSubContent(signEntity.getSubContent());//결재상태
 
 
         return signDto;
@@ -102,6 +103,7 @@ public class SignDto {
         signDto.setLevel(signEntity.getLevel()); // 직급 설정
         signDto.setMidApprover(signEntity.getMidApprover()); // 중간승인자 설정
         signDto.setLastApprover(signEntity.getLastApprover()); // 최종승인자 설정
+        signDto.setSubContent(signEntity.getSubContent());//결재상태
 
         System.out.println(signEntity.getSignAttachFile()+" <<<");
         if (signEntity.getSignAttachFile() == 1) {

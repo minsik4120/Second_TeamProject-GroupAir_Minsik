@@ -44,7 +44,7 @@ public class SignEntity extends BaseTimeEntity {
     private String deptName;//부서명
 
     @Column(nullable = false)
-    private String midApprover;//중간승인자
+    private String midApprover;
 
     @Column(nullable = false)
     private String lastApprover; //최종승인자

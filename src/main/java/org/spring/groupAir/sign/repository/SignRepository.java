@@ -19,6 +19,10 @@ public interface SignRepository  extends JpaRepository<SignEntity, Long> {
 
     Page<SignEntity> findByApproveContaining(Pageable pageable, String search);
 
+    Page<SignEntity> findByContentContaining(Pageable pageable, String search);
+
+    Page<SignEntity> findByLastApproverContaining(Pageable pageable, String search);
+
     Page<SignEntity> findByMemberEntityName(String name, Pageable pageable);
 
     Page<SignEntity> findByLastApprover(Pageable pageable, String name);
@@ -30,14 +34,17 @@ public interface SignRepository  extends JpaRepository<SignEntity, Long> {
 
 //    List<SignEntity> findAllBySubcontent(String subContent);
 
-    List<SignEntity> findAllBySubContent(String subContent );
+    List<SignEntity> findAllBySubContent(String subContent);
 
     Page<SignEntity> findByApprove(Pageable pageable, String name);
 
 
-    Page<SignEntity>  findAllByMemberEntity(Pageable pageable, String search, MemberEntity memberEntity );
+    Page<SignEntity> findAllByMemberEntity(Pageable pageable, String search, MemberEntity memberEntity);
 
     List<SignEntity> findAllByLastApproverAndSubContent(String name, String subContent);
+
+
+
 }
 
 

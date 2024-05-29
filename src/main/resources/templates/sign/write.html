@@ -4,7 +4,7 @@
       layout:decorate="~{common/layout/adminLayout}">
 
 <th:block layout:fragment="title">
-    <h1>결재작성</h1>
+
 </th:block>
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/sign/write.css}">
@@ -56,9 +56,14 @@
 
                             </td>
 
-                            <td><input type="text" th:field="*{level}" id="level"></td>
-
-
+                            <td>
+<!--                                <input type="text" th:field="*{level}" id="level">-->
+                            <select name="level" id="level">
+                                <option value="사원">사원</option>
+                                <option value="부장">부장</option>
+                                <option value="대표이사">대표이사</option>
+                            </select>
+                            </td>
 
 
                         </tr>
@@ -94,12 +99,12 @@
                         </tr>
 
 
-                        <tr>
-                            <td colspan="4">
-                                <label for="signFile">파일</label>
-                                <input type="file" name="signFile" id="signFile">
-                            </td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td colspan="4">-->
+<!--                                <label for="signFile">파일</label>-->
+<!--                                <input type="file" name="signFile" id="signFile">-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         <tr>
                             <td colspan="4">
                                 <input type="submit" value="제출" style="width: 100%;">

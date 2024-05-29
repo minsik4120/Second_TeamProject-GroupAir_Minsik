@@ -46,7 +46,7 @@
 }
 
 .approval-form input[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #96b3d9;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -54,5 +54,5 @@
 }
 
 .approval-form input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #3767a6;
 }

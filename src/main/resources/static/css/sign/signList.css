@@ -13,6 +13,7 @@
 .signList {
     text-align: center;
     margin-top: 20px;
+    
 }
 
 /* 결재함 리스트 컨텐츠(signList-con) 스타일 */
@@ -38,7 +39,7 @@
 
 .search input[type="submit"] {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #96b3d9;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -104,7 +105,7 @@ tr:nth-child(even) {
 }
 
 .paging ul li .now {
-    background-color: #007bff;
+    background-color: #3767a6;
     color: #fff;
 }
 
@@ -135,4 +136,40 @@ tr:nth-child(even) {
         display: block;
         text-align: center;
     }
+
 }
+
+.signList-con p{
+    display: inline-block;
+    margin-right: 20px; /* 버튼 간격 조절 */
+
+
+}
+
+
+
+
+
+.signList-con p a{
+    
+    width: 150px;
+    height: 15px;
+    line-height: 60px; /* Vertically center the text */
+    border-radius: 10px; /* Round corners */
+    border: 1px solid;
+    color: black;
+    font-size:20px;
+    background: white;
+    padding: 10px 20px;
+ 
+
+
+    }
+
+.signList-con p a:hover{
+    background-color:#96b3d9;
+    color: white;
+}
+
+
+

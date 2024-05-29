@@ -4,7 +4,7 @@
       layout:decorate="~{common/layout/adminLayout}">
 
 <th:block layout:fragment="title">
-   <h1>반려된 결재 목록</h1>
+
 </th:block>
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/sign/signNo.css}">
@@ -18,10 +18,10 @@
         <div class="signNo">
             <div class="signNo-con">
 
-               <h2>반려된 결재 목록</h2>
+                <h2>반려된 결재 목록:<span th:text="'(' + ${signNoList.size()} + '건)'"></span></h2>
 
-<!--                <span><a th:href="@{/sign/signList}">결재함</a></span> <br>-->
-<!--                <span><a th:href="@{/sign/signOk}">승인된 결재 목록</a></span>-->
+                <!--                <span><a th:href="@{/sign/signList}">결재함</a></span> <br>-->
+                <!--                <span><a th:href="@{/sign/signOk}">승인된 결재 목록</a></span>-->
 
                 <form th:action="@{/sign/signNo}" method="get">
 
@@ -38,6 +38,7 @@
                         <th>내용</th>
                         <th>작성시간</th>
                         <th>수정시간</th>
+                        <th>처리상태</th>
                         <th>상세보기</th>
                         <th>삭제</th>
                         <th>최종승인자</th>
@@ -55,13 +56,12 @@
                         <td th:text="${#temporals.format(sign.createTime, 'yy-mm-dd hh:mm:ss')}"></td>
                         <td th:text="${#temporals.format(sign.updateTime, 'yy-mm-dd hh:mm:ss')}"></td>
 
-
+                        <td th:text="${sign.subContent}"></td>
                         <td><a th:href="@{/sign/detail/{id}(id=${sign.id})}">상세보기</a></td>
 
                         <td><a th:href="@{/sign/delete/{id}(id=${sign.id})}">삭제</a></td>
 
                         <td th:text="${sign.lastApprover}">승인자</td>
-
 
 
                         <!--                        <th:block th:if="${sign.signAttachFile==1}">-->
@@ -75,21 +75,11 @@
                     </tbody>
 
 
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
 
-            </div>
-        </div>
+    </div>
+    </div>
     </div>
 </th:block>
 </html>

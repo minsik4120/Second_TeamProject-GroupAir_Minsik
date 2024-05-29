@@ -60,5 +60,25 @@ public class ScheduleService {
 
   }
 
+  @Override
+  public List<ScheduleDto> getScheduleByEmployeeId(Long id) {
+    List<ScheduleEntity> scheduleEntityList = scheduleRepository.findByMemberEntityId(id);
 
+    List<ScheduleDto> scheduleDtoList = scheduleEntityList.stream()
+        .map(scheduleEntity -> ScheduleDto.builder()
+            .id(scheduleEntity.getId())
+            .memberEntity(scheduleEntity.getMemberEntity())
+            .employeeId(scheduleEntity.getId())
+            .content(scheduleEntity.getContent())
+            .start(scheduleEntity.getStart())
+            .end(scheduleEntity.getEnd())
+            .build())
+        .collect(Collectors.toList());
+//    1
+    return scheduleDtoList;
+  }
 }
+
+
+
+

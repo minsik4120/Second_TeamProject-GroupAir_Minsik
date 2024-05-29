@@ -120,9 +120,15 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public List<MemberDto> selectPilot() {
+                String pilot = "부장";
 
+        List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
 
-        return null;
+        List<MemberDto> memberDtoList = memberEntityList.stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
+
+        System.out.println("?>>>>>" + memberDtoList);
+
+        return memberDtoList;
     }
 
 
@@ -379,6 +385,7 @@ public class MemberService implements MemberServiceInterface {
 
         return memberDto;
     }
+
     @Override
     public int countMember() {
             String pilot = "사원";

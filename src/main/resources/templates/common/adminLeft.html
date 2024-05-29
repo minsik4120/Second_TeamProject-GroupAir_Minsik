@@ -74,25 +74,6 @@
                         <img th:src="@{/images/employee.png}" alt="member">
                         <a th:href="@{#}">사원관리</a>
                         <ul class="subMenu">
-<<<<<<< HEAD
-                            <li><a th:href="@{#}">부서</a></li>
-                            <li><a th:href="@{/sign}">결재</a></li>
-                            <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
-                        </ul>
-                    </li>
-
-                    <th:block sec:authorize="hasAnyRole('ADMIN')">
-                        <li class="menuBar">
-                            <img th:src="@{/images/employee.png}" alt="member">
-                            <a th:href="@{#}">사원관리</a>
-                            <ul class="subMenu">
-                                <li><a th:href="@{/member/memberList}">사원목록</a></li>
-                                <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
-                            </ul>
-                        </li>
-                    </th:block>
-
-=======
                             <th:block sec:authorize="hasAnyRole('ADMIN')">
                             <li><a th:href="@{/member/memberJoin}">사원등록</a></li>
                             </th:block>
@@ -129,7 +110,6 @@
                         </ul>
                     </li>
 
->>>>>>> dev
                     <li class="menuBar">
                         <img th:src="@{/images/plane.png}" alt="member">
                         <a th:href="@{/airplane/index}">항공편</a>

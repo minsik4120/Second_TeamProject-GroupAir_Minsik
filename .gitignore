@@ -41,5 +41,9 @@ application-oauth2.yml
 
 ### user.dic ###
 user.dic
+<<<<<<< HEAD
+/.dic/
+=======
 
 src/main/resources/application.properties
+>>>>>>> dev

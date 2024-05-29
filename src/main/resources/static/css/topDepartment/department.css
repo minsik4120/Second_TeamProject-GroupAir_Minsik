@@ -189,7 +189,22 @@ table , td {
 .make .make-con .de_right ul form li.meList {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 30px;
+    overflow-y: scroll;
+    height: 100px;
+}
+
+.make .make-con .de_right ul form li.meList::-webkit-scrollbar {
+    width: 5px;
+}
+
+.make .make-con .de_right ul form li.meList::-webkit-scrollbar-thumb {
+    background: #324153;
+    border-radius: 10px;
+}
+
+.make .make-con .de_right ul form li.meList::-webkit-scrollbar-track {
+    background:#eff6ff;
 }
 
 .make .make-con .de_right ul form li.deList {
@@ -210,6 +225,14 @@ table , td {
     cursor: pointer;
     padding: 3px;
     box-sizing: border-box;
+}
+
+.make .make-con .de_right ul form input#departmentEntityList .Role_mem {
+    background-color: #324153;
+}
+
+.bg-special {
+    background-color: yellow; /* 원하는 배경색으로 변경하세요 */
 }
 
 .make .make-con .de_right ul form input#departmentEntityList:hover {

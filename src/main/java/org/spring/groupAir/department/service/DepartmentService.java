@@ -2,11 +2,14 @@ package org.spring.groupAir.department.service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.entity.DepartmentEntity;
 import org.spring.groupAir.department.entity.QDepartmentEntity;
 import org.spring.groupAir.department.repository.DepartmentRepository;
 import org.spring.groupAir.department.service.serviceImpl.DepartmentServiceImpl;
+import org.spring.groupAir.member.dto.MemberDto;
+import org.spring.groupAir.member.entity.MemberEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -91,12 +94,22 @@ public class DepartmentService implements DepartmentServiceImpl {
     }
 
     @Override
+    public List<MemberDto> getMembers(Long deId) {
+
+        DepartmentEntity departmentEntity = departmentRepository.findById(deId).get();
+
+        List<MemberDto> member = departmentEntity.getMemberEntityList().stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
+
+        return member;
+    }
+
+    @Override
     public List<DepartmentDto> subDepartments() {
 
         List<DepartmentEntity> departmentEntityList = departmentRepository.findAll();
 
         List<DepartmentDto> departmentDtoList
-            = departmentEntityList.stream().map(DepartmentDto :: fromEntity).collect(Collectors.toList());
+                = departmentEntityList.stream().map(DepartmentDto::fromEntity).collect(Collectors.toList());
 
         return departmentDtoList;
     }

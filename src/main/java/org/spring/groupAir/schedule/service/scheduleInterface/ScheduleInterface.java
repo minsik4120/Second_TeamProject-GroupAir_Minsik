@@ -7,6 +7,10 @@ import java.util.List;
 public interface ScheduleInterface {
 
 
+  List<ScheduleDto> scheduleListAll();
+
+  void setCalendar(ScheduleDto scheduleDto);
+
   //----------------------------------------------------------//
   List<ScheduleDto> mySchedule(Long id);
 

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ScheduleService implements ScheduleInterface {
   private final ScheduleRepository scheduleRepository;
 
+  @Override
   public List<ScheduleDto> scheduleListAll() {
 
     List<ScheduleDto> scheduleDtoList = new ArrayList<>();
@@ -38,6 +39,7 @@ public class ScheduleService implements ScheduleInterface {
     return scheduleDtoList;
   }
 
+  @Override
   public void setCalendar(ScheduleDto scheduleDto) {
 
 

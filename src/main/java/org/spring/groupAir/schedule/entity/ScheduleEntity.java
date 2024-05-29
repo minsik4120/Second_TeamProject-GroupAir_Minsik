@@ -37,4 +37,6 @@ public class ScheduleEntity extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private MemberEntity memberEntity;
+
 }
+

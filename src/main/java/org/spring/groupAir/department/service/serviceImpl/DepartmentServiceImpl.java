@@ -14,4 +14,6 @@ public interface DepartmentServiceImpl {
     void delete(Long id);
 
     List<DepartmentDto> getSubDepartments(Long topDepartmentId);
+
+    List<DepartmentDto> subDepartments();
 }

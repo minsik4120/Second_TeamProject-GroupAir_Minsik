@@ -347,6 +347,19 @@ public class MemberService implements MemberServiceInterface {
         MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
 
         return memberDto;
+      
+
+    @Override
+    public int countMember() {
+
+        String pilot = "사원";
+
+        List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
+
+        int members = memberEntityList.size();
+
+        return members;
+
     }
 
 }

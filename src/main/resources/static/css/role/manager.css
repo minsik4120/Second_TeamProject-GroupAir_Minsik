@@ -85,7 +85,7 @@
 }
 
 
-.role_manager .role_manager-con .board {
+.role_manager .role_manager-con .sign {
     margin: 30px;
     /*padding: 20px;*/
     border: 1px solid #cccccc;
@@ -98,14 +98,18 @@
     gap: 20px;
 }
 
-.role_manager .role_manager-con .board:hover{
+.role_manager .role_manager-con .sign:hover{
     background-color: #eff6ff;
     box-shadow: 1px 1px #333333;
 }
 
-.role_manager .role_manager-con .board .board-con {
+.role_manager .role_manager-con .sign .sign-con {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
+    gap: 20px;
 }
 
 .role_manager .role_manager-con .airplane {
@@ -150,7 +154,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 10px;
+    padding : 10px;
 }
 
 .role_manager .role_manager-con .member:hover{
@@ -160,13 +164,13 @@
 
 .role_manager .role_manager-con .member .member-con {
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .role_manager .role_manager-con .member .member-con .members {
-    font-size: 25px;
+    font-size: 20px;
 }
 

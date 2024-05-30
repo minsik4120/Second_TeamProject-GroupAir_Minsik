@@ -66,12 +66,20 @@
                         </table>
                     </div>
                 </div>
-                <div class="board">
+                <div class="sign">
                     <div class="plus">
-                        <a th:href="@{/board/boardList}">게 시 판</a>
+                        <a th:href="@{/sign/signList}">내게 온 결재</a>
                     </div>
-                    <div class="board-con">
-                        내가 쓴 글 : [[${boardCount}]]개
+                    <div class="sign-con">
+                        <div class="signs">
+                        미 결 재 : [[${notSign}]]개
+                        </div>
+                        <div class="signs">
+                        승 인 : [[${signOk}]]개
+                        </div>
+                        <div class="signs">
+                        반 려 : [[${signNo}]]개
+                        </div>
                     </div>
                 </div>
                 <div class="airplane">

@@ -15,6 +15,7 @@ import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
 import org.spring.groupAir.schedule.dto.ScheduleDto;
 import org.spring.groupAir.schedule.service.ScheduleService;
+import org.spring.groupAir.sign.service.SignService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,7 @@ public class HomeController {
     private final VacationService vacationService;
     private final TopDepartmentService topDepartmentService;
     private final DepartmentService departmentService;
+    private final SignService signService;
 
 
     @GetMapping({"/", "/index"})
@@ -115,6 +117,10 @@ public class HomeController {
 
         List<ScheduleDto> scheduleDtoList = scheduleService.todayMySchedule(myUserDetails.getMemberEntity().getId());
 
+        int notSign = signService.notSignCount(myUserDetails.getMemberEntity().getName());
+        int signOk = signService.getAllSignOk(myUserDetails.getMemberEntity().getName()).size();
+        int signNo = signService.getAllSignNo(myUserDetails.getMemberEntity().getName()).size();
+
         model.addAttribute("list", list);
         model.addAttribute("commuteDtoList", commuteDtoList);
         model.addAttribute("boardCount", boardCount);
@@ -122,6 +128,10 @@ public class HomeController {
         model.addAttribute("todayMyAirplaneCount", todayMyAirplaneCount);
         model.addAttribute("memberDto", memberDto);
         model.addAttribute("scheduleDtoList", scheduleDtoList);
+
+        model.addAttribute("notSign", notSign);
+        model.addAttribute("signOk", signOk);
+        model.addAttribute("signNo", signNo);
 
         return "role/manager";
     }
@@ -137,11 +147,20 @@ public class HomeController {
 
         List<ScheduleDto> scheduleDtoList = scheduleService.todayMySchedule(myUserDetails.getMemberEntity().getId());
 
+        int myNotSignCount = signService.myNotSignCount(myUserDetails.getMemberEntity().getId());
+        int mySignOkCount = signService.mySignOkCount(myUserDetails.getMemberEntity().getId());
+        int mySignNoCount = signService.mySignNoCount(myUserDetails.getMemberEntity().getId());
+
+
         model.addAttribute("commuteDtoList", commuteDtoList);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("memberDto", memberDto);
         model.addAttribute("vacationDtoList", vacationDtoList);
         model.addAttribute("scheduleDtoList", scheduleDtoList);
+
+        model.addAttribute("myNotSignCount", myNotSignCount);
+        model.addAttribute("mySignOkCount", mySignOkCount);
+        model.addAttribute("mySignNoCount", mySignNoCount);
 
         return "role/member";
     }

@@ -53,7 +53,6 @@ public class SignDto {
 
     private String deptName;//부서명
 
-
     private String lastApprover; //최종승인자
 
 

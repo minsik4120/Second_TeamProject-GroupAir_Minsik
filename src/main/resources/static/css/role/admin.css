@@ -147,6 +147,10 @@
     box-shadow: 1px 1px #333333;
 }
 
+.role_admin .role_admin-con .schedule .schedule-con table td{
+    padding : 5px;
+}
+
 
 .role_admin .role_admin-con .board {
     margin: 30px;

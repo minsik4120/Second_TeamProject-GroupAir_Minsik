@@ -151,8 +151,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 처음 실행 시
     calendar.addEvent({
-        title: "월요일",
-        start: "2024-05-13"
+        title: "목요일",
+        start: "2024-05-30"
     })
 
     calendar.render(); // 그린다(실제 브라우저에 표시)

@@ -8,13 +8,14 @@ import org.spring.groupAir.commute.dto.VacationDto;
 import org.spring.groupAir.commute.service.CommuteService;
 import org.spring.groupAir.commute.service.VacationService;
 import org.spring.groupAir.config.MyUserDetailsImpl;
-import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
+import org.spring.groupAir.schedule.dto.ScheduleDto;
 import org.spring.groupAir.schedule.service.ScheduleService;
+import org.spring.groupAir.sign.service.SignService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,7 @@ public class HomeController {
     private final VacationService vacationService;
     private final TopDepartmentService topDepartmentService;
     private final DepartmentService departmentService;
+    private final SignService signService;
 
 
     @GetMapping({"/", "/index"})
@@ -69,10 +71,10 @@ public class HomeController {
         int board3 = boardService.board3();
         int board4 = boardService.board4();
 
-        TopDepartmentDto topDepartmentDto = new TopDepartmentDto();
-//        List<DepartmentDto> departmentDtoList = departmentService.subDepartments();
-        List<TopDepartmentDto> topDepartmentDtos = topDepartmentService.List(topDepartmentDto);
 
+        List<ScheduleDto> scheduleDtoList = scheduleService.todayAllSchedule();
+        TopDepartmentDto topDepartmentDto = new TopDepartmentDto();
+        List<TopDepartmentDto> topDepartmentDtos = topDepartmentService.List(topDepartmentDto);
 
         model.addAttribute("sickVacationPeople", sickVacationPeople);
         model.addAttribute("vacationPeople", vacationPeople);
@@ -97,6 +99,8 @@ public class HomeController {
 //        model.addAttribute("departmentDtoList", departmentDtoList);
         model.addAttribute("topDepartmentDtos", topDepartmentDtos);
 
+        model.addAttribute("scheduleDtoList", scheduleDtoList);
+
         return "role/admin";
     }
 
@@ -112,12 +116,23 @@ public class HomeController {
         Long deId = myUserDetails.getMemberEntity().getDepartmentEntity().getId();
         List<MemberDto> list = departmentService.getMembers(deId);
 
+        List<ScheduleDto> scheduleDtoList = scheduleService.todayMySchedule(myUserDetails.getMemberEntity().getId());
+
+        int notSign = signService.notSignCount(myUserDetails.getMemberEntity().getName());
+        int signOk = signService.getAllSignOk(myUserDetails.getMemberEntity().getName()).size();
+        int signNo = signService.getAllSignNo(myUserDetails.getMemberEntity().getName()).size();
+
         model.addAttribute("list", list);
         model.addAttribute("commuteDtoList", commuteDtoList);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("myAirplaneCount", myAirplaneCount);
         model.addAttribute("todayMyAirplaneCount", todayMyAirplaneCount);
         model.addAttribute("memberDto", memberDto);
+        model.addAttribute("scheduleDtoList", scheduleDtoList);
+
+        model.addAttribute("notSign", notSign);
+        model.addAttribute("signOk", signOk);
+        model.addAttribute("signNo", signNo);
 
         return "role/manager";
     }
@@ -131,14 +146,29 @@ public class HomeController {
 
         List<VacationDto> vacationDtoList = vacationService.myVacation(myUserDetails.getMemberEntity().getId());
 
+
+        List<ScheduleDto> scheduleDtoList = scheduleService.todayMySchedule(myUserDetails.getMemberEntity().getId());
+
+        int myNotSignCount = signService.myNotSignCount(myUserDetails.getMemberEntity().getId());
+        int mySignOkCount = signService.mySignOkCount(myUserDetails.getMemberEntity().getId());
+        int mySignNoCount = signService.mySignNoCount(myUserDetails.getMemberEntity().getId());
+
+
+
         Long deId = myUserDetails.getMemberEntity().getDepartmentEntity().getId();
         List<MemberDto> list = departmentService.getMembers(deId);
 
         model.addAttribute("list", list);
+
         model.addAttribute("commuteDtoList", commuteDtoList);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("memberDto", memberDto);
         model.addAttribute("vacationDtoList", vacationDtoList);
+        model.addAttribute("scheduleDtoList", scheduleDtoList);
+
+        model.addAttribute("myNotSignCount", myNotSignCount);
+        model.addAttribute("mySignOkCount", mySignOkCount);
+        model.addAttribute("mySignNoCount", mySignNoCount);
 
         return "role/member";
     }

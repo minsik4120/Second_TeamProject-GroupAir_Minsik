@@ -54,9 +54,6 @@ public class SignEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String level; //직급
 
-
-
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "signStatus_id")
@@ -78,7 +75,7 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setApprove(signDto.getApprove());
         signEntity.setTitle(signDto.getTitle());
         signEntity.setContent(signDto.getContent());
-    signEntity.setRejectReason(signDto.getRejectReason());
+        signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setDeptName(signDto.getDeptName());
         signEntity.setLastApprover(signDto.getLastApprover());
         signEntity.setSubContent(signDto.getSubContent());

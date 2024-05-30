@@ -76,17 +76,16 @@
                     <div class="plus">
                         <a th:href="@{/department/top/deList}">부서 관리</a>
                     </div>
-                    <ul class="department-tree">
-                        <li th:each="department : ${departmentDtoList}">
-                            <span th:text="${department.topDepartmentEntity.topDepartmentName}">Top Department</span>
-                            <ul>
-                                <li>
-                                    <span th:text="${department.departmentName}">Department</span>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
+                    <div class="department-tree">
+                        <ul th:each="top : ${topDepartmentDtos}">
+                            <li class="top" th:text="${top.topDepartmentName}"></li>
+                            <li class="sub">
+                                <ul th:each="de : ${top.departmentEntityList}">
+                                    <span th:text="${de.departmentName}"></span>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="schedule">
                     <div class="plus">

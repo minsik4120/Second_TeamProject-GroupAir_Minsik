@@ -8,7 +8,6 @@ import org.spring.groupAir.commute.dto.VacationDto;
 import org.spring.groupAir.commute.service.CommuteService;
 import org.spring.groupAir.commute.service.VacationService;
 import org.spring.groupAir.config.MyUserDetailsImpl;
-import org.spring.groupAir.department.dto.DepartmentDto;
 import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
@@ -21,7 +20,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

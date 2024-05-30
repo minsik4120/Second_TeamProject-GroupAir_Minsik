@@ -143,14 +143,18 @@
                         </ul>
                     </li>
                     <li class="menuBar">
+                        <img th:src="@{/images/payment.png}" alt="sign">
+                        <a th:href="@{/sign}">결재함</a>
+                    </li>
+                    <li class="menuBar">
                         <img th:src="@{/images/calendar.png}" alt="calender">
                         <a th:href="@{/my/schedule}">일정관리</a>
                         <ul class="subMenu">
                             <th:block sec:authorize="hasAnyRole('ADMIN')">
                                 <li><a th:href="@{/my/schedule}">전체 일정 관리</a></li>
                             </th:block>
-<!--                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정-->
-<!--                                확인</a></li>-->
+                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정
+                                확인</a></li>
                         </ul>
                     </li>
                 </ul>

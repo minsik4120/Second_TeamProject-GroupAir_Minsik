@@ -72,7 +72,7 @@
 }
 
 .role_admin .role_admin-con .commute .commute-con .people .people-con {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 
@@ -169,7 +169,11 @@
 }
 
 .role_admin .role_admin-con .airplane .airplane-con .airplanes {
-    font-size: 30px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .role_admin .role_admin-con .member {
@@ -182,6 +186,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 20px;
 }
 
 .role_admin .role_admin-con .member:hover{
@@ -198,31 +203,9 @@
 }
 
 .role_admin .role_admin-con .member .member-con .members {
-    font-size: 30px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
-
-/*department*/
-/*.department-tree {*/
-/*    display: flex;*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*}*/
-
-/*.department-tree li {*/
-/*    margin-right: 20px;*/
-/*    position: relative; !* 부모 li의 상대적 위치 설정 *!*/
-/*}*/
-
-/*.department-tree li::before {*/
-/*    content: '';*/
-/*    position: absolute; !* 절대 위치 *!*/
-/*    top: 50%; !* 부모 li의 중간으로 이동 *!*/
-/*    left: 0;*/
-/*    border-left: 1px solid #000; !* 선 스타일 및 색상 설정 *!*/
-/*    height: 50%; !* 선의 높이는 부모 li의 중간까지 *!*/
-/*    margin-top: -1px; !* 선의 두께의 절반 만큼 위로 이동하여 선을 중앙 정렬 *!*/
-/*}*/
-
-/*.department-tree li > ul {*/
-/*    padding-left: 20px; !* 하위 부서 목록 들여쓰기 *!*/
-/*}*/

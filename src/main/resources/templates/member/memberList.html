@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/layout/adminLayout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{common/layout/adminLayout}">
 <th:block layout:fragment="title">
     <!-- 각 페이지 마다 변경 -->
     <title>memberList</title>
@@ -20,11 +19,12 @@
 
         <div class="memberList">
             <div class="memberList-con">
-                <h1>회원조회</h1>
-                <div class="search">
-                    <form th:action="@{/member/memberList}" method="get">
-                        <select name="subject" id="subject">
-                            <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
+                <div class="top">
+                    <h1>회원조회</h1>
+                    <div class="search">
+                        <form th:action="@{/member/memberList}" method="get">
+                            <select name="subject" id="subject">
+                                <option value="" th:selected="${#strings.isEmpty(param.subject)}"> ::선택::</option>
                             <option value="name" th:selected="${#strings.equals(param.subject, 'name')}">이름</option>
                             <option value="userEmail" th:selected="${#strings.equals(param.subject, 'userEmail')}">이메일
                             </option>
@@ -76,6 +76,10 @@
 
                         </tr>
                         </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="bottom">
                         <tfoot>
                         <tr>
                             <td colspan="11" class="pagingBorder">
@@ -83,20 +87,20 @@
                                     <ul>
                                         <li>
                                             <span th:if="${memberList.pageable.pageNumber+1 eq 1}"
-                                                  class="span0"> START </span>
+                                                  class="span0"> &laquo </span>
                                             <span th:unless="${memberList.pageable.pageNumber+1 eq 1}">
                                             <a th:href="@{/member/memberList(page=0,search=${param.search},
                                                 subject = ${param.subejct})}"
-                                               class="span1"> << </a>
+                                               class="span1"> &laquo </a>
                                         </span>
                                         </li>
                                         <li>
                                             <span th:if="${memberList.pageable.pageNumber+1 eq 1}"
-                                                  class="span0">PRE</span>
+                                                  class="span0">&lt</span>
                                             <span th:unless="${memberList.pageable.pageNumber+1 eq 1}">
                                             <a th:href="@{/member/memberList(page=${memberList.pageable.pageNumber-1}
                                             ,search = ${param.search}, subject = ${param.subject})}"
-                                               class="span1">이전</a>
+                                               class="span1">&lt</a>
                                     </span>
                                         </li>
 
@@ -110,23 +114,23 @@
 
                                         <li>
                                 <span th:if="${memberList.totalPages == memberList.pageable.pageNumber+1}"
-                                      class="span0">NEXT</span>
+                                      class="span0">&gt</span>
                                             <span
                                                 th:unless="${memberList.totalPages == memberList.pageable.pageNumber+1}">
                                     <a th:href="@{/member/memberList(page=${memberList.pageable.pageNumber+1}
-                                    ,search=${param.search},subject=${param.subject})}" class="span1">다음</a>
+                                    ,search=${param.search},subject=${param.subject})}" class="span1">&gt</a>
                                 </span>
                                         </li>
                                         <li>
                                     <span th:if="${memberList.totalPages == memberList.pageable.pageNumber+1}"
                                           class="span0">
-                                        END
+                                          &raquo
                                     </span>
                                             <span
                                                 th:unless="${memberList.totalPages == memberList.pageable.pageNumber+1}">
                                         <a th:href="@{/member/memberList(page=${memberList.totalPages-1}
                                         ,search=${param.search}, subject=${param.subject})}" class="span1">
-                                            마지막
+                                        &raquo
                                         </a>
                                     </span>
                                         </li>
@@ -135,8 +139,9 @@
                             </td>
                         </tr>
                         </tfoot>
-                    </table>
+                    
                 </div>
+                
             </div>
         </div>
 

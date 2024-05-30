@@ -37,13 +37,13 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
             errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
         }
-        else {
-            errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다. 관리자에게 문의하세요.";
-        }
+//        else {
+//            errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다. 관리자에게 문의하세요.";
+//        }
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
 
-        // /member/login페이지로 error, exception 보냄
+        // /페이지로 error, exception 보냄
         setDefaultFailureUrl("/?error=true&exception=" + errorMessage);
 
         super.onAuthenticationFailure(request, response, exception);

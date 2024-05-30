@@ -86,6 +86,7 @@ public class MemberDto {
     private Long positionId;
     private Long departmentId;
 
+
     public static MemberDto toMemberDto(MemberEntity memberEntity){
 
         MemberDto memberDto = new MemberDto();

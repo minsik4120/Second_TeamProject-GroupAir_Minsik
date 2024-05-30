@@ -177,6 +177,7 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setResignationDate(memberDto.getResignationDate());
         memberEntity.setRole(memberDto.getRole());
         memberEntity.setPhone(memberDto.getPhone());
+
         if (memberDto.getDepartmentEntity() != null) memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
         if (memberDto.getPositionEntity() != null)memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(0);

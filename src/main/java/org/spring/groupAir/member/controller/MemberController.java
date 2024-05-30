@@ -7,7 +7,9 @@ import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
+import org.spring.groupAir.member.dto.PositionDto;
 import org.spring.groupAir.member.entity.MemberEntity;
+import org.spring.groupAir.member.entity.PositionEntity;
 import org.spring.groupAir.member.service.MemberService;
 import org.spring.groupAir.salary.service.SalaryService;
 import org.springframework.data.domain.Page;
@@ -51,14 +53,13 @@ public class MemberController {
         model.addAttribute("memberDto", memberDto);
 
 
+
         return "member/memberJoin";
     }
 
     @PostMapping("/memberJoin")
     public String memberJoinOk(@Valid MemberDto memberDto,
                                BindingResult bindingResult) throws IOException {
-
-
         if (bindingResult.hasErrors()) {
             return "member/memberJoin";
         } else {
@@ -130,6 +131,7 @@ public class MemberController {
         MemberDto memberDto = memberService.memberDetail(id);
 
         model.addAttribute("memberDto", memberDto);
+
 
         return "member/memberUpdate";
     }

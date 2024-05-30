@@ -53,10 +53,6 @@ public class SignDto {
 
     private String deptName;//부서명
 
-
-    private String midApprover;//중간승인자
-
-
     private String lastApprover; //최종승인자
 
 
@@ -101,7 +97,6 @@ public class SignDto {
         signDto.setEmployee_id(signEntity.getId());
         signDto.setDeptName(signEntity.getDeptName()); // 부서명 설정
         signDto.setLevel(signEntity.getLevel()); // 직급 설정
-        signDto.setMidApprover(signEntity.getMidApprover()); // 중간승인자 설정
         signDto.setLastApprover(signEntity.getLastApprover()); // 최종승인자 설정
         signDto.setSubContent(signEntity.getSubContent());//결재상태
 

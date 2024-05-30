@@ -89,9 +89,15 @@
                 </div>
                 <div class="schedule">
                     <div class="plus">
-                        <a th:href="@{/calendar/myCalendar}">스케줄 관리</a>
+                        <a th:href="@{/calendar/myCalendar}">오늘의 일정</a>
                     </div>
-                    스케쥴
+                    <div class="schedule-con">
+                        <table>
+                            <tr th:each="schedule : ${scheduleDtoList}">
+                                <td th:text="${schedule.memberEntity.name} + ' 의 일정 : ' + ${schedule.content}"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="board">
                     <div class="plus">

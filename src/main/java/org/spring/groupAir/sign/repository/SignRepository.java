@@ -44,7 +44,7 @@ public interface SignRepository  extends JpaRepository<SignEntity, Long> {
     List<SignEntity> findAllByLastApproverAndSubContent(String name, String subContent);
 
 
-
+    List<SignEntity> findByMemberEntityIdAndSubContent(Long id, String subContent);
 }
 
 

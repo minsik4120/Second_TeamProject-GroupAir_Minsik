@@ -53,5 +53,11 @@ public interface SignServiceInterface {
     List<SignDto> getAllSignNo(String name);
 
 
+    int notSignCount(String name);
 
+    int myNotSignCount(Long id);
+
+    int mySignOkCount(Long id);
+
+    int mySignNoCount(Long id);
 }

@@ -111,7 +111,7 @@
 }
 
 
-.role_member .role_member-con .board {
+.role_member .role_member-con .sign {
     margin: 30px;
     /*padding: 20px;*/
     border: 1px solid #cccccc;
@@ -124,14 +124,18 @@
     gap: 20px;
 }
 
-.role_member .role_member-con .board:hover{
+.role_member .role_member-con .sign:hover{
     background-color: #eff6ff;
     box-shadow: 1px 1px #333333;
 }
 
-.role_member .role_member-con .board .board-con {
+.role_member .role_member-con .sign .sign-con {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
+    gap: 20px;
 }
 
 .role_member .role_member-con .vacation {
@@ -171,6 +175,7 @@
 .role_member .role_member-con .vacation .vacation-con table td{
     padding: 5px;
     border-bottom: 1px solid #ccc;
+    font-size: 10px;
 }
 
 
@@ -184,6 +189,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 10px;
 }
 
 .role_member .role_member-con .member:hover{
@@ -193,13 +199,13 @@
 
 .role_member .role_member-con .member .member-con {
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .role_member .role_member-con .member .member-con .members {
-    font-size: 30px;
+    font-size: 20px;
 }
 

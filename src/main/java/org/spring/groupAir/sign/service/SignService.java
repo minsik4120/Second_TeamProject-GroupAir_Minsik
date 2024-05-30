@@ -190,10 +190,7 @@ public class SignService implements SignServiceInterface {
 //            return id;
 
 
-
-        }
-
-
+    }
 
 
     @Override
@@ -207,7 +204,6 @@ public class SignService implements SignServiceInterface {
     }
 
 
-
 //    @Override
 //    public List<SignDto> getSignListByLastApprover(String name) {
 //        List<SignEntity> signEntities = signRepository.findByLastApprover(name);
@@ -216,53 +212,49 @@ public class SignService implements SignServiceInterface {
 
     @Override
     public Page<SignDto> apvList(Pageable pageable, String subject,
-                                     String search, String name) {
+                                 String search, String name) {
         Page<SignEntity> signEntityPage = null;
 
-        if(subject==null || search==null){
-            signEntityPage = signRepository.findByLastApprover(pageable ,name);
-        }else {
-            if (subject.equals("title")){
-                signEntityPage=signRepository.findByTitleContaining(pageable,search);
-            }
-
-            else if(subject.equals("approve")){
-                signEntityPage=signRepository.findByApproveContaining(pageable , search);
-            }
-            else if(subject.equals("content")){
-                signEntityPage=signRepository.findByApproveContaining(pageable , search);
-            }
-            else {
-                signEntityPage= signRepository.findByLastApprover(pageable, name);
+        if (subject == null || search == null) {
+            signEntityPage = signRepository.findByLastApprover(pageable, name);
+        } else {
+            if (subject.equals("title")) {
+                signEntityPage = signRepository.findByTitleContaining(pageable, search);
+            } else if (subject.equals("approve")) {
+                signEntityPage = signRepository.findByApproveContaining(pageable, search);
+            } else if (subject.equals("content")) {
+                signEntityPage = signRepository.findByApproveContaining(pageable, search);
+            } else {
+                signEntityPage = signRepository.findByLastApprover(pageable, name);
             }
         }
         Page<SignDto> signDtoPage = signEntityPage.map(SignDto::toSignDto);
 
         return signDtoPage;
     }
+
     @Override
     public Page<SignDto> myApvList(Pageable pageable, String subject, String search, String name) {
         Page<SignEntity> signEntityPage = null;
 
-        if(subject==null || search==null){
-            signEntityPage = signRepository.findByApprove(pageable ,name);
-        }else {
+        if (subject == null || search == null) {
+            signEntityPage = signRepository.findByApprove(pageable, name);
+        } else {
             if (subject.equals("title")) {
                 signEntityPage = signRepository.findByTitleContaining(pageable, search);
-            } else if (subject.equals("lastApprover") ){
-                signEntityPage = signRepository.findByLastApprover(pageable , search);
+            } else if (subject.equals("lastApprover")) {
+                signEntityPage = signRepository.findByLastApprover(pageable, search);
 
-        }else if(subject.equals("content")){
-                    signEntityPage=signRepository.findByContentContaining(pageable , search);
-                }else {
-                signEntityPage= signRepository.findByApprove(pageable, name);
+            } else if (subject.equals("content")) {
+                signEntityPage = signRepository.findByContentContaining(pageable, search);
+            } else {
+                signEntityPage = signRepository.findByApprove(pageable, name);
             }
         }
         Page<SignDto> signDtoPage = signEntityPage.map(SignDto::toSignDto);
 
         return signDtoPage;
     }
-
 
 
     @Override
@@ -284,13 +276,13 @@ public class SignService implements SignServiceInterface {
 
     @Override
     public List<SignDto> signSubContnetList(String subContent) {
-         List<SignEntity> signEntities=  signRepository.findAllBySubContent(subContent);
+        List<SignEntity> signEntities = signRepository.findAllBySubContent(subContent);
 
 
-        System.out.println(signEntities.size()+" size");
+        System.out.println(signEntities.size() + " size");
 
         //List<Enity>  -> List<Dto>
-        List<SignDto>  signDtoList=  signEntities.stream().map(SignDto::toSelectSignDto).collect(Collectors.toList());
+        List<SignDto> signDtoList = signEntities.stream().map(SignDto::toSelectSignDto).collect(Collectors.toList());
         return signDtoList;
     }
 
@@ -300,8 +292,8 @@ public class SignService implements SignServiceInterface {
 
         String subContent = "승인";
 
-       List<SignEntity> signEntities = signRepository.findAllByLastApproverAndSubContent(name, subContent);
-       return signEntities.stream().map(SignDto::toSignDto).collect(Collectors.toList());
+        List<SignEntity> signEntities = signRepository.findAllByLastApproverAndSubContent(name, subContent);
+        return signEntities.stream().map(SignDto::toSignDto).collect(Collectors.toList());
 
 
     }
@@ -311,12 +303,49 @@ public class SignService implements SignServiceInterface {
 
         String subContent = "반려";
 
-       List<SignEntity> signEntities=signRepository.findAllByLastApproverAndSubContent(name , subContent);
+        List<SignEntity> signEntities = signRepository.findAllByLastApproverAndSubContent(name, subContent);
 
         return signEntities.stream().map(SignDto::toSignDto).collect(Collectors.toList());
     }
 
+    @Override
+    public int notSignCount(String name) {
 
+
+        String subContent = "미결재";
+
+        int notSign = signRepository.findAllByLastApproverAndSubContent(name, subContent).size();
+
+        return notSign;
+    }
+
+    @Override
+    public int myNotSignCount(Long id) {
+
+        String subContent = "미결재";
+
+        int myNotSignCount = signRepository.findByMemberEntityIdAndSubContent(id,subContent).size();
+
+        return myNotSignCount;
+    }
+
+    @Override
+    public int mySignOkCount(Long id) {
+        String subContent = "승인";
+
+        int mySignOkCount = signRepository.findByMemberEntityIdAndSubContent(id,subContent).size();
+
+        return mySignOkCount;
+    }
+
+    @Override
+    public int mySignNoCount(Long id) {
+        String subContent = "반려";
+
+        int mySignNoCount = signRepository.findByMemberEntityIdAndSubContent(id,subContent).size();
+
+        return mySignNoCount;
+    }
 
 
 //    @Override
@@ -335,8 +364,6 @@ public class SignService implements SignServiceInterface {
 //
 //        return signDtoPage;
 //   }
-
-
 
 
 }

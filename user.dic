@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+1@1	NNP
+영업부	NNP
+2@2	NNP
+3@3	NNP
+손예은	NNP
+경영본부	NNP
+운행본부	NNP
+정비부	NNP
+조민근	NNP
+지휘부	NNP
+재무부	NNP
+박준우	NNP
+객실본부	NNP
+=======
 대표이사	NNP
 사장	NNP
 경사원	NNP
@@ -22,3 +37,4 @@ m7@m7	NNP
 경영부	NNP
 김사장	NNP
 객부장	NNP
+>>>>>>> dev

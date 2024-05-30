@@ -45,11 +45,6 @@ public class CommuteController {
     @GetMapping({"", "/", "/index"})
     public String commuteIndex(Model model) {
 
-        vacationService.findVacationPerson();
-        vacationService.deleteOverTimeVacation();
-        commuteService.notWorkOut();
-        commuteService.notWorkIn();
-
         int sickVacationPeople = vacationService.sickVacationPeople();
         int vacationPeople = vacationService.vacationPeople();
 

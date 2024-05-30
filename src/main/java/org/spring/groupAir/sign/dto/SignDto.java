@@ -94,7 +94,7 @@ public class SignDto {
         signDto.setRejectReason(signEntity.getRejectReason());
         signDto.setCreateTime(signEntity.getCreateTime());
         signDto.setUpdateTime(signEntity.getUpdateTime());
-        signDto.setEmployee_id(signEntity.getId());
+        signDto.setEmployee_id(signEntity.getMemberEntity().getId());
         signDto.setDeptName(signEntity.getDeptName()); // 부서명 설정
         signDto.setLevel(signEntity.getLevel()); // 직급 설정
         signDto.setLastApprover(signEntity.getLastApprover()); // 최종승인자 설정

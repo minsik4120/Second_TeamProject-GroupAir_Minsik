@@ -52,12 +52,14 @@
                             <ul class="department-tree">
                                 <li>
                                     <th:block
-                                            th:if="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'}">
+                                        th:if="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'} or
+                                            ${top.commuteEntityList[top.commuteEntityList.size()-1].status == '지각'}">
                                         <img th:src="@{/images/commute/correct.png}" alt="대체이미지" height="20px">
                                         <span th:text="${top.name}" style="background-color: #4bae4f"></span>
                                     </th:block>
                                     <th:block
-                                            th:unless="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'}">
+                                            th:unless="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'} or
+                                            ${top.commuteEntityList[top.commuteEntityList.size()-1].status == '지각'}">
                                         <img th:src="@{/images/commute/exclamation.png}" alt="대체이미지" height="20px">
                                         <span th:text="${top.name}" style="background-color: #ff2147"></span>
                                     </th:block>

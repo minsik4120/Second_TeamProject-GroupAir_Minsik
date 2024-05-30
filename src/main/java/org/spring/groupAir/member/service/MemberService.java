@@ -94,23 +94,23 @@ public class MemberService implements MemberServiceInterface {
             Long memberId = memberRepository.save(memberEntity1).getId();
 
             MemberEntity memberEntity2 =
-                    memberRepository.findById(memberId).orElseThrow(() -> {
-                        throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
-                    });
+                memberRepository.findById(memberId).orElseThrow(() -> {
+                    throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
+                });
 
 
             MemberFileDto memberFileDto = MemberFileDto.builder()
 
-                    .memberOldFile(oldFileName)
-                    .memberNewFile(newFileName)
-                    .memberEntity(memberEntity2)
-                    .build();
+                .memberOldFile(oldFileName)
+                .memberNewFile(newFileName)
+                .memberEntity(memberEntity2)
+                .build();
 
             MemberFileEntity memberFileEntity = MemberFileEntity.builder()
-                    .memberEntity(memberFileDto.getMemberEntity())
-                    .memberOldFile(memberFileDto.getMemberOldFile())
-                    .memberNewFile(memberFileDto.getMemberNewFile())
-                    .build();
+                .memberEntity(memberFileDto.getMemberEntity())
+                .memberOldFile(memberFileDto.getMemberOldFile())
+                .memberNewFile(memberFileDto.getMemberNewFile())
+                .build();
 
             memberFileRepository.save(memberFileEntity);
 
@@ -120,7 +120,7 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public List<MemberDto> selectPilot() {
-                String pilot = "부장";
+        String pilot = "부장";
 
         List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
 
@@ -157,7 +157,7 @@ public class MemberService implements MemberServiceInterface {
         }
 
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-                .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
+            .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
 
         // 기존 엔티티 값을 유지하면서 수정된 값만 덮어쓰기
         if (memberDto.getMemberFileName() != null) {
@@ -216,10 +216,10 @@ public class MemberService implements MemberServiceInterface {
         }
 
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-                .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
+            .orElseThrow(() -> new RuntimeException("해당 아이디가 없습니다"));
 
         Optional<MemberFileEntity> optionalMemberFileEntity = memberFileRepository
-                .findByMemberEntityId(memberDto.getId());
+            .findByMemberEntityId(memberDto.getId());
 
         optionalMemberFileEntity.ifPresent(memberFileEntity -> {
             String newFileName = memberFileEntity.getMemberNewFile();
@@ -240,7 +240,7 @@ public class MemberService implements MemberServiceInterface {
         boolean isFilePresent = memberDto.getMemberFile() != null && !memberDto.getMemberFile().isEmpty();
 
         if (isFilePresent) {
-            processFile(memberDto); // 이 부분에서 NullPointerException이 발생할 수 있습니다.
+            processFile(memberDto);
         }
 
         if (isPasswordChanged) {
@@ -280,18 +280,18 @@ public class MemberService implements MemberServiceInterface {
         memberDto.setMemberFileName(newFileName);
 
         MemberFileDto memberFileDto = MemberFileDto.builder()
-                .memberOldFile(oldFileName)
-                .memberNewFile(newFileName)
-                .memberEntity(memberRepository.findById(memberDto.getId()).orElseThrow(() ->
-                        new RuntimeException("해당 아이디가 존재하지 않습니다.")
-                ))
-                .build();
+            .memberOldFile(oldFileName)
+            .memberNewFile(newFileName)
+            .memberEntity(memberRepository.findById(memberDto.getId()).orElseThrow(() ->
+                new RuntimeException("해당 아이디가 존재하지 않습니다.")
+            ))
+            .build();
 
         MemberFileEntity memberFileEntity = MemberFileEntity.builder()
-                .memberEntity(memberFileDto.getMemberEntity())
-                .memberOldFile(memberFileDto.getMemberOldFile())
-                .memberNewFile(memberFileDto.getMemberNewFile())
-                .build();
+            .memberEntity(memberFileDto.getMemberEntity())
+            .memberOldFile(memberFileDto.getMemberOldFile())
+            .memberNewFile(memberFileDto.getMemberNewFile())
+            .build();
 
         memberFileRepository.save(memberFileEntity);
     }
@@ -317,12 +317,10 @@ public class MemberService implements MemberServiceInterface {
 
         String position = "부장";
         List<MemberEntity> memberEntityList
-                = memberRepository.findByPositionEntityPositionName(position);
+            = memberRepository.findByPositionEntityPositionName(position);
 
         List<MemberDto> memberDtoList =
-                memberEntityList.stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
-
-
+            memberEntityList.stream().map(MemberDto::toMemberDto).collect(Collectors.toList());
 
 
         return memberDtoList;
@@ -343,7 +341,7 @@ public class MemberService implements MemberServiceInterface {
 
         String pilot = "부장";
         Page<MemberEntity> memberEntityPage =
-                memberRepository.findByPositionEntityPositionName(pageable, pilot);
+            memberRepository.findByPositionEntityPositionName(pageable, pilot);
 
         Page<MemberDto> memberDtoPage = memberEntityPage.map(MemberDto::toMemberDto);
 
@@ -384,22 +382,21 @@ public class MemberService implements MemberServiceInterface {
         MemberDto memberDto = MemberDto.toMemberDto(memberEntity);
 
         return memberDto;
+
     }
 
     @Override
     public int countMember() {
-            String pilot = "사원";
+        String pilot = "사원";
 
-            List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
+        List<MemberEntity> memberEntityList = memberRepository.findByPositionEntityPositionName(pilot);
 
-            int members = memberEntityList.size();
+        int members = memberEntityList.size();
 
-            return members;
+        return members;
     }
 
-
-
-    }
+}
 
 
 

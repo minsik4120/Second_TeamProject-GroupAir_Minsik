@@ -15,23 +15,27 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ScheduleService implements ScheduleInterface {
+
     private final ScheduleRepository scheduleRepository;
 
+
     public List<ScheduleDto> scheduleListAll() {
+
 
         List<ScheduleDto> scheduleDtoList = new ArrayList<>();
         List<ScheduleEntity> scheduleEntities = scheduleRepository.findAll();
 
+
         for (ScheduleEntity entity : scheduleEntities) {
             ScheduleDto scheduleDto = ScheduleDto.builder()
 
-                    .id(entity.getId())
-                    .employeeId(entity.getId())
-                    .content(entity.getContent())
-                    .start(entity.getStart())
-                    .end(entity.getEnd())
-                    .memberEntity(entity.getMemberEntity())
-                    .build();
+                .id(entity.getId())
+                .employeeId(entity.getMemberEntity().getId())
+                .content(entity.getContent())
+                .start(entity.getStart())
+                .end(entity.getEnd())
+                .memberEntity(entity.getMemberEntity())
+                .build();
 
 
             scheduleDtoList.add(scheduleDto);
@@ -50,16 +54,15 @@ public class ScheduleService implements ScheduleInterface {
         scheduleDto.setMemberEntity(MemberEntity.builder().id(scheduleDto.getEmployeeId()).build());
 
         ScheduleEntity entity = ScheduleEntity
-                .builder()
+            .builder()
 //        .title(scheduleDto.getContent())
 
 
-                .content(scheduleDto.getContent())
-                .start(scheduleDto.getStart())
-                .end(scheduleDto.getEnd())
-                .memberEntity(scheduleDto.getMemberEntity())
-                .build();
-
+            .content(scheduleDto.getContent())
+            .start(scheduleDto.getStart())
+            .end(scheduleDto.getEnd())
+            .memberEntity(scheduleDto.getMemberEntity())
+            .build();
 
         System.out.println(entity.getEnd() + "  <<< getEnd ");
         System.out.println(entity.getStart() + "  <<< scheduleDto ");
@@ -77,14 +80,14 @@ public class ScheduleService implements ScheduleInterface {
 
 
         List<ScheduleDto> scheduleDtoList = scheduleEntityList.stream().map(scheduleEntity ->
-                ScheduleDto.builder()
-                        .id(scheduleEntity.getId())
-                        .memberEntity(scheduleEntity.getMemberEntity())
-                        .content(scheduleEntity.getContent())
-                        .employeeId(scheduleEntity.getId())
-                        .start(scheduleEntity.getStart())
-                        .end(scheduleEntity.getEnd())
-                        .build()).collect(Collectors.toList());
+            ScheduleDto.builder()
+                .id(scheduleEntity.getId())
+                .memberEntity(scheduleEntity.getMemberEntity())
+                .content(scheduleEntity.getContent())
+                .employeeId(scheduleEntity.getMemberEntity().getId())
+                .start(scheduleEntity.getStart())
+                .end(scheduleEntity.getEnd())
+                .build()).collect(Collectors.toList());
 
 
         return scheduleDtoList;
@@ -95,16 +98,16 @@ public class ScheduleService implements ScheduleInterface {
         List<ScheduleEntity> scheduleEntityList = scheduleRepository.findByMemberEntityId(id);
 
         List<ScheduleDto> scheduleDtoList = scheduleEntityList.stream()
-                .map(scheduleEntity -> ScheduleDto.builder()
-                        .id(scheduleEntity.getId())
-                        .memberEntity(scheduleEntity.getMemberEntity())
-                        .employeeId(scheduleEntity.getId())
-                        .content(scheduleEntity.getContent())
-                        .start(scheduleEntity.getStart())
-                        .end(scheduleEntity.getEnd())
-                        .build())
-                .collect(Collectors.toList());
-//    1
+            .map(scheduleEntity -> ScheduleDto.builder()
+                .id(scheduleEntity.getId())
+                .memberEntity(scheduleEntity.getMemberEntity())
+                .employeeId(scheduleEntity.getMemberEntity().getId())
+                .content(scheduleEntity.getContent())
+                .start(scheduleEntity.getStart())
+                .end(scheduleEntity.getEnd())
+                .build())
+            .collect(Collectors.toList());
+
         return scheduleDtoList;
 
     }

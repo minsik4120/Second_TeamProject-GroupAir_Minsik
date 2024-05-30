@@ -1,7 +1,6 @@
 
 package org.spring.groupAir.exception;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,13 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(value = Exception.class)
-  public ResponseEntity<?> exceptionHandlerMethod(Exception e){
-    String js="<script> alert('"+e.getMessage()+"'); " +
-        " history.go(-1);</script>";
-    String html="<div>"+js+"</div>";
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<?> exceptionHandlerMethod(Exception e) {
+        String js = "<script> alert('" + e.getMessage() + "'); " +
+            " history.go(-1);</script>";
+        String html = "<div>" + js + "</div>";
 
-    return  ResponseEntity.status(HttpStatus.OK).body(html);
-  }
+        return ResponseEntity.status(HttpStatus.OK).body(html);
+    }
+
 }
 

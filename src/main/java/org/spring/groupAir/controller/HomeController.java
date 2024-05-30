@@ -9,6 +9,7 @@ import org.spring.groupAir.commute.service.CommuteService;
 import org.spring.groupAir.commute.service.VacationService;
 import org.spring.groupAir.config.MyUserDetailsImpl;
 import org.spring.groupAir.department.dto.DepartmentDto;
+import org.spring.groupAir.department.dto.TopDepartmentDto;
 import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
@@ -25,7 +26,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class HomeController {
-
 
 
     private final AirplaneService airplaneService;
@@ -69,7 +69,9 @@ public class HomeController {
         int board3 = boardService.board3();
         int board4 = boardService.board4();
 
-        List<DepartmentDto> departmentDtoList = departmentService.subDepartments();
+        TopDepartmentDto topDepartmentDto = new TopDepartmentDto();
+//        List<DepartmentDto> departmentDtoList = departmentService.subDepartments();
+        List<TopDepartmentDto> topDepartmentDtos = topDepartmentService.List(topDepartmentDto);
 
 
         model.addAttribute("sickVacationPeople", sickVacationPeople);
@@ -92,7 +94,8 @@ public class HomeController {
         model.addAttribute("board3", board3);
         model.addAttribute("board4", board4);
 
-        model.addAttribute("departmentDtoList", departmentDtoList);
+//        model.addAttribute("departmentDtoList", departmentDtoList);
+        model.addAttribute("topDepartmentDtos", topDepartmentDtos);
 
         return "role/admin";
     }
@@ -106,13 +109,7 @@ public class HomeController {
         int myAirplaneCount = airplaneService.myAirplanes(myUserDetails.getMemberEntity().getId());
         MemberDto memberDto = memberService.memberDetail(myUserDetails.getMemberEntity().getId());
 
-//        Long id = myUserDetails.getMemberEntity().getId();
-//        TopDepartmentDto topDepartmentDto = new TopDepartmentDto();
-//
-//        List<TopDepartmentDto> list = topDepartmentService.ListManager(topDepartmentDto, id);
-
         Long deId = myUserDetails.getMemberEntity().getDepartmentEntity().getId();
-
         List<MemberDto> list = departmentService.getMembers(deId);
 
         model.addAttribute("list", list);
@@ -134,6 +131,10 @@ public class HomeController {
 
         List<VacationDto> vacationDtoList = vacationService.myVacation(myUserDetails.getMemberEntity().getId());
 
+        Long deId = myUserDetails.getMemberEntity().getDepartmentEntity().getId();
+        List<MemberDto> list = departmentService.getMembers(deId);
+
+        model.addAttribute("list", list);
         model.addAttribute("commuteDtoList", commuteDtoList);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("memberDto", memberDto);

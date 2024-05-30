@@ -29,10 +29,10 @@ public class WebSecurityConfigClass {
 
         // 1. 웹페이지 설정 (Client 요청 URL 처리, 권한)
         http.authorizeHttpRequests()
-            .antMatchers("/","/member/findPassword","/member/findEmail","/member/changePw").permitAll()
+            .antMatchers("/","/member/findPassword","/member/findEmail","/member/changePw","/member/memberJoin").permitAll()
             .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
            .antMatchers("/member/memberList","/member/memberUpdate/**","/commute/").authenticated()
-            .antMatchers("/member/memberJoin").hasRole("ADMIN")
+//            .antMatchers("/member/memberJoin").hasRole("ADMIN")
             .antMatchers("/board/inquiry", "/board/answer").permitAll()
 
 //            .antMatchers( "/member/shop/**").hasAnyRole("ADMIN", "MANAGER")

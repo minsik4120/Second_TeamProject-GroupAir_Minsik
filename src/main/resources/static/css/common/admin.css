@@ -40,8 +40,7 @@
     box-sizing: border-box;
 }
 
-.admin .left-con .top .title {
-}
+.admin .left-con .top .title {height: 21.1vh;}
 .admin .left-con .top .title h1.logo {
     height: auto;
     display: flex;
@@ -106,7 +105,7 @@
 
 .admin .left-con .top .left-menu{
     padding: 20px 0;
-    height: 617px;
+    height: 64.8vh;
     overflow-y: scroll;
 }
 

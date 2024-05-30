@@ -10,6 +10,19 @@
     <title>개인일정</title>
 </th:block>
 <th:block layout:fragment="css">
+    <style>
+        a {
+    color: unset;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+        h1.logo {
+    margin: 0px;
+    font-weight: bold;
+    line-height: 0;
+}
+    </style>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/calendar/calendar.css}">
@@ -35,7 +48,7 @@
             <h1 class="titleSc">
                 전체 일정 관리
             </h1>
-            <input type="hidden" id="employeeId" th:value="${#authentication.principal.memberEntity.id}" />
+            <input type="hidden" id="employeeId" th:value="${#authentication.principal.memberEntity.id}"/>
             <div class="img"></div>
             <div id='calendar-container'>
                 <div id='calendar'></div>
@@ -63,16 +76,16 @@
                             <input type="datetime-local" class="form-control" id="calendar_start_date" name="start">
                             <label for="calendar_end_date" class="col-form-label">종료 날짜</label>
                             <input type="datetime-local" class="form-control" id="calendar_end_date" name="end">
-<!--                             <label for="employeeId" class="col-form-label">회원 아이디</label>-->
-<!--                             <input type="text" class="form-control" id="employeeId" name="employeeId"-->
-<!--                                    th:value="${#authentication.principal.memberEntity.id}">-->
+                            <!--                             <label for="employeeId" class="col-form-label">회원 아이디</label>-->
+                            <!--                             <input type="text" class="form-control" id="employeeId" name="employeeId"-->
+                            <!--                                    th:value="${#authentication.principal.memberEntity.id}">-->
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" id="addBtn">추가</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                 id="sprintSettingModalClose">취소
-                        <!--                 commit 1-->
+                            <!--                 commit 1-->
                         </button>
                     </div>
                 </div>

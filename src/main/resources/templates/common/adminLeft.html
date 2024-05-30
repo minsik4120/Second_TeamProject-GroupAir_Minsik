@@ -149,8 +149,8 @@
                             <th:block sec:authorize="hasAnyRole('ADMIN')">
                                 <li><a th:href="@{/my/schedule}">전체 일정 관리</a></li>
                             </th:block>
-<!--                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정-->
-<!--                                확인</a></li>-->
+                            <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정
+                                확인</a></li>
                         </ul>
                     </li>
                 </ul>

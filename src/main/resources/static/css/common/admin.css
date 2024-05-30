@@ -106,7 +106,23 @@
 
 .admin .left-con .top .left-menu{
     padding: 20px 0;
+    height: 617px;
+    overflow-y: scroll;
 }
+
+.admin .left-con .top .left-menu::-webkit-scrollbar {
+    width: 3px;
+}
+
+.admin .left-con .top .left-menu::-webkit-scrollbar-thumb {
+    background: #324153;
+    border-radius: 15px;
+}
+
+.admin .left-con .top .left-menu::-webkit-scrollbar-track {
+    background:#eff6ff;
+}
+
 .admin .left-con .top .left-menu>ul{
     display: flex;
     flex-direction: column;
@@ -183,6 +199,7 @@
 }
 
 .admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li input.naverBtn{
+    font-family: 'TTLaundryGothicB';
     display: block;
     width: 150px;
     text-align: center;
@@ -334,17 +351,6 @@
     background-color: #fff;
     border-radius: 10px 0 0 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

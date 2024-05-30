@@ -42,13 +42,23 @@
                 </div>
                 <div class="department">
                     <div class="plus">
-                        <a th:href="@{/department/top/deList}" th:text="${memberDto.departmentEntity.departmentName}"></a>
+                        <a th:href="@{/department/top/deList}"
+                           th:text="${memberDto.departmentEntity.departmentName}"></a>
                     </div>
                     <ul class="topDepartment-tree">
                         <li th:each="top : ${list}">
                             <ul class="department-tree">
                                 <li>
-                                    <span th:text="${top.name}"></span>
+                                    <th:block
+                                            th:if="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'}">
+                                        <img th:src="@{/images/commute/correct.png}" alt="대체이미지" height="20px">
+                                        <span th:text="${top.name}" style="background-color: #4bae4f"></span>
+                                    </th:block>
+                                    <th:block
+                                            th:unless="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'}">
+                                        <img th:src="@{/images/commute/exclamation.png}" alt="대체이미지" height="20px">
+                                        <span th:text="${top.name}" style="background-color: #ff2147"></span>
+                                    </th:block>
                                 </li>
                             </ul>
                         </li>

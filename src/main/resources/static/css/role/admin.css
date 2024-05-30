@@ -94,6 +94,41 @@
     box-shadow: 1px 1px #333333;
 }
 
+.role_admin .role_admin-con .department .department-tree {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-evenly;
+}
+
+.role_admin .role_admin-con .department .department-tree ul {
+    padding: 2px;
+    box-sizing: border-box;
+    margin: 2px;
+}
+
+.role_admin .role_admin-con .department .department-tree ul>li.top {
+    display: flex;
+    justify-content: center;
+    background-color: #3767a6;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+}
+
+.role_admin .role_admin-con .department .department-tree ul li.sub ul {
+    background-color: #96b3d9;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.role_admin .role_admin-con .department .department-tree ul li.sub {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
 .role_admin .role_admin-con .schedule {
     margin: 30px;
     /*padding: 20px;*/

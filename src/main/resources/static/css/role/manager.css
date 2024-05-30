@@ -66,6 +66,32 @@
     box-shadow: 1px 1px #333333;
 }
 
+.role_manager .role_manager-con .department ul.topDepartment-tree {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    text-align: center;
+}
+
+.role_manager .role_manager-con .department ul.topDepartment-tree li {
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.role_manager .role_manager-con .department .department-tree li span {
+    border-radius: 5px;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.role_manager .role_manager-con .department ul.topDepartment-tree li ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 .role_manager .role_manager-con .schedule {
     margin: 30px;
     /*padding: 20px;*/

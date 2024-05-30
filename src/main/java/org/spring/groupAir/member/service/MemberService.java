@@ -240,7 +240,7 @@ public class MemberService implements MemberServiceInterface {
         boolean isFilePresent = memberDto.getMemberFile() != null && !memberDto.getMemberFile().isEmpty();
 
         if (isFilePresent) {
-            processFile(memberDto); // 이 부분에서 NullPointerException이 발생할 수 있습니다.
+            processFile(memberDto);
         }
 
         if (isPasswordChanged) {

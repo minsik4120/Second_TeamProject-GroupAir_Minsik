@@ -73,6 +73,7 @@
                     <div class="schedule-con">
                         <table>
                             <tr th:each="schedule : ${scheduleDtoList}">
+                                <td><img th:src="@{/images/scCheck.png}" alt="대체이미지" height="20px"></td>
                                 <td th:text="${schedule.content}"></td>
                             </tr>
                         </table>

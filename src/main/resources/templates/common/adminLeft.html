@@ -16,7 +16,8 @@
                             <p>GroupAir</p>
                         </a>
                     </th:block>
-                    <th:block sec:authorize="hasAnyRole('MEMBER')">
+                    <th:bl
+                        ock sec:authorize="hasAnyRole('MEMBER')">
                         <a th:href="@{/role/member}"><img th:src="@{/images/logo.png}" alt="대체이미지">
                             <p>GroupAir</p>
                         </a>
@@ -141,6 +142,10 @@
                             <li><a th:href="@{/board/Lists(boardSeparateId=1)}">공지사항</a></li>
                             <li><a th:href="@{/board/Lists(boardSeparateId=2)}">자유게시판</a></li>
                         </ul>
+                    </li>
+                    <li class="menuBar">
+                        <img th:src="@{/images/payment.png}" alt="sign">
+                        <a th:href="@{/sign}">결재함</a>
                     </li>
                     <li class="menuBar">
                         <img th:src="@{/images/calendar.png}" alt="calender">

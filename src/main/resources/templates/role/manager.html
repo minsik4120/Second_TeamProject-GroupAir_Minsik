@@ -10,7 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/role/manager.css}">
 </th:block>
 <th:block layout:fragment="script">
-
+    <script th:src="@{/js/role/admin.js}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </th:block>
 
 <th:block layout:fragment="adminContainer">
@@ -55,9 +56,15 @@
                 </div>
                 <div class="schedule">
                     <div class="plus">
-                        <a th:href="@{/calendar/myCalendar}">마이 스케줄</a>
+                        <a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">오늘의 일정</a>
                     </div>
-                    스케쥴
+                    <div class="schedule-con">
+                        <table>
+                            <tr th:each="schedule : ${scheduleDtoList}">
+                                <td th:text="${schedule.content}"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="board">
                     <div class="plus">

@@ -150,6 +150,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 10px;
 }
 
 .role_manager .role_manager-con .member:hover{
@@ -166,6 +167,6 @@
 }
 
 .role_manager .role_manager-con .member .member-con .members {
-    font-size: 30px;
+    font-size: 25px;
 }
 

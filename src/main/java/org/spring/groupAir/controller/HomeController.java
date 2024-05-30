@@ -13,6 +13,7 @@ import org.spring.groupAir.department.service.DepartmentService;
 import org.spring.groupAir.department.service.TopDepartmentService;
 import org.spring.groupAir.member.dto.MemberDto;
 import org.spring.groupAir.member.service.MemberService;
+import org.spring.groupAir.schedule.dto.ScheduleDto;
 import org.spring.groupAir.schedule.service.ScheduleService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -67,6 +68,8 @@ public class HomeController {
         int board3 = boardService.board3();
         int board4 = boardService.board4();
 
+        List<ScheduleDto> scheduleDtoList = scheduleService.todayAllSchedule();
+
         List<DepartmentDto> departmentDtoList = departmentService.subDepartments();
 
 
@@ -92,6 +95,8 @@ public class HomeController {
 
         model.addAttribute("departmentDtoList", departmentDtoList);
 
+        model.addAttribute("scheduleDtoList", scheduleDtoList);
+
         return "role/admin";
     }
 
@@ -104,14 +109,11 @@ public class HomeController {
         int myAirplaneCount = airplaneService.myAirplanes(myUserDetails.getMemberEntity().getId());
         MemberDto memberDto = memberService.memberDetail(myUserDetails.getMemberEntity().getId());
 
-//        Long id = myUserDetails.getMemberEntity().getId();
-//        TopDepartmentDto topDepartmentDto = new TopDepartmentDto();
-//
-//        List<TopDepartmentDto> list = topDepartmentService.ListManager(topDepartmentDto, id);
-
         Long deId = myUserDetails.getMemberEntity().getDepartmentEntity().getId();
 
         List<MemberDto> list = departmentService.getMembers(deId);
+
+        List<ScheduleDto> scheduleDtoList = scheduleService.todayMySchedule(myUserDetails.getMemberEntity().getId());
 
         model.addAttribute("list", list);
         model.addAttribute("commuteDtoList", commuteDtoList);
@@ -119,6 +121,7 @@ public class HomeController {
         model.addAttribute("myAirplaneCount", myAirplaneCount);
         model.addAttribute("todayMyAirplaneCount", todayMyAirplaneCount);
         model.addAttribute("memberDto", memberDto);
+        model.addAttribute("scheduleDtoList", scheduleDtoList);
 
         return "role/manager";
     }
@@ -132,10 +135,13 @@ public class HomeController {
 
         List<VacationDto> vacationDtoList = vacationService.myVacation(myUserDetails.getMemberEntity().getId());
 
+        List<ScheduleDto> scheduleDtoList = scheduleService.todayMySchedule(myUserDetails.getMemberEntity().getId());
+
         model.addAttribute("commuteDtoList", commuteDtoList);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("memberDto", memberDto);
         model.addAttribute("vacationDtoList", vacationDtoList);
+        model.addAttribute("scheduleDtoList", scheduleDtoList);
 
         return "role/member";
     }

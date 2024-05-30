@@ -46,9 +46,6 @@ public class SignEntity extends BaseTimeEntity {
     private String deptName;//부서명
 
     @Column(nullable = false)
-    private String midApprover;
-
-    @Column(nullable = false)
     private String lastApprover; //최종승인자
 
     @Column(nullable = false)
@@ -56,9 +53,6 @@ public class SignEntity extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String level; //직급
-
-
-
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -81,9 +75,8 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setApprove(signDto.getApprove());
         signEntity.setTitle(signDto.getTitle());
         signEntity.setContent(signDto.getContent());
-    signEntity.setRejectReason(signDto.getRejectReason());
+        signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setDeptName(signDto.getDeptName());
-        signEntity.setMidApprover(signDto.getMidApprover());
         signEntity.setLastApprover(signDto.getLastApprover());
         signEntity.setSubContent(signDto.getSubContent());
         signEntity.setLevel(signDto.getLevel());
@@ -104,7 +97,6 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setLastApprover(signDto.getLastApprover());
         signEntity.setLevel(signDto.getLevel());
         signEntity.setSubContent(signDto.getSubContent());
-        signEntity.setMidApprover(signDto.getMidApprover());
 
         return signEntity;
 
@@ -124,7 +116,6 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setMemberEntity(signDto.getMemberEntity());
         signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setDeptName(signDto.getDeptName());
-        signEntity.setMidApprover(signDto.getMidApprover());
         signEntity.setLastApprover(signDto.getLastApprover());
         signEntity.setSubContent(signDto.getSubContent());
         signEntity.setLevel(signDto.getLevel());
@@ -144,7 +135,6 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setMemberEntity(signDto.getMemberEntity());
         signEntity.setRejectReason(signDto.getRejectReason());
         signEntity.setDeptName(signDto.getDeptName());
-        signEntity.setMidApprover(signDto.getMidApprover());
         signEntity.setLastApprover(signDto.getLastApprover());
         signEntity.setSubContent(signDto.getSubContent());
         signEntity.setLevel(signDto.getLevel());

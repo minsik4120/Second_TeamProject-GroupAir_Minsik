@@ -38,7 +38,18 @@ public class ApiController {
     scheduleService.setCalendar(scheduleDto);
 
     return scheduleService.scheduleListAll();
+  }
+  @PostMapping("/calendar/{id}")
 
+  public List<ScheduleDto> setCalendar(@PathVariable("id") Long id,
+      @ModelAttribute ScheduleDto scheduleDto,
+                                       @AuthenticationPrincipal MyUserDetailsImpl myUserDetails){
+
+    scheduleDto.setEmployeeId(myUserDetails.getMemberEntity().getId());
+
+    List<ScheduleDto> scheduleDtoList = scheduleService.mySchedule(id);
+
+    return scheduleDtoList;
   }
 
   @GetMapping("/calendar")

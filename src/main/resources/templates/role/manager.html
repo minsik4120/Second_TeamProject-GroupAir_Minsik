@@ -19,7 +19,8 @@
             <div class="role_manager-con">
                 <div class="commute">
                     <div class="plus">
-                        <a th:href="@{/commute/workDetail/{id}(id = ${#authentication.principal.memberEntity.id})}">내 출근 기록</a>
+                        <a th:href="@{/commute/workDetail/{id}(id = ${#authentication.principal.memberEntity.id})}">내 출근
+                            기록</a>
                     </div>
                     <div id="clock" class="clock"></div>
                     <th:block th:if="${commuteDtoList[commuteDtoList.size()-1].status == '퇴근'}">
@@ -40,19 +41,17 @@
                 </div>
                 <div class="department">
                     <div class="plus">
-                        <a th:href="@{/department/top/deList}">부서 관리</a>
+                        <a th:href="@{/department/top/deList}" th:text="${memberDto.departmentEntity.departmentName}"></a>
                     </div>
-                    <ul class="department-tree">
-                        <li th:each="department : ${departmentDtoList}">
-                            <span th:text="${department.topDepartmentEntity.topDepartmentName}">Top Department</span>
-                            <ul>
+                    <ul class="topDepartment-tree">
+                        <li th:each="top : ${list}">
+                            <ul class="department-tree">
                                 <li>
-                                    <span th:text="${department.departmentName}">Department</span>
+                                    <span th:text="${top.name}"></span>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-
                 </div>
                 <div class="schedule">
                     <div class="plus">
@@ -65,7 +64,7 @@
                         <a th:href="@{/board/boardList}">게 시 판</a>
                     </div>
                     <div class="board-con">
-                         내가 쓴 글 : [[${boardCount}]]개
+                        내가 쓴 글 : [[${boardCount}]]개
                     </div>
                 </div>
                 <div class="airplane">
@@ -85,7 +84,8 @@
                 </div>
                 <div class="member">
                     <div class="plus">
-                        <a th:href="@{/member/memberUpdate/{id}(id = ${#authentication.principal.memberEntity.id})}">내 정보</a>
+                        <a th:href="@{/member/memberUpdate/{id}(id = ${#authentication.principal.memberEntity.id})}">내
+                            정보</a>
                     </div>
                     <div class="member-con">
                         <div class="userImage">
@@ -98,10 +98,10 @@
                             </th:block>
                         </div>
                         <div class="userDetail">
-                        부 서 : [[${memberDto.departmentEntity.departmentName}]] <br>
-                        직 급 : [[${memberDto.positionEntity.positionName}]]<br>
-                        이 메 일 : [[${memberDto.userEmail}]]<br>
-                        이 름 : [[${memberDto.name}]]
+                            부 서 : [[${memberDto.departmentEntity.departmentName}]] <br>
+                            직 급 : [[${memberDto.positionEntity.positionName}]]<br>
+                            이 메 일 : [[${memberDto.userEmail}]]<br>
+                            이 름 : [[${memberDto.name}]]
                         </div>
                     </div>
                 </div>

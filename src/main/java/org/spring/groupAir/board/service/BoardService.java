@@ -113,8 +113,6 @@ public class BoardService implements BoardServiceInterface {
 
   @Override
   public Page<BoardDto> boardSearchPagingList(Pageable pageable, String subject, String search) {
-
-
     Page<BoardEntity> boardEntities = null;
 
     if (search == null || subject == null) {

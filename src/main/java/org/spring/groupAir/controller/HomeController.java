@@ -51,6 +51,14 @@ public class HomeController {
     @GetMapping("/role/admin")
     public String adminPage(Model model) {
 
+
+        airplaneService.updateStatus();
+        airplaneService.deleteOverTimeAirplane();
+        vacationService.findVacationPerson();
+        vacationService.deleteOverTimeVacation();
+        commuteService.notWorkOut();
+        commuteService.notWorkIn();
+
         int sickVacationPeople = vacationService.sickVacationPeople();
         int vacationPeople = vacationService.vacationPeople();
 
@@ -107,6 +115,14 @@ public class HomeController {
     @GetMapping("/role/manager")
     public String managerPage(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, Model model) {
 
+
+        airplaneService.updateStatus();
+        airplaneService.deleteOverTimeAirplane();
+        vacationService.findVacationPerson();
+        vacationService.deleteOverTimeVacation();
+        commuteService.notWorkOut();
+        commuteService.notWorkIn();
+
         List<CommuteDto> commuteDtoList = commuteService.commuteList(myUserDetails.getMemberEntity().getId());
         int boardCount = boardService.myBoardCount(myUserDetails.getMemberEntity().getId());
         int todayMyAirplaneCount = airplaneService.todayMyAirplaneCount(myUserDetails.getMemberEntity().getId());
@@ -139,6 +155,14 @@ public class HomeController {
 
     @GetMapping("/role/member")
     public String memberPage(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, Model model) {
+
+
+        airplaneService.updateStatus();
+        airplaneService.deleteOverTimeAirplane();
+        vacationService.findVacationPerson();
+        vacationService.deleteOverTimeVacation();
+        commuteService.notWorkOut();
+        commuteService.notWorkIn();
 
         List<CommuteDto> commuteDtoList = commuteService.commuteList(myUserDetails.getMemberEntity().getId());
         int boardCount = boardService.myBoardCount(myUserDetails.getMemberEntity().getId());

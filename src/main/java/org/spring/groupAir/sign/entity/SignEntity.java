@@ -96,6 +96,7 @@ public class SignEntity extends BaseTimeEntity {
         signEntity.setDeptName(signDto.getDeptName());
         signEntity.setLastApprover(signDto.getLastApprover());
         signEntity.setLevel(signDto.getLevel());
+        signEntity.setMemberEntity(signDto.getMemberEntity());
         signEntity.setSubContent(signDto.getSubContent());
 
         return signEntity;

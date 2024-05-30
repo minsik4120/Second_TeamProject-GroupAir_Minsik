@@ -115,7 +115,12 @@ public class SignService implements SignServiceInterface {
     @Override
     public void update(SignDto signDto) {
 
+        signDto.setMemberEntity(MemberEntity.builder().id(signDto.getEmployee_id()).build());
+
+        System.out.println(">>>>>>>" + signDto.getEmployee_id());
+
         SignEntity signEntity = SignEntity.toUpdateEntity(signDto);
+
         Long id = signRepository.save(signEntity).getId();
 
         Optional<SignEntity> optionalSignEntity = signRepository.findById(id);
@@ -331,6 +336,7 @@ public class SignService implements SignServiceInterface {
 
     @Override
     public int mySignOkCount(Long id) {
+
         String subContent = "승인";
 
         int mySignOkCount = signRepository.findByMemberEntityIdAndSubContent(id,subContent).size();

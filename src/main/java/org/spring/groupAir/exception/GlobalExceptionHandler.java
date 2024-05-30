@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
-@ControllerAdvice // Exception 처리
+//@ControllerAdvice // Exception 처리
 @RestController
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<?> exceptionHandlerMethod(Exception e) {
         String js = "<script> alert('" + e.getMessage() + "'); " +
@@ -18,5 +19,6 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.OK).body(html);
     }
+
 }
 

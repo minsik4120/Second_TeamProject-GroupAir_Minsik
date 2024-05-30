@@ -157,6 +157,14 @@
     font-size: 40px;
 }
 
+.role_manager .role_manager-con .airplane .airplane-con .airplanes {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 
 .role_manager .role_manager-con .member {
     margin: 30px;

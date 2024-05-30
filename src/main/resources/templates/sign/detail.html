@@ -74,8 +74,10 @@
                         <tr th:if="${position} == '부장'" >
                             <td colspan="4">처리상태
                                 <select th:value="${sign.subContent}" name="subContent" id="subContent">
+                                    <option value="미결재">미결재</option>
                                     <option value="승인">승인</option>
                                     <option value="반려">반려</option>
+
                                 </select>
                             </td>
                         </tr>

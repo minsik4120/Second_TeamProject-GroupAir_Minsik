@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1@1	NNP
 영업부	NNP
 2@2	NNP
@@ -11,3 +12,29 @@
 재무부	NNP
 박준우	NNP
 객실본부	NNP
+=======
+대표이사	NNP
+사장	NNP
+경사원	NNP
+경부장	NNP
+영업부	NNP
+객실부	NNP
+11@11	NNP
+운행부	NNP
+경일원	NNP
+경삼원	NNP
+하위부서	NNP
+정비부	NNP
+m1@m1	NNP
+m2@m2	NNP
+경이원	NNP
+m3@m3	NNP
+m4@m4	NNP
+m5@m5	NNP
+m6@m6	NNP
+m7@m7	NNP
+재무부	NNP
+경영부	NNP
+김사장	NNP
+객부장	NNP
+>>>>>>> dev

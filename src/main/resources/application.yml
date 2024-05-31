@@ -1,13 +1,25 @@
 server:
   port: 8095
-
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 #Spring ??
 spring:
   datasource:
+    sql-script-encoding: utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver #?????
-    url: jdbc:mysql://localhost:3306/GroupAirTeam #DB URL
+    url: jdbc:mysql://localhost:3306/GroupAirTeam?useUnicode=true&characterEncoding=utf8  #DB URL
     username: root #?? (root? ??? ??)
     password: 1234 #????
+
+
+#  servlet:
+#    multipart:
+#      enabled: true
+#      max-file-size: 10MB
+#      max-request-size: 10MB
 
   #Thymeleaf ??
   thymeleaf:
@@ -43,3 +55,16 @@ filePath: file:///c:/groupAir/
 
 navar.api.client-id:  FlR_0mjyLZ4jddlkIcaD
 navar.api.client-secret:  69KHv1Uryd
+
+mail:
+  # Google smtp server 사용
+  host: smtp.gmail.com
+  port: 587
+  username: 1thsdpdms1@gmail.com #앱 비밀번호 발급받은 google 계정
+  password: cbro rcet scuz futh #발급받은 앱 비밀번호
+  properties:
+    mail:
+      smtp:
+        starttls:
+          enable: true
+        auth: true

@@ -14,7 +14,11 @@ public interface ScheduleInterface {
   //----------------------------------------------------------//
   List<ScheduleDto> mySchedule(Long id);
 
+
   List<ScheduleDto> getScheduleByEmployeeId(Long id);
 
+    List<ScheduleDto> todayAllSchedule();
+
+  List<ScheduleDto> todayMySchedule(Long id);
 
 }

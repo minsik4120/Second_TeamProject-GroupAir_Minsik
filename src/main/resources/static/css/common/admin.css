@@ -40,8 +40,7 @@
     box-sizing: border-box;
 }
 
-.admin .left-con .top .title {
-}
+.admin .left-con .top .title {height: 21.1vh;}
 .admin .left-con .top .title h1.logo {
     height: auto;
     display: flex;
@@ -56,12 +55,13 @@
     align-items: center;
 }
 .admin .left-con .top .title h1.logo img {
-    height: 40px;
+    height: 54px;
     background-color: #fff;
     border: 2px solid #324153;
     border-radius: 50px;
     padding: 5px;
     margin-right: 10px;
+    box-sizing: border-box;
 }
 .admin .left-con .top .title h1.logo p {
     margin: 0;
@@ -106,7 +106,23 @@
 
 .admin .left-con .top .left-menu{
     padding: 20px 0;
+    height: 64.8vh;
+    overflow-y: scroll;
 }
+
+.admin .left-con .top .left-menu::-webkit-scrollbar {
+    width: 3px;
+}
+
+.admin .left-con .top .left-menu::-webkit-scrollbar-thumb {
+    background: #324153;
+    border-radius: 15px;
+}
+
+.admin .left-con .top .left-menu::-webkit-scrollbar-track {
+    background:#eff6ff;
+}
+
 .admin .left-con .top .left-menu>ul{
     display: flex;
     flex-direction: column;
@@ -136,7 +152,7 @@
 }
 
 .admin .left-con .top .left-menu>ul>.menuBar>li{
-   position: relative;
+    position: relative;
 }
 
 .admin .left-con .top .left-menu>ul>.menuBar:hover>a{
@@ -182,6 +198,23 @@
     transition: 0.2s;
 }
 
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li input.naverBtn{
+    font-family: 'TTLaundryGothicB';
+    display: block;
+    width: 150px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #96b3d9 !important;
+    padding: 4px 3px;
+    font-size: 14px;
+}
+
+.admin .left-con .top .left-menu>ul>.menuBar>.subMenu>li input.naverBtn:hover{
+    color: #fff;
+    background-color: #3767a6 !important;
+    transition: 0.2s;
+}
+
 .admin .left-con .bottom{
     width: 100%;
     height: 10vh;
@@ -210,10 +243,10 @@
 }
 
 .admin .left-con .bottom .bottom-con .bottom-sns {
-     width: 100%;
-     display: flex;
-     justify-content: center;
-     align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .admin .left-con .bottom .bottom-con .bottom-sns a i {
@@ -318,17 +351,6 @@
     background-color: #fff;
     border-radius: 10px 0 0 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

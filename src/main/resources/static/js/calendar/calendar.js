@@ -127,9 +127,7 @@
             console.log(data);
             // data -> DB data
             $.each(data, function (index, element) {
-              console.log(element);
               console.log(element.content, element.start);
-              console.log(element);
               calendar.addEvent({
                 // title ->
                 title: element.content,
@@ -151,16 +149,12 @@
       }
 
 
+            // 처음 실행 시
 
-
-      // 처음 실행 시
       calendar.addEvent({
-        title: "월요일",
-        start: "2024-05-13"
+        title: "목요일",
+        start: "2024-05-30"
       })
-
-
-
 
       calendar.render(); // 그린다(실제 브라우저에 표시)
 

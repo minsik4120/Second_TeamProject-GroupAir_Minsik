@@ -1,6 +1,5 @@
 //비밀번호
-$('#ShowPw').on('click', ShowPwFn);
-
+$('#showPw').on('click', ShowPwFn);
 
 function ShowPwFn() {
     if ($("#userPw").attr("type") == "password") {
@@ -11,7 +10,7 @@ function ShowPwFn() {
 }
 const memberPhoneNumberInput = () => {
 
-    let val = memberPhoneNumber.value.replace(/\D/g, "");
+    let val = phone.value.replace(/\D/g, "");
     let len = val.length;
     let result = '';
     if (len < 4) {
@@ -29,6 +28,6 @@ const memberPhoneNumberInput = () => {
     } else {
         result = val;
     }
-    memberPhoneNumber.value = result;
+    phone.value = result;
 }
 

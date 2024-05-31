@@ -10,11 +10,13 @@
     <link rel="stylesheet" th:href="@{/css/role/member.css}">
 </th:block>
 <th:block layout:fragment="script">
-
+    <script th:src="@{/js/role/admin.js}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </th:block>
 
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
+
         <div class="role_member">
             <div class="role_member-con">
                 <div class="commute">
@@ -43,32 +45,56 @@
                 </div>
                 <div class="department">
                     <div class="plus">
-                        <a th:href="@{/department/top/deList}">부서 관리</a>
+                        <span>출근현황</span>
                     </div>
-                    <ul class="department-tree">
-                        <li th:each="department : ${departmentDtoList}">
-                            <span th:text="${department.topDepartmentEntity.topDepartmentName}">Top Department</span>
-                            <ul>
+                    <ul class="topDepartment-tree">
+                        <li th:each="top : ${list}">
+                            <ul class="department-tree">
                                 <li>
-                                    <span th:text="${department.departmentName}">Department</span>
+                                    <th:block
+                                        th:if="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'} or
+                                            ${top.commuteEntityList[top.commuteEntityList.size()-1].status == '지각'}">
+                                        <img th:src="@{/images/commute/correct.png}" alt="대체이미지" height="20px">
+                                        <span th:text="${top.name}" style="background-color: #4bae4f"></span>
+                                    </th:block>
+                                    <th:block
+                                            th:unless="${top.commuteEntityList[top.commuteEntityList.size()-1].status == '출근'} or
+                                            ${top.commuteEntityList[top.commuteEntityList.size()-1].status == '지각'}">
+                                        <img th:src="@{/images/commute/exclamation.png}" alt="대체이미지" height="20px">
+                                        <span th:text="${top.name}" style="background-color: #ff2147"></span>
+                                    </th:block>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-
                 </div>
                 <div class="schedule">
                     <div class="plus">
-                        <a th:href="@{/calendar/myCalendar}">마이 스케줄</a>
+                        <a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">오늘의 일정</a>
                     </div>
-                    스케쥴
+                    <div class="schedule-con">
+                        <table>
+                            <tr th:each="schedule : ${scheduleDtoList}">
+                                <td><img th:src="@{/images/scCheck.png}" alt="대체이미지" height="20px"></td>
+                                <td th:text="${schedule.content}"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                <div class="board">
+                <div class="sign">
                     <div class="plus">
-                        <a th:href="@{/board/boardList}">게 시 판</a>
+                        <a th:href="@{/sign/approveSignList}">내 결재함</a>
                     </div>
-                    <div class="board-con">
-                        내가 쓴 글 : [[${boardCount}]]개
+                    <div class="sign-con">
+                        <div class="signs">
+                            미 결 재 : [[${myNotSignCount}]]개
+                        </div>
+                        <div class="signs">
+                            승 인 : [[${mySignOkCount}]]개
+                        </div>
+                        <div class="signs">
+                            반 려 : [[${mySignNoCount}]]개
+                        </div>
                     </div>
                 </div>
                 <div class="vacation">
@@ -120,6 +146,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </th:block>
 </html>

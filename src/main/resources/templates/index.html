@@ -17,25 +17,30 @@
             <ul>
                 <li>
                     <label for="userEmail">Email</label>
-                    <input type="email" name="userEmail" id="userEmail" placeholder="이메일를 입력하세요"> <br>
+                    <input type="email" name="userEmail" id="userEmail" placeholder="이메일를 입력하세요" autofocus> <br>
                 </li>
                 <li>
                     <label for="userPw">Pw</label>
                     <input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요"> <br>
+                </li>
+                <li>
+                    <th:block th:if="error">
+                        <p style="color: #ff0000; font-size: 12px;" th:text="${exception}"></p>
+                    </th:block>
                 </li>
 
                 <li class="loginBtn">
                     <input type="reset" value="초기화">
                     <input type="submit" value="로그인">
                 </li>
+                <li class="find">
+                    <a th:href="@{/member/findEmail}">아이디 찾기</a>
+                    <a th:href="@{/member/findPassword}">비밀번호 찾기</a>
+                    <a th:href="@{/oauth2/authorization/naver}">NAVER LOGIN</a>
+                </li>
             </ul>
         </form>
 
-<!--        <div class="sns">-->
-<!--            <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google"></a>-->
-<!--            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a>-->
-<!--            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>-->
-<!--        </div>-->
 
     </div>
 

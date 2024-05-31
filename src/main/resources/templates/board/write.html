@@ -47,17 +47,21 @@
                         <!-- <th:block sec:authroize="hasAnyRole('ADMIN','MANAGER')">  
                           <option value="1">공지사항</option>
                         </th:block> -->
+                        <th:block sec:authorize="hasAnyRole('ADMIN')">
                         <option value="1">공지사항</option>
-                        <option value="2">자유게시판</option>
+
+                        </th:block>
+                        <option value="2"> 자유게시판</option>
+
                         <option value="3">수다방</option>
                         <option value="4">Q&A</option>
                       </select>
   
                     </li>
   
-                    <!--                <li>-->
-                    <!--                  <input type="text" name="memberId" id="memberId" th:value="${memberId}">-->
-                    <!--                </li>-->
+<!--                                    <li>-->
+<!--                                      <input type="text" name="memberId" id="memberId" th:value="${memberId}">-->
+<!--                                    </li>-->
   
                     <li>
                       <label for="writer"></label>

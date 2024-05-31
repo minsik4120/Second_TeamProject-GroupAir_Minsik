@@ -76,36 +76,29 @@
                     <div class="plus">
                         <a th:href="@{/department/top/deList}">부서 관리</a>
                     </div>
-                    <ul class="department-tree">
-                        <li th:each="department : ${departmentDtoList}">
-                            <span th:text="${department.topDepartmentEntity.topDepartmentName}">Top Department</span>
-                            <ul>
-                                <li>
-                                    <span th:text="${department.departmentName}">Department</span>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-<!--                    <table>-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th>상위부서</th>-->
-<!--                            <th>하위부서</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr th:each="department : ${departmentDtoList}">-->
-<!--                            <td th:text="${department.topDepartmentEntity.topDepartmentName}"></td>-->
-<!--                            <td th:text="${department.departmentName}"></td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
+                    <div class="department-tree">
+                        <ul th:each="top : ${topDepartmentDtos}">
+                            <li class="top" th:text="${top.topDepartmentName}"></li>
+                            <li class="sub">
+                                <ul th:each="de : ${top.departmentEntityList}">
+                                    <span th:text="${de.departmentName}"></span>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="schedule">
                     <div class="plus">
-                        <a th:href="@{/calendar/myCalendar}">스케줄 관리</a>
+                        <a th:href="@{/calendar/myCalendar}">오늘의 일정</a>
                     </div>
-                    스케쥴
+                    <div class="schedule-con">
+                        <table>
+                            <tr th:each="schedule : ${scheduleDtoList}">
+                                <td><img th:src="@{/images/scCheck.png}" alt="대체이미지" height="20px"></td>
+                                <td th:text="'  ' +${schedule.memberEntity.name} + ' 의 일정 : ' + ${schedule.content}"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="board">
                     <div class="plus">

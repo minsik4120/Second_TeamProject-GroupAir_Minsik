@@ -34,9 +34,6 @@ public class AirPlaneController {
                                 @RequestParam(name = "subject", required = false) String subject,
                                 @RequestParam(name = "search", required = false) String search) {
 
-        airplaneService.updateStatus();
-        airplaneService.deleteOverTimeAirplane();
-
         Page<AirplaneDto> airplaneDtoPage = airplaneService.allAirplane(pageable, subject, search);
 
         int totalPage = airplaneDtoPage.getTotalPages();//전체page

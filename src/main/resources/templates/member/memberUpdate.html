@@ -14,6 +14,7 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/member/updateAddress.js}" defer></script>
     <script th:src="@{/js/member/departmentUpdate.js}" defer></script>
+    <script th:src="@{/js/member/member.js}" defer></script>
 </th:block>
 <th:block layout:fragment="adminContainer">
     <div class="adminContainer">
@@ -74,14 +75,14 @@
                                 <li>
                                     <label for="positionId">직급</label>
                                     <select id="positionId" name="positionId">
-                                        <option th:value="1" th:selected="${memberDto.positionEntity.id == 1}">대표이사
+                                        <option th:value="1" th:selected="${memberDto.positionEntity.positionName == '대표이사'}">대표이사
                                         </option>
-                                        <option th:value="2" th:selected="${memberDto.positionEntity.id == 2}">부장
+                                        <option th:value="2" th:selected="${memberDto.positionEntity.positionName == '부장'}">부장
                                         </option>
-                                        <option th:value="3" th:selected="${memberDto.positionEntity.id == 3}">사원
+                                        <option th:value="3" th:selected="${memberDto.positionEntity.positionName == '사원'}">사원
                                         </option>
-                                        <option th:value="3" th:selected="${memberDto.positionEntity.id > 3}">직급을 변경해주세요
-                                        </option>
+<!--                                        <option th:value="3" th:selected="${memberDto.positionEntity.id > 3}">직급을 변경해주세요-->
+<!--                                        </option>-->
                                     </select>
                                 </li>
                                 <li>
@@ -109,7 +110,7 @@
 
                                 <li>
                                     <label for="phone">전화번호</label>
-                                    <input type="tel" name="phone" id="phone" th:value="${memberDto.phone}">
+                                    <input type="tel" name="phone" id="phone" oninput="memberPhoneNumberInput()" maxlength="13" th:value="${memberDto.phone}">
                                 </li>
                                 <li class="file">
                                     <label for="memberFile">사 진</label>

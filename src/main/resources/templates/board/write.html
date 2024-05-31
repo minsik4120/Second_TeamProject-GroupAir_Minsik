@@ -44,26 +44,29 @@
                       <select name="boardSeparateId" id="boardSeparateId">
                         <option hidden>게시판을 선택해주세요</option>
                         <!--관리자 , 매니저만-->
-
                         <!-- <th:block sec:authroize="hasAnyRole('ADMIN','MANAGER')">  
                           <option value="1">공지사항</option>
                         </th:block> -->
+                        <th:block sec:authorize="hasAnyRole('ADMIN')">
                         <option value="1">공지사항</option>
+
+                        </th:block>
                         <option value="2"> 자유게시판</option>
+
                         <option value="3">수다방</option>
                         <option value="4">Q&A</option>
-                        <option value="5">자유게시판</option>
                       </select>
   
                     </li>
   
-                    <!--                <li>-->
-                    <!--                  <input type="text" name="memberId" id="memberId" th:value="${memberId}">-->
-                    <!--                </li>-->
+<!--                                    <li>-->
+<!--                                      <input type="text" name="memberId" id="memberId" th:value="${memberId}">-->
+<!--                                    </li>-->
   
                     <li>
                       <label for="writer"></label>
-                      <input type="text" name="writer" id="writer" placeholder="작성자를 입력해주세요">
+                      <input type="text" name="writer" id="writer" th:value="${memberName}" readonly>
+<!--                      <input type="text" name="writer" id="writer" placeholder="작성자를 입력해주세요">-->
                     </li>
                   </div> 
                   
@@ -110,6 +113,7 @@
                 </li>
               </ul>
             </div>
+
           </ul>
         </form>
 

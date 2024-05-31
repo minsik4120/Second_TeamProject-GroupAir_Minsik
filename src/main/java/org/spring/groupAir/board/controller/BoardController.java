@@ -32,17 +32,19 @@ public class BoardController {
   private final ReplyService boardReplyService;
 
 
-  // 나중에 지울거
-  @GetMapping("/write")
+
+  @GetMapping("/write")       // 로그인 상태 정보
   public String write(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, BoardDto boardDto, Model model) {
 
     model.addAttribute("memberId", myUserDetails.getMemberEntity().getId());
     model.addAttribute("boardDto", boardDto);
+    model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
+
     return "board/write";
   }
 
   @PostMapping("/write")
-  public String writeOk(BoardDto boardDto) throws IOException {
+  public String writeOk(BoardDto boardDto, @AuthenticationPrincipal MyUserDetailsImpl myUserDetails) throws IOException {
     boardService.insertBoard(boardDto);
     return "redirect:/board/boardList";
   }
@@ -110,14 +112,19 @@ public class BoardController {
   }
 
   @GetMapping("/detail/{id}")
-  public String detail(@PathVariable("id") Long id, Model model, BoardSeparateEntity boardSeparateEntity) {
+  public String detail(@PathVariable("id") Long id, Model model, BoardSeparateEntity boardSeparateEntity,
+    @AuthenticationPrincipal MyUserDetailsImpl myUserDetails) {
 
     // 조회 -> BoardEntity id -> 파일있을 경우 FileEntity newFIleName
     BoardDto board = boardService.detail(id);
     //게시글 존재하면 ->게시글에 연결된 덧글리스트
     List<BoardReplyDto> replyList = boardReplyService.replyList(board.getId());
 
+
+    model.addAttribute("myUserDetails",myUserDetails);
     model.addAttribute("board", board);
+    model.addAttribute("memberId",board.getMemberEntity().getId());
+    model.addAttribute("memberName",board.getMemberEntity().getName());
     model.addAttribute("replyList", replyList);
 
     return "board/detail";
@@ -130,6 +137,19 @@ public class BoardController {
 
     return "redirect:/board/detail/" + boardDto.getId();
   }
+
+
+  @GetMapping("/boardUpdate/{id}")
+  public String boardUpdate(@AuthenticationPrincipal MyUserDetailsImpl myUserDetails, Model model
+                            , @PathVariable("id") Long id) {
+
+    BoardDto boardDto = boardService.detail(id);
+    model.addAttribute("board",boardDto);
+    model.addAttribute("myUserDetails",myUserDetails);
+    model.addAttribute("memberId", myUserDetails);
+    return "board/boardUpdate";
+  }
+
 
 
   @GetMapping("/delete/{id}")
@@ -174,11 +194,17 @@ public class BoardController {
 
 
     List<BoardEntity> boards = boardService.getBoardsBySeparateId(boardSeparateId);
+
     model.addAttribute("boards", boards);
-    model.addAttribute("boardSeparateId",boardSeparateId);
+    model.addAttribute("boardSeparateId", boardSeparateId);
+
 
     return "board/boardsPage";
   }
+
+
+
+
 
 /*  @GetMapping("/List")
   public String boardList(@RequestParam(name = "subject", required = false) String subject,

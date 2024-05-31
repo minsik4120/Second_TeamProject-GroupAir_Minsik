@@ -22,9 +22,10 @@ public class ReplyController {
 
 
   @PostMapping("/replyWrite")
-  public String replyWrite(BoardReplyDto boardReplyDto){
+  public String replyWrite(BoardReplyDto boardReplyDto ,Model model ,
+                           @AuthenticationPrincipal MyUserDetailsImpl myUserDetails){
 
-
+    model.addAttribute("memberName", myUserDetails.getMemberEntity());
     replyService.insertReply(boardReplyDto);
 
     return "redirect:board/detail"+ boardReplyDto.getBoardId();

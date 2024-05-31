@@ -31,6 +31,8 @@ public class MemberEntity extends BaseTimeEntity {
     @Column(name = "employee_id")
     private Long id;
 
+    // id = employee_id
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -177,8 +179,8 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setResignationDate(memberDto.getResignationDate());
         memberEntity.setRole(memberDto.getRole());
         memberEntity.setPhone(memberDto.getPhone());
-        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
-        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        if (memberDto.getDepartmentEntity() != null) memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        if (memberDto.getPositionEntity() != null)memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(0);
         memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
@@ -197,12 +199,13 @@ public class MemberEntity extends BaseTimeEntity {
         memberEntity.setResignationDate(memberDto.getResignationDate());
         memberEntity.setRole(memberDto.getRole());
         memberEntity.setPhone(memberDto.getPhone());
-        memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
-        memberEntity.setPositionEntity(memberDto.getPositionEntity());
+        if (memberDto.getDepartmentEntity() != null) memberEntity.setDepartmentEntity(memberDto.getDepartmentEntity());
+        if (memberDto.getPositionEntity() != null)memberEntity.setPositionEntity(memberDto.getPositionEntity());
         memberEntity.setMemberAttachFile(1);
-        memberEntity.setMemberFileName(memberDto.getMemberFileName());
+        if (memberDto.getMemberFileName() != null)memberEntity.setMemberFileName(memberDto.getMemberFileName());
         memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
         return memberEntity;
     }
+
 
 }

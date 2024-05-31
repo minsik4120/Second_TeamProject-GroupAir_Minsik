@@ -5,4 +5,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SignStatusService implements SignStatusServiceInterface {
+
+
+
+
+
+
 }

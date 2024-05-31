@@ -1,0 +1,211 @@
+@import url(../common/reset.css);
+
+.role_member {
+
+}
+
+.role_member .role_member-con {
+    width: 100%;
+    height: calc(100vh - 75px - 92px);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.role_member .role_member-con .plus{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.role_member .role_member-con .commute {
+    margin: 30px;
+    /*padding: 20px;*/
+    border: 1px solid #cccccc;
+    border-radius: 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.role_member .role_member-con .commute:hover{
+    background-color: #eff6ff;
+    box-shadow: 1px 1px #333333;
+}
+
+.role_member .role_member-con .commute .clock {
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+}
+
+
+
+.role_member .role_member-con .commute .status {
+    text-align: center;
+    font-size: 40px;
+}
+
+.role_member .role_member-con .department {
+    margin: 30px;
+    /*padding: 20px;*/
+    border: 1px solid #cccccc;
+    border-radius: 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.role_member .role_member-con .department:hover{
+    background-color: #eff6ff;
+    box-shadow: 1px 1px #333333;
+}
+
+.role_member .role_member-con .department ul.topDepartment-tree {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    text-align: center;
+}
+
+.role_member .role_member-con .department ul.topDepartment-tree li {
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.role_member .role_member-con .department .department-tree li span {
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.role_member .role_member-con .department ul.topDepartment-tree li ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.role_member .role_member-con .schedule {
+    margin: 30px;
+    /*padding: 20px;*/
+    border: 1px solid #cccccc;
+    border-radius: 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.role_member .role_member-con .schedule:hover{
+    background-color: #eff6ff;
+    box-shadow: 1px 1px #333333;
+}
+
+
+.role_member .role_member-con .sign {
+    margin: 30px;
+    /*padding: 20px;*/
+    border: 1px solid #cccccc;
+    border-radius: 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.role_member .role_member-con .sign:hover{
+    background-color: #eff6ff;
+    box-shadow: 1px 1px #333333;
+}
+
+.role_member .role_member-con .sign .sign-con {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    gap: 20px;
+}
+
+.role_member .role_member-con .vacation {
+    margin: 30px;
+    /*padding: 20px;*/
+    border: 1px solid #cccccc;
+    border-radius: 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.role_member .role_member-con .vacation:hover{
+    background-color: #eff6ff;
+    box-shadow: 1px 1px #333333;
+}
+
+.role_member .role_member-con .vacation .vacation-con {
+    text-align: center;
+    font-size: 15px;
+}
+
+.role_member .role_member-con .vacation .vacation-con table{
+    text-align: center;
+    padding: 0 10px;
+    width: 100%;
+    table-layout: fixed;
+}
+.role_member .role_member-con .vacation .vacation-con table th{
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+.role_member .role_member-con .vacation .vacation-con table td{
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    font-size: 10px;
+}
+
+
+.role_member .role_member-con .member {
+    margin: 30px;
+    /*padding: 20px;*/
+    border: 1px solid #cccccc;
+    border-radius: 10px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.role_member .role_member-con .member:hover{
+    background-color: #eff6ff;
+    box-shadow: 1px 1px #333333;
+}
+
+.role_member .role_member-con .member .member-con {
+    text-align: center;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.role_member .role_member-con .member .member-con .members {
+    font-size: 20px;
+}
+

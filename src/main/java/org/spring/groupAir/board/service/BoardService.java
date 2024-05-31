@@ -79,6 +79,8 @@ public class BoardService implements BoardServiceInterface {
           .id(boardDto.getMemberId())
           .build());
 
+
+
       BoardEntity boardEntity = BoardEntity.toInsertFileBoardEntity(boardDto);
       Long id = boardRepository.save(boardEntity).getId();
 
@@ -88,11 +90,15 @@ public class BoardService implements BoardServiceInterface {
         BoardEntity boardEntity1 = optionalBoardEntity.get(); // Entity
         // 게시글에 정상 저장되면 -> 파일 Entity 저장
 
+
+
         BoardFileDto fileDto = BoardFileDto.builder()
             .boardOldFile(oldFileName)
             .boardNewFile(newFileName)
             .boardEntity(boardEntity1)
             .build();
+
+
 
         BoardFileEntity fileEntity = BoardFileEntity.toInsertFile(fileDto);
         fileRepository.save(fileEntity);
@@ -107,8 +113,6 @@ public class BoardService implements BoardServiceInterface {
 
   @Override
   public Page<BoardDto> boardSearchPagingList(Pageable pageable, String subject, String search) {
-
-
     Page<BoardEntity> boardEntities = null;
 
     if (search == null || subject == null) {
@@ -233,6 +237,46 @@ public class BoardService implements BoardServiceInterface {
     }
 
     boardRepository.save(boardEntity);
+  }
+
+  @Override
+  public int board1() {
+
+    int board1 = boardRepository.findByBoardSeparateEntityId(1L).size();
+
+    return board1;
+  }
+
+  @Override
+  public int board2() {
+
+    int board2 = boardRepository.findByBoardSeparateEntityId(2L).size();
+
+    return board2;
+  }
+
+  @Override
+  public int board3() {
+
+    int board3 = boardRepository.findByBoardSeparateEntityId(3L).size();
+
+    return board3;
+  }
+
+  @Override
+  public int board4() {
+
+    int board4 = boardRepository.findByBoardSeparateEntityId(4L).size();
+
+    return board4;
+  }
+
+  @Override
+  public int myBoardCount(Long id) {
+
+    int boardCount = boardRepository.findByMemberEntityId(id).size();
+
+    return boardCount;
   }
 
   private void processFile(BoardDto boardDto) throws IOException {

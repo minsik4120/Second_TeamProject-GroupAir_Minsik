@@ -36,6 +36,7 @@ public class BoardReplyEntity extends BaseTimeEntity {
 
   public static BoardReplyEntity toInsertReplyEntity(BoardReplyDto boardReplyDto) {
       BoardReplyEntity replyEntity = new BoardReplyEntity();
+      replyEntity.setId(boardReplyDto.getId());
       replyEntity.setBoardEntity(boardReplyDto.getBoardEntity());
       replyEntity.setReplyContent(boardReplyDto.getReplyContent());
       replyEntity.setReplyWriter(boardReplyDto.getReplyWriter());

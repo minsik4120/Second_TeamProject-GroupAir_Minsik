@@ -23,12 +23,11 @@ public class ScheduleController {
     return "calendar/myCalendar";
   }
 
-
   //----------------------------------------------------------//
-  @GetMapping("/schedule/{id}")
-  public String mySchedule(@PathVariable("id") Long id, Model model) {
+  @GetMapping("/schedule/{employeeId}")
+  public String mySchedule(@PathVariable("employeeId") Long employeeId, Model model) {
 
-    List<ScheduleDto> scheduleDtoList = scheduleService.mySchedule(id);
+    List<ScheduleDto> scheduleDtoList = scheduleService.mySchedule(employeeId);
 
     model.addAttribute("scheduleDtoList", scheduleDtoList);
 

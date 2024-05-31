@@ -63,7 +63,6 @@
     padding-top: 10px;
     font-size: 20px;
     text-align: center;
-    font-family: "나눔고딕 ExtraBold";
     box-sizing: border-box;
 }
 
@@ -92,7 +91,6 @@
     padding: 10px;
     border: 1px solid #333;
     border-radius: 5px 5px;
-    font-family: "나눔고딕 ExtraBold";
 }
 
 .salaryUpdate .salaryUpdate-con ul li input[type=submit]:hover {

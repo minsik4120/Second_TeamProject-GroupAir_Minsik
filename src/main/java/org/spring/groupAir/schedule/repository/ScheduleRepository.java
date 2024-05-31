@@ -10,6 +10,15 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity,Integer> {
 
   //----------------------------------------------------------//
+//  String jpql = "SELECT s FROM Schedule s WHERE s.employee.id = :employeeId";
+
+
+/*  @Query("SELECT s FROM ScheduleEntity s WHERE s.memberEntity.id = :id")
+  List<ScheduleEntity> findByMemberEntityId(@Param("id") Long id);*/
+
   @Query("SELECT s FROM ScheduleEntity s WHERE s.memberEntity.id = :id")
-  List<ScheduleEntity> findByMemberEntityId(@Param("id") Long id);
+  List<ScheduleEntity> findByMemberEntityId(@Param("id") Long employeeId);
+
+
+
 }

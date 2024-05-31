@@ -107,11 +107,5 @@ public class ScheduleService implements ScheduleInterface {
     return scheduleDtoList;
   }
 
-  @Override
-  public String getScheduleId(Long id) {
 
-
-
-    return null;
-  }
 }

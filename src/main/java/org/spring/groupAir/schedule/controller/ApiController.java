@@ -66,12 +66,6 @@ public class ApiController {
     return scheduleService.getScheduleByEmployeeId(employeeId);
   }
 
-  @GetMapping("/delete/{id}")
-  public String delete(@PathVariable Long id) {
-
-    return scheduleService.getScheduleId(id);
-  }
-
 
 
 }

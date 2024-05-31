@@ -16,5 +16,5 @@ public interface ScheduleInterface {
 
   List<ScheduleDto> getScheduleByEmployeeId(Long id);
 
-  String getScheduleId(Long id);
+
 }

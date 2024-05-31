@@ -31,6 +31,8 @@ public class MemberEntity extends BaseTimeEntity {
     @Column(name = "employee_id")
     private Long id;
 
+    // id = employee_id
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

@@ -150,50 +150,7 @@
         return result
       }
 
-      // ------------------------------------------------------- employeeId   //  해야됨
-      document.addEventListener('DOMContentLoaded', function() {
-          let calendarEl = document.getElementById('calendar');
-          let calendar = new FullCalendar.Calendar(calendarEl, {
-              initialView: 'dayGridMonth',
-              events: function(fetchInfo, successCallback, failureCallback) {
-                  let employeeId = getEmployeeId();
-                  $.ajax({
-                      url: '/calendar/' + employeeId,
-                      dataType: 'json',
-                      success: function(data) {
-                          let events = data.map(event => {
-                              return {
-                                  title: event.content,
-                                  start: event.start,
-                                  end: event.end
-                              };
-                          });
-                          successCallback(events);
-                      }
-                  });
-              },
-              dateClick: function(info) {
-                  $('#calendarModal').modal('show');
-                  $('#addBtn').off('click').on('click', function() {
-                      let content = $('#calendar_content').val();
-                      let start = $('#calendar_start_date').val();
-                      let end = $('#calendar_end_date').val();
-                      let employeeId = getEmployeeId();
-                      setCalendar(content, start, end, employeeId);
-                      $('#calendarModal').modal('hide');
-                  });
-              }
-          });
-          calendar.render();
-      });
 
-    function getEmployeeId() {
-        // HTML 페이지에 숨겨진 필드에서 employeeId를 가져옵니다.
-        return document.getElementById('employeeId').value;
-    }
-
-
-          // -------------------------------------------------------
 
 
       // 처음 실행 시

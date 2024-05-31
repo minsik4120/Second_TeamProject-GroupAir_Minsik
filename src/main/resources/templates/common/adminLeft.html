@@ -105,6 +105,8 @@
                             <li><a th:href="@{/board/boardList}">전체게시판</a></li>
                             <li><a th:href="@{/board/Lists(boardSeparateId=1)}">공지사항</a></li>
                             <li><a th:href="@{/board/Lists(boardSeparateId=2)}">자유게시판</a></li>
+                            <li><a th:href="@{/board/Lists(boardSeparateId=3)}">수다방</a></li>
+                            <li><a th:href="@{/board/Lists(boardSeparateId=4)}">Q&A</a></li>
                         </ul>
 
                     <li class="menuBar">
@@ -116,6 +118,9 @@
 
                         <ul class="subMenu">
                             <li><a th:href="@{/my/schedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 확인</a></li>
+
+                           <!-- @GetMapping("/schedule/{id}")-->
+
 
 <!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->
 <!--                         <li><a th:href="@{calendar/mySchedule/{id}(id=${#authentication.principal.memberEntity.id})}">내 일정 보기</a></li>-->

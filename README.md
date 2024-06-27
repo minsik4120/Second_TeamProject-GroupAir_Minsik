@@ -37,6 +37,7 @@
 
 <details>
   <summary>예시 이미지 및 코드 </summary>
+![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/ca9e9c7d-6bc8-4338-98d8-965549810a69)
 
 
 ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/1dc3c1ec-3a2c-40ef-bbe6-47e725b17aca)

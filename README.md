@@ -76,6 +76,8 @@ https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/15485667
   1️⃣ 전체 일정 관리 - ADMIN 권한이 일정을 등록하면 전체 일정으로 등록이 되고 전체 일정 탭에서 확인이 가능합니다 . </br>
   2️⃣ 개인 일정 관리 - 자신의 ID로 일정 등록한 것만 캘린더에서 확인이 가능하고 그외 관리자가 등록한 일정도 확인이 가능합니다. </br>
 
+  
+
 1️⃣ 일정 등록 </br>
 
 https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/e4b7a039-86cf-49b3-9e8c-22136aff889a

@@ -1,4 +1,4 @@
-![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/6ebb8e74-30dc-4fa9-8ccd-c3ecef88efda)# ✈️ 그룹웨어 기본 연동 기능 및 메시지 봇 구현 팀(GroupAir)
+# ✈️ 그룹웨어 기본 연동 기능 및 메시지 봇 구현 팀(GroupAir)
 
 ## 🔥 프로젝트 소개
 

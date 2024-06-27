@@ -37,8 +37,11 @@
 
 <details>
   <summary><b>  * 예시 이미지</b></summary>
+  
      ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/1dc3c1ec-3a2c-40ef-bbe6-47e725b17aca)
+     
      ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/4c11e026-acac-41e0-8faf-f852f6c5c3cb)
+     
 </details>
  
 

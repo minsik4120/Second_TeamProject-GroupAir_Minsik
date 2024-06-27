@@ -54,11 +54,14 @@
 
    * 또한 글 등록 닉네임은 회원 가입때 사용한 유저 닉네임으로 등록이 되게 처리하였고 덧글 작성시에도 회원 상세 정보를 가져와 처리 했습니다.
    * 공지 사항으로 등록된 게시물은 특별하게 보이게 처리하였습니다.
+     
 
 1️⃣ 게시글 등록 </br>
+
 https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/441532bc-3c51-4655-bbad-3878a9e336c1
 
 2️⃣ 게시글 수정 및 덧글 </br>
+
 https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/52dabec6-c2f3-478f-a570-6d2e8489d21f
 
 
@@ -66,14 +69,18 @@ https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/15485667
 
         
   ### (2) 회사 일정(FullCalendar)  
+
+  
   * 일정 관리  : 회원으로 등록된 사람은 이용이 가능하고 일정 관리 탭에서 사용이 가능합니다.
   1️⃣ 전체 일정 관리 - ADMIN 권한이 일정을 등록하면 전체 일정으로 등록이 되고 전체 일정 탭에서 확인이 가능합니다 .
   2️⃣ 개인 일정 관리 - 자신의 ID로 일정 등록한 것만 캘린더에서 확인이 가능하고 그외 관리자가 등록한 일정도 확인이 가능합니다.
 
 1️⃣ 일정 등록 </br>
+
 https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/e4b7a039-86cf-49b3-9e8c-22136aff889a
 
 2️⃣ 일정 삭제 </br>
+
 https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/30b4b935-54fc-4883-b4ac-c0aba77f1b0e
 
 

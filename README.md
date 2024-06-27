@@ -78,11 +78,11 @@ https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/15485667
 
   
 
-1️⃣ 일정 등록 </br>
+3️⃣ 일정 등록 </br>
 
 https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/e4b7a039-86cf-49b3-9e8c-22136aff889a
 
-2️⃣ 일정 삭제 </br>
+4️⃣ 일정 삭제 </br>
 
 https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/30b4b935-54fc-4883-b4ac-c0aba77f1b0e
 

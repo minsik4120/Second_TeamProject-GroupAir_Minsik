@@ -36,16 +36,17 @@
    * 등록된 게시글은 각각의 ID 값을 가져 등록이 됩니다
 
 <details>
-  <summary><b>  * 예시 이미지</b></summary>
+  <summary>*예시 이미지/summary>
   
      ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/1dc3c1ec-3a2c-40ef-bbe6-47e725b17aca)
      
      ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/4c11e026-acac-41e0-8faf-f852f6c5c3cb)
      
+     ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/a0746342-f753-4f0e-9eb8-25c2b8605009)
+
+     
 </details>
  
-
-
 
 
    * 또한 글 등록 닉네임은 회원 가입때 사용한 유저 닉네임으로 등록이 되게 처리하였고 덧글 작성시에도 회원 상세 정보를 가져와 처리 했습니다.

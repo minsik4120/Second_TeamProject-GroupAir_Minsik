@@ -34,17 +34,19 @@
    1️⃣ 게시판(CRUD),(덧글) 관리 : 글 작성시 해당 카테고리 별 페이지로 등록이 되고 카테고리는 공지 사항 , 자유 게시판, 수다방, Q&A 등이 있습니다. 
    * 글작성시 공지사항은 ADMIN 권한인 사람만 볼 수 있게 처리 하였고 그로 인해 공지사항은 ADMIN 만 등록이 가능합니다.
    * 등록된 게시글은 각각의 ID 값을 가져 등록이 됩니다
+![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/0b5ee723-783e-45bc-bc6e-b4b577050ff9)
 
 <details>
   <summary>예시 이미지</summary>
-  
-     ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/1dc3c1ec-3a2c-40ef-bbe6-47e725b17aca)
-     
-     ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/4c11e026-acac-41e0-8faf-f852f6c5c3cb)
-     
-     ![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/a0746342-f753-4f0e-9eb8-25c2b8605009)
 
+
+![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/1dc3c1ec-3a2c-40ef-bbe6-47e725b17aca)
      
+![image](https://github.com/minsik4120/Second_TeamProject-GroupAir_Minsik/assets/154856679/4c11e026-acac-41e0-8faf-f852f6c5c3cb)
+    
+
+ 
+
 </details>
  
 
